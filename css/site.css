@@ -1,0 +1,390 @@
+
+/********/
+/* VARS */
+/********/
+
+/* theme css */
+:root {
+  /* Changes the primary theme color to purple using primitives */
+  --sl-color-primary-50: var(--sl-color-purple-50);
+  --sl-color-primary-100: var(--sl-color-purple-100);
+  --sl-color-primary-200: var(--sl-color-purple-200);
+  --sl-color-primary-300: var(--sl-color-purple-300);
+  --sl-color-primary-400: var(--sl-color-purple-400);
+  --sl-color-primary-500: var(--sl-color-purple-500);
+  --sl-color-primary-600: var(--sl-color-purple-600);
+  --sl-color-primary-700: var(--sl-color-purple-700);
+  --sl-color-primary-800: var(--sl-color-purple-800);
+  --sl-color-primary-900: var(--sl-color-purple-900);
+  --sl-color-primary-950: var(--sl-color-purple-950);
+  --sl-input-focus-ring-color: var(--sl-color-purple-600);
+  /* css site vars */
+  --site-results-gap-width-details: var(--sl-spacing-3x-small);
+  --site-results-gap-width-list: var(--sl-spacing-3x-small) var(--sl-spacing-small);
+  --site-results-gap-width-card: var(--sl-spacing-medium);
+  --site-results-icon-size: 9rem;
+  --site-results-icon-card-size: 12rem;
+  --content-width: 56rem;
+}
+@media (max-width:600px){
+  :root {
+    --content-width: 20rem;
+  }
+}
+
+/* theme css */
+:root,
+:host,
+.sl-theme-light {
+  --opposite-color-brand-on-normal: var(--sl-color-purple-700);
+}
+.sl-theme-dark {
+  --opposite-color-brand-on-normal: var(--sl-color-purple-300);
+}
+
+.opposite-color {
+  background-color: var(--sl-color-neutral-1000);
+  color: var(--sl-color-neutral-0);
+}
+.opposite-color a {
+  color: var(--opposite-color-brand-on-normal);
+}
+/* good body style */
+body {
+  font-family: monospace;
+}
+/* body style from web awesome documentation page */
+body {
+  min-height: 100vh;
+  font-size: var(--sl-font-size-medium);
+  line-height: var(--sl-line-height-normal);
+  text-size-adjust: none;
+  color: var(--sl-color-text-normal);
+  padding: 0;
+  margin: 0;
+}
+/* fade animation stuff (from web awesome documentation page) */
+:not(:defined),
+:not(:defined) * {
+  opacity: 0;
+}
+
+:defined {
+  opacity: 1;
+  transition: 0.1s opacity;
+}
+/* main page padding */
+@media (max-width:600px){
+  #site-grid {
+    display: grid;
+    grid-template-areas:
+      'asideleft'
+      'main'
+      'footer';
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+  .hide-mobile{display:none!important}
+}
+@media (min-width:601px){
+  #site-grid {
+    display: grid;
+    grid-template-areas:
+      'asideleft main main main main'
+      'asideleft footer footer footer footer';
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+  .hide-desktop{display:none!important}
+}
+
+#site-grid > main {
+  grid-area: main;
+  & > div {
+    margin-block-end: 1rem;
+  }
+  & > h1 > sl-button {
+    &::part(label) {
+      color: var(--sl-color-neutral-900);
+      font-size: var(--sl-font-size-2x-large);
+      text-decoration: underline;
+    }
+    &:hover {
+      &::part(label) {
+        text-decoration: none;
+      }
+    }
+  }
+}
+#site-grid > header {
+  grid-area: header;
+}
+#site-grid > footer {
+  grid-area: footer;
+}
+
+/* site-aside-left stuff (mostly copied from web awesome documentation page)*/
+#site-grid > aside#site-aside-left {
+  grid-area: asideleft;
+  padding: 1rem;
+}
+#site-aside-left ul {
+  & li {
+    list-style: none;
+    & sl-button {
+      width: 100%;
+    }
+  }
+  border-inline-start: var(--sl-border-width-s) solid var(--sl-color-surface-border);
+  padding-inline-start: var(--sl-space-m);
+}
+#site-aside-left-close-button {
+  display: inline-block;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+img#site-aside-left-img-logo {
+  width: 200px;
+  object-fit: cover;
+}
+
+/* anchor style */
+a {
+  color: var(--sl-color-brand-on-normal);
+  text-decoration: underline;
+}
+a:hover, a:active {
+  text-decoration: none;
+}
+/* mobile stuff */
+/* header image stuff */
+#img-keys-a {display: flex; align-items: center;}
+#img-keys-img {width: 17rem;}
+#img-key-button {font-size: 3rem;}
+/* site stuff */
+.max-width-100{max-width:100%;}
+/* mobile menu close button stuff (copied from web awesome documentation page) */
+/* top bar stuff */
+#top-bar {
+  padding-block: 1rem;
+  display: flex;
+  gap: var(--sl-spacing-m);
+}
+#color-scheme-selector {margin-inline-start: 1rem;}
+#site-grid[view="desktop"] #top-bar {
+  padding: var(--sl-space-m) var(--sl-space-3xl);
+}
+html.sl-theme-dark .only-light, html:not(.sl-theme-dark) .only-dark {
+  display: none;
+}
+
+.display-flex {
+  display: flex;
+}
+.display-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+/* shoelace */
+.label-on-left {
+  --label-width: 10.0rem;
+  --gap-width: 1rem;
+}
+
+.label-on-left + .label-on-left {
+  margin-top: var(--sl-spacing-medium);
+}
+
+.label-on-left::part(form-control) {
+  display: grid;
+  grid: auto / var(--label-width) 1fr;
+  gap: var(--sl-spacing-3x-small) var(--gap-width);
+  align-items: center;
+}
+
+.label-on-left::part(form-control-label) {
+  text-align: right;
+}
+
+.label-on-left::part(form-control-help-text) {
+  grid-column-start: 2;
+}
+
+
+#site-page {
+  display: block;
+  box-sizing: border-box;
+  height: 100%;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.display-none {
+  display: none;
+}
+
+.glowSuccess {
+        box-shadow: 0 0 5px 3px var(--sl-color-success-500);
+        border: 1px solid var(--sl-color-success-500);
+}
+.glowError {
+        box-shadow: 0 0 5px 3px var(--sl-color-danger-500);
+        border: 1px solid var(--sl-color-danger-500);
+}
+
+/* site-results-grid */
+
+.site-result-name {
+  font-weight: var(--sl-font-weight-bold);
+}
+.text-align-center {
+  text-align: center;
+}
+#site-results-grid {
+  display: grid;
+
+  padding: var(--sl-spacing-small);
+  background-color: var(--sl-color-neutral-200);
+}
+#site-results-grid > a, #site-results-grid > div {
+  display: grid;
+
+  border-radius: var(--sl-border-radius-large);
+  background-color: var(--sl-color-neutral-0);
+
+  color: inherit;
+  text-decoration: none;
+}
+#site-results-grid.grid-mode-details > a, #site-results-grid.grid-mode-details > div {
+  align-items: center;
+}
+#site-results-grid.grid-mode-list > a, #site-results-grid.grid-mode-list > div {
+  align-items: center;
+}
+#site-results-grid > a:hover, #site-results-grid > a:active {
+  background-color: var(--sl-color-primary-300);
+}
+/* grid detail mode */
+.grid-mode-details {
+  grid-template-columns: auto;
+  gap: var(--site-results-gap-width-details);
+}
+.grid-mode-details > a, .grid-mode-details > div {
+  grid-template-columns: min-content auto auto;
+  gap: 2rem;
+
+  padding: var(--sl-spacing-small);
+}
+/* grid list mode */
+.grid-mode-list {
+  grid-template-columns: repeat(auto-fit, minmax(min(30ch, 100%), 1fr));
+  gap: var(--site-results-gap-width-list);
+}
+.grid-mode-list > a, .grid-mode-list > div {
+  grid-template-columns: min-content 1fr;
+  grid-gap: var(--site-results-gap-width-list);
+  padding: var(--sl-spacing-small);
+}
+.grid-mode-list > a > div:not(:nth-child(1),:nth-child(2)) {
+  display: none;
+}
+/* grid card mode */
+.grid-mode-card {
+  grid-template-columns: repeat(auto-fit, var(--site-results-icon-card-size));
+  gap: var(--site-results-gap-width-card);
+}
+.grid-mode-card > a {
+  grid-template-columns: var(--site-results-icon-size);
+  gap: 1rem;
+  padding-block-end: var(--sl-spacing-small);
+}
+.site-result-icon {
+  text-align: center;
+}
+.grid-mode-card > a > i {
+  font-size: var(--site-results-icon-size);
+}
+.grid-mode-card > a > div {
+  padding: 0 var(--sl-spacing-small);
+}
+
+/* htmPaginationButtons */
+#htmPaginationButtons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 10rem);
+  align-items: center;
+}
+
+/***************/
+/* site search */
+/***************/
+
+#siteSearchDropdown > sl-menu-item {
+  background-color: green;
+}
+
+/*******/
+/* CSS */
+/*******/
+
+.split-block {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(30ch, 100%), 1fr));
+  gap: 1rem;
+  align-items: center;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}
+.icon-heading {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-block-end: 1rem;
+}
+.icon-heading > i {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--sl-color-purple-500);
+	color: white;
+	border-radius: 0.25rem;
+	height: 2rem;
+	width: 2rem;
+}
+
+/**********/
+/* FOOTER */
+/**********/
+
+footer > sl-button > div {
+  gap: 1rem;
+}
+#footer-open-source {
+  text-align: center;
+}
+
+#footer-generated-by {
+  text-align: center;
+}
+#footer-generated-by img {
+  width: 100%;
+}
+
+#footer-powered-by {
+  text-align: center;
+}
+#footer-powered-by img {
+  height: 5em;
+}

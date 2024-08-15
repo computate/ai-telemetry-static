@@ -1,0 +1,33 @@
+{
+  "$schema" : "http://json-schema.org/schema#",
+  "$schemaVersion" : "0.0.1",
+  "modelTags" : "",
+  "$id" : "https://raw.githubusercontent.com/OCP-on-NERC/ai-telemetry-static/main/fiware/AiNode/schema.json",
+  "title" : "AiNode",
+  "description" : "A Red Hat OpenShift node containing GPUs",
+  "type" : "object",
+  "allOf" : [ {
+    "$ref" : "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+  }, {
+    "$ref" : "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+  } ],
+  "required" : [ ],
+  "properties" : {
+    "name" : {
+      "type" : "string",
+      "description" : "The name of this node"
+    },
+    "description" : {
+      "type" : "string",
+      "description" : "A description of this node"
+    },
+    "location" : {
+      "type" : "geo:point",
+      "description" : "Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon"
+    },
+    "entityId" : {
+      "type" : "string",
+      "description" : "A unique ID for this Smart Data Model"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "id" : "urn:ngsi-ld:GpuDevice/1",
+  "type" : "GpuDevice",
+  "@context" : [ "https://raw.githubusercontent.com/OCP-on-NERC/ai-telemetry-static/main/fiware/GpuDevice/context.jsonld" ]
+}
