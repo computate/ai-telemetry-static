@@ -2,6 +2,22 @@ Promise.all([
     customElements.whenDefined('sl-button')
     , customElements.whenDefined('sl-input')
     ]).then(() => {
+
+          document.querySelector('#htmButton_patchGpu')?.addEventListener('click', (event) => {
+            document.querySelector('#patchGpuDialog').show();
+          });
+
+          document.querySelector('#htmButton_postGpu')?.addEventListener('click', (event) => {
+            document.querySelector('#postGpuDialog').show();
+          });
+
+          document.querySelector('#htmButton_putimportGpu')?.addEventListener('click', (event) => {
+            document.querySelector('#putimportGpuDialog').show();
+          });
+
+          document.querySelector('#htmButton_searchpageGpu')?.addEventListener('click', (event) => {
+            document.querySelector('#searchpageGpuDialog').show();
+          });
           // PATCH created
           document.querySelector('#Page_created')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_created');
@@ -32,14 +48,14 @@ Promise.all([
             const valid = form.reportValidity();
           });
           // PATCH archived
-          document.querySelector('#Page_archived')?.addEventListener('sl-change', (event) => {
+          document.querySelector('#Page_archived')?.addEventListener('click', (event) => {
             const form = document.querySelector('#PageForm_archived');
             const valid = form.checkValidity();
             if(valid) {
               var confirmResponse = confirm('Are you sure you want to archive that?'); 
               if(confirmResponse) { 
                 patchGpuVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
-                    , 'setArchived', event.currentTarget.checked
+                    , 'setArchived', !(event.currentTarget.getAttribute('data-val') === 'true')
                     , event.currentTarget
                     , function(response, target) { addGlow(target); }
                     , function(response, target) { addError(target); }
@@ -52,29 +68,6 @@ Promise.all([
           });
           document.querySelector('#Page_archived')?.addEventListener('sl-blur', (event) => {
             const form = document.querySelector('#PageForm_archived');
-            const valid = form.reportValidity();
-          });
-          // PATCH deleted
-          document.querySelector('#Page_deleted')?.addEventListener('sl-change', (event) => {
-            const form = document.querySelector('#PageForm_deleted');
-            const valid = form.checkValidity();
-            if(valid) {
-              var confirmResponse = confirm('Are you sure you want to delete that?'); 
-              if(confirmResponse) { 
-                patchGpuVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
-                    , 'setDeleted', event.currentTarget.checked
-                    , event.currentTarget
-                    , function(response, target) { addGlow(target); }
-                    , function(response, target) { addError(target); }
-                    );
-              }
-            }
-          });
-          document.querySelector('#Page_deleted')?.addEventListener('sl-focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Page_deleted')?.addEventListener('sl-blur', (event) => {
-            const form = document.querySelector('#PageForm_deleted');
             const valid = form.reportValidity();
           });
           // PATCH name

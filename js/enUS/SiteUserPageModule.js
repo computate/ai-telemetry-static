@@ -2,6 +2,22 @@ Promise.all([
     customElements.whenDefined('sl-button')
     , customElements.whenDefined('sl-input')
     ]).then(() => {
+
+          document.querySelector('#htmButton_patchSiteUser')?.addEventListener('click', (event) => {
+            document.querySelector('#patchSiteUserDialog').show();
+          });
+
+          document.querySelector('#htmButton_postSiteUser')?.addEventListener('click', (event) => {
+            document.querySelector('#postSiteUserDialog').show();
+          });
+
+          document.querySelector('#htmButton_putimportSiteUser')?.addEventListener('click', (event) => {
+            document.querySelector('#putimportSiteUserDialog').show();
+          });
+
+          document.querySelector('#htmButton_searchpageSiteUser')?.addEventListener('click', (event) => {
+            document.querySelector('#searchpageSiteUserDialog').show();
+          });
           // PATCH created
           document.querySelector('#Page_created')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_created');
@@ -32,14 +48,14 @@ Promise.all([
             const valid = form.reportValidity();
           });
           // PATCH archived
-          document.querySelector('#Page_archived')?.addEventListener('sl-change', (event) => {
+          document.querySelector('#Page_archived')?.addEventListener('click', (event) => {
             const form = document.querySelector('#PageForm_archived');
             const valid = form.checkValidity();
             if(valid) {
               var confirmResponse = confirm('Are you sure you want to archive that?'); 
               if(confirmResponse) { 
                 patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
-                    , 'setArchived', event.currentTarget.checked
+                    , 'setArchived', !(event.currentTarget.getAttribute('data-val') === 'true')
                     , event.currentTarget
                     , function(response, target) { addGlow(target); }
                     , function(response, target) { addError(target); }
@@ -52,29 +68,6 @@ Promise.all([
           });
           document.querySelector('#Page_archived')?.addEventListener('sl-blur', (event) => {
             const form = document.querySelector('#PageForm_archived');
-            const valid = form.reportValidity();
-          });
-          // PATCH deleted
-          document.querySelector('#Page_deleted')?.addEventListener('sl-change', (event) => {
-            const form = document.querySelector('#PageForm_deleted');
-            const valid = form.checkValidity();
-            if(valid) {
-              var confirmResponse = confirm('Are you sure you want to delete that?'); 
-              if(confirmResponse) { 
-                patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
-                    , 'setDeleted', event.currentTarget.checked
-                    , event.currentTarget
-                    , function(response, target) { addGlow(target); }
-                    , function(response, target) { addError(target); }
-                    );
-              }
-            }
-          });
-          document.querySelector('#Page_deleted')?.addEventListener('sl-focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Page_deleted')?.addEventListener('sl-blur', (event) => {
-            const form = document.querySelector('#PageForm_deleted');
             const valid = form.reportValidity();
           });
           // PATCH seeArchived
@@ -115,6 +108,66 @@ Promise.all([
           });
           document.querySelector('#Page_seeDeleted')?.addEventListener('sl-blur', (event) => {
             const form = document.querySelector('#PageForm_seeDeleted');
+            const valid = form.reportValidity();
+          });
+          // PATCH inheritPk
+          document.querySelector('#Page_inheritPk')?.addEventListener('sl-change', (event) => {
+            const form = document.querySelector('#PageForm_inheritPk');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
+                  , 'setInheritPk', event.currentTarget.value
+                  , event.currentTarget
+                  , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Page_inheritPk')?.addEventListener('sl-focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Page_inheritPk')?.addEventListener('sl-blur', (event) => {
+            const form = document.querySelector('#PageForm_inheritPk');
+            const valid = form.reportValidity();
+          });
+          // PATCH sessionId
+          document.querySelector('#Page_sessionId')?.addEventListener('sl-change', (event) => {
+            const form = document.querySelector('#PageForm_sessionId');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
+                  , 'setSessionId', event.currentTarget.value
+                  , event.currentTarget
+                  , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Page_sessionId')?.addEventListener('sl-focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Page_sessionId')?.addEventListener('sl-blur', (event) => {
+            const form = document.querySelector('#PageForm_sessionId');
+            const valid = form.reportValidity();
+          });
+          // PATCH userKey
+          document.querySelector('#Page_userKey')?.addEventListener('sl-change', (event) => {
+            const form = document.querySelector('#PageForm_userKey');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
+                  , 'setUserKey', event.currentTarget.value
+                  , event.currentTarget
+                  , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Page_userKey')?.addEventListener('sl-focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Page_userKey')?.addEventListener('sl-blur', (event) => {
+            const form = document.querySelector('#PageForm_userKey');
             const valid = form.reportValidity();
           });
           // PATCH userId
@@ -235,66 +288,6 @@ Promise.all([
           });
           document.querySelector('#Page_userFullName')?.addEventListener('sl-blur', (event) => {
             const form = document.querySelector('#PageForm_userFullName');
-            const valid = form.reportValidity();
-          });
-          // PATCH inheritPk
-          document.querySelector('#Page_inheritPk')?.addEventListener('sl-change', (event) => {
-            const form = document.querySelector('#PageForm_inheritPk');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
-                  , 'setInheritPk', event.currentTarget.value
-                  , event.currentTarget
-                  , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#Page_inheritPk')?.addEventListener('sl-focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Page_inheritPk')?.addEventListener('sl-blur', (event) => {
-            const form = document.querySelector('#PageForm_inheritPk');
-            const valid = form.reportValidity();
-          });
-          // PATCH sessionId
-          document.querySelector('#Page_sessionId')?.addEventListener('sl-change', (event) => {
-            const form = document.querySelector('#PageForm_sessionId');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
-                  , 'setSessionId', event.currentTarget.value
-                  , event.currentTarget
-                  , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#Page_sessionId')?.addEventListener('sl-focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Page_sessionId')?.addEventListener('sl-blur', (event) => {
-            const form = document.querySelector('#PageForm_sessionId');
-            const valid = form.reportValidity();
-          });
-          // PATCH userKey
-          document.querySelector('#Page_userKey')?.addEventListener('sl-change', (event) => {
-            const form = document.querySelector('#PageForm_userKey');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
-                  , 'setUserKey', event.currentTarget.value
-                  , event.currentTarget
-                  , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#Page_userKey')?.addEventListener('sl-focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Page_userKey')?.addEventListener('sl-blur', (event) => {
-            const form = document.querySelector('#PageForm_userKey');
             const valid = form.reportValidity();
           });
 });

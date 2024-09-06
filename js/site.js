@@ -119,21 +119,19 @@
 //	});
 //});
 
-function paramChange(classSimpleName, elem) {
-	var $elem = $(elem);
-	if($elem.val())
-		$elem.next().text($elem.attr('data-var') + "=" + encodeURIComponent($elem.val()));
+function paramChange(classSimpleName, input, div) {
+	if(input.value)
+		div.innerText = input.getAttribute('data-var') + "=" + encodeURIComponent(input.value);
 	else
-		$elem.next().text("");
+		div.innerText = "";
 	searchPage(classSimpleName);
 }
 
-function qChange(classSimpleName, elem) {
-	var $elem = $(elem);
-	if($elem.val())
-		$elem.next().text("q=" + $elem.attr('data-var') + ":" + encodeURIComponent($elem.val()));
+function qChange(classSimpleName, input, div) {
+	if(input.value)
+		div.innerText = "q=" + input.getAttribute('data-var') + ":" + encodeURIComponent(input.value);
 	else
-		$elem.next().text("");
+		div.innerText = "";
 	searchPage(classSimpleName);
 }
 
@@ -157,7 +155,7 @@ function facetFieldChange(classSimpleName, elem) {
 		document.querySelector("#pageSearchVal-" + elem.getAttribute("id")).innerText = "facet.field=" + elem.getAttribute('data-var');
 		elem.setAttribute("data-clear", "true");
 	} else {
-		$("#pageSearchVal-" + $(elem).attr("id")).innerText = "";
+		document.querySelector("#pageSearchVal-" + elem.getAttribute("id")).innerText = "";
 		elem.setAttribute("data-clear", "false");
 	}
 	searchPage(classSimpleName);
@@ -292,8 +290,11 @@ function searchPage(classSimpleName, success, error) {
 	var uri = location.pathname + queryParams;
 	fetch(uri).then(response => {
 		response.text().then((body) => {
-			var template = document.createElement("template");
-			template.innerHTML = body;
+			//var template = document.createElement("template");
+			//template.innerHTML = body.substring(body.indexOf("<body"), body.indexOf("</html>"));
+			var templateStr = body.substring(body);
+			var template = new DOMParser().parseFromString(body, "text/html");
+			//var template = document.createElement("<template>" + body.substring(body.indexOf("<body"), body.indexOf("</html>")) + "</template>");
 			document.querySelectorAll('.pageFacetField').forEach((facetField, index) => {
 				facetField.replaceWith(template.querySelector("." + facetField.getAttribute("id")));
 			});
@@ -706,53 +707,51 @@ function searchEscapeQueryChars(s) {
 //jQuery deparam is an extraction of the deparam method from Ben Alman's jQuery BBQ
 //http://benalman.com/projects/jquery-bbq-plugin/
 //*/
-//(function ($) {
-//$.deparam = function (params, coerce) {
-//var obj = [],
-//  coerce_types = { 'true': !0, 'false': !1, 'null': null };
-//
-//// Iterate over all name=value pairs.
-//$.each(params.replace(/\+/g, ' ').split('&'), function (j,v) {
-//var param = v.split('='),
-//    key = decodeURIComponent(param[0]),
-//    val,
-//    cur = obj,
-//    i = 0,
-//      
-//    // If key is more complex than 'foo', like 'a[]' or 'a[b][c]', split it
-//    // into its component parts.
-//    keys = key.split(']['),
-//    keys_last = keys.length - 1;
-//  
-//// Basic 'foo' style key.
-//keys_last = 0;
-//
-//// Are we dealing with a name=value pair, or just a name?
-//if (param.length === 2) {
-//  val = decodeURIComponent(param[1]);
-//    
-//  // Coerce values.
-//  if (coerce) {
-//    val = val && !isNaN(val)              ? +val              // number
-//        : val === 'undefined'             ? undefined         // undefined
-//        : coerce_types[val] !== undefined ? coerce_types[val] // true, false, null
-//        : val;                                                // string
-//  }
-//
-//  // Simple key, even simpler rules, since only scalars and shallow
-//  // arrays are allowed.
-//
-//  // val is a scalar.
-//  obj.push({name: key, 'value': val});
-//} else if (key) {
-//  // No value was defined, so set something meaningful.
-//  obj.push({name: key, value: (coerce ? undefined : '')});
-//}
-//});
-//
-//return obj;
-//};
-//})(jQuery);
+function deparam(params, coerce) {
+  var obj = [],
+    coerce_types = { 'true': !0, 'false': !1, 'null': null };
+  
+  // Iterate over all name=value pairs.
+  params.replace(/\+/g, ' ').split('&').forEach(function (v,j) {
+  	var param = v.split('='),
+  	    key = decodeURIComponent(param[0]),
+  	    val,
+  	    cur = obj,
+  	    i = 0,
+	
+  	    // If key is more complex than 'foo', like 'a[]' or 'a[b][c]', split it
+  	    // into its component parts.
+  	    keys = key.split(']['),
+  	    keys_last = keys.length - 1;
+	
+  	// Basic 'foo' style key.
+  	keys_last = 0;
+  
+  	// Are we dealing with a name=value pair, or just a name?
+  	if (param.length === 2) {
+  	  val = decodeURIComponent(param[1]);
+	
+  	  // Coerce values.
+  	  if (coerce) {
+  	    val = val && !isNaN(val)              ? +val              // number
+  	        : val === 'undefined'             ? undefined         // undefined
+  	        : coerce_types[val] !== undefined ? coerce_types[val] // true, false, null
+  	        : val;                                                // string
+  	  }
+  
+  	  // Simple key, even simpler rules, since only scalars and shallow
+  	  // arrays are allowed.
+  
+  	  // val is a scalar.
+  	  obj.push({name: key, 'value': val});
+  	} else if (key) {
+  	  // No value was defined, so set something meaningful.
+  	  obj.push({name: key, value: (coerce ? undefined : '')});
+  	}
+  });
+
+return obj;
+}
 //
 //function unpack(rows, key) {
 //    return rows.map(function(row) { return row[key]; });
