@@ -18,7 +18,17 @@ Promise.all([
           document.querySelector('#htmButton_searchpageSiteUser')?.addEventListener('click', (event) => {
             document.querySelector('#searchpageSiteUserDialog').show();
           });
+
           // PATCH created
+          document.querySelector('#fqSiteUser_created')?.addEventListener('sl-change', (event) => {
+            fqChange('SiteUser', event.target);
+          });
+          document.querySelector('#buttonFacetSiteUser_created')?.addEventListener('click', (event) => {
+            facetFieldChange('SiteUser', event.target);
+          });
+          document.querySelector('#pageFacetPivotSiteUser_created')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('SiteUser', event.target);
+          });
           document.querySelector('#Page_created')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_created');
             const valid = form.checkValidity();
@@ -47,7 +57,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_created');
             const valid = form.reportValidity();
           });
+
           // PATCH archived
+          document.querySelector('#fqSiteUser_archived')?.addEventListener('sl-change', (event) => {
+            fqChange('SiteUser', event.target);
+          });
+          document.querySelector('#buttonFacetSiteUser_archived')?.addEventListener('click', (event) => {
+            facetFieldChange('SiteUser', event.target);
+          });
+          document.querySelector('#pageFacetPivotSiteUser_archived')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('SiteUser', event.target);
+          });
           document.querySelector('#Page_archived')?.addEventListener('click', (event) => {
             const form = document.querySelector('#PageForm_archived');
             const valid = form.checkValidity();
@@ -70,6 +90,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_archived');
             const valid = form.reportValidity();
           });
+
           // PATCH seeArchived
           document.querySelector('#Page_seeArchived')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_seeArchived');
@@ -90,6 +111,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_seeArchived');
             const valid = form.reportValidity();
           });
+
           // PATCH seeDeleted
           document.querySelector('#Page_seeDeleted')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_seeDeleted');
@@ -110,6 +132,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_seeDeleted');
             const valid = form.reportValidity();
           });
+
           // PATCH inheritPk
           document.querySelector('#Page_inheritPk')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_inheritPk');
@@ -130,6 +153,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_inheritPk');
             const valid = form.reportValidity();
           });
+
           // PATCH sessionId
           document.querySelector('#Page_sessionId')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_sessionId');
@@ -150,6 +174,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_sessionId');
             const valid = form.reportValidity();
           });
+
           // PATCH userKey
           document.querySelector('#Page_userKey')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userKey');
@@ -170,6 +195,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_userKey');
             const valid = form.reportValidity();
           });
+
           // PATCH userId
           document.querySelector('#Page_userId')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userId');
@@ -190,6 +216,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_userId');
             const valid = form.reportValidity();
           });
+
           // PATCH userName
           document.querySelector('#Page_userName')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userName');
@@ -210,6 +237,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_userName');
             const valid = form.reportValidity();
           });
+
           // PATCH userEmail
           document.querySelector('#Page_userEmail')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userEmail');
@@ -230,6 +258,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_userEmail');
             const valid = form.reportValidity();
           });
+
           // PATCH userFirstName
           document.querySelector('#Page_userFirstName')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userFirstName');
@@ -250,6 +279,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_userFirstName');
             const valid = form.reportValidity();
           });
+
           // PATCH userLastName
           document.querySelector('#Page_userLastName')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userLastName');
@@ -270,6 +300,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_userLastName');
             const valid = form.reportValidity();
           });
+
           // PATCH userFullName
           document.querySelector('#Page_userFullName')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userFullName');
