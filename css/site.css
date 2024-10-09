@@ -446,18 +446,34 @@ html.sl-theme-dark .only-light, html:not(.sl-theme-dark) .only-dark {
   grid-template-columns: subgrid;
   grid-column: 1/3;
 }
-.label-on-left::part(form-control-label) {
-  text-align: right;
-  grid-column: 1;
-  grid-row: 1;
+@media (max-width:800px) {
+  .label-on-left::part(form-control-label), sl-button.button-on-left {
+    grid-column: 1/3;
+    grid-row: 1;
+  }
+  .label-on-left::part(form-control-input), div.button-description-on-right {
+    grid-column: 1/3;
+    grid-row: 2;
+  }
+  .label-on-left::part(form-control-help-text) {
+    grid-column: 1/3;
+    grid-row: 3 / 4;
+  }
 }
-.label-on-left::part(form-control-input) {
-  grid-column: 2;
-  grid-row: 1;
-}
-.label-on-left::part(form-control-help-text) {
-  grid-column: 2/3;
-  grid-row: 2 / 4;
+@media (min-width:801px) {
+  .label-on-left::part(form-control-label), sl-button.button-on-left {
+    text-align: right;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .label-on-left::part(form-control-input), div.button-description-on-right {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .label-on-left::part(form-control-help-text) {
+    grid-column: 2/3;
+    grid-row: 2 / 4;
+  }
 }
 
 #site-page {
