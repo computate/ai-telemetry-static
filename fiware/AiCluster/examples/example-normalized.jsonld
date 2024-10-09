@@ -1,5 +1,0 @@
-{
-  "id" : "urn:ngsi-ld:AiCluster/1",
-  "type" : "AiCluster",
-  "@context" : [ "https://raw.githubusercontent.com/OCP-on-NERC/ai-telemetry-static/main/fiware/AiCluster/context.jsonld" ]
-}

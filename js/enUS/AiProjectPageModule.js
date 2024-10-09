@@ -18,7 +18,17 @@ Promise.all([
           document.querySelector('#htmButton_searchpageAiProject')?.addEventListener('click', (event) => {
             document.querySelector('#searchpageAiProjectDialog').show();
           });
+
           // PATCH created
+          document.querySelector('#fqAiProject_created')?.addEventListener('sl-change', (event) => {
+            fqChange('AiProject', event.target);
+          });
+          document.querySelector('#buttonFacetAiProject_created')?.addEventListener('click', (event) => {
+            facetFieldChange('AiProject', event.target);
+          });
+          document.querySelector('#pageFacetPivotAiProject_created')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('AiProject', event.target);
+          });
           document.querySelector('#Page_created')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_created');
             const valid = form.checkValidity();
@@ -47,7 +57,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_created');
             const valid = form.reportValidity();
           });
+
           // PATCH archived
+          document.querySelector('#fqAiProject_archived')?.addEventListener('sl-change', (event) => {
+            fqChange('AiProject', event.target);
+          });
+          document.querySelector('#buttonFacetAiProject_archived')?.addEventListener('click', (event) => {
+            facetFieldChange('AiProject', event.target);
+          });
+          document.querySelector('#pageFacetPivotAiProject_archived')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('AiProject', event.target);
+          });
           document.querySelector('#Page_archived')?.addEventListener('click', (event) => {
             const form = document.querySelector('#PageForm_archived');
             const valid = form.checkValidity();
@@ -70,7 +90,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_archived');
             const valid = form.reportValidity();
           });
+
           // PATCH name
+          document.querySelector('#fqAiProject_name')?.addEventListener('sl-change', (event) => {
+            fqChange('AiProject', event.target);
+          });
+          document.querySelector('#buttonFacetAiProject_name')?.addEventListener('click', (event) => {
+            facetFieldChange('AiProject', event.target);
+          });
+          document.querySelector('#pageFacetPivotAiProject_name')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('AiProject', event.target);
+          });
           document.querySelector('#Page_name')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_name');
             const valid = form.checkValidity();
@@ -90,7 +120,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_name');
             const valid = form.reportValidity();
           });
+
           // PATCH description
+          document.querySelector('#fqAiProject_description')?.addEventListener('sl-change', (event) => {
+            fqChange('AiProject', event.target);
+          });
+          document.querySelector('#buttonFacetAiProject_description')?.addEventListener('click', (event) => {
+            facetFieldChange('AiProject', event.target);
+          });
+          document.querySelector('#pageFacetPivotAiProject_description')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('AiProject', event.target);
+          });
           document.querySelector('#Page_description')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_description');
             const valid = form.checkValidity();
@@ -110,7 +150,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_description');
             const valid = form.reportValidity();
           });
+
           // PATCH entityId
+          document.querySelector('#fqAiProject_entityId')?.addEventListener('sl-change', (event) => {
+            fqChange('AiProject', event.target);
+          });
+          document.querySelector('#buttonFacetAiProject_entityId')?.addEventListener('click', (event) => {
+            facetFieldChange('AiProject', event.target);
+          });
+          document.querySelector('#pageFacetPivotAiProject_entityId')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('AiProject', event.target);
+          });
           document.querySelector('#Page_entityId')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_entityId');
             const valid = form.checkValidity();
@@ -130,7 +180,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_entityId');
             const valid = form.reportValidity();
           });
+
           // PATCH location
+          document.querySelector('#fqAiProject_location')?.addEventListener('sl-change', (event) => {
+            fqChange('AiProject', event.target);
+          });
+          document.querySelector('#buttonFacetAiProject_location')?.addEventListener('click', (event) => {
+            facetFieldChange('AiProject', event.target);
+          });
+          document.querySelector('#pageFacetPivotAiProject_location')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('AiProject', event.target);
+          });
           document.querySelector('#Page_location')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_location');
             const valid = form.checkValidity();
@@ -150,6 +210,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_location');
             const valid = form.reportValidity();
           });
+
           // PATCH inheritPk
           document.querySelector('#Page_inheritPk')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_inheritPk');
@@ -170,6 +231,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_inheritPk');
             const valid = form.reportValidity();
           });
+
           // PATCH sessionId
           document.querySelector('#Page_sessionId')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_sessionId');
@@ -190,6 +252,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_sessionId');
             const valid = form.reportValidity();
           });
+
           // PATCH userKey
           document.querySelector('#Page_userKey')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userKey');
