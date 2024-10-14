@@ -57,6 +57,18 @@ function searchGpuFilters($formFilters) {
     if(filterLocation != null && filterLocation !== '')
       filters.push({ name: 'fq', value: 'location:' + filterLocation });
 
+    var filterLocationColors = $formFilters.querySelector('.valueLocationColors')?.value;
+    if(filterLocationColors != null && filterLocationColors !== '')
+      filters.push({ name: 'fq', value: 'locationColors:' + filterLocationColors });
+
+    var filterLocationTitles = $formFilters.querySelector('.valueLocationTitles')?.value;
+    if(filterLocationTitles != null && filterLocationTitles !== '')
+      filters.push({ name: 'fq', value: 'locationTitles:' + filterLocationTitles });
+
+    var filterLocationLinks = $formFilters.querySelector('.valueLocationLinks')?.value;
+    if(filterLocationLinks != null && filterLocationLinks !== '')
+      filters.push({ name: 'fq', value: 'locationLinks:' + filterLocationLinks });
+
     var filterInheritPk = $formFilters.querySelector('.valueInheritPk')?.value;
     if(filterInheritPk != null && filterInheritPk !== '')
       filters.push({ name: 'fq', value: 'inheritPk:' + filterInheritPk });
@@ -116,18 +128,6 @@ function searchGpuFilters($formFilters) {
     var filterId = $formFilters.querySelector('.valueId')?.value;
     if(filterId != null && filterId !== '')
       filters.push({ name: 'fq', value: 'id:' + filterId });
-
-    var filterLocationColors = $formFilters.querySelector('.valueLocationColors')?.value;
-    if(filterLocationColors != null && filterLocationColors !== '')
-      filters.push({ name: 'fq', value: 'locationColors:' + filterLocationColors });
-
-    var filterLocationTitles = $formFilters.querySelector('.valueLocationTitles')?.value;
-    if(filterLocationTitles != null && filterLocationTitles !== '')
-      filters.push({ name: 'fq', value: 'locationTitles:' + filterLocationTitles });
-
-    var filterLocationLinks = $formFilters.querySelector('.valueLocationLinks')?.value;
-    if(filterLocationLinks != null && filterLocationLinks !== '')
-      filters.push({ name: 'fq', value: 'locationLinks:' + filterLocationLinks });
   }
   return filters;
 }
@@ -401,6 +401,18 @@ function patchGpuFilters($formFilters) {
     if(filterLocation != null && filterLocation !== '')
       filters.push({ name: 'fq', value: 'location:' + filterLocation });
 
+    var filterLocationColors = $formFilters.querySelector('.valueLocationColors')?.value;
+    if(filterLocationColors != null && filterLocationColors !== '')
+      filters.push({ name: 'fq', value: 'locationColors:' + filterLocationColors });
+
+    var filterLocationTitles = $formFilters.querySelector('.valueLocationTitles')?.value;
+    if(filterLocationTitles != null && filterLocationTitles !== '')
+      filters.push({ name: 'fq', value: 'locationTitles:' + filterLocationTitles });
+
+    var filterLocationLinks = $formFilters.querySelector('.valueLocationLinks')?.value;
+    if(filterLocationLinks != null && filterLocationLinks !== '')
+      filters.push({ name: 'fq', value: 'locationLinks:' + filterLocationLinks });
+
     var filterInheritPk = $formFilters.querySelector('.valueInheritPk')?.value;
     if(filterInheritPk != null && filterInheritPk !== '')
       filters.push({ name: 'fq', value: 'inheritPk:' + filterInheritPk });
@@ -460,18 +472,6 @@ function patchGpuFilters($formFilters) {
     var filterId = $formFilters.querySelector('.valueId')?.value;
     if(filterId != null && filterId !== '')
       filters.push({ name: 'fq', value: 'id:' + filterId });
-
-    var filterLocationColors = $formFilters.querySelector('.valueLocationColors')?.value;
-    if(filterLocationColors != null && filterLocationColors !== '')
-      filters.push({ name: 'fq', value: 'locationColors:' + filterLocationColors });
-
-    var filterLocationTitles = $formFilters.querySelector('.valueLocationTitles')?.value;
-    if(filterLocationTitles != null && filterLocationTitles !== '')
-      filters.push({ name: 'fq', value: 'locationTitles:' + filterLocationTitles });
-
-    var filterLocationLinks = $formFilters.querySelector('.valueLocationLinks')?.value;
-    if(filterLocationLinks != null && filterLocationLinks !== '')
-      filters.push({ name: 'fq', value: 'locationLinks:' + filterLocationLinks });
   }
   return filters;
 }
@@ -714,6 +714,9 @@ async function websocketGpuInner(apiRequest) {
         var inputDescription = null;
         var inputEntityId = null;
         var inputLocation = null;
+        var inputLocationColors = null;
+        var inputLocationTitles = null;
+        var inputLocationLinks = null;
         var inputInheritPk = null;
         var inputClassCanonicalName = null;
         var inputClassSimpleName = null;
@@ -729,9 +732,6 @@ async function websocketGpuInner(apiRequest) {
         var inputPageUrlPk = null;
         var inputPageUrlApi = null;
         var inputId = null;
-        var inputLocationColors = null;
-        var inputLocationTitles = null;
-        var inputLocationLinks = null;
 
         if(vars.includes('pk'))
           inputPk = $response.querySelector('#Page_pk');
@@ -751,6 +751,12 @@ async function websocketGpuInner(apiRequest) {
           inputEntityId = $response.querySelector('#Page_entityId');
         if(vars.includes('location'))
           inputLocation = $response.querySelector('#Page_location');
+        if(vars.includes('locationColors'))
+          inputLocationColors = $response.querySelector('#Page_locationColors');
+        if(vars.includes('locationTitles'))
+          inputLocationTitles = $response.querySelector('#Page_locationTitles');
+        if(vars.includes('locationLinks'))
+          inputLocationLinks = $response.querySelector('#Page_locationLinks');
         if(vars.includes('inheritPk'))
           inputInheritPk = $response.querySelector('#Page_inheritPk');
         if(vars.includes('classCanonicalName'))
@@ -781,12 +787,6 @@ async function websocketGpuInner(apiRequest) {
           inputPageUrlApi = $response.querySelector('#Page_pageUrlApi');
         if(vars.includes('id'))
           inputId = $response.querySelector('#Page_id');
-        if(vars.includes('locationColors'))
-          inputLocationColors = $response.querySelector('#Page_locationColors');
-        if(vars.includes('locationTitles'))
-          inputLocationTitles = $response.querySelector('#Page_locationTitles');
-        if(vars.includes('locationLinks'))
-          inputLocationLinks = $response.querySelector('#Page_locationLinks');
           jsWebsocketGpu(pk, vars, $response);
 
           window.gpu = JSON.parse($response.querySelector('.pageForm .gpu')?.value);
@@ -854,6 +854,27 @@ async function websocketGpuInner(apiRequest) {
             item.setAttribute('value', inputLocation.getAttribute('value'));
           });
           addGlow(document.querySelector('#Page_location'));
+        }
+
+        if(inputLocationColors) {
+          document.querySelectorAll('#Page_locationColors').forEach((item, index) => {
+            item.setAttribute('value', inputLocationColors.getAttribute('value'));
+          });
+          addGlow(document.querySelector('#Page_locationColors'));
+        }
+
+        if(inputLocationTitles) {
+          document.querySelectorAll('#Page_locationTitles').forEach((item, index) => {
+            item.setAttribute('value', inputLocationTitles.getAttribute('value'));
+          });
+          addGlow(document.querySelector('#Page_locationTitles'));
+        }
+
+        if(inputLocationLinks) {
+          document.querySelectorAll('#Page_locationLinks').forEach((item, index) => {
+            item.setAttribute('value', inputLocationLinks.getAttribute('value'));
+          });
+          addGlow(document.querySelector('#Page_locationLinks'));
         }
 
         if(inputInheritPk) {
@@ -961,27 +982,6 @@ async function websocketGpuInner(apiRequest) {
           addGlow(document.querySelector('#Page_id'));
         }
 
-        if(inputLocationColors) {
-          document.querySelectorAll('#Page_locationColors').forEach((item, index) => {
-            item.setAttribute('value', inputLocationColors.getAttribute('value'));
-          });
-          addGlow(document.querySelector('#Page_locationColors'));
-        }
-
-        if(inputLocationTitles) {
-          document.querySelectorAll('#Page_locationTitles').forEach((item, index) => {
-            item.setAttribute('value', inputLocationTitles.getAttribute('value'));
-          });
-          addGlow(document.querySelector('#Page_locationTitles'));
-        }
-
-        if(inputLocationLinks) {
-          document.querySelectorAll('#Page_locationLinks').forEach((item, index) => {
-            item.setAttribute('value', inputLocationLinks.getAttribute('value'));
-          });
-          addGlow(document.querySelector('#Page_locationLinks'));
-        }
-
           pageGraphGpu();
       });
     });
@@ -1013,7 +1013,7 @@ function pageGraphGpu(apiRequest) {
         var pivot1VarIndexed = pivot1Name;
         if(pivot1VarIndexed.includes(','))
           pivot1VarIndexed = pivot1VarIndexed.substring(0, pivot1VarIndexed.indexOf(','));
-        var pivot1VarObj = Object.values(window.varsFq).querySelector(o => o.varIndexed === pivot1VarIndexed);
+        var pivot1VarObj = Object.values(window.varsFq).filter(o => o.varIndexed === pivot1VarIndexed)[0];
         var pivot1VarFq = pivot1VarObj ? pivot1VarObj.var : 'classSimpleName';
         var pivot1Map = facetCounts.facetPivot.pivotMap[pivot1Name].pivotMap;
         var pivot1Vals = Object.keys(pivot1Map);
@@ -1026,7 +1026,7 @@ function pageGraphGpu(apiRequest) {
           }
           if(pivot1Vals.length > 0 && pivot1Map[pivot1Vals[0]].pivotMap && Object.keys(pivot1Map[pivot1Vals[0]].pivotMap).length > 0) {
             var pivot2VarIndexed = pivot1Map[pivot1Vals[0]].pivotMap[Object.keys(pivot1Map[pivot1Vals[0]].pivotMap)[0]].field;
-            var pivot2VarObj = Object.values(window.varsFq).querySelector(o => o.varIndexed === pivot2VarIndexed);
+            var pivot2VarObj = Object.values(window.varsFq).filter(o => o.varIndexed === pivot2VarIndexed)[0];
             var pivot2VarFq = pivot2VarObj ? pivot2VarObj.var : 'classSimpleName';
             layout['yaxis'] = {
               title: pivot2VarObj.displayName
@@ -1083,8 +1083,8 @@ function pageGraphGpu(apiRequest) {
               data.push(trace);
             });
           }
+          Plotly.react('htmBodyGraphGpuPage', data, layout);
         }
-        Plotly.react('htmBodyGraphBaseModelPage', data, layout);
       }
     }
 

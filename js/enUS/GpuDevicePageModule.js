@@ -18,7 +18,17 @@ Promise.all([
           document.querySelector('#htmButton_searchpageGpuDevice')?.addEventListener('click', (event) => {
             document.querySelector('#searchpageGpuDeviceDialog').show();
           });
+
           // PATCH created
+          document.querySelector('#fqGpuDevice_created')?.addEventListener('sl-change', (event) => {
+            fqChange('GpuDevice', event.target);
+          });
+          document.querySelector('#buttonFacetGpuDevice_created')?.addEventListener('click', (event) => {
+            facetFieldChange('GpuDevice', event.target);
+          });
+          document.querySelector('#pageFacetPivotGpuDevice_created')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('GpuDevice', event.target);
+          });
           document.querySelector('#Page_created')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_created');
             const valid = form.checkValidity();
@@ -47,7 +57,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_created');
             const valid = form.reportValidity();
           });
+
           // PATCH archived
+          document.querySelector('#fqGpuDevice_archived')?.addEventListener('sl-change', (event) => {
+            fqChange('GpuDevice', event.target);
+          });
+          document.querySelector('#buttonFacetGpuDevice_archived')?.addEventListener('click', (event) => {
+            facetFieldChange('GpuDevice', event.target);
+          });
+          document.querySelector('#pageFacetPivotGpuDevice_archived')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('GpuDevice', event.target);
+          });
           document.querySelector('#Page_archived')?.addEventListener('click', (event) => {
             const form = document.querySelector('#PageForm_archived');
             const valid = form.checkValidity();
@@ -70,7 +90,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_archived');
             const valid = form.reportValidity();
           });
+
           // PATCH name
+          document.querySelector('#fqGpuDevice_name')?.addEventListener('sl-change', (event) => {
+            fqChange('GpuDevice', event.target);
+          });
+          document.querySelector('#buttonFacetGpuDevice_name')?.addEventListener('click', (event) => {
+            facetFieldChange('GpuDevice', event.target);
+          });
+          document.querySelector('#pageFacetPivotGpuDevice_name')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('GpuDevice', event.target);
+          });
           document.querySelector('#Page_name')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_name');
             const valid = form.checkValidity();
@@ -90,7 +120,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_name');
             const valid = form.reportValidity();
           });
+
           // PATCH description
+          document.querySelector('#fqGpuDevice_description')?.addEventListener('sl-change', (event) => {
+            fqChange('GpuDevice', event.target);
+          });
+          document.querySelector('#buttonFacetGpuDevice_description')?.addEventListener('click', (event) => {
+            facetFieldChange('GpuDevice', event.target);
+          });
+          document.querySelector('#pageFacetPivotGpuDevice_description')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('GpuDevice', event.target);
+          });
           document.querySelector('#Page_description')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_description');
             const valid = form.checkValidity();
@@ -110,7 +150,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_description');
             const valid = form.reportValidity();
           });
+
           // PATCH entityId
+          document.querySelector('#fqGpuDevice_entityId')?.addEventListener('sl-change', (event) => {
+            fqChange('GpuDevice', event.target);
+          });
+          document.querySelector('#buttonFacetGpuDevice_entityId')?.addEventListener('click', (event) => {
+            facetFieldChange('GpuDevice', event.target);
+          });
+          document.querySelector('#pageFacetPivotGpuDevice_entityId')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('GpuDevice', event.target);
+          });
           document.querySelector('#Page_entityId')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_entityId');
             const valid = form.checkValidity();
@@ -130,7 +180,17 @@ Promise.all([
             const form = document.querySelector('#PageForm_entityId');
             const valid = form.reportValidity();
           });
+
           // PATCH location
+          document.querySelector('#fqGpuDevice_location')?.addEventListener('sl-change', (event) => {
+            fqChange('GpuDevice', event.target);
+          });
+          document.querySelector('#buttonFacetGpuDevice_location')?.addEventListener('click', (event) => {
+            facetFieldChange('GpuDevice', event.target);
+          });
+          document.querySelector('#pageFacetPivotGpuDevice_location')?.addEventListener('sl-change', (event) => {
+            facetPivotChange('GpuDevice', event.target);
+          });
           document.querySelector('#Page_location')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_location');
             const valid = form.checkValidity();
@@ -150,6 +210,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_location');
             const valid = form.reportValidity();
           });
+
           // PATCH inheritPk
           document.querySelector('#Page_inheritPk')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_inheritPk');
@@ -170,6 +231,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_inheritPk');
             const valid = form.reportValidity();
           });
+
           // PATCH sessionId
           document.querySelector('#Page_sessionId')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_sessionId');
@@ -190,6 +252,7 @@ Promise.all([
             const form = document.querySelector('#PageForm_sessionId');
             const valid = form.reportValidity();
           });
+
           // PATCH userKey
           document.querySelector('#Page_userKey')?.addEventListener('sl-change', (event) => {
             const form = document.querySelector('#PageForm_userKey');

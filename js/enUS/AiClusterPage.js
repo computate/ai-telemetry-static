@@ -57,6 +57,14 @@ function searchAiClusterFilters($formFilters) {
     if(filterLocation != null && filterLocation !== '')
       filters.push({ name: 'fq', value: 'location:' + filterLocation });
 
+    var filterGpuNodesTotal = $formFilters.querySelector('.valueGpuNodesTotal')?.value;
+    if(filterGpuNodesTotal != null && filterGpuNodesTotal !== '')
+      filters.push({ name: 'fq', value: 'gpuNodesTotal:' + filterGpuNodesTotal });
+
+    var filterGrafanaUrl = $formFilters.querySelector('.valueGrafanaUrl')?.value;
+    if(filterGrafanaUrl != null && filterGrafanaUrl !== '')
+      filters.push({ name: 'fq', value: 'grafanaUrl:' + filterGrafanaUrl });
+
     var filterInheritPk = $formFilters.querySelector('.valueInheritPk')?.value;
     if(filterInheritPk != null && filterInheritPk !== '')
       filters.push({ name: 'fq', value: 'inheritPk:' + filterInheritPk });
@@ -303,6 +311,30 @@ async function patchAiCluster($formFilters, $formValues, target, pk, success, er
   if(removeLocation != null && removeLocation !== '')
     vals['removeLocation'] = removeLocation;
 
+  var valueGpuNodesTotal = $formValues.querySelector('.valueGpuNodesTotal')?.value;
+  var removeGpuNodesTotal = $formValues.querySelector('.removeGpuNodesTotal')?.value === 'true';
+  var setGpuNodesTotal = removeGpuNodesTotal ? null : $formValues.querySelector('.setGpuNodesTotal')?.value;
+  var addGpuNodesTotal = $formValues.querySelector('.addGpuNodesTotal')?.value;
+  if(removeGpuNodesTotal || setGpuNodesTotal != null && setGpuNodesTotal !== '')
+    vals['setGpuNodesTotal'] = setGpuNodesTotal;
+  if(addGpuNodesTotal != null && addGpuNodesTotal !== '')
+    vals['addGpuNodesTotal'] = addGpuNodesTotal;
+  var removeGpuNodesTotal = $formValues.querySelector('.removeGpuNodesTotal')?.value;
+  if(removeGpuNodesTotal != null && removeGpuNodesTotal !== '')
+    vals['removeGpuNodesTotal'] = removeGpuNodesTotal;
+
+  var valueGrafanaUrl = $formValues.querySelector('.valueGrafanaUrl')?.value;
+  var removeGrafanaUrl = $formValues.querySelector('.removeGrafanaUrl')?.value === 'true';
+  var setGrafanaUrl = removeGrafanaUrl ? null : $formValues.querySelector('.setGrafanaUrl')?.value;
+  var addGrafanaUrl = $formValues.querySelector('.addGrafanaUrl')?.value;
+  if(removeGrafanaUrl || setGrafanaUrl != null && setGrafanaUrl !== '')
+    vals['setGrafanaUrl'] = setGrafanaUrl;
+  if(addGrafanaUrl != null && addGrafanaUrl !== '')
+    vals['addGrafanaUrl'] = addGrafanaUrl;
+  var removeGrafanaUrl = $formValues.querySelector('.removeGrafanaUrl')?.value;
+  if(removeGrafanaUrl != null && removeGrafanaUrl !== '')
+    vals['removeGrafanaUrl'] = removeGrafanaUrl;
+
   var valueInheritPk = $formValues.querySelector('.valueInheritPk')?.value;
   var removeInheritPk = $formValues.querySelector('.removeInheritPk')?.value === 'true';
   var setInheritPk = removeInheritPk ? null : $formValues.querySelector('.setInheritPk')?.value;
@@ -400,6 +432,14 @@ function patchAiClusterFilters($formFilters) {
     var filterLocation = $formFilters.querySelector('.valueLocation')?.value;
     if(filterLocation != null && filterLocation !== '')
       filters.push({ name: 'fq', value: 'location:' + filterLocation });
+
+    var filterGpuNodesTotal = $formFilters.querySelector('.valueGpuNodesTotal')?.value;
+    if(filterGpuNodesTotal != null && filterGpuNodesTotal !== '')
+      filters.push({ name: 'fq', value: 'gpuNodesTotal:' + filterGpuNodesTotal });
+
+    var filterGrafanaUrl = $formFilters.querySelector('.valueGrafanaUrl')?.value;
+    if(filterGrafanaUrl != null && filterGrafanaUrl !== '')
+      filters.push({ name: 'fq', value: 'grafanaUrl:' + filterGrafanaUrl });
 
     var filterInheritPk = $formFilters.querySelector('.valueInheritPk')?.value;
     if(filterInheritPk != null && filterInheritPk !== '')
@@ -551,6 +591,14 @@ async function postAiCluster($formValues, target, success, error) {
   var valueLocation = $formValues.querySelector('.valueLocation')?.value;
   if(valueLocation != null && valueLocation !== '')
     vals['location'] = JSON.parse(valueLocation);
+
+  var valueGpuNodesTotal = $formValues.querySelector('.valueGpuNodesTotal')?.value;
+  if(valueGpuNodesTotal != null && valueGpuNodesTotal !== '')
+    vals['gpuNodesTotal'] = valueGpuNodesTotal;
+
+  var valueGrafanaUrl = $formValues.querySelector('.valueGrafanaUrl')?.value;
+  if(valueGrafanaUrl != null && valueGrafanaUrl !== '')
+    vals['grafanaUrl'] = valueGrafanaUrl;
 
   var valueInheritPk = $formValues.querySelector('.valueInheritPk')?.value;
   if(valueInheritPk != null && valueInheritPk !== '')
@@ -714,6 +762,8 @@ async function websocketAiClusterInner(apiRequest) {
         var inputDescription = null;
         var inputEntityId = null;
         var inputLocation = null;
+        var inputGpuNodesTotal = null;
+        var inputGrafanaUrl = null;
         var inputInheritPk = null;
         var inputClassCanonicalName = null;
         var inputClassSimpleName = null;
@@ -751,6 +801,10 @@ async function websocketAiClusterInner(apiRequest) {
           inputEntityId = $response.querySelector('#Page_entityId');
         if(vars.includes('location'))
           inputLocation = $response.querySelector('#Page_location');
+        if(vars.includes('gpuNodesTotal'))
+          inputGpuNodesTotal = $response.querySelector('#Page_gpuNodesTotal');
+        if(vars.includes('grafanaUrl'))
+          inputGrafanaUrl = $response.querySelector('#Page_grafanaUrl');
         if(vars.includes('inheritPk'))
           inputInheritPk = $response.querySelector('#Page_inheritPk');
         if(vars.includes('classCanonicalName'))
@@ -854,6 +908,20 @@ async function websocketAiClusterInner(apiRequest) {
             item.setAttribute('value', inputLocation.getAttribute('value'));
           });
           addGlow(document.querySelector('#Page_location'));
+        }
+
+        if(inputGpuNodesTotal) {
+          document.querySelectorAll('#Page_gpuNodesTotal').forEach((item, index) => {
+            item.setAttribute('value', inputGpuNodesTotal.getAttribute('value'));
+          });
+          addGlow(document.querySelector('#Page_gpuNodesTotal'));
+        }
+
+        if(inputGrafanaUrl) {
+          document.querySelectorAll('#Page_grafanaUrl').forEach((item, index) => {
+            item.setAttribute('value', inputGrafanaUrl.getAttribute('value'));
+          });
+          addGlow(document.querySelector('#Page_grafanaUrl'));
         }
 
         if(inputInheritPk) {
@@ -1013,7 +1081,7 @@ function pageGraphAiCluster(apiRequest) {
         var pivot1VarIndexed = pivot1Name;
         if(pivot1VarIndexed.includes(','))
           pivot1VarIndexed = pivot1VarIndexed.substring(0, pivot1VarIndexed.indexOf(','));
-        var pivot1VarObj = Object.values(window.varsFq).querySelector(o => o.varIndexed === pivot1VarIndexed);
+        var pivot1VarObj = Object.values(window.varsFq).filter(o => o.varIndexed === pivot1VarIndexed)[0];
         var pivot1VarFq = pivot1VarObj ? pivot1VarObj.var : 'classSimpleName';
         var pivot1Map = facetCounts.facetPivot.pivotMap[pivot1Name].pivotMap;
         var pivot1Vals = Object.keys(pivot1Map);
@@ -1026,7 +1094,7 @@ function pageGraphAiCluster(apiRequest) {
           }
           if(pivot1Vals.length > 0 && pivot1Map[pivot1Vals[0]].pivotMap && Object.keys(pivot1Map[pivot1Vals[0]].pivotMap).length > 0) {
             var pivot2VarIndexed = pivot1Map[pivot1Vals[0]].pivotMap[Object.keys(pivot1Map[pivot1Vals[0]].pivotMap)[0]].field;
-            var pivot2VarObj = Object.values(window.varsFq).querySelector(o => o.varIndexed === pivot2VarIndexed);
+            var pivot2VarObj = Object.values(window.varsFq).filter(o => o.varIndexed === pivot2VarIndexed)[0];
             var pivot2VarFq = pivot2VarObj ? pivot2VarObj.var : 'classSimpleName';
             layout['yaxis'] = {
               title: pivot2VarObj.displayName
@@ -1083,8 +1151,8 @@ function pageGraphAiCluster(apiRequest) {
               data.push(trace);
             });
           }
+          Plotly.react('htmBodyGraphAiClusterPage', data, layout);
         }
-        Plotly.react('htmBodyGraphBaseModelPage', data, layout);
       }
     }
 
