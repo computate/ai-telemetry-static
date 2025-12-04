@@ -1,0 +1,434 @@
+{% extends "en-us/PageLayout.htm" %}
+
+{%- block htmTitlePageLayout %}
+{%- block htmTitleProjectPage %}
+    <title>{% if resultCount == 0 %}no project found{% else %}projects{% endif %}</title>
+{%- endblock htmTitleProjectPage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/project/Project.css"/>
+{%- block htmStylesProjectPage %}
+{%- endblock htmStylesProjectPage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+      :root {
+        --site-results-number-of-columns: 3;
+      }
+{{ super() }}
+{%- block htmStyleProjectPage %}
+{%- endblock htmStyleProjectPage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsProjectPage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/project/Project.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/project/ProjectSearchPage.js"></script>
+    <script src="{{staticBaseUrl}}/js/en-us/search/hub/Hub.js"></script>
+    <script src="{{staticBaseUrl}}/js/en-us/search/cluster/Cluster.js"></script>
+{%- endblock htmScriptsProjectPage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptProjectPage %}
+    <script>
+
+      function jsWebsocketProject(projectResource, vars, $response) {
+{%- block jsWebsocketProjectPage %}{%- endblock %}
+      }
+
+      function jsTooltipProject(e, feature) {
+{%- block jsTooltipProjectPage %}{%- endblock %}
+      }
+
+      function htmTooltipProject(feature, layer) {
+        return `{%- block htmTooltipProjectPage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.objectTitle}</a></h3>
+{%- endblock htmTooltipProjectPage %}`;
+      }
+
+      function facetSimpleRangeProjectSuccess(pageContent) {
+{% block facetSimpleRangeProjectSuccess %}{%- endblock facetSimpleRangeProjectSuccess %}
+      }
+      function facetSimpleRangeProjectError(pageContent) {
+{% block facetSimpleRangeProjectError %}{%- endblock facetSimpleRangeProjectError %}
+      }
+      function facetSimpleRangeProject(e) {
+        facetSimpleRange(e, facetSimpleRangeProjectSuccess, facetSimpleRangeProjectError);
+      }
+
+      function facetRangeTimeZoneProjectSuccess(pageContent) {
+{% block facetRangeTimeZoneProjectSuccess %}{%- endblock facetRangeTimeZoneProjectSuccess %}
+      }
+      function facetRangeTimeZoneProjectError(pageContent) {
+{% block facetRangeTimeZoneProjectError %}{%- endblock facetRangeTimeZoneProjectError %}
+      }
+      function facetRangeTimeZoneProject(e) {
+        facetRangeTimeZone(e, facetRangeTimeZoneProjectSuccess, facetRangeTimeZoneProjectError);
+      }
+
+      function facetRangeGapChangeProjectSuccess(pageContent) {
+{% block facetRangeGapChangeProjectSuccess %}{%- endblock facetRangeGapChangeProjectSuccess %}
+      }
+      function facetRangeGapChangeProjectError(pageContent) {
+{% block facetRangeGapChangeProjectError %}{%- endblock facetRangeGapChangeProjectError %}
+      }
+      function facetRangeGapChangeProject(classSimpleName, event) {
+        facetRangeGapChange(classSimpleName, event, facetRangeGapChangeProjectSuccess, facetRangeGapChangeProjectError);
+      }
+
+      function facetRangeStartChangeProjectSuccess(pageContent) {
+{% block facetRangeStartChangeProjectSuccess %}{%- endblock facetRangeStartChangeProjectSuccess %}
+      }
+      function facetRangeStartChangeProjectError(pageContent) {
+{% block facetRangeStartChangeProjectError %}{%- endblock facetRangeStartChangeProjectError %}
+      }
+      function facetRangeStartChangeProject(classSimpleName, event) {
+        facetRangeStartChange(classSimpleName, event, facetRangeStartChangeProjectSuccess, facetRangeStartChangeProjectError);
+      }
+
+      function facetRangeEndChangeProjectSuccess(pageContent) {
+{% block facetRangeEndChangeProjectSuccess %}{%- endblock facetRangeEndChangeProjectSuccess %}
+      }
+      function facetRangeEndChangeProjectError(pageContent) {
+{% block facetRangeEndChangeProjectError %}{%- endblock facetRangeEndChangeProjectError %}
+      }
+      function facetRangeEndChangeProject(classSimpleName, event) {
+        facetRangeEndChange(classSimpleName, event, facetRangeEndChangeProjectSuccess, facetRangeEndChangeProjectError);
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+        , customElements.whenDefined('wa-select')
+        , customElements.whenDefined('wa-radio')
+        , customElements.whenDefined('wa-checkbox')
+      ]).then(() => {
+
+        var projectResource = {% if result.projectResource is defined %}{{ result.projectResource | tojson }}{% else %}null{% endif %};
+
+          function relate_hubResource(event) {
+            suggestProjectHubResource(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + event.target.value }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,hubResource,pk,editPage,objectTitle' } ] : [{%- if result.hubResource is defined %}{'name':'fq','value':'hubResource:{{ result.hubResource }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , null
+                , null
+                , true
+                , this
+                );
+          }
+          document.querySelector('#POST_hubResource')?.addEventListener('input', relate_hubResource);
+          document.querySelector('#POST_hubResource')?.addEventListener('focus', relate_hubResource);
+          document.querySelector('#PATCH_hubResource')?.addEventListener('input', relate_hubResource);
+          document.querySelector('#PATCH_hubResource')?.addEventListener('focus', relate_hubResource);
+          function relate_clusterResource(event) {
+            suggestProjectClusterResource(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + event.target.value }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,clusterResource,pk,editPage,objectTitle' } ] : [{%- if result.clusterResource is defined %}{'name':'fq','value':'clusterResource:{{ result.clusterResource }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , null
+                , null
+                , true
+                , this
+                );
+          }
+          document.querySelector('#POST_clusterResource')?.addEventListener('input', relate_clusterResource);
+          document.querySelector('#POST_clusterResource')?.addEventListener('focus', relate_clusterResource);
+          document.querySelector('#PATCH_clusterResource')?.addEventListener('input', relate_clusterResource);
+          document.querySelector('#PATCH_clusterResource')?.addEventListener('focus', relate_clusterResource);
+        if(projectResource == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if result.projectResource is defined %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listProject')?.value;
+        if(l)
+          window.listProject = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        document.querySelector('#siteSidebarToggleRange')?.addEventListener('wa-after-hide', function(e) { document.querySelector('#pageFacetRangeTimeZonePopup').active = false; });
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneProject);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneProject);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('focus', facetRangeTimeZoneProject);
+        document.querySelector('#pageFacetSimpleRangeDropdown')?.addEventListener('wa-select', facetSimpleRangeProject);
+        pageGraphProject();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qProject_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('Project', event.target, document.querySelector('#qProjectDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qProject_rows')?.addEventListener('change', event => {
+          paramChange('Project', event.target, document.querySelector('#qProjectDiv_rows'));
+        });
+
+        document.querySelector('#qProject_start')?.addEventListener('change', event => {
+          paramChange('Project', event.target, document.querySelector('#qProjectDiv_start'));
+        });
+
+
+        var submitForm_patchProject = document.querySelector('#htmForm_patchProject')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchProject')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchProject(null, document.querySelector('#htmForm_patchProject'), document.querySelector('#htmFormButton_patchProject'), event.target.getAttribute('data-projectResource'));
+          return false;
+        });
+
+        var submitForm_postProject = document.querySelector('#htmForm_postProject')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postProject')?.addEventListener('click', event => {
+          event.preventDefault();
+          postProject(document.querySelector('#htmForm_postProject')
+          , document.querySelector('#htmFormButton_postProject')
+          , (json, target) => {
+            window.location.href = json.editPage;
+          });
+          return false;
+        });
+
+        var submitForm_deleteProject = document.querySelector('#htmForm_deleteProject')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteProject')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteProject(event.target, event.target.getAttribute('data-projectResource'));
+          return false;
+        });
+
+        var submitForm_putimportProject = document.querySelector('#htmForm_putimportProject')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_putimportProject')?.addEventListener('click', event => {
+          event.preventDefault();
+          putimportProject(document.querySelector('#htmForm_putimportProject'), document.querySelector('#htmFormButton_putimportProject'));
+          return false;
+        });
+
+        var submitForm_searchpageProject = document.querySelector('#htmForm_searchpageProject')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageProject')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageProject();
+          return false;
+        });
+
+        var submitForm_deletefilterProject = document.querySelector('#htmForm_deletefilterProject')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterProject')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterProject(event.target);
+          return false;
+        });
+{%- block htmScriptInitProjectPage %}{%- endblock htmScriptInitProjectPage %}
+      });
+    </script>
+{%- endblock htmScriptProjectPage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketProjectPage %}
+{% if resultCount > 0 %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketProject(websocketProjectInner);
+{% endif %}
+{%- endblock websocketProjectPage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlProjectPage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlProjectPage %}
+{%- if pageBreadcrumb is not defined %}
+{%- set pageBreadcrumb %}
+              <wa-tooltip for="return-to-Project">back to all projects</wa-tooltip>
+              <wa-breadcrumb>
+                <wa-breadcrumb-item id="return-to-Project" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+                  <i class="fa-regular fa-people-line"></i>
+                  all projects
+                </wa-breadcrumb-item>
+                <wa-breadcrumb-item>
+                  search projects
+                </wa-breadcrumb-item>
+              </wa-breadcrumb>
+{%- endset pageBreadcrumb %}
+{%- endif  %}
+
+{%- block htmBodyStartPageLayout %}
+{{ super() }}
+{%- block htmBodyStartProjectPage %}
+{% include en-us/search/project/ProjectSidebar.htm %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-Project">back to all projects</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-Project" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-regular fa-people-line"></i>
+              all projects
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no project found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-regular fa-people-line"></i>
+            </div>
+            <span class="wa-heading-m ">no project found</span>
+            <p class="wa-caption-l ">A research project using AI and GPUs</p>
+{% include en-us/search/project/ProjectSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{% include en-us/search/project/ProjectSuggestedSearch.htm %}
+          <div class="pageContent ">
+            <form action="/en-us/api/project" id="ProjectForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+              <input name="focusId" type="hidden"/>
+              <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+              <input name="listProject" id="listProject" class="listProject"  value='{{ toJsonArrayStringInApostrophes(listProject) }}' type="hidden"/>
+            </form>
+            <div id="site-calendar-box">
+              <div id="site-calendar"><!-- // --></div>
+            </div>
+            <div class="wa-stack wa-gap-m ">
+{% endif %}
+{%- endblock htmBodyStartProjectPage %}
+{%- endblock htmBodyStartPageLayout %}
+{%- if pageSearchButtons is not defined %}
+{%- set pageSearchButtons %}
+{% include en-us/search/project/ProjectSearchButtons.htm %}
+{%- endset pageSearchButtons %}
+{%- endif %}
+{%- if pageSearchForm is not defined %}
+{%- set pageSearchForm %}
+{% include en-us/search/project/ProjectSearchForm.htm %}
+{%- endset pageSearchForm %}
+{%- endif %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleProjectPage %}
+{% if resultCount > 0 %}
+              <div class="wa-stack wa-gap-0 ">
+{% include en-us/search/project/ProjectPaginationButtons.htm %}
+                <div class="card-like-thing background-color-surface-border" id="site-results-grid">
+                  <div>
+              <wa-dropdown id="htmDropdown-hubId">
+                <wa-button variant="brand" slot="trigger" caret>ACM Hub</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_hubId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-hubId-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by ACM Hub ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_hubId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-hubId-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by ACM Hub descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-clusterName">
+                <wa-button variant="brand" slot="trigger" caret>cluster name</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_clusterName'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-clusterName-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by cluster name ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_clusterName'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-clusterName-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by cluster name descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-projectName">
+                <wa-button variant="brand" slot="trigger" caret>project name</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_projectName'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-projectName-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by project name ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_projectName'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-projectName-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by project name descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+                  </div>
+                  {% for item in listProject%}
+                  <div>
+              <a href="{{ item.displayPage }}">
+                <i class="fa-regular fa-people-line"></i>
+              <span>{{ item.hubId | e }}
+</span>              </a>
+              <a href="{{ item.displayPage }}">
+              <span>{{ item.clusterName | e }}
+</span>              </a>
+              <a href="{{ item.displayPage }}">
+              <span>{{ item.projectName | e }}
+</span>              </a>
+                  </div>
+                  {% endfor %}
+              {% if getColumnHubId is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnClusterName is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnProjectName is defined %}
+                <div>
+                </div>
+              {% endif %}
+                </div>
+{% include en-us/search/project/ProjectPaginationButtons.htm %}
+              </div>
+            </div>
+          </div>
+{% endif %}
+{%- endblock htmBodyMiddleProjectPage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+{%- block htmBodyEndProjectPage %}
+{%- include en-us/search/project/ProjectLocation.htm %}
+{%- endblock htmBodyEndProjectPage %}
+  {{ super() }}
+{%- endblock htmBodyEndPageLayout %}

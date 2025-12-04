@@ -1,0 +1,380 @@
+{% extends "en-us/PageLayout.htm" %}
+
+{%- block htmTitlePageLayout %}
+{%- block htmTitleClusterTemplatePage %}
+    <title>{% if resultCount == 0 %}no OpenShift cluster template found{% else %}OpenShift cluster templates{% endif %}</title>
+{%- endblock htmTitleClusterTemplatePage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/cluster-template/ClusterTemplate.css"/>
+{%- block htmStylesClusterTemplatePage %}
+{%- endblock htmStylesClusterTemplatePage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+      :root {
+        --site-results-number-of-columns: 2;
+      }
+{{ super() }}
+{%- block htmStyleClusterTemplatePage %}
+{%- endblock htmStyleClusterTemplatePage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsClusterTemplatePage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/cluster-template/ClusterTemplate.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/cluster-template/ClusterTemplateSearchPage.js"></script>
+{%- endblock htmScriptsClusterTemplatePage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptClusterTemplatePage %}
+    <script>
+
+      function jsWebsocketClusterTemplate(id, vars, $response) {
+{%- block jsWebsocketClusterTemplatePage %}{%- endblock %}
+      }
+
+      function jsTooltipClusterTemplate(e, feature) {
+{%- block jsTooltipClusterTemplatePage %}{%- endblock %}
+      }
+
+      function htmTooltipClusterTemplate(feature, layer) {
+        return `{%- block htmTooltipClusterTemplatePage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.objectTitle}</a></h3>
+{%- endblock htmTooltipClusterTemplatePage %}`;
+      }
+
+      function facetSimpleRangeClusterTemplateSuccess(pageContent) {
+{% block facetSimpleRangeClusterTemplateSuccess %}{%- endblock facetSimpleRangeClusterTemplateSuccess %}
+      }
+      function facetSimpleRangeClusterTemplateError(pageContent) {
+{% block facetSimpleRangeClusterTemplateError %}{%- endblock facetSimpleRangeClusterTemplateError %}
+      }
+      function facetSimpleRangeClusterTemplate(e) {
+        facetSimpleRange(e, facetSimpleRangeClusterTemplateSuccess, facetSimpleRangeClusterTemplateError);
+      }
+
+      function facetRangeTimeZoneClusterTemplateSuccess(pageContent) {
+{% block facetRangeTimeZoneClusterTemplateSuccess %}{%- endblock facetRangeTimeZoneClusterTemplateSuccess %}
+      }
+      function facetRangeTimeZoneClusterTemplateError(pageContent) {
+{% block facetRangeTimeZoneClusterTemplateError %}{%- endblock facetRangeTimeZoneClusterTemplateError %}
+      }
+      function facetRangeTimeZoneClusterTemplate(e) {
+        facetRangeTimeZone(e, facetRangeTimeZoneClusterTemplateSuccess, facetRangeTimeZoneClusterTemplateError);
+      }
+
+      function facetRangeGapChangeClusterTemplateSuccess(pageContent) {
+{% block facetRangeGapChangeClusterTemplateSuccess %}{%- endblock facetRangeGapChangeClusterTemplateSuccess %}
+      }
+      function facetRangeGapChangeClusterTemplateError(pageContent) {
+{% block facetRangeGapChangeClusterTemplateError %}{%- endblock facetRangeGapChangeClusterTemplateError %}
+      }
+      function facetRangeGapChangeClusterTemplate(classSimpleName, event) {
+        facetRangeGapChange(classSimpleName, event, facetRangeGapChangeClusterTemplateSuccess, facetRangeGapChangeClusterTemplateError);
+      }
+
+      function facetRangeStartChangeClusterTemplateSuccess(pageContent) {
+{% block facetRangeStartChangeClusterTemplateSuccess %}{%- endblock facetRangeStartChangeClusterTemplateSuccess %}
+      }
+      function facetRangeStartChangeClusterTemplateError(pageContent) {
+{% block facetRangeStartChangeClusterTemplateError %}{%- endblock facetRangeStartChangeClusterTemplateError %}
+      }
+      function facetRangeStartChangeClusterTemplate(classSimpleName, event) {
+        facetRangeStartChange(classSimpleName, event, facetRangeStartChangeClusterTemplateSuccess, facetRangeStartChangeClusterTemplateError);
+      }
+
+      function facetRangeEndChangeClusterTemplateSuccess(pageContent) {
+{% block facetRangeEndChangeClusterTemplateSuccess %}{%- endblock facetRangeEndChangeClusterTemplateSuccess %}
+      }
+      function facetRangeEndChangeClusterTemplateError(pageContent) {
+{% block facetRangeEndChangeClusterTemplateError %}{%- endblock facetRangeEndChangeClusterTemplateError %}
+      }
+      function facetRangeEndChangeClusterTemplate(classSimpleName, event) {
+        facetRangeEndChange(classSimpleName, event, facetRangeEndChangeClusterTemplateSuccess, facetRangeEndChangeClusterTemplateError);
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+        , customElements.whenDefined('wa-select')
+        , customElements.whenDefined('wa-radio')
+        , customElements.whenDefined('wa-checkbox')
+      ]).then(() => {
+
+        var id = {% if result.id is defined %}{{ result.id | tojson }}{% else %}null{% endif %};
+
+        if(id == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if result.id is defined %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listClusterTemplate')?.value;
+        if(l)
+          window.listClusterTemplate = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        document.querySelector('#siteSidebarToggleRange')?.addEventListener('wa-after-hide', function(e) { document.querySelector('#pageFacetRangeTimeZonePopup').active = false; });
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneClusterTemplate);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneClusterTemplate);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('focus', facetRangeTimeZoneClusterTemplate);
+        document.querySelector('#pageFacetSimpleRangeDropdown')?.addEventListener('wa-select', facetSimpleRangeClusterTemplate);
+        pageGraphClusterTemplate();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qClusterTemplate_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('ClusterTemplate', event.target, document.querySelector('#qClusterTemplateDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qClusterTemplate_rows')?.addEventListener('change', event => {
+          paramChange('ClusterTemplate', event.target, document.querySelector('#qClusterTemplateDiv_rows'));
+        });
+
+        document.querySelector('#qClusterTemplate_start')?.addEventListener('change', event => {
+          paramChange('ClusterTemplate', event.target, document.querySelector('#qClusterTemplateDiv_start'));
+        });
+
+
+        var submitForm_patchClusterTemplate = document.querySelector('#htmForm_patchClusterTemplate')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchClusterTemplate')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchClusterTemplate(null, document.querySelector('#htmForm_patchClusterTemplate'), document.querySelector('#htmFormButton_patchClusterTemplate'), event.target.getAttribute('data-id'));
+          return false;
+        });
+
+        var submitForm_postClusterTemplate = document.querySelector('#htmForm_postClusterTemplate')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postClusterTemplate')?.addEventListener('click', event => {
+          event.preventDefault();
+          postClusterTemplate(document.querySelector('#htmForm_postClusterTemplate')
+          , document.querySelector('#htmFormButton_postClusterTemplate')
+          , (json, target) => {
+            window.location.href = json.editPage;
+          });
+          return false;
+        });
+
+        var submitForm_deleteClusterTemplate = document.querySelector('#htmForm_deleteClusterTemplate')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteClusterTemplate')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteClusterTemplate(event.target, event.target.getAttribute('data-id'));
+          return false;
+        });
+
+        var submitForm_putimportClusterTemplate = document.querySelector('#htmForm_putimportClusterTemplate')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_putimportClusterTemplate')?.addEventListener('click', event => {
+          event.preventDefault();
+          putimportClusterTemplate(document.querySelector('#htmForm_putimportClusterTemplate'), document.querySelector('#htmFormButton_putimportClusterTemplate'));
+          return false;
+        });
+
+        var submitForm_searchpageClusterTemplate = document.querySelector('#htmForm_searchpageClusterTemplate')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageClusterTemplate')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageClusterTemplate();
+          return false;
+        });
+
+        var submitForm_deletefilterClusterTemplate = document.querySelector('#htmForm_deletefilterClusterTemplate')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterClusterTemplate')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterClusterTemplate(event.target);
+          return false;
+        });
+{%- block htmScriptInitClusterTemplatePage %}{%- endblock htmScriptInitClusterTemplatePage %}
+      });
+    </script>
+{%- endblock htmScriptClusterTemplatePage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketClusterTemplatePage %}
+{% if resultCount > 0 %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketClusterTemplate(websocketClusterTemplateInner);
+{% endif %}
+{%- endblock websocketClusterTemplatePage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlClusterTemplatePage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlClusterTemplatePage %}
+{%- if pageBreadcrumb is not defined %}
+{%- set pageBreadcrumb %}
+              <wa-tooltip for="return-to-ClusterTemplate">back to all OpenShift cluster templates</wa-tooltip>
+              <wa-breadcrumb>
+                <wa-breadcrumb-item id="return-to-ClusterTemplate" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+                  <i class="fa-regular fa-server"></i>
+                  all OpenShift cluster templates
+                </wa-breadcrumb-item>
+                <wa-breadcrumb-item>
+                  search OpenShift cluster templates
+                </wa-breadcrumb-item>
+              </wa-breadcrumb>
+{%- endset pageBreadcrumb %}
+{%- endif  %}
+
+{%- block htmBodyStartPageLayout %}
+{{ super() }}
+{%- block htmBodyStartClusterTemplatePage %}
+{% include en-us/search/cluster-template/ClusterTemplateSidebar.htm %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-ClusterTemplate">back to all OpenShift cluster templates</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-ClusterTemplate" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-regular fa-server"></i>
+              all OpenShift cluster templates
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no OpenShift cluster template found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-regular fa-server"></i>
+            </div>
+            <span class="wa-heading-m ">no OpenShift cluster template found</span>
+            <p class="wa-caption-l ">An OpenShift cluster template</p>
+{% include en-us/search/cluster-template/ClusterTemplateSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{% include en-us/search/cluster-template/ClusterTemplateSuggestedSearch.htm %}
+          <div class="pageContent ">
+            <form action="/en-us/api/cluster-template" id="ClusterTemplateForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+              <input name="focusId" type="hidden"/>
+              <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+              <input name="listClusterTemplate" id="listClusterTemplate" class="listClusterTemplate"  value='{{ toJsonArrayStringInApostrophes(listClusterTemplate) }}' type="hidden"/>
+            </form>
+            <div id="site-calendar-box">
+              <div id="site-calendar"><!-- // --></div>
+            </div>
+            <div class="wa-stack wa-gap-m ">
+{% endif %}
+{%- endblock htmBodyStartClusterTemplatePage %}
+{%- endblock htmBodyStartPageLayout %}
+{%- if pageSearchButtons is not defined %}
+{%- set pageSearchButtons %}
+{% include en-us/search/cluster-template/ClusterTemplateSearchButtons.htm %}
+{%- endset pageSearchButtons %}
+{%- endif %}
+{%- if pageSearchForm is not defined %}
+{%- set pageSearchForm %}
+{% include en-us/search/cluster-template/ClusterTemplateSearchForm.htm %}
+{%- endset pageSearchForm %}
+{%- endif %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleClusterTemplatePage %}
+{% if resultCount > 0 %}
+              <div class="wa-stack wa-gap-0 ">
+{% include en-us/search/cluster-template/ClusterTemplatePaginationButtons.htm %}
+                <div class="card-like-thing background-color-surface-border" id="site-results-grid">
+                  <div>
+              <wa-dropdown id="htmDropdown-title">
+                <wa-button variant="brand" slot="trigger" caret>template title</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterTemplate_title'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterTemplate').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-title-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by template title ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterTemplate_title'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterTemplate').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-title-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by template title descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-description">
+                <wa-button variant="brand" slot="trigger" caret>template description</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterTemplate_description'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterTemplate').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-description-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by template description ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterTemplate_description'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterTemplate').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-description-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by template description descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+                  </div>
+                  {% for item in listClusterTemplate%}
+                  <div>
+              <a href="{{ item.displayPage }}">
+                <i class="fa-regular fa-server"></i>
+              <span>{{ item.title | e }}
+</span>              </a>
+              <a href="{{ item.displayPage }}">
+              <span>{{ item.description | e }}
+</span>              </a>
+                  </div>
+                  {% endfor %}
+              {% if getColumnTitle is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnDescription is defined %}
+                <div>
+                </div>
+              {% endif %}
+                </div>
+{% include en-us/search/cluster-template/ClusterTemplatePaginationButtons.htm %}
+              </div>
+            </div>
+          </div>
+{% endif %}
+{%- endblock htmBodyMiddleClusterTemplatePage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+{%- block htmBodyEndClusterTemplatePage %}
+{%- include en-us/search/cluster-template/ClusterTemplateLocation.htm %}
+{%- endblock htmBodyEndClusterTemplatePage %}
+  {{ super() }}
+{%- endblock htmBodyEndPageLayout %}

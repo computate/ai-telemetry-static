@@ -1,0 +1,457 @@
+{% extends "en-us/PageLayout.htm" %}
+{%- block htmTitlePageLayout %}
+{%- block htmTitleVirtualMachinePage %}
+    <title>{{ result.objectTitle }}</title>
+{%- endblock htmTitleVirtualMachinePage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/vm/VirtualMachine.css"/>
+{%- block htmStylesVirtualMachinePage %}
+{%- endblock htmStylesVirtualMachinePage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+      :root {
+        --site-results-number-of-columns: 5;
+      }
+{{ super() }}
+{%- block htmStyleVirtualMachinePage %}
+{%- endblock htmStyleVirtualMachinePage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsVirtualMachinePage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/vm/VirtualMachine.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/vm/VirtualMachineSearchPage.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/vm/VirtualMachineEditPage.js"></script>
+    <script src="{{staticBaseUrl}}/js/en-us/search/hub/Hub.js"></script>
+    <script src="{{staticBaseUrl}}/js/en-us/search/cluster/Cluster.js"></script>
+{%- endblock htmScriptsVirtualMachinePage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptVirtualMachinePage %}
+    <script>
+
+      function jsWebsocketVirtualMachine(vmResource, vars, $response) {
+{%- block jsWebsocketVirtualMachinePage %}{%- endblock %}
+      }
+
+      function jsTooltipVirtualMachine(e, feature) {
+{%- block jsTooltipVirtualMachinePage %}{%- endblock %}
+      }
+
+      function htmTooltipVirtualMachine(feature, layer) {
+        return `{%- block htmTooltipVirtualMachinePage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.objectTitle}</a></h3>
+{%- endblock htmTooltipVirtualMachinePage %}`;
+      }
+
+      function jsLegendVirtualMachine(map) {
+{%- block jsLegendVirtualMachinePage %}
+        var div = L.DomUtil.create('div', 'info legend');
+        var htm = '';
+        window.listVirtualMachine.forEach((result, index) => {
+          if(result.location) {
+            var shapes = [];
+            if(Array.isArray(result.location))
+              shapes = shapes.concat(result.location);
+            else
+              shapes.push(result.location);
+            shapes.forEach(function(shape, index) {
+              htm += htmLegendVirtualMachine(map, shape, result, index, shapes.length);
+            });
+          }
+        });
+        div.innerHTML = htm;
+        return div;
+{%- endblock jsLegendVirtualMachinePage %}
+      }
+
+      function htmLegendVirtualMachine(map, shape, result, index, count) {
+        var color = result.locationColors[index];
+        var title = result.locationTitles[index];
+        var url = result.locationLinks[index];
+        var htm = '';
+        htm += `<div class="cursor-pointer " style="max-width: 400px; ">
+`;
+        htm += `{%- block htmLegendVirtualMachinePage %}
+    <div title="${quoteattr(title)}">
+    <div style="width: 20px; ">
+      <i class="{{ FONTAWESOME_STYLE }} fa-circle" style="color: ${color}; "></i>
+    </div>
+    <div class="text-overflow-ellipsis ">
+      <span class="" data-solrId="${result.solrId}" onclick="window.mapLayers[this.getAttribute('data-solrId')].openPopup(); return false;" href="">${title}</span>
+    </div>
+    </div>
+{%- endblock htmLegendVirtualMachinePage %}`;
+        htm += `
+</div>
+`;
+        return htm;
+      }
+
+      function jsStyleVirtualMachine(feature) {
+{%- block jsStyleVirtualMachinePage %}
+        if(feature.geometry.type == 'Point') {
+          return {
+            radius: 8
+            , fillColor: (feature.properties.locationColors && feature.properties.locationColors[feature.index] ? feature.properties.locationColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , color: (feature.properties.locationColors && feature.properties.locationColors[feature.index] ? feature.properties.locationColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , weight: 1
+            , opacity: 0.7
+            , fillOpacity: 0.7
+            , contextmenu: true
+            , contextmenuItems: [
+              {
+                text: 'Show coordinates'
+                , callback: function(event) {
+                  alert(event2.target.getLatLngs());
+                }
+              }
+            ]
+          };
+        } else if(feature.geometry.type == 'LineString') {
+          return {
+            color: (feature.properties.locationColors && feature.properties.locationColors[feature.index] ? feature.properties.locationColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , weight: 5
+            , opacity: 0.7
+          };
+        } else {
+          return {
+             fillColor: (feature.properties.locationColors && feature.properties.locationColors[feature.index] ? feature.properties.locationColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , color: (feature.properties.locationColors && feature.properties.locationColors[feature.index] ? feature.properties.locationColors[feature.index] : (feature.properties.color ? feature.properties.color : '#000'))
+            , weight: 3
+            , opacity: 0.7
+            , fillOpacity: 0.7
+          };
+        }
+{%- endblock jsStyleVirtualMachinePage %}
+      }
+
+      function facetSimpleRangeVirtualMachineSuccess(pageContent) {
+{% block facetSimpleRangeVirtualMachineSuccess %}{%- endblock facetSimpleRangeVirtualMachineSuccess %}
+      }
+      function facetSimpleRangeVirtualMachineError(pageContent) {
+{% block facetSimpleRangeVirtualMachineError %}{%- endblock facetSimpleRangeVirtualMachineError %}
+      }
+      function facetSimpleRangeVirtualMachine(e) {
+        facetSimpleRange(e, facetSimpleRangeVirtualMachineSuccess, facetSimpleRangeVirtualMachineError);
+      }
+
+      function facetRangeTimeZoneVirtualMachineSuccess(pageContent) {
+{% block facetRangeTimeZoneVirtualMachineSuccess %}{%- endblock facetRangeTimeZoneVirtualMachineSuccess %}
+      }
+      function facetRangeTimeZoneVirtualMachineError(pageContent) {
+{% block facetRangeTimeZoneVirtualMachineError %}{%- endblock facetRangeTimeZoneVirtualMachineError %}
+      }
+      function facetRangeTimeZoneVirtualMachine(e) {
+        facetRangeTimeZone(e, facetRangeTimeZoneVirtualMachineSuccess, facetRangeTimeZoneVirtualMachineError);
+      }
+
+      function facetRangeGapChangeVirtualMachineSuccess(pageContent) {
+{% block facetRangeGapChangeVirtualMachineSuccess %}{%- endblock facetRangeGapChangeVirtualMachineSuccess %}
+      }
+      function facetRangeGapChangeVirtualMachineError(pageContent) {
+{% block facetRangeGapChangeVirtualMachineError %}{%- endblock facetRangeGapChangeVirtualMachineError %}
+      }
+      function facetRangeGapChangeVirtualMachine(classSimpleName, event) {
+        facetRangeGapChange(classSimpleName, event, facetRangeGapChangeVirtualMachineSuccess, facetRangeGapChangeVirtualMachineError);
+      }
+
+      function facetRangeStartChangeVirtualMachineSuccess(pageContent) {
+{% block facetRangeStartChangeVirtualMachineSuccess %}{%- endblock facetRangeStartChangeVirtualMachineSuccess %}
+      }
+      function facetRangeStartChangeVirtualMachineError(pageContent) {
+{% block facetRangeStartChangeVirtualMachineError %}{%- endblock facetRangeStartChangeVirtualMachineError %}
+      }
+      function facetRangeStartChangeVirtualMachine(classSimpleName, event) {
+        facetRangeStartChange(classSimpleName, event, facetRangeStartChangeVirtualMachineSuccess, facetRangeStartChangeVirtualMachineError);
+      }
+
+      function facetRangeEndChangeVirtualMachineSuccess(pageContent) {
+{% block facetRangeEndChangeVirtualMachineSuccess %}{%- endblock facetRangeEndChangeVirtualMachineSuccess %}
+      }
+      function facetRangeEndChangeVirtualMachineError(pageContent) {
+{% block facetRangeEndChangeVirtualMachineError %}{%- endblock facetRangeEndChangeVirtualMachineError %}
+      }
+      function facetRangeEndChangeVirtualMachine(classSimpleName, event) {
+        facetRangeEndChange(classSimpleName, event, facetRangeEndChangeVirtualMachineSuccess, facetRangeEndChangeVirtualMachineError);
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+        , customElements.whenDefined('wa-select')
+        , customElements.whenDefined('wa-radio')
+        , customElements.whenDefined('wa-checkbox')
+      ]).then(() => {
+
+        var vmResource = {% if result.vmResource is defined %}{{ result.vmResource | tojson }}{% else %}null{% endif %};
+
+        if(vmResource == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if result.vmResource is defined %}
+          function relate_clusterResource(event) {
+            suggestVirtualMachineClusterResource(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + event.target.value }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,clusterResource,pk,editPage,objectTitle' } ] : [{%- if result.clusterResource is defined %}{'name':'fq','value':'clusterResource:{{ result.clusterResource }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , window.result.vmResource
+                , window.result.clusterResource
+                , true
+                );
+          }
+          document.querySelector('#POST_clusterResource')?.addEventListener('input', relate_clusterResource);
+          document.querySelector('#POST_clusterResource')?.addEventListener('focus', relate_clusterResource);
+          document.querySelector('#PATCH_clusterResource')?.addEventListener('input', relate_clusterResource);
+          document.querySelector('#PATCH_clusterResource')?.addEventListener('focus', relate_clusterResource);
+          document.querySelector('#Page_clusterResource')?.addEventListener('input', relate_clusterResource);
+          document.querySelector('#Page_clusterResource')?.addEventListener('focus', relate_clusterResource);
+          {% if "PATCH" in scopes %}
+          suggestVirtualMachineClusterResource([{'name':'fq','value':'clusterResource:' + window.result.clusterResource}], document.querySelector('#listVirtualMachineClusterResource_Page'), window.result.vmResource, window.result.clusterResource, true);
+          {% else %}
+          {% if "GET" in scopes %}
+          suggestVirtualMachineClusterResource([{'name':'fq','value':'clusterResource:' + window.result.clusterResource}], document.querySelector('#listVirtualMachineClusterResource_Page'), window.result.vmResource, window.result.clusterResource, true);
+          {% else %}
+          suggestVirtualMachineClusterResource([{'name':'fq','value':'clusterResource:' + window.result.clusterResource}], document.querySelector('#listVirtualMachineClusterResource_Page'), window.result.vmResource, window.result.clusterResource, false);
+          {% endif %}
+          {% endif %}
+          function relate_hubResource(event) {
+            suggestVirtualMachineHubResource(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + event.target.value }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,hubResource,pk,editPage,objectTitle' } ] : [{%- if result.hubResource is defined %}{'name':'fq','value':'hubResource:{{ result.hubResource }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , window.result.vmResource
+                , window.result.hubResource
+                , true
+                );
+          }
+          document.querySelector('#POST_hubResource')?.addEventListener('input', relate_hubResource);
+          document.querySelector('#POST_hubResource')?.addEventListener('focus', relate_hubResource);
+          document.querySelector('#PATCH_hubResource')?.addEventListener('input', relate_hubResource);
+          document.querySelector('#PATCH_hubResource')?.addEventListener('focus', relate_hubResource);
+          document.querySelector('#Page_hubResource')?.addEventListener('input', relate_hubResource);
+          document.querySelector('#Page_hubResource')?.addEventListener('focus', relate_hubResource);
+          {% if "PATCH" in scopes %}
+          suggestVirtualMachineHubResource([{'name':'fq','value':'hubResource:' + window.result.hubResource}], document.querySelector('#listVirtualMachineHubResource_Page'), window.result.vmResource, window.result.hubResource, true);
+          {% else %}
+          {% if "GET" in scopes %}
+          suggestVirtualMachineHubResource([{'name':'fq','value':'hubResource:' + window.result.hubResource}], document.querySelector('#listVirtualMachineHubResource_Page'), window.result.vmResource, window.result.hubResource, true);
+          {% else %}
+          suggestVirtualMachineHubResource([{'name':'fq','value':'hubResource:' + window.result.hubResource}], document.querySelector('#listVirtualMachineHubResource_Page'), window.result.vmResource, window.result.hubResource, false);
+          {% endif %}
+          {% endif %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listVirtualMachine')?.value;
+        if(l)
+          window.listVirtualMachine = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        document.querySelector('#siteSidebarToggleRange')?.addEventListener('wa-after-hide', function(e) { document.querySelector('#pageFacetRangeTimeZonePopup').active = false; });
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneVirtualMachine);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneVirtualMachine);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('focus', facetRangeTimeZoneVirtualMachine);
+        document.querySelector('#pageFacetSimpleRangeDropdown')?.addEventListener('wa-select', facetSimpleRangeVirtualMachine);
+        pageGraphVirtualMachine();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qVirtualMachine_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('VirtualMachine', event.target, document.querySelector('#qVirtualMachineDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qVirtualMachine_rows')?.addEventListener('change', event => {
+          paramChange('VirtualMachine', event.target, document.querySelector('#qVirtualMachineDiv_rows'));
+        });
+
+        document.querySelector('#qVirtualMachine_start')?.addEventListener('change', event => {
+          paramChange('VirtualMachine', event.target, document.querySelector('#qVirtualMachineDiv_start'));
+        });
+
+
+        var submitForm_patchVirtualMachine = document.querySelector('#htmForm_patchVirtualMachine')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchVirtualMachine')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchVirtualMachine(null, document.querySelector('#htmForm_patchVirtualMachine'), document.querySelector('#htmFormButton_patchVirtualMachine'), event.target.getAttribute('data-vmResource'));
+          return false;
+        });
+
+        var submitForm_postVirtualMachine = document.querySelector('#htmForm_postVirtualMachine')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postVirtualMachine')?.addEventListener('click', event => {
+          event.preventDefault();
+          postVirtualMachine(document.querySelector('#htmForm_postVirtualMachine')
+          , document.querySelector('#htmFormButton_postVirtualMachine')
+          , (json, target) => {
+            window.location.href = json.editPage;
+          });
+          return false;
+        });
+
+        var submitForm_deleteVirtualMachine = document.querySelector('#htmForm_deleteVirtualMachine')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteVirtualMachine')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteVirtualMachine(event.target, event.target.getAttribute('data-vmResource'));
+          return false;
+        });
+
+        var submitForm_putimportVirtualMachine = document.querySelector('#htmForm_putimportVirtualMachine')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_putimportVirtualMachine')?.addEventListener('click', event => {
+          event.preventDefault();
+          putimportVirtualMachine(document.querySelector('#htmForm_putimportVirtualMachine'), document.querySelector('#htmFormButton_putimportVirtualMachine'));
+          return false;
+        });
+
+        var submitForm_searchpageVirtualMachine = document.querySelector('#htmForm_searchpageVirtualMachine')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageVirtualMachine')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageVirtualMachine();
+          return false;
+        });
+
+        var submitForm_deletefilterVirtualMachine = document.querySelector('#htmForm_deletefilterVirtualMachine')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterVirtualMachine')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterVirtualMachine(event.target);
+          return false;
+        });
+{%- block htmScriptInitVirtualMachinePage %}{%- endblock htmScriptInitVirtualMachinePage %}
+      });
+    </script>
+{%- endblock htmScriptVirtualMachinePage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketVirtualMachinePage %}
+{% if resultCount > 0 %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketVirtualMachine(websocketVirtualMachineInner);
+{% endif %}
+{%- endblock websocketVirtualMachinePage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlVirtualMachinePage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlVirtualMachinePage %}
+
+{%- block htmBodyStartPageLayout %}
+    {{ super() }}
+{%- block htmBodyStartVirtualMachinePage %}
+{% if resultCount > 0 %}
+          <div class="wa-flank ">
+            <wa-tooltip for="return-to-VirtualMachine">back to all virtual machines</wa-tooltip>
+            <wa-button id="return-to-VirtualMachine" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-angle-left"></i>
+              all virtual machines
+            </wa-button>
+            <h1 class="Page_objectTitle"><i class="fa-regular fa-sidebar"></i> {{ result.objectTitle | e }}</h1>
+          </div>
+          <div class="margin-block">
+          </div>
+{% include en-us/search/vm/VirtualMachineSearchForm.htm %}
+          <wa-divider></wa-divider>
+{% include en-us/search/vm/VirtualMachineSearchButtons.htm %}
+{% endif %}
+{%- endblock htmBodyStartVirtualMachinePage %}
+{%- endblock htmBodyStartPageLayout %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleVirtualMachinePage %}
+        <div class="pageContent ">
+{%- include en-us/search/vm/VirtualMachineSidebar.htm %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-VirtualMachine">back to all virtual machines</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-VirtualMachine" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-regular fa-sidebar"></i>
+              all virtual machines
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no virtual machine found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-regular fa-sidebar"></i>
+            </div>
+            <span class="wa-heading-m ">no virtual machine found</span>
+            <p class="wa-caption-l ">A Red Hat OpenShift virtual machine</p>
+{% include en-us/search/vm/VirtualMachineSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{%- include en-us/search/vm/VirtualMachineSuggestedSearch.htm %}
+{% endif %}
+{%- block htmFormVirtualMachinePage %}
+          <form action="/en-us/api/vm" id="VirtualMachineForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+{% if result.vmResource is defined %}
+            <input name="vmResource" class="valueVmResource" type="hidden" value="{{ result.vmResource }}"/>
+            {% endif %}
+            <input name="focusId" type="hidden"/>
+            <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+            <input name="result" id="result" class="result"  value='{{ toJsonObjectStringInApostrophes(result) }}' type="hidden"/>
+            <input name="listVirtualMachine" id="listVirtualMachine" class="listVirtualMachine"  value='{{ toJsonArrayStringInApostrophes(listVirtualMachine) }}' type="hidden"/>
+          </form>
+  {% if solrId is defined %}
+          {{ htmButton_searchpageVirtualMachine() }}
+          {{ htmForm_searchpageVirtualMachine() }}
+  {% endif %}
+{%- endblock htmFormVirtualMachinePage %}
+        </div>
+{%- endblock htmBodyMiddleVirtualMachinePage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+{%- block htmBodyEndVirtualMachinePage %}
+{%- include en-us/search/vm/VirtualMachineLocation.htm %}
+{%- endblock htmBodyEndVirtualMachinePage %}
+      {{ super() }}
+{%- endblock htmBodyEndPageLayout %}

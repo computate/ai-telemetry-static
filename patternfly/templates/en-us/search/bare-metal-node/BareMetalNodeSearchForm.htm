@@ -1,0 +1,1015 @@
+{%- macro inputPkBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_pk">
+  {%- endif %}
+                  <wa-input
+                      readonly
+                      placeholder="[Long] primary key"
+                      label="primary key"
+                      type="number"
+                      hint="
+The primary key of this object in the database"
+                      id="{{classApiMethodMethod}}_pk"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_pk setPk classBareMetalNode inputBareMetalNode{{ result.nodeId }}Pk "
+                      name="setPk"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_pk setPk classBareMetalNode inputBareMetalNode{{ result.nodeId }}Pk "
+                      name="setPk"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_pk valuePk classBareMetalNode inputBareMetalNode{{ result.nodeId }}Pk "
+                      name="pk"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{result.pk | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmPkBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputPkBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputCreatedBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_created">
+  {%- endif %}
+                  <wa-input
+                      type="datetime-local"
+                      readonly
+                      hint="A created timestamp for this record in the database"
+                      label="created {{ formatZonedDateTime(result.created, "'['VV']'", defaultLocaleId, defaultZoneId) | e }}"
+                      class="label-on-left {{classApiMethodMethod}}_created datetimepicker setCreated classBareMetalNode inputBareMetalNode{{ result.nodeId }}Created "
+                      placeholder="MM/dd/yyyy h:mm a '['VV']'"
+                      data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
+                      id="{{classApiMethodMethod}}_created"
+                      value="{%- if "Page" == classApiMethodMethod and result.created is defined %}{{ formatZonedDateTime(result.created, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
+  {%- if 'Page' == classApiMethodMethod %}
+  {%- endif %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      data-zone="{{ defaultZoneId }}"
+                      >
+                  </wa-input>
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmCreatedBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputCreatedBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputModifiedBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_modified">
+  {%- endif %}
+                  <wa-input
+                      type="datetime-local"
+                      readonly
+                      hint="A modified timestamp for this record in the database"
+                      label="modified {{ formatZonedDateTime(result.modified, "'['VV']'", defaultLocaleId, defaultZoneId) | e }}"
+                      class="label-on-left {{classApiMethodMethod}}_modified datetimepicker setModified classBareMetalNode inputBareMetalNode{{ result.nodeId }}Modified "
+                      placeholder="MM/dd/yyyy h:mm a '['VV']'"
+                      data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
+                      id="{{classApiMethodMethod}}_modified"
+                      value="{%- if "Page" == classApiMethodMethod and result.modified is defined %}{{ formatZonedDateTime(result.modified, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
+  {%- if 'Page' == classApiMethodMethod %}
+  {%- endif %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      data-zone="{{ defaultZoneId }}"
+                      >
+                  </wa-input>
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmModifiedBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputModifiedBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputArchivedBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_archived">
+  {%- endif %}
+  {%- if 'Page' == classApiMethodMethod %}
+                  <wa-button variant="brand"
+                      id="{{classApiMethodMethod}}_archived"
+                      placeholder="archive"
+                      label="archive"
+                      hint="For archiving this record"
+                      class="label-on-left {{classApiMethodMethod}}_archived classBareMetalNode inputBareMetalNode{{ result.nodeId }}Archived "
+                      name="setArchived"
+                      data-nodeId={{ result.nodeId | tojson }}
+                      data-val="{{ result.archived | e }}"
+                      >archive</wa-button>
+  {%- else %}
+  {%- if 'Page' == classApiMethodMethod %}
+                  <wa-checkbox
+                      id="{{classApiMethodMethod}}_archived"
+                      value="true"
+  {%- else %}
+                  <wa-select
+                      id="{{classApiMethodMethod}}_archived"
+  {%- endif %}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="archive"
+                      label="archive"
+                      hint="For archiving this record"
+  {%- if 'Page' == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_archived classBareMetalNode inputBareMetalNode{{ result.nodeId }}Archived "
+                      name="setArchived"
+  {%- else %}
+    {%- if 'Page' == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_archived classBareMetalNode inputBareMetalNode{{ result.nodeId }}Archived "
+                      name="setArchived"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_archived setArchived valueArchived classBareMetalNode inputBareMetalNode{{ result.nodeId }}Archived "
+                      name="setArchived"
+    {%- endif %}
+  {%- endif %}
+  {%- if 'Page' == classApiMethodMethod %}
+    {%- if result.archived == true %}
+                      checked
+    {%- endif %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      >archive</wa-checkbox>
+  {%- else %}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+  {%- endif %}
+  {%- endif %}
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmArchivedBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputArchivedBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputLeaseInfoBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_leaseInfo">
+  {%- endif %}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[JsonArray] lease info"
+                      label="lease info"
+                      id="{{classApiMethodMethod}}_leaseInfo"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_leaseInfo setLeaseInfo classBareMetalNode inputBareMetalNode{{ result.nodeId }}LeaseInfo "
+                      name="setLeaseInfo"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_leaseInfo setLeaseInfo classBareMetalNode inputBareMetalNode{{ result.nodeId }}LeaseInfo "
+                      name="setLeaseInfo"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_leaseInfo valueLeaseInfo classBareMetalNode inputBareMetalNode{{ result.nodeId }}LeaseInfo "
+                      name="leaseInfo"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{ toJsonArrayString(result.leaseInfo) | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmLeaseInfoBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputLeaseInfoBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputNetworkInfoBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_networkInfo">
+  {%- endif %}
+                  <wa-textarea resize="auto"
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[JsonArray] network info"
+                      label="network info"
+                      id="{{classApiMethodMethod}}_networkInfo"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_networkInfo setNetworkInfo classBareMetalNode inputBareMetalNode{{ result.nodeId }}NetworkInfo "
+                      name="setNetworkInfo"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_networkInfo setNetworkInfo classBareMetalNode inputBareMetalNode{{ result.nodeId }}NetworkInfo "
+                      name="setNetworkInfo"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_networkInfo valueNetworkInfo classBareMetalNode inputBareMetalNode{{ result.nodeId }}NetworkInfo "
+                      name="networkInfo"
+    {%- endif %}
+  {%- endif %}
+{%- if "Page" == classApiMethodMethod %}
+                      value="{{ toJsonArrayString(result.networkInfo) | e }}"
+{%- endif %}
+                      >
+</wa-textarea>
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmNetworkInfoBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputNetworkInfoBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputNodeIdBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_nodeId">
+  {%- endif %}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] id"
+                      label="id"
+                      id="{{classApiMethodMethod}}_nodeId"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_nodeId setNodeId classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeId "
+                      name="setNodeId"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeId setNodeId classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeId "
+                      name="setNodeId"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeId valueNodeId classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeId "
+                      name="nodeId"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{result.nodeId | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmNodeIdBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputNodeIdBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_nodeIsMaintenance">
+  {%- endif %}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[Integer] is maintenance"
+                      label="is maintenance"
+                      type="number"
+                      id="{{classApiMethodMethod}}_nodeIsMaintenance"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_nodeIsMaintenance setNodeIsMaintenance classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeIsMaintenance "
+                      name="setNodeIsMaintenance"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeIsMaintenance setNodeIsMaintenance classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeIsMaintenance "
+                      name="setNodeIsMaintenance"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeIsMaintenance valueNodeIsMaintenance classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeIsMaintenance "
+                      name="nodeIsMaintenance"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{result.nodeIsMaintenance | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputNodeLinksBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_nodeLinks">
+  {%- endif %}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[JsonArray] links"
+                      label="links"
+                      id="{{classApiMethodMethod}}_nodeLinks"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_nodeLinks setNodeLinks classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeLinks "
+                      name="setNodeLinks"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeLinks setNodeLinks classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeLinks "
+                      name="setNodeLinks"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeLinks valueNodeLinks classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeLinks "
+                      name="nodeLinks"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{ toJsonArrayString(result.nodeLinks) | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmNodeLinksBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputNodeLinksBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputNodeNameBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_nodeName">
+  {%- endif %}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] name"
+                      label="name"
+                      id="{{classApiMethodMethod}}_nodeName"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_nodeName setNodeName classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeName "
+                      name="setNodeName"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeName setNodeName classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeName "
+                      name="setNodeName"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeName valueNodeName classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeName "
+                      name="nodeName"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{result.nodeName | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmNodeNameBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputNodeNameBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputNodePowerStateBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_nodePowerState">
+  {%- endif %}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] power state"
+                      label="power state"
+                      id="{{classApiMethodMethod}}_nodePowerState"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_nodePowerState setNodePowerState classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodePowerState "
+                      name="setNodePowerState"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_nodePowerState setNodePowerState classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodePowerState "
+                      name="setNodePowerState"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_nodePowerState valueNodePowerState classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodePowerState "
+                      name="nodePowerState"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{result.nodePowerState | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmNodePowerStateBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputNodePowerStateBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputNodeProvisionStateBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_nodeProvisionState">
+  {%- endif %}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] provision state"
+                      label="provision state"
+                      id="{{classApiMethodMethod}}_nodeProvisionState"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_nodeProvisionState setNodeProvisionState classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeProvisionState "
+                      name="setNodeProvisionState"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeProvisionState setNodeProvisionState classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeProvisionState "
+                      name="setNodeProvisionState"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeProvisionState valueNodeProvisionState classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeProvisionState "
+                      name="nodeProvisionState"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{result.nodeProvisionState | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputNodeProvisionStateBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+{%- macro inputNodeResourceClassBareMetalNodePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) %}
+  {%- if 'Page' == classApiMethodMethod %}
+                <form class="subgrid-2col " id="PageForm_nodeResourceClass">
+  {%- endif %}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] resource class"
+                      label="resource class"
+                      id="{{classApiMethodMethod}}_nodeResourceClass"
+  {%- if "Page" == classApiMethodMethod %}
+                      data-nodeId={{ result.nodeId | tojson }}
+                      class="label-on-left {{classApiMethodMethod}}_nodeResourceClass setNodeResourceClass classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeResourceClass "
+                      name="setNodeResourceClass"
+  {%- else %}
+    {%- if "PATCH" == classApiMethodMethod %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeResourceClass setNodeResourceClass classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeResourceClass "
+                      name="setNodeResourceClass"
+    {%- else %}
+                      class="label-on-left {{classApiMethodMethod}}_nodeResourceClass valueNodeResourceClass classBareMetalNode inputBareMetalNode{{ result.nodeId }}NodeResourceClass "
+                      name="nodeResourceClass"
+    {%- endif %}
+  {%- endif %}
+  {%- if "Page" == classApiMethodMethod %}
+                      value="{{result.nodeResourceClass | e }}"
+  {%- endif %}
+                      ></wa-input>
+
+  {%- if 'Page' == classApiMethodMethod %}
+                </form>
+  {%- endif %}
+{%- endmacro %}
+
+{%- macro htmNodeResourceClassBareMetalNodePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
+                            {{ inputNodeResourceClassBareMetalNodePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+{%- endmacro %}
+
+{%- macro htmButton_patchBareMetalNode() %}<wa-button variant="brand" id="htmButton_patchBareMetalNode" data-nodeId={{ result.nodeId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{%- endmacro %}
+
+{%- macro htmFormButton_patchBareMetalNode() %}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_patchBareMetalNode" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_patchBareMetalNode"
+                >Modify bare metal node</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_patchBareMetalNode"></wa-badge>
+          </wa-popup>
+{%- endmacro %}
+
+{%- macro htmForm_patchBareMetalNode() %}
+        <wa-dialog with-header with-footer style="--width: 50vw; " id="patchBareMetalNodeDialog" label="Modify bare metal node">
+          <form id="htmForm_patchBareMetalNode" class="round-row primary-smart-border-radius ">
+            <wa-details open class="HtmRow" id="details">
+              <div slot="summary">
+                <span>details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+
+              {%- if "PATCH" in scopes %}
+                {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+              </div>
+            </wa-details>
+          </form>
+          {{ htmFormButton_patchBareMetalNode() }}
+        </wa-dialog>
+{%- endmacro %}
+
+{%- macro htmButton_postBareMetalNode() %}<wa-button variant="brand" id="htmButton_postBareMetalNode" data-nodeId={{ result.nodeId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{%- endmacro %}
+
+{%- macro htmFormButton_postBareMetalNode() %}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_postBareMetalNode" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_postBareMetalNode"
+                >Create a bare metal node</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_postBareMetalNode"></wa-badge>
+          </wa-popup>
+{%- endmacro %}
+
+{%- macro htmForm_postBareMetalNode() %}
+        <wa-dialog with-header with-footer style="--width: 50vw; " id="postBareMetalNodeDialog" label="Create a bare metal node">
+          <form id="htmForm_postBareMetalNode" class="round-row primary-smart-border-radius ">
+            <div>You can override any default values below: </div>
+            <wa-details open class="HtmRow" id="details">
+              <div slot="summary">
+                <span>details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+
+              {%- if "POST" in scopes %}
+                {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "POST" in scopes %}
+                {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "POST" in scopes %}
+                {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "POST" in scopes %}
+                {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "POST" in scopes %}
+                {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "POST" in scopes %}
+                {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "POST" in scopes %}
+                {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "POST" in scopes %}
+                {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "POST" in scopes %}
+                {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+              </div>
+            </wa-details>
+          </form>
+          {{ htmFormButton_postBareMetalNode() }}
+        </wa-dialog>
+{%- endmacro %}
+
+{%- macro htmButton_deleteBareMetalNode() %}<wa-button variant="brand" id="htmButton_deleteBareMetalNode" data-nodeId={{ result.nodeId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+
+{%- macro htmFormButton_deleteBareMetalNode() %}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_deleteBareMetalNode" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_deleteBareMetalNode"
+                >Delete bare metal node</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_deleteBareMetalNode"></wa-badge>
+          </wa-popup>
+{%- endmacro %}
+
+{%- macro htmForm_deleteBareMetalNode() %}
+        <wa-dialog with-header with-footer style="--width: 50vw; " id="deleteBareMetalNodeDialog" label="Delete bare metal node">
+          <form id="htmForm_deleteBareMetalNode" class="round-row primary-smart-border-radius ">
+          </form>
+          {{ htmFormButton_deleteBareMetalNode() }}
+        </wa-dialog>
+{%- endmacro %}
+
+{%- macro htmButton_putimportBareMetalNode() %}<wa-button variant="brand" id="htmButton_putimportBareMetalNode" data-nodeId={{ result.nodeId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{%- endmacro %}
+
+{%- macro htmFormButton_putimportBareMetalNode() %}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_putimportBareMetalNode" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_putimportBareMetalNode"
+                >Import bare metal nodes</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_putimportBareMetalNode"></wa-badge>
+          </wa-popup>
+{%- endmacro %}
+
+{%- macro htmForm_putimportBareMetalNode() %}
+        <wa-dialog with-header with-footer style="--width: 50vw; " id="putimportBareMetalNodeDialog" label="Import bare metal nodes">
+          <form id="htmForm_putimportBareMetalNode" class="round-row primary-smart-border-radius ">
+            <div>
+              <wa-textarea
+                  class="PUTImport_searchList "
+                  style="height: 300px; "
+                  placeholder="{ 'searchList': [ { 'nodeId': ... , 'saves': [ ... ] }, ... ] }"
+                  >
+              </wa-textarea>
+            </div>
+          </form>
+          {{ htmFormButton_putimportBareMetalNode() }}
+        </wa-dialog>
+{%- endmacro %}
+
+{%- macro htmButton_searchpageBareMetalNode() %}{%- endmacro %}
+
+{%- macro htmFormButton_searchpageBareMetalNode() %}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_searchpageBareMetalNode" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_searchpageBareMetalNode"
+                >Search bare metal nodes</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_searchpageBareMetalNode"></wa-badge>
+          </wa-popup>
+{%- endmacro %}
+
+{%- macro htmForm_searchpageBareMetalNode() %}
+        <div with-header with-footer style="--width: 50vw; " id="searchpageBareMetalNodeDialog" label="Search bare metal nodes">
+          <div id="htmForm_searchpageBareMetalNode" class="round-row primary-smart-border-radius ">
+            <wa-details class="HtmRow" id="primary-key-id-created-modified-archive-details">
+              <div slot="summary">
+                <span>primary key, ID, created, modified, archive details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+
+              {%- if "PATCH" in scopes %}
+                {{ htmPkBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmPkBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmPkBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmCreatedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmCreatedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmCreatedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmModifiedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmModifiedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmModifiedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+              </div>
+              <div class="grid-with-subgrid-2col ">
+
+              {%- if "PATCH" in scopes %}
+                {{ htmArchivedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmArchivedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmArchivedBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+              </div>
+            </wa-details>
+            <wa-details open class="HtmRow" id="details">
+              <div slot="summary">
+                <span>details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+
+              {%- if "PATCH" in scopes %}
+                {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmLeaseInfoBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNetworkInfoBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeIdBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeIsMaintenanceBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeLinksBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeNameBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodePowerStateBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeProvisionStateBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+
+              {%- if "PATCH" in scopes %}
+                {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true) }}
+              {%- else %}
+                {%- if "GET" in scopes %}
+                  {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true) }}
+                {%- else %}
+                  {{ htmNodeResourceClassBareMetalNodePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false) }}
+                {%- endif %}
+              {%- endif %}
+              </div>
+            </wa-details>
+          </div>
+        </div>
+{%- endmacro %}
+
+{%- macro htmButton_deletefilterBareMetalNode() %}<wa-button variant="brand" id="htmButton_deletefilterBareMetalNode" data-nodeId={{ result.nodeId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+
+{%- macro htmFormButton_deletefilterBareMetalNode() %}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_deletefilterBareMetalNode" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_deletefilterBareMetalNode"
+                >Delete bare metal node</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_deletefilterBareMetalNode"></wa-badge>
+          </wa-popup>
+{%- endmacro %}
+
+{%- macro htmForm_deletefilterBareMetalNode() %}
+        <wa-dialog with-header with-footer style="--width: 50vw; " id="deletefilterBareMetalNodeDialog" label="Delete bare metal node">
+          <form id="htmForm_deletefilterBareMetalNode" class="round-row primary-smart-border-radius ">
+          </form>
+          {{ htmFormButton_deletefilterBareMetalNode() }}
+        </wa-dialog>
+{%- endmacro %}
+          <div id="htmSearchForm">
+            <wa-scroller>
+              <wa-button-group>
+{% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+  {% if "PATCH" in scopes %}
+    {% if resultCount >= 1 %}
+                <wa-button variant="brand" id="refreshThisBareMetalNodeGenPage"
+                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'nodeId:{{ result.nodeId }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisBareMetalNodeGenPage')); }, function() { addError(document.querySelector('#refreshThisBareMetalNodeGenPage')); }); return false; ">
+                  <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-sync-alt "></i>
+                  refresh
+                </wa-button>
+    {% endif %}
+    {% if resultCount > 0 %}
+                <wa-button variant="brand" id="refreshAllBareMetalNodeGenPage{{ result.nodeId | e }}"
+                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllBareMetalNodeGenPage{{ result.nodeId | e }}')); }, function() { addError(document.querySelector('#refreshAllBareMetalNodeGenPage{{ result.nodeId | e }}')); }); "
+                    >
+                  <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrows-rotate"></i>
+                  refresh all 
+                </wa-button>
+    {% endif %}
+  {% endif %}
+{% endif %}
+{%- if 'PATCH' in scopes %}
+  {%- if resultCount > 0 %}
+    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+    {{ htmButton_patchBareMetalNode() }}
+    {%- endif %}
+  {%- endif %}
+{%- endif %}
+{%- if 'POST' in scopes %}
+  {%- if resultCount >= 1 %}
+    {{ htmButton_postBareMetalNode() }}
+  {%- else %}
+    {{ htmButton_postBareMetalNode() }}
+  {%- endif %}
+{%- endif %}
+{%- if 'DELETE' in scopes %}
+  {%- if result is defined %}
+    {{ htmButton_deleteBareMetalNode() }}
+  {%- endif %}
+{%- endif %}
+{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+  {{ htmButton_putimportBareMetalNode() }}
+{%- endif %}
+{%- if 'DELETE' in scopes %}
+  {%- if result is not defined %}
+    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+    {{ htmButton_deletefilterBareMetalNode() }}
+    {%- endif %}
+  {%- endif %}
+{%- endif %}
+
+              </wa-button-group>
+            </wa-scroller>
+          </div>
+{%- if 'DELETE' in scopes %}
+    {{ htmForm_patchBareMetalNode() }}
+  {%- endif %}
+{%- endif %}
+{%- if 'POST' in scopes %}
+  {%- if resultCount >= 1 %}
+    {{ htmForm_postBareMetalNode() }}
+  {%- else %}
+    {{ htmForm_postBareMetalNode() }}
+  {%- endif %}
+{%- endif %}
+{%- if 'DELETE' in scopes %}
+  {%- if resultCount >= 1 %}
+    {{ htmForm_deleteBareMetalNode() }}
+  {%- else %}
+  {%- endif %}
+{%- endif %}
+{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+  {{ htmForm_putimportBareMetalNode() }}
+{%- endif %}
+{%- if 'DELETE' in scopes %}
+  {%- if resultCount >= 1 %}
+    {{ htmForm_deletefilterBareMetalNode() }}
+  {%- else %}
+  {%- endif %}
+{%- endif %}

@@ -1,0 +1,178 @@
+{% extends "en-us/search/project/ProjectGenSearchPage.htm" %}
+{%- block htmBodyEndProjectPage %}
+{% if resultCount > 0 %}
+<wa-details open class="HtmRow" id="observability-dashboard">
+  <div slot="summary">
+    Observability dashboard for OpenShift projects
+  </div>
+  <div class="wa-stack ">
+    <div class="wa-grid ">
+      {{ dashboardCard('visualization-total-memory-bytes', 'Total project memory usage') }}
+      {{ dashboardCard('visualization-total-cpu-bytes', 'Total project CPU usage') }}
+    </div>
+    <div class="wa-grid ">
+      {{ dashboardCard('visualization-quota-memory-bytes', 'Project quota memory usage') }}
+      {{ dashboardCard('visualization-quota-cpu-bytes', 'Project quota CPU usage') }}
+    </div>
+    {{ dashboardCard('visualization-cluster-gpu-utilization', 'Project GPU utilization') }}
+  </div>
+</wa-details>
+{% endif %}
+{{ super() }}
+{%- endblock htmBodyEndProjectPage %}
+{%- block htmStyleProjectPage %}
+#visualization-cluster-gpu-nodes, #visualization-cluster-gpu-devices {
+  wa-avatar {
+    --size: 3em;
+  }
+}
+#observability-dashboard {
+  .pill {
+    border-radius: var(--wa-border-radius-pill);
+    box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight), inset 0 .7rem 0 0 rgba(255, 255, 255, 0.1), var(--wa-theme-glossy-lower-shade), var(--wa-theme-glossy-bottom-shadow);
+    &:hover {
+     background-color: var(--background-color-hover, var(--background-color));
+      border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
+      color: var(--text-color-hover, var(--text-color));
+    }
+  }
+}
+{%- endblock htmStyleProjectPage %}
+
+{%- block facetSimpleRangeProjectSuccess %}
+      updateDashboards();
+{% endblock facetSimpleRangeProjectSuccess -%}
+
+{%- block facetRangeTimeZoneProjectSuccess %}
+      updateDashboards();
+{% endblock facetRangeTimeZoneProjectSuccess -%}
+
+{%- block facetRangeGapChangeProjectSuccess %}
+      updateDashboards();
+{% endblock facetRangeGapChangeProjectSuccess -%}
+
+{%- block facetRangeStartChangeProjectSuccess %}
+      updateDashboards();
+{% endblock facetRangeStartChangeProjectSuccess -%}
+
+{-% block facetRangeEndChangeProjectSuccess %}
+      updateDashboards();
+{% endblock facetRangeEndChangeProjectSuccess -%}
+
+{%- block htmScriptInitProjectPage %}
+        Promise.all([
+          customElements.whenDefined('wa-page')
+          , customElements.whenDefined('wa-card')
+          , customElements.whenDefined('wa-details')
+        ]).then(() => {
+          updateDashboards();
+        });
+{%- endblock htmScriptInitProjectPage %}
+
+{%- block htmScriptsProjectPage %}
+{{ super() }}
+  <script>
+
+    function updateDashboards() {
+      var facetRangeGapVal = document.querySelector("#pageSearchVal-pageFacetRangeGap-{{ classSimpleName }}-input").value;
+      var startValue = document.querySelector("#pageSearchVal-pageFacetRangeStart-{{ classSimpleName }}-input").value;
+      var endValue = document.querySelector("#pageSearchVal-pageFacetRangeEnd-{{ classSimpleName }}-input").value;
+      var timeZone = document.querySelector("#pageFacetRangeTimeZoneInput").value;
+      var start = moment.tz(startValue, 'YYYY-MM-DDTHH:mm', timeZone).utc().toISOString();
+      var end = moment.tz(endValue, 'YYYY-MM-DDTHH:mm', timeZone).utc().toISOString();
+      var step;
+      switch (facetRangeGapVal) {
+        case "+1YEAR":
+          step = "1y";
+          break;
+        case "+1MONTH":
+          step = "1M";
+          break;
+        case "+1DAY":
+          step = "1d";
+          break;
+        case "+1HOUR":
+          step = "1h";
+          break;
+        case "+1MINUTE":
+          step = "1m";
+          break;
+        default:
+          step = "7d";
+      }
+
+      var timeQuery = {
+        start: start
+        , end: end
+        , step: step
+      };
+
+      Promise.all([
+          {{ dashboardPromise('visualization-total-memory-bytes') }}
+          , {{ dashboardPromise('visualization-total-cpu-bytes') }}
+          , {{ dashboardPromise('visualization-quota-memory-bytes') }}
+          , {{ dashboardPromise('visualization-quota-cpu-bytes') }}
+          , {{ dashboardPromise('visualization-cluster-gpu-utilization') }}
+          ]);
+    }
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-total-memory-bytes'
+      , yaxisTitle='Total memory usage'
+      , classSimpleName='Project'
+      , legendTitle='Projects'
+      , metricPrefix='namespace:container_memory_usage_bytes:sum{'
+      , metricSuffix='}'
+      , projectVar='projectName'
+      , timeZone=timeZone
+    ) }}
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-total-cpu-bytes'
+      , yaxisTitle='Total CPU usage'
+      , classSimpleName='Project'
+      , legendTitle='Projects'
+      , metricPrefix='node_namespace_pod_container:container_cpu_usage_seconds_total:sum{'
+      , metricSuffix='}'
+      , projectVar='projectName'
+      , timeZone=timeZone
+      , emptyClusterReplace='node_namespace_pod_container:container_cpu_usage_seconds_total:sum'
+      , emptyClusterReplaceWith='namespace:container_cpu_usage:sum'
+    ) }}
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-quota-memory-bytes'
+      , yaxisTitle='Percent of total memory usage'
+      , classSimpleName='Project'
+      , legendTitle='Projects'
+      , metricPrefix='namespace:container_memory_usage_bytes:sum{'
+      , metricMiddle='} / on(cluster, namespace) kube_resourcequota{'
+      , metricSuffix='}'
+      , projectVar='projectName'
+      , timeZone=timeZone
+      , tickFormat='.0%'
+    ) }}
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-quota-cpu-bytes'
+      , yaxisTitle='Percent of total CPU usage'
+      , classSimpleName='Project'
+      , legendTitle='Projects'
+      , metricPrefix='node_namespace_pod_container:container_cpu_usage_seconds_total:sum{'
+      , metricMiddle='} / on(cluster, namespace) kube_resourcequota{'
+      , metricSuffix='}'
+      , projectVar='projectName'
+      , timeZone=timeZone
+      , tickFormat='.0%'
+    ) }}
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-cluster-gpu-utilization'
+      , yaxisTitle='Percent of total GPU usage'
+      , classSimpleName='Project'
+      , legendTitle='Projects'
+      , metricPrefix='sum by (cluster, exported_namespace) (DCGM_FI_DEV_GPU_UTIL{'
+      , metricSuffix='} / 100)'
+      , projectVar='projectName'
+      , timeZone=timeZone
+      , tickFormat='.0%'
+      , projectLabel='exported_namespace'
+    ) }}
+  </script>
+{%- endblock htmScriptsProjectPage %}
+

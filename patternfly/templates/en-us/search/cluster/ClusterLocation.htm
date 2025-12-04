@@ -1,0 +1,15 @@
+{%- block htmBodyLocationClusterPage %}
+        <wa-details open>
+          <div slot="summary">Map of OpenShift clusters</div>
+
+{%- block htmBodyGraphLocationClusterPage %}
+{% if resultCount > 0 %}
+        <div id="htmBodyGraphLocationClusterPage" class="htmBodyGraphLocation "></div>
+{% endif %}
+{%- endblock htmBodyGraphLocationClusterPage %}
+
+{%- block htmBodyGraphClusterPage %}
+        <div id="htmBodyGraphClusterPage" class="htmBodyGraph "></div>
+{%- endblock htmBodyGraphClusterPage %}
+        </wa-details>
+{%- endblock htmBodyLocationClusterPage %}

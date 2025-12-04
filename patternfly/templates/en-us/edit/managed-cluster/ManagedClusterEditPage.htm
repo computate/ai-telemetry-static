@@ -1,0 +1,19 @@
+{% extends "en-us/edit/managed-cluster/ManagedClusterGenEditPage.htm" %}
+
+{%- block htmBodyStartManagedClusterPage %}
+{{ super() }}
+
+                {% if userName is defined %}
+                {% if scopes is defined and "GET" in scopes %}
+                <div class="wa-stack ">
+                  <div>Download the kubeconfig</div>
+                  <div>
+                    <wa-button variant="brand" id="order-button" class="gradient-button pink-purple-background" href="{{ result.download }}" variant="neutral">
+                      <i class="fa-duotone fa-regular fa-person-running-fast"></i>
+                      Download kubeconfig
+                    </wa-button>
+                  </div>
+                </div>
+                {% endif %}
+                {% endif %}
+{%- endblock %}

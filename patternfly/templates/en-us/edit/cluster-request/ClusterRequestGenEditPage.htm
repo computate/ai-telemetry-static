@@ -1,0 +1,375 @@
+{% extends "en-us/PageLayout.htm" %}
+{%- block htmTitlePageLayout %}
+{%- block htmTitleClusterRequestPage %}
+    <title>{{ result.objectTitle }}</title>
+{%- endblock htmTitleClusterRequestPage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/cluster-request/ClusterRequest.css"/>
+{%- block htmStylesClusterRequestPage %}
+{%- endblock htmStylesClusterRequestPage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+      :root {
+        --site-results-number-of-columns: 3;
+      }
+{{ super() }}
+{%- block htmStyleClusterRequestPage %}
+{%- endblock htmStyleClusterRequestPage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsClusterRequestPage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/cluster-request/ClusterRequest.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/cluster-request/ClusterRequestSearchPage.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/cluster-request/ClusterRequestEditPage.js"></script>
+    <script src="{{staticBaseUrl}}/js/en-us/search/cluster-template/ClusterTemplate.js"></script>
+    <script src="{{staticBaseUrl}}/js/en-us/search/user/SiteUser.js"></script>
+{%- endblock htmScriptsClusterRequestPage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptClusterRequestPage %}
+    <script>
+
+      function jsWebsocketClusterRequest(name, vars, $response) {
+{%- block jsWebsocketClusterRequestPage %}{%- endblock %}
+      }
+
+      function jsTooltipClusterRequest(e, feature) {
+{%- block jsTooltipClusterRequestPage %}{%- endblock %}
+      }
+
+      function htmTooltipClusterRequest(feature, layer) {
+        return `{%- block htmTooltipClusterRequestPage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.objectTitle}</a></h3>
+{%- endblock htmTooltipClusterRequestPage %}`;
+      }
+
+      function facetSimpleRangeClusterRequestSuccess(pageContent) {
+{% block facetSimpleRangeClusterRequestSuccess %}{%- endblock facetSimpleRangeClusterRequestSuccess %}
+      }
+      function facetSimpleRangeClusterRequestError(pageContent) {
+{% block facetSimpleRangeClusterRequestError %}{%- endblock facetSimpleRangeClusterRequestError %}
+      }
+      function facetSimpleRangeClusterRequest(e) {
+        facetSimpleRange(e, facetSimpleRangeClusterRequestSuccess, facetSimpleRangeClusterRequestError);
+      }
+
+      function facetRangeTimeZoneClusterRequestSuccess(pageContent) {
+{% block facetRangeTimeZoneClusterRequestSuccess %}{%- endblock facetRangeTimeZoneClusterRequestSuccess %}
+      }
+      function facetRangeTimeZoneClusterRequestError(pageContent) {
+{% block facetRangeTimeZoneClusterRequestError %}{%- endblock facetRangeTimeZoneClusterRequestError %}
+      }
+      function facetRangeTimeZoneClusterRequest(e) {
+        facetRangeTimeZone(e, facetRangeTimeZoneClusterRequestSuccess, facetRangeTimeZoneClusterRequestError);
+      }
+
+      function facetRangeGapChangeClusterRequestSuccess(pageContent) {
+{% block facetRangeGapChangeClusterRequestSuccess %}{%- endblock facetRangeGapChangeClusterRequestSuccess %}
+      }
+      function facetRangeGapChangeClusterRequestError(pageContent) {
+{% block facetRangeGapChangeClusterRequestError %}{%- endblock facetRangeGapChangeClusterRequestError %}
+      }
+      function facetRangeGapChangeClusterRequest(classSimpleName, event) {
+        facetRangeGapChange(classSimpleName, event, facetRangeGapChangeClusterRequestSuccess, facetRangeGapChangeClusterRequestError);
+      }
+
+      function facetRangeStartChangeClusterRequestSuccess(pageContent) {
+{% block facetRangeStartChangeClusterRequestSuccess %}{%- endblock facetRangeStartChangeClusterRequestSuccess %}
+      }
+      function facetRangeStartChangeClusterRequestError(pageContent) {
+{% block facetRangeStartChangeClusterRequestError %}{%- endblock facetRangeStartChangeClusterRequestError %}
+      }
+      function facetRangeStartChangeClusterRequest(classSimpleName, event) {
+        facetRangeStartChange(classSimpleName, event, facetRangeStartChangeClusterRequestSuccess, facetRangeStartChangeClusterRequestError);
+      }
+
+      function facetRangeEndChangeClusterRequestSuccess(pageContent) {
+{% block facetRangeEndChangeClusterRequestSuccess %}{%- endblock facetRangeEndChangeClusterRequestSuccess %}
+      }
+      function facetRangeEndChangeClusterRequestError(pageContent) {
+{% block facetRangeEndChangeClusterRequestError %}{%- endblock facetRangeEndChangeClusterRequestError %}
+      }
+      function facetRangeEndChangeClusterRequest(classSimpleName, event) {
+        facetRangeEndChange(classSimpleName, event, facetRangeEndChangeClusterRequestSuccess, facetRangeEndChangeClusterRequestError);
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+        , customElements.whenDefined('wa-select')
+        , customElements.whenDefined('wa-radio')
+        , customElements.whenDefined('wa-checkbox')
+      ]).then(() => {
+
+        var name = {% if result.name is defined %}{{ result.name | tojson }}{% else %}null{% endif %};
+
+        if(name == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if result.name is defined %}
+          function relate_clusterTemplateTitle(event) {
+            suggestClusterRequestClusterTemplateTitle(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + event.target.value }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,title,pk,editPage,objectTitle' } ] : [{%- if result.clusterTemplateTitle is defined %}{'name':'fq','value':'title:{{ result.clusterTemplateTitle }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , window.result.name
+                , window.result.clusterTemplateTitle
+                , true
+                );
+          }
+          document.querySelector('#POST_clusterTemplateTitle')?.addEventListener('input', relate_clusterTemplateTitle);
+          document.querySelector('#POST_clusterTemplateTitle')?.addEventListener('focus', relate_clusterTemplateTitle);
+          document.querySelector('#PATCH_clusterTemplateTitle')?.addEventListener('input', relate_clusterTemplateTitle);
+          document.querySelector('#PATCH_clusterTemplateTitle')?.addEventListener('focus', relate_clusterTemplateTitle);
+          document.querySelector('#Page_clusterTemplateTitle')?.addEventListener('input', relate_clusterTemplateTitle);
+          document.querySelector('#Page_clusterTemplateTitle')?.addEventListener('focus', relate_clusterTemplateTitle);
+          {% if "PATCH" in scopes %}
+          suggestClusterRequestClusterTemplateTitle([{'name':'fq','value':'title:' + window.result.clusterTemplateTitle}], document.querySelector('#listClusterRequestClusterTemplateTitle_Page'), window.result.name, window.result.clusterTemplateTitle, true);
+          {% else %}
+          {% if "GET" in scopes %}
+          suggestClusterRequestClusterTemplateTitle([{'name':'fq','value':'title:' + window.result.clusterTemplateTitle}], document.querySelector('#listClusterRequestClusterTemplateTitle_Page'), window.result.name, window.result.clusterTemplateTitle, true);
+          {% else %}
+          suggestClusterRequestClusterTemplateTitle([{'name':'fq','value':'title:' + window.result.clusterTemplateTitle}], document.querySelector('#listClusterRequestClusterTemplateTitle_Page'), window.result.name, window.result.clusterTemplateTitle, false);
+          {% endif %}
+          {% endif %}
+          function relate_userId(event) {
+            suggestClusterRequestUserId(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + event.target.value }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,userId,pk,editPage,objectTitle' } ] : [{%- if result.userId is defined %}{'name':'fq','value':'userId:{{ result.userId }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , window.result.name
+                , window.result.userId
+                , true
+                );
+          }
+          document.querySelector('#POST_userId')?.addEventListener('input', relate_userId);
+          document.querySelector('#POST_userId')?.addEventListener('focus', relate_userId);
+          document.querySelector('#PATCH_userId')?.addEventListener('input', relate_userId);
+          document.querySelector('#PATCH_userId')?.addEventListener('focus', relate_userId);
+          document.querySelector('#Page_userId')?.addEventListener('input', relate_userId);
+          document.querySelector('#Page_userId')?.addEventListener('focus', relate_userId);
+          {% if "PATCH" in scopes %}
+          suggestClusterRequestUserId([{'name':'fq','value':'userId:' + window.result.userId}], document.querySelector('#listClusterRequestUserId_Page'), window.result.name, window.result.userId, true);
+          {% else %}
+          {% if "GET" in scopes %}
+          suggestClusterRequestUserId([{'name':'fq','value':'userId:' + window.result.userId}], document.querySelector('#listClusterRequestUserId_Page'), window.result.name, window.result.userId, true);
+          {% else %}
+          suggestClusterRequestUserId([{'name':'fq','value':'userId:' + window.result.userId}], document.querySelector('#listClusterRequestUserId_Page'), window.result.name, window.result.userId, false);
+          {% endif %}
+          {% endif %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listClusterRequest')?.value;
+        if(l)
+          window.listClusterRequest = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        document.querySelector('#siteSidebarToggleRange')?.addEventListener('wa-after-hide', function(e) { document.querySelector('#pageFacetRangeTimeZonePopup').active = false; });
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneClusterRequest);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneClusterRequest);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('focus', facetRangeTimeZoneClusterRequest);
+        document.querySelector('#pageFacetSimpleRangeDropdown')?.addEventListener('wa-select', facetSimpleRangeClusterRequest);
+        pageGraphClusterRequest();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qClusterRequest_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('ClusterRequest', event.target, document.querySelector('#qClusterRequestDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qClusterRequest_rows')?.addEventListener('change', event => {
+          paramChange('ClusterRequest', event.target, document.querySelector('#qClusterRequestDiv_rows'));
+        });
+
+        document.querySelector('#qClusterRequest_start')?.addEventListener('change', event => {
+          paramChange('ClusterRequest', event.target, document.querySelector('#qClusterRequestDiv_start'));
+        });
+
+
+        var submitForm_patchClusterRequest = document.querySelector('#htmForm_patchClusterRequest')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchClusterRequest')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchClusterRequest(null, document.querySelector('#htmForm_patchClusterRequest'), document.querySelector('#htmFormButton_patchClusterRequest'), event.target.getAttribute('data-name'));
+          return false;
+        });
+
+        var submitForm_postClusterRequest = document.querySelector('#htmForm_postClusterRequest')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postClusterRequest')?.addEventListener('click', event => {
+          event.preventDefault();
+          postClusterRequest(document.querySelector('#htmForm_postClusterRequest')
+          , document.querySelector('#htmFormButton_postClusterRequest')
+          , (json, target) => {
+            window.location.href = json.editPage;
+          });
+          return false;
+        });
+
+        var submitForm_deleteClusterRequest = document.querySelector('#htmForm_deleteClusterRequest')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteClusterRequest')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteClusterRequest(event.target, event.target.getAttribute('data-name'));
+          return false;
+        });
+
+        var submitForm_putimportClusterRequest = document.querySelector('#htmForm_putimportClusterRequest')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_putimportClusterRequest')?.addEventListener('click', event => {
+          event.preventDefault();
+          putimportClusterRequest(document.querySelector('#htmForm_putimportClusterRequest'), document.querySelector('#htmFormButton_putimportClusterRequest'));
+          return false;
+        });
+
+        var submitForm_searchpageClusterRequest = document.querySelector('#htmForm_searchpageClusterRequest')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageClusterRequest')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageClusterRequest();
+          return false;
+        });
+
+        var submitForm_deletefilterClusterRequest = document.querySelector('#htmForm_deletefilterClusterRequest')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterClusterRequest')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterClusterRequest(event.target);
+          return false;
+        });
+{%- block htmScriptInitClusterRequestPage %}{%- endblock htmScriptInitClusterRequestPage %}
+      });
+    </script>
+{%- endblock htmScriptClusterRequestPage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketClusterRequestPage %}
+{% if resultCount > 0 %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketClusterRequest(websocketClusterRequestInner);
+{% endif %}
+{%- endblock websocketClusterRequestPage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlClusterRequestPage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlClusterRequestPage %}
+
+{%- block htmBodyStartPageLayout %}
+    {{ super() }}
+{%- block htmBodyStartClusterRequestPage %}
+{% if resultCount > 0 %}
+          <div class="wa-flank ">
+            <wa-tooltip for="return-to-ClusterRequest">back to all OpenShift cluster requests</wa-tooltip>
+            <wa-button id="return-to-ClusterRequest" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-angle-left"></i>
+              all OpenShift cluster requests
+            </wa-button>
+            <h1 class="Page_objectTitle"><i class="fa-regular fa-server"></i> {{ result.objectTitle | e }}</h1>
+          </div>
+          <div class="margin-block">
+          </div>
+{% include en-us/search/cluster-request/ClusterRequestSearchForm.htm %}
+          <wa-divider></wa-divider>
+{% include en-us/search/cluster-request/ClusterRequestSearchButtons.htm %}
+{% endif %}
+{%- endblock htmBodyStartClusterRequestPage %}
+{%- endblock htmBodyStartPageLayout %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleClusterRequestPage %}
+        <div class="pageContent ">
+{%- include en-us/search/cluster-request/ClusterRequestSidebar.htm %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-ClusterRequest">back to all OpenShift cluster requests</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-ClusterRequest" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-regular fa-server"></i>
+              all OpenShift cluster requests
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no OpenShift cluster request found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-regular fa-server"></i>
+            </div>
+            <span class="wa-heading-m ">no OpenShift cluster request found</span>
+            <p class="wa-caption-l ">An OpenShift cluster request</p>
+{% include en-us/search/cluster-request/ClusterRequestSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{%- include en-us/search/cluster-request/ClusterRequestSuggestedSearch.htm %}
+{% endif %}
+{%- block htmFormClusterRequestPage %}
+          <form action="/en-us/api/cluster-request" id="ClusterRequestForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+{% if result.name is defined %}
+            <input name="name" class="valueName" type="hidden" value="{{ result.name }}"/>
+            {% endif %}
+            <input name="focusId" type="hidden"/>
+            <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+            <input name="result" id="result" class="result"  value='{{ toJsonObjectStringInApostrophes(result) }}' type="hidden"/>
+            <input name="listClusterRequest" id="listClusterRequest" class="listClusterRequest"  value='{{ toJsonArrayStringInApostrophes(listClusterRequest) }}' type="hidden"/>
+          </form>
+  {% if solrId is defined %}
+          {{ htmButton_searchpageClusterRequest() }}
+          {{ htmForm_searchpageClusterRequest() }}
+  {% endif %}
+{%- endblock htmFormClusterRequestPage %}
+        </div>
+{%- endblock htmBodyMiddleClusterRequestPage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+{%- block htmBodyEndClusterRequestPage %}
+{%- include en-us/search/cluster-request/ClusterRequestLocation.htm %}
+{%- endblock htmBodyEndClusterRequestPage %}
+      {{ super() }}
+{%- endblock htmBodyEndPageLayout %}

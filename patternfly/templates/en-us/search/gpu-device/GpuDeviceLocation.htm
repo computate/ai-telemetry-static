@@ -1,0 +1,15 @@
+{%- block htmBodyLocationGpuDevicePage %}
+        <wa-details open>
+          <div slot="summary">Map of GPU devices</div>
+
+{%- block htmBodyGraphLocationGpuDevicePage %}
+{% if resultCount > 0 %}
+        <div id="htmBodyGraphLocationGpuDevicePage" class="htmBodyGraphLocation "></div>
+{% endif %}
+{%- endblock htmBodyGraphLocationGpuDevicePage %}
+
+{%- block htmBodyGraphGpuDevicePage %}
+        <div id="htmBodyGraphGpuDevicePage" class="htmBodyGraph "></div>
+{%- endblock htmBodyGraphGpuDevicePage %}
+        </wa-details>
+{%- endblock htmBodyLocationGpuDevicePage %}

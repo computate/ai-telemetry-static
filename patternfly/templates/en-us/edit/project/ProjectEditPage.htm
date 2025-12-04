@@ -1,0 +1,261 @@
+{% extends "en-us/edit/project/ProjectGenEditPage.htm" %}
+{%- block htmBodyStartProjectPage %}
+{{ super() }}
+{% if result is defined %}
+<wa-details open class="HtmRow" id="observability-dashboard">
+  <div slot="summary">
+    Observability dashboard for OpenShift projects
+  </div>
+  <div class="wa-stack ">
+    <div class="wa-grid ">
+      <wa-card with-header>
+        <header slot="header" class="wa-heading-m ">Percent of total memory usage for {{ result.clusterName }} cluster</header>
+        <div id="visualization-cluster-memory-bytes" class=""></div>
+      </wa-card>
+      <wa-card with-header>
+        <header slot="header" class="wa-heading-m ">Percent of total CPU usage for {{ result.clusterName }} cluster</header>
+        <div id="visualization-cluster-cpu-bytes" class=""></div>
+      </wa-card>
+    </div>
+    <div class="wa-grid ">
+      <wa-card with-header>
+        <header slot="header" class="wa-heading-l ">GPU temperature per GPU device in cluster {{ result.clusterName }} project {{ result.projectName }}</header>
+        <div id="visualization-cluster-gpu-temperature" class="wa-grid "></div>
+      </wa-card>
+    </div>
+    <div class="wa-grid ">
+      <wa-card with-header>
+        <header slot="header" class="wa-heading-l ">GPU utilization per GPU device in cluster {{ result.clusterName }} project {{ result.projectName }}</header>
+        <div id="visualization-cluster-gpu-utilization" class="wa-grid "></div>
+      </wa-card>
+    </div>
+  </div>
+</wa-details>
+{% endif %}
+{%- endblock htmBodyStartProjectPage %}
+{%- block htmStyleProjectPage %}
+#visualization-cluster-gpu-nodes, #visualization-cluster-gpu-devices {
+  wa-avatar {
+    --size: 3em;
+  }
+}
+#observability-dashboard {
+  .pill {
+    border-radius: var(--wa-border-radius-pill);
+    box-shadow: var(--wa-theme-glossy-inner-shine), var(--wa-theme-glossy-top-highlight), inset 0 .7rem 0 0 rgba(255, 255, 255, 0.1), var(--wa-theme-glossy-lower-shade), var(--wa-theme-glossy-bottom-shadow);
+    &:hover {
+     background-color: var(--background-color-hover, var(--background-color));
+      border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
+      color: var(--text-color-hover, var(--text-color));
+    }
+  }
+}
+{%- endblock htmStyleProjectPage %}
+{%- block htmScriptInitProjectPage %}
+
+      var facetRangeGapVal = document.querySelector("#pageSearchVal-pageFacetRangeGap-Project-input").value;
+      var start = '{{ formatZonedDateTime(defaultRangeStart, "yyyy-MM-dd'T'HH:mm:ss.SSSX", defaultLocaleId, 'UTC') }}';
+      var end = '{{ formatZonedDateTime(defaultRangeEnd, "yyyy-MM-dd'T'HH:mm:ss.SSSX", defaultLocaleId, 'UTC') }}';
+      var step;
+      switch (facetRangeGapVal) {
+        case "+1YEAR":
+          step = "1y";
+          break;
+        case "+1MONTH":
+          step = "1M";
+          break;
+        case "+1DAY":
+          step = "1d";
+          break;
+        case "+1HOUR":
+          step = "1h";
+          break;
+        case "+1MINUTE":
+          step = "1m";
+          break;
+        default:
+          step = "7d";
+      }
+
+      var timeQuery = {
+        start: start
+        , end: end
+        , step: step
+      };
+
+      Promise.all([
+          queryMemoryBytesTotal(timeQuery)
+          , queryCpuBytesTotal(timeQuery)
+          , queryGpuTemperature(timeQuery)
+          , queryGpuUtilization(timeQuery)
+          ]);
+{%- endblock htmScriptInitProjectPage %}
+{%- block htmScriptsProjectPage %}
+{{ super() }}
+  <script>
+
+    async function queryMemoryBytesTotal(timeQuery) {
+      const urls = [];
+      const hubIds = ['{{ result.hubId }}'];
+      hubIds.forEach((hubId, i) => {
+        urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+            query: 'namespace:container_memory_usage_bytes:sum{cluster="{{ result.clusterName }}",namespace="{{ result.projectName }}"}' 
+            }, timeQuery)).toString());
+      });
+      const responses = await Promise.all(urls.map(url => fetch(url)));
+      const dataPromises = responses.map(response => response.json());
+      const responseJsons = await Promise.all(dataPromises);
+      var end = new Date();
+      var start = new Date(new Date().setHours(end.getHours() - 1));
+
+      var panelId = 'visualization-cluster-memory-bytes';
+      var traces = [];
+      responseJsons.forEach((responseJson, i) => {
+        responseJson.data.result.forEach((result, j) => {
+          var hubId = hubIds[i];
+          traces.push({
+            x: result.values.map(values => new Date(values[0] * 1000))
+            , y: result.values.map(values => parseFloat(values[1]))
+            , mode: 'scatter'
+            , name: result.metric.cluster + ' in ' + hubId
+            , text: result.values.map(values => '<a href="/en-us/edit/cluster/' + result.metric.cluster + '">' + hubId + ' ' + result.metric.cluster + '</a>')
+          });
+        });
+      });
+
+      var layout = {
+        xaxis: {
+          title: 'Time in {{ defaultZoneId }}'
+        }
+        , yaxis: {
+          title: 'Total memory usage'
+        }
+        , legend: {
+          title: {
+            text: 'Projects'
+          }
+        }
+      };
+      Plotly.newPlot(panelId, traces, layout);
+    }
+
+    async function queryCpuBytesTotal(timeQuery) {
+      const urls = [];
+      const hubIds = ['{{ result.hubId }}'];
+      hubIds.forEach((hubId, i) => {
+        var projectNamesFilter = '{% if result.clusterName is defined %}cluster="{{ result.clusterName | e }}, {% else %}{% endif %}namespace="{{ result.projectName }}"';
+        urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+            query: '{% if result.clusterName is defined %}node_namespace_pod_container:container_cpu_usage_seconds_total:sum{% else %}namespace:container_cpu_usage:sum{% endif %}{' + projectNamesFilter + '} / on({% if result.clusterName is defined %}cluster, {% endif %}namespace) namespace_cpu:kube_pod_container_resource_requests:sum{' + projectNamesFilter + '{% if result.clusterName is defined %}, label_node_role_kubernetes_io!="master"{% endif %} }'
+            }, timeQuery)).toString());
+      });
+      const responses = await Promise.all(urls.map(url => fetch(url)));
+      const dataPromises = responses.map(response => response.json());
+      const responseJsons = await Promise.all(dataPromises);
+      var end = new Date();
+      var start = new Date(new Date().setHours(end.getHours() - 1));
+
+      var panelId = 'visualization-cluster-cpu-bytes';
+      var traces = [];
+      responseJsons.forEach((responseJson, i) => {
+        responseJson.data.result.forEach((result, j) => {
+          var hubId = hubIds[i];
+          traces.push({
+            x: result.values.map(values => new Date(values[0] * 1000))
+            , y: result.values.map(values => parseFloat(values[1]))
+            , mode: 'scatter'
+            , name: result.metric.cluster + ' in ' + hubId
+            , text: result.values.map(values => '<a href="/en-us/edit/cluster/' + result.metric.cluster + '">' + hubId + ' ' + result.metric.cluster + '</a>')
+          });
+        });
+      });
+
+      var layout = {
+        xaxis: {
+          title: 'Time in {{ defaultZoneId }}'
+        }
+        , yaxis: {
+          title: 'Percent of total CPU usage'
+          , tickformat: '.0%'
+        }
+        , legend: {
+          title: {
+            text: 'Projects'
+          }
+        }
+      };
+      Plotly.newPlot(panelId, traces, layout);
+    }
+
+    async function queryGpuTemperature(timeQuery) {
+      const urls = [];
+      const hubIds = ['{{ result.hubId }}'];
+      hubIds.forEach((hubId, i) => {
+        urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+            query: 'DCGM_FI_DEV_MEMORY_TEMP{cluster="{{ result.clusterName }}",exported_namespace="{{ result.projectName }}"}' 
+            }, timeQuery)).toString());
+      });
+      const responses = await Promise.all(urls.map(url => fetch(url)));
+      const dataPromises = responses.map(response => response.json());
+      const responseJsons = await Promise.all(dataPromises);
+      var end = new Date();
+      var start = new Date(new Date().setHours(end.getHours() - 1));
+
+      var panelId = 'visualization-cluster-gpu-temperature';
+      var traces = [];
+      responseJsons.forEach((responseJson, i) => {
+        if(responseJson.data) {
+          responseJson.data.result.forEach((result, j) => {
+            var hubId = hubIds[i];
+            traces.push({
+              x: result.values.map(values => new Date(values[0] * 1000))
+              , y: result.values.map(values => parseFloat(values[1]))
+              , mode: 'lines+markers'
+              , name: hubId + ' ' + result.metric.cluster + ' ' + result.metric.Hostname + ' ' + result.metric.modelName
+              , text: result.values.map(values => '<a href="/en-us/edit/ai-node/' + result.metric.cluster + '-' + result.metric.node + '">' + result.metric.cluster + ' ' + result.metric.Hostname + ' ' + result.metric.modelName + '</a>')
+            });
+          });
+        }
+      });
+
+      var layout = {
+      };
+      Plotly.newPlot(panelId, traces, layout);
+    }
+
+    async function queryGpuUtilization(timeQuery) {
+      const urls = [];
+      const hubIds = ['{{ result.hubId }}'];
+      hubIds.forEach((hubId, i) => {
+        urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+            query: 'DCGM_FI_DEV_GPU_UTIL{cluster="{{ result.clusterName }}",exported_namespace="{{ result.projectName }}"}' 
+            }, timeQuery)).toString());
+      });
+      const responses = await Promise.all(urls.map(url => fetch(url)));
+      const dataPromises = responses.map(response => response.json());
+      const responseJsons = await Promise.all(dataPromises);
+      var end = new Date();
+      var start = new Date(new Date().setHours(end.getHours() - 1));
+
+      var panelId = 'visualization-cluster-gpu-utilization';
+      var traces = [];
+      responseJsons.forEach((responseJson, i) => {
+        if(responseJson.data) {
+          responseJson.data.result.forEach((result, j) => {
+            var hubId = hubIds[i];
+            traces.push({
+              x: result.values.map(values => new Date(values[0] * 1000))
+              , y: result.values.map(values => parseFloat(values[1]))
+              , mode: 'lines+markers'
+              , name: result.metric.cluster + ' ' + result.metric.Hostname + ' ' + result.metric.modelName + ' device ' + result.metric.gpu
+              , text: result.values.map(values => '<a href="/en-us/edit/ai-node/' + result.metric.cluster + '-' + result.metric.node + '">' + result.metric.cluster + ' ' + result.metric.Hostname + ' ' + result.metric.modelName + ' device ' + result.metric.gpu + '</a>')
+            });
+          });
+        }
+      });
+
+      var layout = {
+      };
+      Plotly.newPlot(panelId, traces, layout);
+    }
+  </script>
+{%- endblock htmScriptsProjectPage %}

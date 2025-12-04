@@ -1,0 +1,181 @@
+{% extends "en-us/search/bare-metal-node/BareMetalNodeGenSearchPage.htm" %}
+
+{%- block htmBodyMiddleBareMetalNodePage %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-BareMetalNode">back to all bare metal nodes</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-BareMetalNode" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-duotone fa-regular fa-hexagon-nodes"></i>
+              all bare metal nodes
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no bare metal node found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-duotone fa-regular fa-hexagon-nodes"></i>
+            </div>
+            <span class="wa-heading-m ">no bare metal node found</span>
+            <p class="wa-caption-l ">An OpenStack bare metal node</p>
+{% include en-us/search/bare-metal-node/BareMetalNodeSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{%- include en-us/search/bare-metal-node/BareMetalNodeSidebar.htm %}
+{%- include en-us/search/bare-metal-node/BareMetalNodeSuggestedSearch.htm %}
+          <div>
+            <form action="/en-us/api/bare-metal-node" id="BareMetalNodeForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+              <input name="focusId" type="hidden"/>
+              <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+              <input name="listBareMetalNode" id="listBareMetalNode" class="listBareMetalNode"  value='{{ toJsonArrayStringInApostrophes(listBareMetalNode) }}' type="hidden"/>
+            </form>
+            <div id="site-calendar-box">
+              <div id="site-calendar"><!-- // --></div>
+            </div>
+            <div class="wa-stack wa-gap-m ">
+              <wa-tooltip for="return-to-BareMetalNode">back to all bare metal nodes</wa-tooltip>
+              <wa-breadcrumb>
+                <wa-breadcrumb-item id="return-to-BareMetalNode" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+                  <i class="fa-duotone fa-regular fa-hexagon-nodes"></i>
+                  all bare metal nodes
+                </wa-breadcrumb-item>
+                <wa-breadcrumb-item>
+                  search bare metal nodes
+                </wa-breadcrumb-item>
+              </wa-breadcrumb>
+{% include en-us/search/bare-metal-node/BareMetalNodeSearchForm.htm %}
+{% include en-us/search/bare-metal-node/BareMetalNodeSearchButtons.htm %}
+              <div class="wa-stack wa-gap-0 ">
+{% include en-us/search/bare-metal-node/BareMetalNodePaginationButtons.htm %}
+                <div class="card-like-thing background-color-surface-border" id="site-results-grid">
+                  <div>
+              <wa-dropdown id="htmDropdown-nodeName">
+                <wa-button variant="brand" slot="trigger" caret>name</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalNode_nodeName'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-nodeName-asc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by name ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalNode_nodeName'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-nodeName-desc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by name descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-nodeResourceClass">
+                <wa-button variant="brand" slot="trigger" caret>resource class</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalNode_nodeResourceClass'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-nodeResourceClass-asc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by resource class ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalNode_nodeResourceClass'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-nodeResourceClass-desc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by resource class descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-nodePowerState">
+                <wa-button variant="brand" slot="trigger" caret>power state</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalNode_nodePowerState'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-nodePowerState-asc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by power state ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalNode_nodePowerState'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-nodePowerState-desc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by power state descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-nodeProvisionState">
+                <wa-button variant="brand" slot="trigger" caret>provision state</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalNode_nodeProvisionState'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-nodeProvisionState-asc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by provision state ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalNode_nodeProvisionState'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-nodeProvisionState-desc">
+                    <i class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by provision state descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+                  </div>
+                  {% for item in listBareMetalNode%}
+                  <div>
+                    <a href="{{ item.displayPage }}">
+                      <i class="fa-duotone fa-regular fa-hexagon-nodes"></i>
+                    <span>{{ item.nodeName | e }}</span>
+                    </a>
+                    <a href="{{ item.displayPage }}">
+                    <span>{{ item.nodeResourceClass | e }}</span>
+                    </a>
+                    <a href="{{ item.displayPage }}">
+                    <span>{{ item.nodePowerState | e }}</span>
+                    </a>
+                    <a href="{{ item.displayPage }}">
+                    <span>{{ item.nodeProvisionState | e }}</span>
+                    </a>
+                  </div>
+                  {% if item.networkInfo is defined %}
+                  <wa-details summary="{{ item.nodeName | e }} network info" open>
+
+                    {% for network in item.networkInfo %}
+                    <div class="wa-stack ">
+                      <dl class="wa-split ">
+                        {% if network.mac_address is defined %}
+                        <span class="wa-stack wa-gap-0 ">
+                          <dt>MAC address</dt>
+                          <dd>{{ network.mac_address }}</dd>
+                        </span>
+                        {% endif %}
+                        {% if network.fixed_ip is defined %}
+                        <span class="wa-stack wa-gap-0 ">
+                          <dt>fixed IP</dt>
+                          <dd>{{ network.fixed_ip }}</dd>
+                        </span>
+                        {% endif %}
+                        {% if network.network is defined %}
+                        <span class="wa-stack wa-gap-0 ">
+                          <dt>network</dt>
+                          <dd>{{ network.network }}</dd>
+                        </span>
+                        {% endif %}
+                        {% if network.provider_segmentation_id is defined %}
+                        <span class="wa-stack wa-gap-0 ">
+                          <dt>provider segmentation ID</dt>
+                          <dd>{{ network.provider_segmentation_id }}</dd>
+                        </span>
+                        {% endif %}
+                      </dl>
+                    </div>
+                    {% endfor %}
+                  </wa-details>
+                  {% endif %}
+                  {% endfor %}
+              {% if getColumnNodeName is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnNodeResourceClass is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnNodePowerState is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnNodeProvisionState is defined %}
+                <div>
+                </div>
+              {% endif %}
+                </div>
+{% include en-us/search/bare-metal-node/BareMetalNodePaginationButtons.htm %}
+              </div>
+            </div>
+          </div>
+{% endif %}
+{%- endblock htmBodyMiddleBareMetalNodePage %}

@@ -388,8 +388,33 @@
         });
       });
     </script>
-    {%- if WEB_COMPONENTS_KIT is defined %}
+    {%- if WEB_COMPONENTS_KIT is defined and WEB_COMPONENTS_KIT != '' %}
     {{ WEB_COMPONENTS_KIT }}
+    {%- else %}
+    <script async src="https://ga.jspm.io/npm:es-module-shims@2.6.2/dist/es-module-shims.js" crossorigin="anonymous"></script>
+    <script type="importmap">
+    {
+      "imports": {
+    "@patternfly/elements/pf-card/pf-card.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-card/pf-card.js"
+      },
+      "scopes": {
+    "https://ga.jspm.io/": {
+    "@lit/reactive-element": "https://ga.jspm.io/npm:@lit/reactive-element@2.1.1/reactive-element.js",
+    "@lit/reactive-element/decorators/": "https://ga.jspm.io/npm:@lit/reactive-element@2.1.1/decorators/",
+    "@patternfly/pfe-core/controllers/slot-controller.js": "https://ga.jspm.io/npm:@patternfly/pfe-core@5.0.4/controllers/slot-controller.js",
+    "lit": "https://ga.jspm.io/npm:lit@3.3.1/index.js",
+    "lit-element/lit-element.js": "https://ga.jspm.io/npm:lit-element@4.2.1/lit-element.js",
+    "lit-html": "https://ga.jspm.io/npm:lit-html@3.3.1/lit-html.js",
+    "lit-html/": "https://ga.jspm.io/npm:lit-html@3.3.1/",
+    "lit/": "https://ga.jspm.io/npm:lit@3.3.1/",
+    "tslib": "https://ga.jspm.io/npm:tslib@2.8.1/tslib.es6.mjs"
+    }
+      }
+    }
+    </script>
+    <script type="module">
+      import "@patternfly/elements/pf-card/pf-card.js";
+    </script>
     {%- endif %}
     <script src="{{ STATIC_BASE_URL }}/js/site.js"></script>
     <script src="{{ STATIC_BASE_URL }}/js/sockjs.js"></script>

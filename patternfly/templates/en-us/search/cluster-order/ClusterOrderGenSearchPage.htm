@@ -1,0 +1,437 @@
+{% extends "en-us/PageLayout.htm" %}
+
+{%- block htmTitlePageLayout %}
+{%- block htmTitleClusterOrderPage %}
+    <title>{% if resultCount == 0 %}no OpenShift cluster order found{% else %}OpenShift cluster orders{% endif %}</title>
+{%- endblock htmTitleClusterOrderPage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/cluster-order/ClusterOrder.css"/>
+{%- block htmStylesClusterOrderPage %}
+{%- endblock htmStylesClusterOrderPage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+      :root {
+        --site-results-number-of-columns: 4;
+      }
+{{ super() }}
+{%- block htmStyleClusterOrderPage %}
+{%- endblock htmStyleClusterOrderPage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsClusterOrderPage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/cluster-order/ClusterOrder.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/cluster-order/ClusterOrderSearchPage.js"></script>
+    <script src="{{staticBaseUrl}}/js/en-us/search/cluster-template/ClusterTemplate.js"></script>
+{%- endblock htmScriptsClusterOrderPage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptClusterOrderPage %}
+    <script>
+
+      function jsWebsocketClusterOrder(id, vars, $response) {
+{%- block jsWebsocketClusterOrderPage %}{%- endblock %}
+      }
+
+      function jsTooltipClusterOrder(e, feature) {
+{%- block jsTooltipClusterOrderPage %}{%- endblock %}
+      }
+
+      function htmTooltipClusterOrder(feature, layer) {
+        return `{%- block htmTooltipClusterOrderPage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.objectTitle}</a></h3>
+{%- endblock htmTooltipClusterOrderPage %}`;
+      }
+
+      function facetSimpleRangeClusterOrderSuccess(pageContent) {
+{% block facetSimpleRangeClusterOrderSuccess %}{%- endblock facetSimpleRangeClusterOrderSuccess %}
+      }
+      function facetSimpleRangeClusterOrderError(pageContent) {
+{% block facetSimpleRangeClusterOrderError %}{%- endblock facetSimpleRangeClusterOrderError %}
+      }
+      function facetSimpleRangeClusterOrder(e) {
+        facetSimpleRange(e, facetSimpleRangeClusterOrderSuccess, facetSimpleRangeClusterOrderError);
+      }
+
+      function facetRangeTimeZoneClusterOrderSuccess(pageContent) {
+{% block facetRangeTimeZoneClusterOrderSuccess %}{%- endblock facetRangeTimeZoneClusterOrderSuccess %}
+      }
+      function facetRangeTimeZoneClusterOrderError(pageContent) {
+{% block facetRangeTimeZoneClusterOrderError %}{%- endblock facetRangeTimeZoneClusterOrderError %}
+      }
+      function facetRangeTimeZoneClusterOrder(e) {
+        facetRangeTimeZone(e, facetRangeTimeZoneClusterOrderSuccess, facetRangeTimeZoneClusterOrderError);
+      }
+
+      function facetRangeGapChangeClusterOrderSuccess(pageContent) {
+{% block facetRangeGapChangeClusterOrderSuccess %}{%- endblock facetRangeGapChangeClusterOrderSuccess %}
+      }
+      function facetRangeGapChangeClusterOrderError(pageContent) {
+{% block facetRangeGapChangeClusterOrderError %}{%- endblock facetRangeGapChangeClusterOrderError %}
+      }
+      function facetRangeGapChangeClusterOrder(classSimpleName, event) {
+        facetRangeGapChange(classSimpleName, event, facetRangeGapChangeClusterOrderSuccess, facetRangeGapChangeClusterOrderError);
+      }
+
+      function facetRangeStartChangeClusterOrderSuccess(pageContent) {
+{% block facetRangeStartChangeClusterOrderSuccess %}{%- endblock facetRangeStartChangeClusterOrderSuccess %}
+      }
+      function facetRangeStartChangeClusterOrderError(pageContent) {
+{% block facetRangeStartChangeClusterOrderError %}{%- endblock facetRangeStartChangeClusterOrderError %}
+      }
+      function facetRangeStartChangeClusterOrder(classSimpleName, event) {
+        facetRangeStartChange(classSimpleName, event, facetRangeStartChangeClusterOrderSuccess, facetRangeStartChangeClusterOrderError);
+      }
+
+      function facetRangeEndChangeClusterOrderSuccess(pageContent) {
+{% block facetRangeEndChangeClusterOrderSuccess %}{%- endblock facetRangeEndChangeClusterOrderSuccess %}
+      }
+      function facetRangeEndChangeClusterOrderError(pageContent) {
+{% block facetRangeEndChangeClusterOrderError %}{%- endblock facetRangeEndChangeClusterOrderError %}
+      }
+      function facetRangeEndChangeClusterOrder(classSimpleName, event) {
+        facetRangeEndChange(classSimpleName, event, facetRangeEndChangeClusterOrderSuccess, facetRangeEndChangeClusterOrderError);
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+        , customElements.whenDefined('wa-select')
+        , customElements.whenDefined('wa-radio')
+        , customElements.whenDefined('wa-checkbox')
+      ]).then(() => {
+
+        var id = {% if result.id is defined %}{{ result.id | tojson }}{% else %}null{% endif %};
+
+          function relate_templateId(event) {
+            suggestClusterOrderTemplateId(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + event.target.value }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,id,pk,editPage,objectTitle' } ] : [{%- if result.templateId is defined %}{'name':'fq','value':'id:{{ result.templateId }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , null
+                , null
+                , true
+                , this
+                );
+          }
+          document.querySelector('#POST_templateId')?.addEventListener('input', relate_templateId);
+          document.querySelector('#POST_templateId')?.addEventListener('focus', relate_templateId);
+          document.querySelector('#PATCH_templateId')?.addEventListener('input', relate_templateId);
+          document.querySelector('#PATCH_templateId')?.addEventListener('focus', relate_templateId);
+        if(id == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if result.id is defined %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listClusterOrder')?.value;
+        if(l)
+          window.listClusterOrder = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        document.querySelector('#siteSidebarToggleRange')?.addEventListener('wa-after-hide', function(e) { document.querySelector('#pageFacetRangeTimeZonePopup').active = false; });
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneClusterOrder);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneClusterOrder);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('focus', facetRangeTimeZoneClusterOrder);
+        document.querySelector('#pageFacetSimpleRangeDropdown')?.addEventListener('wa-select', facetSimpleRangeClusterOrder);
+        pageGraphClusterOrder();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qClusterOrder_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('ClusterOrder', event.target, document.querySelector('#qClusterOrderDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qClusterOrder_rows')?.addEventListener('change', event => {
+          paramChange('ClusterOrder', event.target, document.querySelector('#qClusterOrderDiv_rows'));
+        });
+
+        document.querySelector('#qClusterOrder_start')?.addEventListener('change', event => {
+          paramChange('ClusterOrder', event.target, document.querySelector('#qClusterOrderDiv_start'));
+        });
+
+
+        var submitForm_patchClusterOrder = document.querySelector('#htmForm_patchClusterOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchClusterOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchClusterOrder(null, document.querySelector('#htmForm_patchClusterOrder'), document.querySelector('#htmFormButton_patchClusterOrder'), event.target.getAttribute('data-id'));
+          return false;
+        });
+
+        var submitForm_postClusterOrder = document.querySelector('#htmForm_postClusterOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postClusterOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          postClusterOrder(document.querySelector('#htmForm_postClusterOrder')
+          , document.querySelector('#htmFormButton_postClusterOrder')
+          , (json, target) => {
+            window.location.href = json.editPage;
+          });
+          return false;
+        });
+
+        var submitForm_deleteClusterOrder = document.querySelector('#htmForm_deleteClusterOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteClusterOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteClusterOrder(event.target, event.target.getAttribute('data-id'));
+          return false;
+        });
+
+        var submitForm_putimportClusterOrder = document.querySelector('#htmForm_putimportClusterOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_putimportClusterOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          putimportClusterOrder(document.querySelector('#htmForm_putimportClusterOrder'), document.querySelector('#htmFormButton_putimportClusterOrder'));
+          return false;
+        });
+
+        var submitForm_searchpageClusterOrder = document.querySelector('#htmForm_searchpageClusterOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageClusterOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageClusterOrder();
+          return false;
+        });
+
+        var submitForm_deletefilterClusterOrder = document.querySelector('#htmForm_deletefilterClusterOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterClusterOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterClusterOrder(event.target);
+          return false;
+        });
+{%- block htmScriptInitClusterOrderPage %}{%- endblock htmScriptInitClusterOrderPage %}
+      });
+    </script>
+{%- endblock htmScriptClusterOrderPage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketClusterOrderPage %}
+{% if resultCount > 0 %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketClusterOrder(websocketClusterOrderInner);
+{% endif %}
+{%- endblock websocketClusterOrderPage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlClusterOrderPage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlClusterOrderPage %}
+{%- if pageBreadcrumb is not defined %}
+{%- set pageBreadcrumb %}
+              <wa-tooltip for="return-to-ClusterOrder">back to all OpenShift cluster orders</wa-tooltip>
+              <wa-breadcrumb>
+                <wa-breadcrumb-item id="return-to-ClusterOrder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+                  <i class="fa-regular fa-server"></i>
+                  all OpenShift cluster orders
+                </wa-breadcrumb-item>
+                <wa-breadcrumb-item>
+                  search OpenShift cluster orders
+                </wa-breadcrumb-item>
+              </wa-breadcrumb>
+{%- endset pageBreadcrumb %}
+{%- endif  %}
+
+{%- block htmBodyStartPageLayout %}
+{{ super() }}
+{%- block htmBodyStartClusterOrderPage %}
+{% include en-us/search/cluster-order/ClusterOrderSidebar.htm %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-ClusterOrder">back to all OpenShift cluster orders</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-ClusterOrder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-regular fa-server"></i>
+              all OpenShift cluster orders
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no OpenShift cluster order found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-regular fa-server"></i>
+            </div>
+            <span class="wa-heading-m ">no OpenShift cluster order found</span>
+            <p class="wa-caption-l ">Manage your own Red Hat OpenShift cluster in the cloud. </p>
+{% include en-us/search/cluster-order/ClusterOrderSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{% include en-us/search/cluster-order/ClusterOrderSuggestedSearch.htm %}
+          <div class="pageContent ">
+            <form action="/en-us/api/cluster-order" id="ClusterOrderForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+              <input name="focusId" type="hidden"/>
+              <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+              <input name="listClusterOrder" id="listClusterOrder" class="listClusterOrder"  value='{{ toJsonArrayStringInApostrophes(listClusterOrder) }}' type="hidden"/>
+            </form>
+            <div id="site-calendar-box">
+              <div id="site-calendar"><!-- // --></div>
+            </div>
+            <div class="wa-stack wa-gap-m ">
+{% endif %}
+{%- endblock htmBodyStartClusterOrderPage %}
+{%- endblock htmBodyStartPageLayout %}
+{%- if pageSearchButtons is not defined %}
+{%- set pageSearchButtons %}
+{% include en-us/search/cluster-order/ClusterOrderSearchButtons.htm %}
+{%- endset pageSearchButtons %}
+{%- endif %}
+{%- if pageSearchForm is not defined %}
+{%- set pageSearchForm %}
+{% include en-us/search/cluster-order/ClusterOrderSearchForm.htm %}
+{%- endset pageSearchForm %}
+{%- endif %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleClusterOrderPage %}
+{% if resultCount > 0 %}
+              <div class="wa-stack wa-gap-0 ">
+{% include en-us/search/cluster-order/ClusterOrderPaginationButtons.htm %}
+                <div class="card-like-thing background-color-surface-border" id="site-results-grid">
+                  <div>
+              <wa-dropdown id="htmDropdown-id">
+                <wa-button variant="brand" slot="trigger" caret>order ID</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterOrder_id'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterOrder').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-id-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by order ID ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterOrder_id'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterOrder').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-id-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by order ID descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-templateId">
+                <wa-button variant="brand" slot="trigger" caret>order template id</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterOrder_templateId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterOrder').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-templateId-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by order template id ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterOrder_templateId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterOrder').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-templateId-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by order template id descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-state">
+                <wa-button variant="brand" slot="trigger" caret>order state</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterOrder_state'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterOrder').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-state-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by order state ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterOrder_state'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterOrder').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-state-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by order state descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-clusterId">
+                <wa-button variant="brand" slot="trigger" caret>order cluster id</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterOrder_clusterId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterOrder').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-clusterId-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by order cluster id ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortClusterOrder_clusterId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ClusterOrder').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-clusterId-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by order cluster id descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+                  </div>
+                  {% for item in listClusterOrder%}
+                  <div>
+              <a href="{{ item.displayPage }}">
+                <i class="fa-regular fa-server"></i>
+              <span>{{ item.id | e }}
+</span>              </a>
+              <a href="{{ item.displayPage }}">
+              <span>{{ item.templateId | e }}
+</span>              </a>
+              <a href="{{ item.displayPage }}">
+              <span>{{ item.state | e }}
+</span>              </a>
+              <a href="{{ item.displayPage }}">
+              <span>{{ item.clusterId | e }}
+</span>              </a>
+                  </div>
+                  {% endfor %}
+              {% if getColumnId is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnTemplateId is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnState is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnClusterId is defined %}
+                <div>
+                </div>
+              {% endif %}
+                </div>
+{% include en-us/search/cluster-order/ClusterOrderPaginationButtons.htm %}
+              </div>
+            </div>
+          </div>
+{% endif %}
+{%- endblock htmBodyMiddleClusterOrderPage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+{%- block htmBodyEndClusterOrderPage %}
+{%- include en-us/search/cluster-order/ClusterOrderLocation.htm %}
+{%- endblock htmBodyEndClusterOrderPage %}
+  {{ super() }}
+{%- endblock htmBodyEndPageLayout %}

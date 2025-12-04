@@ -1,0 +1,321 @@
+{% extends "en-us/PageLayout.htm" %}
+{%- block htmTitlePageLayout %}
+{%- block htmTitleBareMetalNodePage %}
+    <title>{{ result.objectTitle }}</title>
+{%- endblock htmTitleBareMetalNodePage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/bare-metal-node/BareMetalNode.css"/>
+{%- block htmStylesBareMetalNodePage %}
+{%- endblock htmStylesBareMetalNodePage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+      :root {
+        --site-results-number-of-columns: 4;
+      }
+{{ super() }}
+{%- block htmStyleBareMetalNodePage %}
+{%- endblock htmStyleBareMetalNodePage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsBareMetalNodePage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/bare-metal-node/BareMetalNode.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/bare-metal-node/BareMetalNodeSearchPage.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/bare-metal-node/BareMetalNodeEditPage.js"></script>
+{%- endblock htmScriptsBareMetalNodePage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptBareMetalNodePage %}
+    <script>
+
+      function jsWebsocketBareMetalNode(nodeId, vars, $response) {
+{%- block jsWebsocketBareMetalNodePage %}{%- endblock %}
+      }
+
+      function jsTooltipBareMetalNode(e, feature) {
+{%- block jsTooltipBareMetalNodePage %}{%- endblock %}
+      }
+
+      function htmTooltipBareMetalNode(feature, layer) {
+        return `{%- block htmTooltipBareMetalNodePage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.objectTitle}</a></h3>
+{%- endblock htmTooltipBareMetalNodePage %}`;
+      }
+
+      function facetSimpleRangeBareMetalNodeSuccess(pageContent) {
+{% block facetSimpleRangeBareMetalNodeSuccess %}{%- endblock facetSimpleRangeBareMetalNodeSuccess %}
+      }
+      function facetSimpleRangeBareMetalNodeError(pageContent) {
+{% block facetSimpleRangeBareMetalNodeError %}{%- endblock facetSimpleRangeBareMetalNodeError %}
+      }
+      function facetSimpleRangeBareMetalNode(e) {
+        facetSimpleRange(e, facetSimpleRangeBareMetalNodeSuccess, facetSimpleRangeBareMetalNodeError);
+      }
+
+      function facetRangeTimeZoneBareMetalNodeSuccess(pageContent) {
+{% block facetRangeTimeZoneBareMetalNodeSuccess %}{%- endblock facetRangeTimeZoneBareMetalNodeSuccess %}
+      }
+      function facetRangeTimeZoneBareMetalNodeError(pageContent) {
+{% block facetRangeTimeZoneBareMetalNodeError %}{%- endblock facetRangeTimeZoneBareMetalNodeError %}
+      }
+      function facetRangeTimeZoneBareMetalNode(e) {
+        facetRangeTimeZone(e, facetRangeTimeZoneBareMetalNodeSuccess, facetRangeTimeZoneBareMetalNodeError);
+      }
+
+      function facetRangeGapChangeBareMetalNodeSuccess(pageContent) {
+{% block facetRangeGapChangeBareMetalNodeSuccess %}{%- endblock facetRangeGapChangeBareMetalNodeSuccess %}
+      }
+      function facetRangeGapChangeBareMetalNodeError(pageContent) {
+{% block facetRangeGapChangeBareMetalNodeError %}{%- endblock facetRangeGapChangeBareMetalNodeError %}
+      }
+      function facetRangeGapChangeBareMetalNode(classSimpleName, event) {
+        facetRangeGapChange(classSimpleName, event, facetRangeGapChangeBareMetalNodeSuccess, facetRangeGapChangeBareMetalNodeError);
+      }
+
+      function facetRangeStartChangeBareMetalNodeSuccess(pageContent) {
+{% block facetRangeStartChangeBareMetalNodeSuccess %}{%- endblock facetRangeStartChangeBareMetalNodeSuccess %}
+      }
+      function facetRangeStartChangeBareMetalNodeError(pageContent) {
+{% block facetRangeStartChangeBareMetalNodeError %}{%- endblock facetRangeStartChangeBareMetalNodeError %}
+      }
+      function facetRangeStartChangeBareMetalNode(classSimpleName, event) {
+        facetRangeStartChange(classSimpleName, event, facetRangeStartChangeBareMetalNodeSuccess, facetRangeStartChangeBareMetalNodeError);
+      }
+
+      function facetRangeEndChangeBareMetalNodeSuccess(pageContent) {
+{% block facetRangeEndChangeBareMetalNodeSuccess %}{%- endblock facetRangeEndChangeBareMetalNodeSuccess %}
+      }
+      function facetRangeEndChangeBareMetalNodeError(pageContent) {
+{% block facetRangeEndChangeBareMetalNodeError %}{%- endblock facetRangeEndChangeBareMetalNodeError %}
+      }
+      function facetRangeEndChangeBareMetalNode(classSimpleName, event) {
+        facetRangeEndChange(classSimpleName, event, facetRangeEndChangeBareMetalNodeSuccess, facetRangeEndChangeBareMetalNodeError);
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+        , customElements.whenDefined('wa-select')
+        , customElements.whenDefined('wa-radio')
+        , customElements.whenDefined('wa-checkbox')
+      ]).then(() => {
+
+        var nodeId = {% if result.nodeId is defined %}{{ result.nodeId | tojson }}{% else %}null{% endif %};
+
+        if(nodeId == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if result.nodeId is defined %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listBareMetalNode')?.value;
+        if(l)
+          window.listBareMetalNode = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        document.querySelector('#siteSidebarToggleRange')?.addEventListener('wa-after-hide', function(e) { document.querySelector('#pageFacetRangeTimeZonePopup').active = false; });
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneBareMetalNode);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneBareMetalNode);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('focus', facetRangeTimeZoneBareMetalNode);
+        document.querySelector('#pageFacetSimpleRangeDropdown')?.addEventListener('wa-select', facetSimpleRangeBareMetalNode);
+        pageGraphBareMetalNode();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qBareMetalNode_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('BareMetalNode', event.target, document.querySelector('#qBareMetalNodeDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qBareMetalNode_rows')?.addEventListener('change', event => {
+          paramChange('BareMetalNode', event.target, document.querySelector('#qBareMetalNodeDiv_rows'));
+        });
+
+        document.querySelector('#qBareMetalNode_start')?.addEventListener('change', event => {
+          paramChange('BareMetalNode', event.target, document.querySelector('#qBareMetalNodeDiv_start'));
+        });
+
+
+        var submitForm_patchBareMetalNode = document.querySelector('#htmForm_patchBareMetalNode')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchBareMetalNode')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchBareMetalNode(null, document.querySelector('#htmForm_patchBareMetalNode'), document.querySelector('#htmFormButton_patchBareMetalNode'), event.target.getAttribute('data-nodeId'));
+          return false;
+        });
+
+        var submitForm_postBareMetalNode = document.querySelector('#htmForm_postBareMetalNode')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postBareMetalNode')?.addEventListener('click', event => {
+          event.preventDefault();
+          postBareMetalNode(document.querySelector('#htmForm_postBareMetalNode')
+          , document.querySelector('#htmFormButton_postBareMetalNode')
+          , (json, target) => {
+            window.location.href = json.editPage;
+          });
+          return false;
+        });
+
+        var submitForm_deleteBareMetalNode = document.querySelector('#htmForm_deleteBareMetalNode')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteBareMetalNode')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteBareMetalNode(event.target, event.target.getAttribute('data-nodeId'));
+          return false;
+        });
+
+        var submitForm_putimportBareMetalNode = document.querySelector('#htmForm_putimportBareMetalNode')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_putimportBareMetalNode')?.addEventListener('click', event => {
+          event.preventDefault();
+          putimportBareMetalNode(document.querySelector('#htmForm_putimportBareMetalNode'), document.querySelector('#htmFormButton_putimportBareMetalNode'));
+          return false;
+        });
+
+        var submitForm_searchpageBareMetalNode = document.querySelector('#htmForm_searchpageBareMetalNode')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageBareMetalNode')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageBareMetalNode();
+          return false;
+        });
+
+        var submitForm_deletefilterBareMetalNode = document.querySelector('#htmForm_deletefilterBareMetalNode')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterBareMetalNode')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterBareMetalNode(event.target);
+          return false;
+        });
+{%- block htmScriptInitBareMetalNodePage %}{%- endblock htmScriptInitBareMetalNodePage %}
+      });
+    </script>
+{%- endblock htmScriptBareMetalNodePage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketBareMetalNodePage %}
+{% if resultCount > 0 %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketBareMetalNode(websocketBareMetalNodeInner);
+{% endif %}
+{%- endblock websocketBareMetalNodePage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlBareMetalNodePage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlBareMetalNodePage %}
+
+{%- block htmBodyStartPageLayout %}
+    {{ super() }}
+{%- block htmBodyStartBareMetalNodePage %}
+{% if resultCount > 0 %}
+          <div class="wa-flank ">
+            <wa-tooltip for="return-to-BareMetalNode">back to all bare metal nodes</wa-tooltip>
+            <wa-button id="return-to-BareMetalNode" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-angle-left"></i>
+              all bare metal nodes
+            </wa-button>
+            <h1 class="Page_objectTitle"><i class="fa-regular fa-hexagon-nodes"></i> {{ result.objectTitle | e }}</h1>
+          </div>
+          <div class="margin-block">
+          </div>
+{% include en-us/search/bare-metal-node/BareMetalNodeSearchForm.htm %}
+          <wa-divider></wa-divider>
+{% include en-us/search/bare-metal-node/BareMetalNodeSearchButtons.htm %}
+{% endif %}
+{%- endblock htmBodyStartBareMetalNodePage %}
+{%- endblock htmBodyStartPageLayout %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleBareMetalNodePage %}
+        <div class="pageContent ">
+{%- include en-us/search/bare-metal-node/BareMetalNodeSidebar.htm %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-BareMetalNode">back to all bare metal nodes</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-BareMetalNode" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-regular fa-hexagon-nodes"></i>
+              all bare metal nodes
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no bare metal node found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-regular fa-hexagon-nodes"></i>
+            </div>
+            <span class="wa-heading-m ">no bare metal node found</span>
+            <p class="wa-caption-l ">An OpenStack bare metal node</p>
+{% include en-us/search/bare-metal-node/BareMetalNodeSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{%- include en-us/search/bare-metal-node/BareMetalNodeSuggestedSearch.htm %}
+{% endif %}
+{%- block htmFormBareMetalNodePage %}
+          <form action="/en-us/api/bare-metal-node" id="BareMetalNodeForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+{% if result.nodeId is defined %}
+            <input name="nodeId" class="valueNodeId" type="hidden" value="{{ result.nodeId }}"/>
+            {% endif %}
+            <input name="focusId" type="hidden"/>
+            <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+            <input name="result" id="result" class="result"  value='{{ toJsonObjectStringInApostrophes(result) }}' type="hidden"/>
+            <input name="listBareMetalNode" id="listBareMetalNode" class="listBareMetalNode"  value='{{ toJsonArrayStringInApostrophes(listBareMetalNode) }}' type="hidden"/>
+          </form>
+  {% if solrId is defined %}
+          {{ htmButton_searchpageBareMetalNode() }}
+          {{ htmForm_searchpageBareMetalNode() }}
+  {% endif %}
+{%- endblock htmFormBareMetalNodePage %}
+        </div>
+{%- endblock htmBodyMiddleBareMetalNodePage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+{%- block htmBodyEndBareMetalNodePage %}
+{%- include en-us/search/bare-metal-node/BareMetalNodeLocation.htm %}
+{%- endblock htmBodyEndBareMetalNodePage %}
+      {{ super() }}
+{%- endblock htmBodyEndPageLayout %}

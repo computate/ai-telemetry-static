@@ -1,0 +1,24 @@
+{% extends "en-us/PageLayout.htm" %}
+{% block htmMetaPageLayout %}
+    <meta name="result.hubId" content="{{ result.shortFileName }}"/>
+    <meta name="result.hubResource" content="HUB-{{ result.shortFileName }}"/>
+    <meta name="result.hubName" content="Innabox development environment"/>
+    <meta name="result.description" content="A multi-tenant AI service where tenants can easily spin up their own environment for AI on the hypershift1 cluster. "/>
+    <meta name="result.displayPage" content="https://github.com/innabox/docs/blob/main/designdoc.md"/>
+    <meta name="result.localClusterName" content="hypershift1"/>
+{% endblock htmMetaPageLayout %}
+{% block htmStylePageLayout %}
+
+wa-button, wa-details {
+  &::part(base) {
+    background: linear-gradient(130deg, var(--wa-color-pink-50), var(--wa-color-purple-40));
+    color: white;
+    border: solid 1px var(--wa-color-pink-30);
+  }
+}
+{% endblock htmStylePageLayout %}
+{% block htmTitlePageLayout %}
+    <title>{{ title }}</title>
+{% endblock htmTitlePageLayout %}
+{% block htmBodyMiddlePageLayout %}
+{% endblock %}

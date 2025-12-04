@@ -1,0 +1,380 @@
+{% extends "en-us/PageLayout.htm" %}
+
+{%- block htmTitlePageLayout %}
+{%- block htmTitleBareMetalResourceClassPage %}
+    <title>{% if resultCount == 0 %}no bare metal resource class found{% else %}bare metal resource classes{% endif %}</title>
+{%- endblock htmTitleBareMetalResourceClassPage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/bare-metal-resource-class/BareMetalResourceClass.css"/>
+{%- block htmStylesBareMetalResourceClassPage %}
+{%- endblock htmStylesBareMetalResourceClassPage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+      :root {
+        --site-results-number-of-columns: 2;
+      }
+{{ super() }}
+{%- block htmStyleBareMetalResourceClassPage %}
+{%- endblock htmStyleBareMetalResourceClassPage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsBareMetalResourceClassPage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/bare-metal-resource-class/BareMetalResourceClass.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/bare-metal-resource-class/BareMetalResourceClassSearchPage.js"></script>
+{%- endblock htmScriptsBareMetalResourceClassPage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptBareMetalResourceClassPage %}
+    <script>
+
+      function jsWebsocketBareMetalResourceClass(name, vars, $response) {
+{%- block jsWebsocketBareMetalResourceClassPage %}{%- endblock %}
+      }
+
+      function jsTooltipBareMetalResourceClass(e, feature) {
+{%- block jsTooltipBareMetalResourceClassPage %}{%- endblock %}
+      }
+
+      function htmTooltipBareMetalResourceClass(feature, layer) {
+        return `{%- block htmTooltipBareMetalResourceClassPage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.objectTitle}</a></h3>
+{%- endblock htmTooltipBareMetalResourceClassPage %}`;
+      }
+
+      function facetSimpleRangeBareMetalResourceClassSuccess(pageContent) {
+{% block facetSimpleRangeBareMetalResourceClassSuccess %}{%- endblock facetSimpleRangeBareMetalResourceClassSuccess %}
+      }
+      function facetSimpleRangeBareMetalResourceClassError(pageContent) {
+{% block facetSimpleRangeBareMetalResourceClassError %}{%- endblock facetSimpleRangeBareMetalResourceClassError %}
+      }
+      function facetSimpleRangeBareMetalResourceClass(e) {
+        facetSimpleRange(e, facetSimpleRangeBareMetalResourceClassSuccess, facetSimpleRangeBareMetalResourceClassError);
+      }
+
+      function facetRangeTimeZoneBareMetalResourceClassSuccess(pageContent) {
+{% block facetRangeTimeZoneBareMetalResourceClassSuccess %}{%- endblock facetRangeTimeZoneBareMetalResourceClassSuccess %}
+      }
+      function facetRangeTimeZoneBareMetalResourceClassError(pageContent) {
+{% block facetRangeTimeZoneBareMetalResourceClassError %}{%- endblock facetRangeTimeZoneBareMetalResourceClassError %}
+      }
+      function facetRangeTimeZoneBareMetalResourceClass(e) {
+        facetRangeTimeZone(e, facetRangeTimeZoneBareMetalResourceClassSuccess, facetRangeTimeZoneBareMetalResourceClassError);
+      }
+
+      function facetRangeGapChangeBareMetalResourceClassSuccess(pageContent) {
+{% block facetRangeGapChangeBareMetalResourceClassSuccess %}{%- endblock facetRangeGapChangeBareMetalResourceClassSuccess %}
+      }
+      function facetRangeGapChangeBareMetalResourceClassError(pageContent) {
+{% block facetRangeGapChangeBareMetalResourceClassError %}{%- endblock facetRangeGapChangeBareMetalResourceClassError %}
+      }
+      function facetRangeGapChangeBareMetalResourceClass(classSimpleName, event) {
+        facetRangeGapChange(classSimpleName, event, facetRangeGapChangeBareMetalResourceClassSuccess, facetRangeGapChangeBareMetalResourceClassError);
+      }
+
+      function facetRangeStartChangeBareMetalResourceClassSuccess(pageContent) {
+{% block facetRangeStartChangeBareMetalResourceClassSuccess %}{%- endblock facetRangeStartChangeBareMetalResourceClassSuccess %}
+      }
+      function facetRangeStartChangeBareMetalResourceClassError(pageContent) {
+{% block facetRangeStartChangeBareMetalResourceClassError %}{%- endblock facetRangeStartChangeBareMetalResourceClassError %}
+      }
+      function facetRangeStartChangeBareMetalResourceClass(classSimpleName, event) {
+        facetRangeStartChange(classSimpleName, event, facetRangeStartChangeBareMetalResourceClassSuccess, facetRangeStartChangeBareMetalResourceClassError);
+      }
+
+      function facetRangeEndChangeBareMetalResourceClassSuccess(pageContent) {
+{% block facetRangeEndChangeBareMetalResourceClassSuccess %}{%- endblock facetRangeEndChangeBareMetalResourceClassSuccess %}
+      }
+      function facetRangeEndChangeBareMetalResourceClassError(pageContent) {
+{% block facetRangeEndChangeBareMetalResourceClassError %}{%- endblock facetRangeEndChangeBareMetalResourceClassError %}
+      }
+      function facetRangeEndChangeBareMetalResourceClass(classSimpleName, event) {
+        facetRangeEndChange(classSimpleName, event, facetRangeEndChangeBareMetalResourceClassSuccess, facetRangeEndChangeBareMetalResourceClassError);
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+        , customElements.whenDefined('wa-select')
+        , customElements.whenDefined('wa-radio')
+        , customElements.whenDefined('wa-checkbox')
+      ]).then(() => {
+
+        var name = {% if result.name is defined %}{{ result.name | tojson }}{% else %}null{% endif %};
+
+        if(name == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if result.name is defined %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listBareMetalResourceClass')?.value;
+        if(l)
+          window.listBareMetalResourceClass = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        document.querySelector('#siteSidebarToggleRange')?.addEventListener('wa-after-hide', function(e) { document.querySelector('#pageFacetRangeTimeZonePopup').active = false; });
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneBareMetalResourceClass);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneBareMetalResourceClass);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('focus', facetRangeTimeZoneBareMetalResourceClass);
+        document.querySelector('#pageFacetSimpleRangeDropdown')?.addEventListener('wa-select', facetSimpleRangeBareMetalResourceClass);
+        pageGraphBareMetalResourceClass();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qBareMetalResourceClass_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('BareMetalResourceClass', event.target, document.querySelector('#qBareMetalResourceClassDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qBareMetalResourceClass_rows')?.addEventListener('change', event => {
+          paramChange('BareMetalResourceClass', event.target, document.querySelector('#qBareMetalResourceClassDiv_rows'));
+        });
+
+        document.querySelector('#qBareMetalResourceClass_start')?.addEventListener('change', event => {
+          paramChange('BareMetalResourceClass', event.target, document.querySelector('#qBareMetalResourceClassDiv_start'));
+        });
+
+
+        var submitForm_patchBareMetalResourceClass = document.querySelector('#htmForm_patchBareMetalResourceClass')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchBareMetalResourceClass')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchBareMetalResourceClass(null, document.querySelector('#htmForm_patchBareMetalResourceClass'), document.querySelector('#htmFormButton_patchBareMetalResourceClass'), event.target.getAttribute('data-name'));
+          return false;
+        });
+
+        var submitForm_postBareMetalResourceClass = document.querySelector('#htmForm_postBareMetalResourceClass')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postBareMetalResourceClass')?.addEventListener('click', event => {
+          event.preventDefault();
+          postBareMetalResourceClass(document.querySelector('#htmForm_postBareMetalResourceClass')
+          , document.querySelector('#htmFormButton_postBareMetalResourceClass')
+          , (json, target) => {
+            window.location.href = json.editPage;
+          });
+          return false;
+        });
+
+        var submitForm_deleteBareMetalResourceClass = document.querySelector('#htmForm_deleteBareMetalResourceClass')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteBareMetalResourceClass')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteBareMetalResourceClass(event.target, event.target.getAttribute('data-name'));
+          return false;
+        });
+
+        var submitForm_putimportBareMetalResourceClass = document.querySelector('#htmForm_putimportBareMetalResourceClass')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_putimportBareMetalResourceClass')?.addEventListener('click', event => {
+          event.preventDefault();
+          putimportBareMetalResourceClass(document.querySelector('#htmForm_putimportBareMetalResourceClass'), document.querySelector('#htmFormButton_putimportBareMetalResourceClass'));
+          return false;
+        });
+
+        var submitForm_searchpageBareMetalResourceClass = document.querySelector('#htmForm_searchpageBareMetalResourceClass')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageBareMetalResourceClass')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageBareMetalResourceClass();
+          return false;
+        });
+
+        var submitForm_deletefilterBareMetalResourceClass = document.querySelector('#htmForm_deletefilterBareMetalResourceClass')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterBareMetalResourceClass')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterBareMetalResourceClass(event.target);
+          return false;
+        });
+{%- block htmScriptInitBareMetalResourceClassPage %}{%- endblock htmScriptInitBareMetalResourceClassPage %}
+      });
+    </script>
+{%- endblock htmScriptBareMetalResourceClassPage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketBareMetalResourceClassPage %}
+{% if resultCount > 0 %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketBareMetalResourceClass(websocketBareMetalResourceClassInner);
+{% endif %}
+{%- endblock websocketBareMetalResourceClassPage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlBareMetalResourceClassPage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlBareMetalResourceClassPage %}
+{%- if pageBreadcrumb is not defined %}
+{%- set pageBreadcrumb %}
+              <wa-tooltip for="return-to-BareMetalResourceClass">back to all bare metal resource classes</wa-tooltip>
+              <wa-breadcrumb>
+                <wa-breadcrumb-item id="return-to-BareMetalResourceClass" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+                  <i class="fa-regular fa-server"></i>
+                  all bare metal resource classes
+                </wa-breadcrumb-item>
+                <wa-breadcrumb-item>
+                  search bare metal resource classes
+                </wa-breadcrumb-item>
+              </wa-breadcrumb>
+{%- endset pageBreadcrumb %}
+{%- endif  %}
+
+{%- block htmBodyStartPageLayout %}
+{{ super() }}
+{%- block htmBodyStartBareMetalResourceClassPage %}
+{% include en-us/search/bare-metal-resource-class/BareMetalResourceClassSidebar.htm %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-BareMetalResourceClass">back to all bare metal resource classes</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-BareMetalResourceClass" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-regular fa-server"></i>
+              all bare metal resource classes
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no bare metal resource class found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-regular fa-server"></i>
+            </div>
+            <span class="wa-heading-m ">no bare metal resource class found</span>
+            <p class="wa-caption-l ">A bare metal resource class</p>
+{% include en-us/search/bare-metal-resource-class/BareMetalResourceClassSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{% include en-us/search/bare-metal-resource-class/BareMetalResourceClassSuggestedSearch.htm %}
+          <div class="pageContent ">
+            <form action="/en-us/api/bare-metal-resource-class" id="BareMetalResourceClassForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+              <input name="focusId" type="hidden"/>
+              <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+              <input name="listBareMetalResourceClass" id="listBareMetalResourceClass" class="listBareMetalResourceClass"  value='{{ toJsonArrayStringInApostrophes(listBareMetalResourceClass) }}' type="hidden"/>
+            </form>
+            <div id="site-calendar-box">
+              <div id="site-calendar"><!-- // --></div>
+            </div>
+            <div class="wa-stack wa-gap-m ">
+{% endif %}
+{%- endblock htmBodyStartBareMetalResourceClassPage %}
+{%- endblock htmBodyStartPageLayout %}
+{%- if pageSearchButtons is not defined %}
+{%- set pageSearchButtons %}
+{% include en-us/search/bare-metal-resource-class/BareMetalResourceClassSearchButtons.htm %}
+{%- endset pageSearchButtons %}
+{%- endif %}
+{%- if pageSearchForm is not defined %}
+{%- set pageSearchForm %}
+{% include en-us/search/bare-metal-resource-class/BareMetalResourceClassSearchForm.htm %}
+{%- endset pageSearchForm %}
+{%- endif %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleBareMetalResourceClassPage %}
+{% if resultCount > 0 %}
+              <div class="wa-stack wa-gap-0 ">
+{% include en-us/search/bare-metal-resource-class/BareMetalResourceClassPaginationButtons.htm %}
+                <div class="card-like-thing background-color-surface-border" id="site-results-grid">
+                  <div>
+              <wa-dropdown id="htmDropdown-name">
+                <wa-button variant="brand" slot="trigger" caret>resource class name</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalResourceClass_name'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalResourceClass').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-name-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by resource class name ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalResourceClass_name'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalResourceClass').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-name-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by resource class name descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+              <wa-dropdown id="htmDropdown-count">
+                <wa-button variant="brand" slot="trigger" caret>number of available nodes</wa-button>
+                <wa-menu>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalResourceClass_count'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalResourceClass').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-count-asc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                    sort by number of available nodes ascending
+                  </wa-menu-item>
+                  <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalResourceClass_count'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalResourceClass').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-count-desc">
+                    <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                    sort by number of available nodes descending
+                  </wa-menu-item>
+                </wa-menu>
+              </wa-dropdown>
+                  </div>
+                  {% for item in listBareMetalResourceClass%}
+                  <div>
+              <a href="{{ item.displayPage }}">
+                <i class="fa-regular fa-server"></i>
+              <span>{{ item.name | e }}
+</span>              </a>
+              <a href="{{ item.displayPage }}">
+              <span>{{ item.count | e }}
+</span>              </a>
+                  </div>
+                  {% endfor %}
+              {% if getColumnName is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnCount is defined %}
+                <div>
+                </div>
+              {% endif %}
+                </div>
+{% include en-us/search/bare-metal-resource-class/BareMetalResourceClassPaginationButtons.htm %}
+              </div>
+            </div>
+          </div>
+{% endif %}
+{%- endblock htmBodyMiddleBareMetalResourceClassPage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+{%- block htmBodyEndBareMetalResourceClassPage %}
+{%- include en-us/search/bare-metal-resource-class/BareMetalResourceClassLocation.htm %}
+{%- endblock htmBodyEndBareMetalResourceClassPage %}
+  {{ super() }}
+{%- endblock htmBodyEndPageLayout %}

@@ -1,0 +1,114 @@
+{% extends "en-us/search/vm/VirtualMachineGenSearchPage.htm" %}
+{%- block htmBodyEndVirtualMachinePage %}
+{% if resultCount > 0 %}
+<wa-details open class="HtmRow" id="observability-dashboard">
+  <div slot="summary">
+    Observability dashboard for OpenShift projects
+  </div>
+  <div class="wa-stack ">
+    <div class="wa-grid ">
+      {{ dashboardCard('visualization-total-memory-utilization', 'VM total memory utilization') }}
+      {{ dashboardCard('visualization-total-cpu-utilization', 'VM total CPU utilization') }}
+    </div>
+    <div class="wa-grid ">
+      {{ dashboardCard('visualization-quota-memory-utilization', 'VM quota memory utilization') }}
+      {{ dashboardCard('visualization-quota-cpu-utilization', 'VM quota CPU utilization') }}
+    </div>
+  </div>
+</wa-details>
+{% endif %}
+{{ super() }}
+{%- endblock htmBodyEndVirtualMachinePage %}
+{%- block htmStyleVirtualMachinePage %}
+{%- endblock htmStyleVirtualMachinePage %}
+{%- block htmScriptInitVirtualMachinePage %}
+
+      var facetRangeGapVal = document.querySelector("#pageSearchVal-pageFacetRangeGap-{{ classSimpleName }}-input").value;
+      var startValue = document.querySelector("#pageSearchVal-pageFacetRangeStart-{{ classSimpleName }}-input").value;
+      var endValue = document.querySelector("#pageSearchVal-pageFacetRangeEnd-{{ classSimpleName }}-input").value;
+      var timeZone = document.querySelector("#pageFacetRangeTimeZoneInput").value;
+      var start = moment.tz(startValue, 'YYYY-MM-DDTHH:mm', timeZone).utc().toISOString();
+      var end = moment.tz(endValue, 'YYYY-MM-DDTHH:mm', timeZone).utc().toISOString();
+      var step;
+      switch (facetRangeGapVal) {
+        case "+1YEAR":
+          step = "1y";
+          break;
+        case "+1MONTH":
+          step = "1M";
+          break;
+        case "+1DAY":
+          step = "1d";
+          break;
+        case "+1HOUR":
+          step = "1h";
+          break;
+        case "+1MINUTE":
+          step = "1m";
+          break;
+        default:
+          step = "7d";
+      }
+
+      var timeQuery = {
+        start: start
+        , end: end
+        , step: step
+      };
+
+      Promise.all([
+          {{ dashboardPromise('visualization-total-memory-utilization') }}
+          , {{ dashboardPromise('visualization-total-cpu-utilization') }}
+          , {{ dashboardPromise('visualization-quota-memory-utilization') }}
+          , {{ dashboardPromise('visualization-quota-cpu-utilization') }}
+          ]);
+{%- endblock htmScriptInitVirtualMachinePage %}
+{%- block htmScriptsVirtualMachinePage %}
+{{ super() }}
+    <script>
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-total-memory-utilization'
+      , yaxisTitle='Total VM memory'
+      , classSimpleName='VirtualMachine'
+      , legendTitle='virtual machines'
+      , resultLabel='name'
+      , metricPrefix='irate(kubevirt_vmi_memory_used_bytes{'
+      , metricSuffix='}[10m])'
+      , projectVar='vmProject'
+    ) }}
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-total-cpu-utilization'
+      , yaxisTitle='Total VM memory'
+      , classSimpleName='VirtualMachine'
+      , legendTitle='virtual machines'
+      , resultLabel='name'
+      , metricPrefix='irate(kubevirt_vmi_cpu_usage_seconds_total{'
+      , metricSuffix='}[10m])'
+      , projectVar='vmProject'
+    ) }}
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-quota-memory-utilization'
+      , yaxisTitle='Percent of VM memory usage'
+      , classSimpleName='VirtualMachine'
+      , legendTitle='virtual machines'
+      , resultLabel='name'
+      , metricPrefix='irate(kubevirt_vmi_memory_used_bytes{'
+      , metricMiddle='}[10m]) / on(cluster, namespace, name) kubevirt_vm_resource_requests{ resource="memory", unit="bytes", '
+      , metricSuffix='}'
+      , projectVar='vmProject'
+      , tickformat='.2%'
+    ) }}
+    {{ hubClusterProjectDashboardAsyncFunction(
+      divId='visualization-quota-cpu-utilization'
+      , yaxisTitle='Percent of VM CPU usage'
+      , classSimpleName='VirtualMachine'
+      , legendTitle='virtual machines'
+      , resultLabel='name'
+      , metricPrefix='irate(kubevirt_vmi_cpu_usage_seconds_total{'
+      , metricMiddle='}[10m]) / on(cluster, namespace, name) kubevirt_vm_resource_requests{ resource="cpu", unit="sockets", '
+      , metricSuffix='}'
+      , projectVar='vmProject'
+      , tickformat='.2%'
+    ) }}
+    </script>
+{%- endblock htmScriptsVirtualMachinePage %}

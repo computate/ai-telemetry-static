@@ -1,0 +1,149 @@
+{% extends "en-us/Article.htm" %}
+{% block htmMetaPageLayout %}
+    <meta name="result.pageId" content="{{ result.shortFileName }}" />
+    <meta name="result.name" content="Configure a new Red Hat ACM Hub in AI Telemetry" />
+    <meta name="result.description" content="Here are the steps to register a new ACM Hub in AI Telemetry with a new Prometheus Keycloak Proxy. " />
+    <meta name="result.authorName" content="Christopher Tate" />
+    <meta name="result.authorUrl" content="{{ SITE_BASE_URL }}/en-us/learn/about/about-christopher-tate" />
+    <meta name="result.created" content="2025-08-12T13:27:58.556[America/Denver]" />
+    <meta name="result.pageImageUri" content="/templates/en-us/view/article/{{ result.pageId }}/boot-screen-test-or-install.png" />
+    <meta name="result.pageImageAlt" content="" />
+{% endblock htmMetaPageLayout %}
+{% block htmBodyMiddleArticle %}
+{{ articleImage(result) }}
+
+    <div class="wa-stack">
+      <h2>
+        Obtain the observability server mutual TLS certificate information
+      </h2>
+      <ol class="wa-stack ">
+        <wa-divider></wa-divider>
+        <li class="wa-stack ">
+          <div class="wa-stack ">
+            <ul>
+              <li>
+                Connect to your ACM Hub cluster and extract the Observability server certificates and keys. 
+              </li>
+            </ul>
+            <div class="wa-flank ">
+              <wa-copy-button from="code-extract-observability-certs"></wa-copy-button>
+              <wa-scroller><pre><code id="code-extract-observability-certs">
+oc -n open-cluster-management-observability \
+  extract secret/observability-grafana-certs \
+  --keys=tls.crt --to=$HOME/Downloads/
+oc -n open-cluster-management-observability \
+  extract secret/observability-grafana-certs \
+  --keys=tls.key --to=$HOME/Downloads/
+oc -n open-cluster-management-observability \
+  extract secret/observability-server-ca-certs \
+  --keys=ca.crt --to=$HOME/Downloads/
+                </code></pre></wa-scroller>
+            </div>
+          </div>
+        </li>
+        <li class="wa-stack ">
+          <div class="wa-stack ">
+            <ul>
+              <li>
+                Set environment variables related to your Keycloak server. 
+              </li>
+            </ul>
+            <div class="wa-flank ">
+              <wa-copy-button from="code-extract-observability-certs"></wa-copy-button>
+              <wa-scroller><pre><code id="code-extract-observability-certs">
+PROXY_AUTH_BASE_URL=https://keycloak.apps.obs.nerc.mghpcc.org
+PROXY_PROMETHEUS_BASE_URL=https://observatorium-api-open-cluster-management-observability.apps.infra.nerc.mghpcc.org/api/metrics/v1/default
+PROXY_ACM_HUB=moc
+PROXY_AUTH_REALM=NERC
+PROXY_AUTH_CLIENT_ID=ai-telemetry
+                </code></pre></wa-scroller>
+            </div>
+            <ul>
+              <li>
+                Obtain your keycloak admin password to query the Keycloak Admin API. 
+              </li>
+            </ul>
+            <div class="wa-flank ">
+              <wa-copy-button from="code-extract-observability-certs"></wa-copy-button>
+              <wa-scroller><pre><code id="code-extract-observability-certs">
+KEYCLOAK_ADMIN_USER_NAME=$(oc -n keycloak get secret/keycloak-initial-admin -o jsonpath={.data.username} | base64 -d)
+KEYCLOAK_ADMIN_PASSWORD=$(oc -n keycloak get secret/keycloak-initial-admin -o jsonpath={.data.password} | base64 -d)
+                </code></pre></wa-scroller>
+            </div>
+            <ul>
+              <li>
+                Obtain a Keycloak admin token. 
+              </li>
+            </ul>
+            <div class="wa-flank ">
+              <wa-copy-button from="code-extract-observability-certs"></wa-copy-button>
+              <wa-scroller><pre><code id="code-extract-observability-certs">
+KEYCLOAK_ADMIN_TOKEN=$(curl -s -X POST -d "username=$KEYCLOAK_ADMIN_USER_NAME" -d "grant_type=password" -d "client_id=admin-cli" \
+  -d "password=$KEYCLOAK_ADMIN_PASSWORD" \
+  $PROXY_AUTH_BASE_URL/realms/master/protocol/openid-connect/token | jq -r ".access_token")
+                </code></pre></wa-scroller>
+            </div>
+            <ul>
+              <li>
+                Obtain your Keycloak Client Secret. 
+              </li>
+            </ul>
+            <div class="wa-flank ">
+              <wa-copy-button from="code-extract-observability-certs"></wa-copy-button>
+              <wa-scroller><pre><code id="code-extract-observability-certs">
+PROXY_AUTH_CLIENT_SECRET=$(curl -s -H "Authorization: Bearer $KEYCLOAK_ADMIN_TOKEN" \
+  $PROXY_AUTH_BASE_URL/admin/realms/$PROXY_AUTH_REALM/clients/$PROXY_AUTH_CLIENT_ID/client-secret | jq -r ".value")
+                </code></pre></wa-scroller>
+            </div>
+            <ul>
+              <li>
+                Run the prom-keycloak-proxy container by configuring the right connection information to both Keycloak and Prometheus.
+              </li>
+            </ul>
+            <div class="wa-flank ">
+              <wa-copy-button from="code-extract-observability-certs"></wa-copy-button>
+              <wa-scroller><pre><code id="code-extract-observability-certs">
+podman run --rm -p 8080:8080 \
+  -e PROXY_AUTH_CLIENT_ID=$PROXY_AUTH_CLIENT_ID \
+  -e PROXY_AUTH_CLIENT_SECRET=$PROXY_AUTH_CLIENT_SECRET \
+  -e PROXY_ACM_HUB=$PROXY_ACM_HUB \
+  -e PROXY_AUTH_REALM=$PROXY_AUTH_REALM \
+  -e PROXY_AUTH_BASE_URL=$PROXY_AUTH_BASE_URL \
+  -e PROXY_AUTH_TLS_VERIFY=true \
+  -e PROXY_PROMETHEUS_BASE_URL=$PROXY_PROMETHEUS_BASE_URL \
+  -e PROXY_PROMETHEUS_CA_CERT=/opt/Downloads/ca.crt \
+  -e PROXY_PROMETHEUS_TLS_CERT=/opt/Downloads/tls.crt \
+  -e PROXY_PROMETHEUS_TLS_KEY=/opt/Downloads/tls.key \
+  -e PROXY_HUB_KEY=HUB \
+  -e PROXY_CLUSTER_KEY=CLUSTER \
+  -e PROXY_PROJECT_KEY=PROJECT \
+  -v /home/ctate/Downloads:/opt/Downloads \
+  --privileged \
+  nerc-images/prom-keycloak-proxy:latest
+                </code></pre></wa-scroller>
+            </div>
+            <ul>
+              <li>
+                Test prom-keycloak-proxy
+              </li>
+            </ul>
+            <div class="wa-flank ">
+              <wa-copy-button from="code-extract-observability-certs"></wa-copy-button>
+              <wa-scroller><pre><code id="code-extract-observability-certs">
+AUTH_TOKEN=$(curl -X POST -k -s -u "$PROXY_AUTH_CLIENT_ID:$PROXY_AUTH_CLIENT_SECRET" \
+  -d "grant_type=client_credentials" \
+  "$PROXY_AUTH_BASE_URL/realms/$PROXY_AUTH_REALM/protocol/openid-connect/token" \
+  | jq -r ".access_token")
+
+curl -i 'http://localhost:8080/api/v1/query' --get \
+  --data-urlencode 'query=cluster:cpu_cores:sum' \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $AUTH_TOKEN"
+                </code></pre></wa-scroller>
+            </div>
+
+          </div>
+        </li>
+      </ol>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{%- block htmBodyLocationVirtualMachinePage %}
+        <wa-details open>
+          <div slot="summary">Map of virtual machines</div>
+
+{%- block htmBodyGraphLocationVirtualMachinePage %}
+{% if resultCount > 0 %}
+        <div id="htmBodyGraphLocationVirtualMachinePage" class="htmBodyGraphLocation "></div>
+{% endif %}
+{%- endblock htmBodyGraphLocationVirtualMachinePage %}
+
+{%- block htmBodyGraphVirtualMachinePage %}
+        <div id="htmBodyGraphVirtualMachinePage" class="htmBodyGraph "></div>
+{%- endblock htmBodyGraphVirtualMachinePage %}
+        </wa-details>
+{%- endblock htmBodyLocationVirtualMachinePage %}

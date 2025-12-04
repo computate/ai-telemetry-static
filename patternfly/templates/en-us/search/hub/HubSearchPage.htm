@@ -1,0 +1,117 @@
+{% extends "en-us/search/hub/HubGenSearchPage.htm" %}
+{%- block htmBodyEndHubPage %}
+{% if resultCount > 0 %}
+<wa-details open class="HtmRow" id="observability-dashboard">
+  <div slot="summary">
+    Observability dashboard for all ACM Hubs
+  </div>
+  <div class="wa-stack ">
+    <div class="wa-grid ">
+      <wa-card with-header>
+        <header slot="header" class="wa-heading-m ">Percent of total memory usage for all clusters in each ACM Hub</header>
+        <div id="visualization-cluster-memory-bytes"></div>
+      </wa-card>
+    </div>
+  </div>
+</wa-details>
+{% endif %}
+{{ super() }}
+{%- endblock htmBodyEndHubPage %}
+{%- block htmScriptInitHubPage %}
+
+      var facetRangeGapVal = document.querySelector("#pageSearchVal-pageFacetRangeGap-Hub-input").value;
+      var start = '{{ formatZonedDateTime(defaultRangeStart, "yyyy-MM-dd'T'HH:mm:ss.SSSX", defaultLocaleId, 'UTC') }}';
+      var end = '{{ formatZonedDateTime(defaultRangeEnd, "yyyy-MM-dd'T'HH:mm:ss.SSSX", defaultLocaleId, 'UTC') }}';
+      var step;
+      switch (facetRangeGapVal) {
+        case "+1YEAR":
+          step = "1y";
+          break;
+        case "+1MONTH":
+          step = "1M";
+          break;
+        case "+1DAY":
+          step = "1d";
+          break;
+        case "+1HOUR":
+          step = "1h";
+          break;
+        case "+1MINUTE":
+          step = "1m";
+          break;
+        default:
+          step = "7d";
+      }
+
+      var timeQuery = {
+        start: start
+        , end: end
+        , step: step
+      };
+
+      Promise.all([
+          queryMemoryBytesTotal(timeQuery)
+          ]);
+{%- endblock htmScriptInitHubPage %}
+{%- block htmScriptsHubPage %}
+{{ super() }}
+  <script>
+
+    async function queryMemoryBytesTotal(timeQuery) {
+      const urls = [];
+      if(window.varsFq.hubId.facetField) {
+        const hubIds = Object.keys(window.varsFq.hubId.facetField.counts);
+        hubIds.forEach((hubId, i) => {
+          urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+              {% if varsFq.hubId.facetField.counts | length == 1 && varsFq.hubId.facetField.counts['openshift-local'] is defined -%}
+              query: 'sum(cluster:memory_usage_bytes:sum) / on (prometheus) sum(cluster:capacity_memory_bytes:sum)' 
+              {%- else -%}
+              query: 'sum(cluster:memory_usage_bytes:sum) / sum(cluster:capacity_memory_bytes:sum{label_node_role_kubernetes_io!="master"})' 
+              {%- endif %}
+              }, timeQuery)).toString());
+        });
+        const responses = await Promise.all(urls.map(url => fetch(url)));
+        const dataPromises = responses.map(response => response.json());
+        const responseJsons = await Promise.all(dataPromises);
+        var end = new Date();
+        var start = new Date(new Date().setHours(end.getHours() - 1));
+
+        var panelId = 'visualization-cluster-memory-bytes';
+        var traces = [];
+        responseJsons.forEach((responseJson, i) => {
+          responseJson.data.result.forEach((result, j) => {
+            var hubId = hubIds[i];
+            traces.push({
+              x: result.values.map(values => new Date(values[0] * 1000))
+              , y: result.values.map(values => parseFloat(values[1]))
+              , mode: 'scatter'
+              , name: hubId
+              , text: result.values.map(values => '<a href="/en-us/edit/hub/' + hubId + '">' + hubId + '</a>')
+            });
+          });
+        });
+
+        var layout = {
+          xaxis: {
+            title: 'Time in {{ defaultZoneId }}'
+          }
+          , yaxis: {
+            title: 'Percent of total memory usage in all clusters'
+            , tickformat: '.0%'
+          }
+          , legend: {
+            title: {
+              text: 'Hubs'
+            }
+            , xanchor: 'center'
+            , x: 0.5
+            , yanchor: 'top'
+            , y: -1.0
+            , orientation: 'h'
+          }
+        };
+        Plotly.newPlot(panelId, traces, layout);
+      }
+    }
+  </script>
+{%- endblock htmScriptsHubPage %}

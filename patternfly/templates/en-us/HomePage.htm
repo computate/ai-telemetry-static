@@ -1,0 +1,67 @@
+{% extends "en-us/PageLayout.htm" %}
+{% block htmTitlePageLayout %}
+        <title>ai-telemetry</title>
+{% endblock %}
+{% block htmBodyMiddlePageLayout %}
+<div class="wa-stack">
+  <h3>Current activity in {% if SITE_POWERED_BY_NAME == 'OpenShift Local' %}{% else %}the {% endif %}{{ SITE_POWERED_BY_NAME }}</h3>
+  <div class="wa-grid">
+    <wa-callout variant="neutral" appearance="filled">
+      <wa-icon slot="icon" class="fa-regular fa-book fa-2xl "></wa-icon>
+      <div class="wa-stack wa-gap-0">
+        <h4 class="wa-heading-xs">Managed Red Hat ACM Hubs</h4>
+        <div class="wa-heading-2xl">{{ facetClass.counts.Hub }}</div>
+      </div>
+    </wa-callout>
+    <wa-callout variant="brand" appearance="filled">
+      <wa-icon slot="icon" class="fa-kit fa-openshift fa-2xl "></wa-icon>
+      <div class="wa-stack wa-gap-0">
+        <h4 class="wa-heading-xs">Managed OpenShift Clusters</h4>
+        <div class="wa-heading-2xl">{{ facetClass.counts.Cluster }}</div>
+      </div>
+    </wa-callout>
+    <wa-callout variant="success" appearance="filled">
+      <wa-icon slot="icon" class="fa-regular fa-people-line fa-2xl "></wa-icon>
+      <div class="wa-stack wa-gap-0">
+        <h4 class="wa-heading-xs">cloud projects</h4>
+        <div class="wa-heading-2xl">{{ facetClass.counts.Project }}</div>
+      </div>
+    </wa-callout>
+    <wa-callout variant="brand" appearance="filled">
+      <wa-icon slot="icon" class="fa-regular fa-sidebar fa-2xl "></wa-icon>
+      <div class="wa-stack wa-gap-0">
+        <h4 class="wa-heading-xs">Virtual machines</h4>
+        <div class="wa-heading-2xl">{{ facetClass.counts.VirtualMachine }}</div>
+      </div>
+    </wa-callout>
+  </div>
+  <div class="wa-grid">
+    <wa-card>
+      <div slot="header" class="wa-flank wa-gap-xl">
+        <wa-icon name="graduation-cap" class="wa-heading-xl"></wa-icon>
+        <span class="wa-gap-2xs wa-stack">
+          <h4>GPUs</h4>
+          <span class="wa-caption-m">The number of GPUs available</span>
+        </span>
+      </div>
+      <div class="wa-stack">
+        <ol class="wa-stack">
+          {% for modelName, modelCount in facetGpuDevice.counts.items() %}
+          <li class="wa-flank">
+            <wa-avatar
+              image="https://images.unsplash.com/photo-1620428268482-cf1851a36764?q=80&w=3418&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              shape="rounded"
+            ></wa-avatar>
+            <div class="wa-split wa-gap-xs">
+              <span>{{ modelName }}</span>
+              <small class="wa-caption-l">{{ modelCount }}</small>
+            </div>
+          </li>
+          <wa-divider></wa-divider>
+          {% endfor %}
+        </ol>
+      </div>
+    </wa-card>
+  </div>
+</div>
+{% endblock %}

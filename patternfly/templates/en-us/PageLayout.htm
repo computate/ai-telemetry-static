@@ -1,0 +1,1045 @@
+{%- macro jsFunctionName(divId) %}
+{%- set divIdWords = divId.split('-') -%}
+{%- set divIdCamelCaseWords = [] -%}
+{%- for word in divIdWords -%}
+    {%- if loop.first -%}
+        {%- set _ = divIdCamelCaseWords.append(word) -%}
+    {%- else -%}
+        {%- set _ = divIdCamelCaseWords.append(word|capitalize) -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- set jsFunctionName = divIdCamelCaseWords|join('') -%}
+{{ jsFunctionName }}
+{%- endmacro -%}
+
+{%- macro dashboardPromise(divId) -%}
+{{ jsFunctionName(divId) }}(timeQuery)
+{%- endmacro -%}
+
+{%- macro dashboardCard(divId, cardTitle) %}
+      <pf-card with-header>
+        <header slot="header" class="pf-heading-m ">{{ cardTitle | e}}</header>
+        <div id="{{ divId | e }}"></div>
+        <pf-details summary="Data">
+          <pf-scrollable>
+            <table class="pf-zebra-rows pf-hover-rows">
+              <thead>
+                <tr id="{{ divId | e }}-data-thead-tr">
+                </tr>
+              </thead>
+              <tbody id="{{ divId | e }}-data-tbody">
+              </tbody>
+            </table>
+          </pf-scrollable>
+        </pf-details>
+      </pf-card>
+{% endmacro -%}
+
+{%- macro hubClusterProjectDashboardAsyncFunction(divId, yaxisTitle, classSimpleName, legendTitle, resultLabel, metricPrefix, metricMiddle='', metricSuffix='', clusterVar='clusterName', projectLabel='namespace', projectVar='projectName', tickformat=null, timeZone=null, emptyClusterReplace=null, emptyClusterReplaceWith=null) %}
+
+    function {{ jsFunctionName(divId) }}Popover(event) {
+      var buttonId = event.target.getAttribute('id');
+      var hubId = event.target.getAttribute('data-hubId');
+      var dataValues = JSON.parse(event.target.getAttribute('data-values'));
+      var dataMetric = JSON.parse(event.target.getAttribute('data-metric'));
+
+      var $statsPopoverButton = event.target;
+      var $statsPopover = document.getElementById($statsPopoverButton.getAttribute('data-popover'));
+      $statsPopover.innerHTML = '';
+
+      var $popoverStack = document.createElement('div');
+      $popoverStack.setAttribute('class', 'pf-stack ');
+      $statsPopover.append($popoverStack);
+
+      var $headerHub = document.createElement('div');
+      $headerHub.setAttribute('class', 'pf-heading-m ');
+      $headerHub.innerText = 'hub: ' + hubId;
+      $popoverStack.append($headerHub);
+
+      if(dataMetric.cluster) {
+        var $headerCluster = document.createElement('div');
+        $headerCluster.setAttribute('class', 'pf-heading-m ');
+        $headerCluster.innerText = 'cluster: ' + dataMetric.cluster;
+        $popoverStack.append($headerCluster);
+      }
+
+      var $headerProject = document.createElement('div');
+      $headerProject.setAttribute('class', 'pf-heading-m ');
+      $headerProject.innerText = 'project: ' + dataMetric.{{ projectLabel }};
+      $popoverStack.append($headerProject);
+      {% if resultLabel is defined -%}
+
+      var $headerVar = document.createElement('div');
+      $headerVar.setAttribute('class', 'pf-heading-m ');
+      $headerVar.innerText = '{{ resultLabel }}: ' + dataMetric.{{ resultLabel }};
+      $popoverStack.append($headerVar);
+      {%- endif %}
+
+      $popoverStack.append(document.createElement('pf-divider'));
+
+      var $stack = document.createElement('div');
+      $stack.setAttribute('class', 'pf-stack ');
+      $popoverStack.append($stack);
+
+      var dates = dataValues.map(values => new Date(values[0] * 1000));
+      var vals = dataValues.map(values => parseFloat(values[1]));
+      var formatterFixed = new Intl.NumberFormat('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+
+      var minVal = Math.min(...vals);
+      var $minSplit = document.createElement('div');
+      $minSplit.setAttribute('class', 'pf-split ');
+      $stack.append($minSplit);
+      var $minSpan = document.createElement('span');
+      $minSpan.setAttribute('class', 'pf-caption-m ');
+      $minSpan.innerText = 'min';
+      $minSplit.append($minSpan);
+      var $minStrong = document.createElement('strong');
+      $minStrong.innerText = formatterFixed.format(minVal);
+      $minSplit.append($minStrong);
+      $minStrong.setAttribute('id', buttonId + '-min');
+      var $minTooltip = document.createElement('pf-tooltip');
+      $minTooltip.setAttribute('for', buttonId + '-min');
+      //$statsPopover.append($minTooltip);
+      $stack.append(document.createElement('pf-divider'));
+
+      var sumVals = vals.reduce((sum, val) => sum + val, 0);
+      var avgVal = sumVals / vals.length;
+      var $avgSplit = document.createElement('div');
+      $avgSplit.setAttribute('class', 'pf-split ');
+      $stack.append($avgSplit);
+      var $avgSpan = document.createElement('span');
+      $avgSpan.setAttribute('class', 'pf-caption-m ');
+      $avgSpan.innerText = 'avg';
+      $avgSplit.append($avgSpan);
+      var $avgStrong = document.createElement('strong');
+      $avgStrong.innerText = formatterFixed.format(avgVal);
+      $avgStrong.setAttribute('id', buttonId + '-avg');
+      var $avgTooltip = document.createElement('pf-tooltip');
+      $avgTooltip.setAttribute('for', buttonId + '-avg');
+      //$statsPopover.append($avgTooltip);
+      $avgSplit.append($avgStrong);
+      $stack.append(document.createElement('pf-divider'));
+
+      var maxVal = Math.max(...vals);
+      var $maxSplit = document.createElement('div');
+      $maxSplit.setAttribute('class', 'pf-split ');
+      $stack.append($maxSplit);
+      var $maxSpan = document.createElement('span');
+      $maxSpan.setAttribute('class', 'pf-caption-m ');
+      $maxSpan.innerText = 'max';
+      $maxSplit.append($maxSpan);
+      var $maxStrong = document.createElement('strong');
+      $maxStrong.innerText = formatterFixed.format(maxVal);
+      $maxStrong.setAttribute('id', buttonId + '-max');
+      var $maxTooltip = document.createElement('pf-tooltip');
+      $maxTooltip.setAttribute('for', buttonId + '-max');
+      //$statsPopover.append($maxTooltip);
+      $maxSplit.append($maxStrong);
+
+      var $statsCloseButton = document.createElement('pf-button');
+      $statsCloseButton.setAttribute('data-popover', 'close');
+      $statsCloseButton.setAttribute('variant', 'brand');
+      $statsCloseButton.innerText = 'close';
+      $popoverStack.append($statsCloseButton);
+    }
+
+    async function {{ jsFunctionName(divId) }}(timeQuery) {
+      if(window.varsFq.hubId.facetField) {
+        var timeZone = document.querySelector("#pageFacetRangeTimeZoneInput").value;
+        const urls = [];
+        const hubIds = Object.keys(window.varsFq.hubId.facetField.counts);
+        const clusterNames = Object.keys(window.varsFq.clusterName.facetField.counts);
+        var requestHubIds = [];
+        hubIds.forEach((hubId, i) => {
+          var projects = list{{ classSimpleName }}.filter(o => o.hubId === hubId);
+          var uniqueClusterNames = [...new Set(projects.map(item => item.{{ clusterVar }}))];
+          uniqueClusterNames.forEach(({{ clusterVar }}, i) => {
+            var uniqueProjectNames = [...new Set(projects.filter(project => project.{{ clusterVar }} === {{ clusterVar }}).map(project => project.{{ projectVar }}))];
+            var projectNamesFilter = clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }} + '", ') : '' + '{{ projectLabel }}=~"' + uniqueProjectNames.join('|') + '"';
+            urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+{%- set divIdWords = divId.split('-') -%}
+                {% if emptyClusterReplace is defined -%}
+                query: '{{ metricPrefix | replace(emptyClusterReplace, emptyClusterReplaceWith) }}' + projectNamesFilter + {% if metricMiddle != '' %}'{{ metricMiddle | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}' + projectNamesFilter + {% endif %}'{{ metricSuffix | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}'
+                {%- else -%}
+                query: '{{ metricPrefix }}' + projectNamesFilter + {% if metricMiddle != '' %}'{{ metricMiddle }}' + projectNamesFilter + {% endif %}'{{ metricSuffix }}'
+                {%- endif %}
+                }, timeQuery)).toString());
+            requestHubIds.push(hubId);
+          });
+        });
+        const responses = await Promise.all(urls.map(url => fetch(url)));
+        const dataPromises = responses.map(response => response.json());
+        const responseJsons = await Promise.all(dataPromises);
+
+        var $theadTr = document.getElementById('{{ divId | e }}-data-thead-tr');
+        $theadTr.innerHTML = '';
+
+        var $theadTrTd = document.createElement('td');
+        $theadTrTd.innerText = 'hub';
+        $theadTr.append($theadTrTd);
+
+        if(clusterNames.length > 0) {
+          $theadTrTd = document.createElement('td');
+          $theadTrTd.innerText = 'cluster';
+          $theadTr.append($theadTrTd);
+        }
+
+        $theadTrTd = document.createElement('td');
+        $theadTrTd.innerText = 'project';
+        $theadTr.append($theadTrTd);
+        {% if resultLabel is defined -%}
+
+        $theadTrTd = document.createElement('td');
+        $theadTrTd.innerText = '{{ resultLabel | e }}';
+        $theadTr.append($theadTrTd);
+        {%- endif %}
+
+        $theadTrTd = document.createElement('td');
+        $theadTrTd.innerText = '{{ cardTitle | e }}';
+        $theadTr.append($theadTrTd);
+
+        var $tbody = document.getElementById('{{ divId | e }}-data-tbody');
+        var panelId = '{{ divId | e }}';
+        var traces = [];
+        responseJsons.forEach((responseJson, i) => {
+          var hubId = requestHubIds[i];
+          responseJson.data.result.forEach((result, j) => {
+            traces.push({
+              x: result.values.map(values => new Date(values[0] * 1000))
+              , y: result.values.map(values => parseFloat(values[1]))
+              , mode: 'scatter'
+              , name: ({% if resultLabel is defined %}result.metric.{{ resultLabel }} + ' in ' + {% endif %}result.metric.{{ projectLabel }} + ' in ' + (result.metric.cluster ? (result.metric.cluster + ' in ') : '') + hubId).substring(0, 90)
+              , text: result.values.map(values => '<a href="/en-us/edit/cluster/' + result.metric.cluster + '">' + hubId + ' ' + result.metric.cluster + ' ' + result.metric.{{ projectLabel }} + '</a>')
+            });
+
+            var $tr = document.createElement('tr');
+
+            var $hub = document.createElement('td');
+            $hub.innerText = hubId;
+            $tr.append($hub);
+
+            if(result.metric.cluster) {
+              var $cluster = document.createElement('td');
+              $cluster.innerText = result.metric.cluster;
+              $tr.append($cluster);
+            }
+
+            var ${{ projectLabel }} = document.createElement('td');
+            ${{ projectLabel }}.innerText = result.metric.{{ projectLabel }};
+            $tr.append(${{ projectLabel }});
+            {% if resultLabel is defined -%}
+
+            var ${{ resultLabel }} = document.createElement('td');
+            ${{ resultLabel }}.innerText = result.metric.{{ resultLabel }};
+            $tr.append(${{ resultLabel }});
+            {%- endif %}
+
+            var $val = document.createElement('td');
+            $tr.append($val);
+
+            var $statsPopover = document.createElement('pf-popover');
+            $statsPopover.setAttribute('id', '{{ divId | e }}-data-stats-button-' + j + '-popover');
+            $statsPopover.setAttribute('for', '{{ divId | e }}-data-stats-button-' + j);
+            $val.append($statsPopover);
+
+            var $statsButton = document.createElement('pf-button');
+            $statsButton.setAttribute('id', '{{ divId | e }}-data-stats-button-' + j);
+            $statsButton.setAttribute('data-popover', '{{ divId | e }}-data-stats-button-' + j + '-popover');
+            $statsButton.setAttribute('data-metric', JSON.stringify(result.metric));
+            $statsButton.setAttribute('data-values', JSON.stringify(result.values));
+            $statsButton.setAttribute('data-hubId', hubId);
+            $statsButton.setAttribute('onclick', "{{ jsFunctionName(divId) }}Popover(event);");
+            $statsButton.innerText = 'stats';
+            $val.append($statsButton);
+
+            $tbody.append($tr);
+          });
+        });
+
+        var config = {
+          responsive: true
+        }
+        var layout = {
+          xaxis: {
+            title: (timeZone ? 'Time in ' + timeZone : '')
+          }
+          , yaxis: {
+            title: '{{ yaxisTitle | e }}'
+            {% if tickformat is defined -%}
+            , tickformat: '{{ tickformat }}'
+            {%- endif %}
+          }
+          , legend: {
+            title: {
+              text: '{{ legendTitle | e }}'
+            }
+            , xanchor: 'center'
+            , x: 0.4
+            , yanchor: 'top'
+            , y: -0.2
+            , orientation: 'v'
+          }
+          , autosize: true
+          , height: 600
+          , margin: {
+            l: 50
+            , r: 0
+            , b: 0
+            , t: 0
+            , pad: 1
+          }
+        };
+        Plotly.react(panelId, traces, layout, config);
+      }
+    }
+
+{% endmacro -%}
+
+<!DOCTYPE html>
+<html lang="{{ SITE_LOCALE }}" class="pf-cloak pf-v6-theme-{{ userSiteTheme | default(SITE_THEME) }} pf-theme-{{ userWebComponentsTheme | default(WEB_COMPONENTS_THEME) }} ">
+  <head>
+{%- block htmHeadPageLayout %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+{%- block htmMetaPageLayout %}
+{%- if result is defined %}
+    <meta name="og:title" content="{{ result.name | e }}" />
+    <meta name="og:type" content="website" />
+    <meta name="og:image" content="{{ STATIC_BASE_URL }}{{ result.pageImageUri }}" />
+{%- if result.pageImageWidth is defined %}
+    <meta name="og:image:width" content="{{ result.pageImageWidth }}" />
+    <meta name="og:image:height" content="{{ result.pageImageHeight }}" />
+    <meta name="og:image:type" content="{{ result.pageImageType }}" />
+{%- endif %}
+{%- if result.pageImageWidth is defined %}
+    <meta name="og:image:alt" content="{{ result.pageImageAlt }}" />
+{%- endif %}
+    <meta name="og:url" content="{{ result.displayPage }}" />
+    <meta name="og:description" content="{{ result.description }}" />
+{%- endif %}
+{%- endblock htmMetaPageLayout %}
+{%- block htmTitlePageLayout %}
+    <title>{{ SITE_DISPLAY_NAME }}</title>
+{%- endblock htmTitlePageLayout %}
+{%- block htmStylesPageLayout %}
+    <link rel="icon" href="{{ STATIC_BASE_URL }}/favicon.svg" />
+    <link rel="stylesheet" href="{{ STATIC_BASE_URL }}/css/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="{{ STATIC_BASE_URL }}/css/leaflet.draw.css" />
+    <link rel="stylesheet" href="{{ STATIC_BASE_URL }}/css/leaflet.contextmenu.css"/>
+    <link rel="stylesheet" href="{{ STATIC_BASE_URL }}/css/site.css"/>
+{%- endblock htmStylesPageLayout %}
+    <style>
+{%- block htmStylePageLayout %}{%- endblock htmStylePageLayout %}
+    </style>
+{%- block htmScriptsPageLayout %}
+{%- if FONTAWESOME_KIT is defined %}
+    {{ FONTAWESOME_KIT }}
+{%- endif %}
+
+  <!--
+    Import map generated with JSPM Generator
+    Edit here: https://generator.jspm.io/#jZMxcgMhDEUpcoLcwSVsxuNJvUdIkwMI0MYkLNKAHI9Pn+wW3iVOAQ160vyHaDg8KfX8o9R7kiARvRoZRDCnKd4GjDhjkjKezNG8DDxpC/4DNzCfpZW/iFDaqW04yP5eO9IxsKUlqh3x7f+k4wbyqG0k9/W3a5s+E3u6pprb1kwe4gbtPEPCuEFHnpi+MVfYdgpCdmcdEl/kse+xIzrZqcO4BnHnndqGgC332pEmihK4wkdnx/HVnBbLQsFqqifQwVEqxpWG6WhmSusDhjdYP8dytK1qFXjftWgfrNlfvGNSy7kD
+  -->
+  <script type="importmap">
+  {
+    "imports": {
+      "@patternfly/elements/pf-accordion/pf-accordion-header.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-accordion/pf-accordion-header.js",
+      "@patternfly/elements/pf-accordion/pf-accordion-panel.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-accordion/pf-accordion-panel.js",
+      "@patternfly/elements/pf-accordion/pf-accordion.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-accordion/pf-accordion.js",
+      "@patternfly/elements/pf-badge/pf-badge.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-badge/pf-badge.js",
+      "@patternfly/elements/pf-button/pf-button.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-button/pf-button.js",
+      "@patternfly/elements/pf-card/pf-card.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-card/pf-card.js",
+      "@patternfly/elements/pf-clipboard-copy/pf-clipboard-copy.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-clipboard-copy/pf-clipboard-copy.js",
+      "@patternfly/elements/pf-code-block/pf-code-block.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-code-block/pf-code-block.js",
+      "@patternfly/elements/pf-dropdown/pf-dropdown.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-dropdown/pf-dropdown.js",
+      "@patternfly/elements/pf-modal/pf-modal.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-modal/pf-modal.js",
+      "@patternfly/elements/pf-panel/pf-panel.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-panel/pf-panel.js",
+      "@patternfly/elements/pf-popover/pf-popover.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-popover/pf-popover.js",
+      "@patternfly/elements/pf-search-input/pf-search-input.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-search-input/pf-search-input.js",
+      "@patternfly/elements/pf-select/pf-select.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-select/pf-select.js",
+      "@patternfly/elements/pf-switch/pf-switch.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-switch/pf-switch.js",
+      "@patternfly/elements/pf-tabs/pf-tabs.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-tabs/pf-tabs.js",
+      "@patternfly/elements/pf-tooltip/pf-tooltip.js": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/pf-tooltip/pf-tooltip.js",
+      "@patternfly/patternfly/base/patternfly-fa-icons.css": "https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/base/patternfly-fa-icons.css",
+      "@patternfly/patternfly/components/Page/page.css": "https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Page/page.css",
+      "@patternfly/patternfly/patternfly-addons.css": "https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/patternfly-addons.css",
+      "@patternfly/patternfly/patternfly.css": "https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/patternfly.css"
+    },
+    "scopes": {
+      "https://ga.jspm.io/": {
+        "@lit/context": "https://ga.jspm.io/npm:@lit/context@1.1.6/development/index.js",
+        "@lit/reactive-element": "https://ga.jspm.io/npm:@lit/reactive-element@2.1.1/development/reactive-element.js",
+        "@lit/reactive-element/decorators/": "https://ga.jspm.io/npm:@lit/reactive-element@2.1.1/development/decorators/",
+        "@patternfly/elements/": "https://ga.jspm.io/npm:@patternfly/elements@4.2.0/",
+        "@patternfly/pfe-core": "https://ga.jspm.io/npm:@patternfly/pfe-core@5.0.4/core.js",
+        "@patternfly/pfe-core/": "https://ga.jspm.io/npm:@patternfly/pfe-core@5.0.4/",
+        "lit": "https://ga.jspm.io/npm:lit@3.3.1/index.js",
+        "lit-element/lit-element.js": "https://ga.jspm.io/npm:lit-element@4.2.1/development/lit-element.js",
+        "lit-html": "https://ga.jspm.io/npm:lit-html@3.3.1/development/lit-html.js",
+        "lit-html/": "https://ga.jspm.io/npm:lit-html@3.3.1/development/",
+        "lit/": "https://ga.jspm.io/npm:lit@3.3.1/",
+        "tslib": "https://ga.jspm.io/npm:tslib@2.8.1/tslib.es6.mjs"
+      }
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/patternfly.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/base/patternfly-fa-icons.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Page/page.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/patternfly-addons.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/base/patternfly-common.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Button/button.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/ExpandableSection/expandable-section.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Form/form.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/List/list.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Nav/nav.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Pagination/pagination.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Sidebar/sidebar.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Tabs/tabs.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Title/title.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Toolbar/toolbar.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/components/Tooltip/tooltip.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/layouts/Flex/flex.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/layouts/Gallery/gallery.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/layouts/Grid/grid.css">
+  <link rel="stylesheet" href="https://ga.jspm.io/npm:@patternfly/patternfly@6.4.0/layouts/Stack/stack.css">
+  
+  <!-- ES Module Shims import maps polyfills -->
+  <script async src="https://ga.jspm.io/npm:es-module-shims@2.6.2/dist/es-module-shims.js" crossorigin="anonymous"></script>
+  
+  <script type="module">
+    import * as ElementsPfAccordionPfAccordionHeader from "@patternfly/elements/pf-accordion/pf-accordion-header.js";
+    import * as ElementsPfAccordionPfAccordionPanel from "@patternfly/elements/pf-accordion/pf-accordion-panel.js";
+    import * as ElementsPfAccordionPfAccordion from "@patternfly/elements/pf-accordion/pf-accordion.js";
+    import * as ElementsPfBadgePfBadge from "@patternfly/elements/pf-badge/pf-badge.js";
+    import * as ElementsPfButtonPfButton from "@patternfly/elements/pf-button/pf-button.js";
+    import * as ElementsPfCardPfCard from "@patternfly/elements/pf-card/pf-card.js";
+    import * as ElementsPfClipboardCopyPfClipboardCopy from "@patternfly/elements/pf-clipboard-copy/pf-clipboard-copy.js";
+    import * as ElementsPfCodeBlockPfCodeBlock from "@patternfly/elements/pf-code-block/pf-code-block.js";
+    import * as ElementsPfDropdownPfDropdown from "@patternfly/elements/pf-dropdown/pf-dropdown.js";
+    import * as ElementsPfModalPfModal from "@patternfly/elements/pf-modal/pf-modal.js";
+    import * as ElementsPfPanelPfPanel from "@patternfly/elements/pf-panel/pf-panel.js";
+    import * as ElementsPfPopoverPfPopover from "@patternfly/elements/pf-popover/pf-popover.js";
+    import * as ElementsPfSearchInputPfSearchInput from "@patternfly/elements/pf-search-input/pf-search-input.js";
+    import * as ElementsPfSelectPfSelect from "@patternfly/elements/pf-select/pf-select.js";
+    import * as ElementsPfSwitchPfSwitch from "@patternfly/elements/pf-switch/pf-switch.js";
+    import * as ElementsPfTabsPfTabs from "@patternfly/elements/pf-tabs/pf-tabs.js";
+    import * as ElementsPfTooltipPfTooltip from "@patternfly/elements/pf-tooltip/pf-tooltip.js";
+  </script>
+
+
+    <script type="module">
+
+      function siteSearchInput(event) {
+        var filters = [];
+        if(event.target.value == '')
+          filters.push({ name: 'q', value: '*:*' });
+        else
+          filters.push({ name: 'q', value: event.target.value ? 'objectSuggest:' + event.target.value : '' });
+
+        fetch(
+          '{{ USER_SEARCH_URI if userName is defined else PUBLIC_SEARCH_URI }}?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
+          , {
+            headers: {'Content-Type':'application/json; charset=utf-8'}
+          }).then(response => {
+            if(response.ok) {
+              var dropdown = document.querySelector('#siteSearchDropdown');
+              var dropdownMenu = document.querySelector('#siteSearchDropdownMenu');
+              response.json().then(function(body) {
+                dropdownMenu.innerHTML = '';
+                body.list.forEach((o) => {
+                  var menuItem = document.createElement('pf-dropdown-item');
+                  menuItem.innerpageText = o.objectTitle;
+                  menuItem.setAttribute('data-href', o.displayPage);
+                  dropdownMenu.appendChild(menuItem);
+                  menuItem.addEventListener('click', (event) => window.location.href = event.target.getAttribute('data-href') );
+                });
+                dropdown.active = true;
+              });
+            } else {
+              error(response, event.target);
+            }
+          })
+          .catch(response => error(response, event.target));
+      }
+
+      Promise.all([
+        customElements.whenDefined('pf-button')
+        , customElements.whenDefined('pf-input')
+      ]).then(() => {
+        var input = document.querySelector('#siteSearchInput');
+        var dropdown = document.querySelector('#siteSearchDropdown');
+        input.addEventListener('input', siteSearchInput);
+        input.addEventListener('focus', siteSearchInput);
+        document.body.addEventListener('click', function(event) {
+          if(!dropdown.contains(event.target))
+            dropdown.active = false;
+        });
+        document.body.addEventListener('keyup', (event) => {
+          if (event.key === 'Escape' && dropdown.active)
+            dropdown.active = false;
+        });
+      });
+    </script>
+    {%- if WEB_COMPONENTS_KIT is defined and WEB_COMPONENTS_KIT != '' %}
+    {{ WEB_COMPONENTS_KIT }}
+    {%- else %}
+    {%- endif %}
+    <script src="{{ STATIC_BASE_URL }}/js/site.js"></script>
+    <script src="{{ STATIC_BASE_URL }}/js/sockjs.js"></script>
+    <script src="{{ STATIC_BASE_URL }}/js/vertx-eventbus.js"></script>
+    <script src="{{ STATIC_BASE_URL }}/js/plotly-2.9.0.min.js"></script>
+    <script src="{{ STATIC_BASE_URL }}/js/leaflet.js"></script>
+    <script src="{{ STATIC_BASE_URL }}/js/leaflet.draw.js"></script>
+    <script src="{{ STATIC_BASE_URL }}/js/leaflet.contextmenu.js"></script>
+    <script src="{{ STATIC_BASE_URL }}/js/moment.js"></script>
+{%- endblock htmScriptsPageLayout %}
+{%- block htmScriptPageLayout %}
+{%- endblock htmScriptPageLayout %}
+{%- endblock htmHeadPageLayout %}
+    <script>
+{%- block websocketPageLayout %}{%- endblock websocketPageLayout %}
+    </script>
+  </head>
+  <body class="pf-body-{{ userFontSize }} pf-size-{{ userFontSize }} ">
+
+
+    <div class="pf-v6-c-page" id="page-demo-basic">
+      <div class="pf-v6-c-skip-to-content">
+        <a class="pf-v6-c-button pf-m-primary" href="#main-content-page-demo-basic">
+          <span class="pf-v6-c-button__text">Skip to content</span>
+        </a>
+      </div>
+      <header class="pf-v6-c-masthead" id="page-demo-basic-masthead">
+        <div class="pf-v6-c-masthead__main">
+          <span class="pf-v6-c-masthead__toggle">
+            <button
+              class="pf-v6-c-button pf-m-hamburger pf-m-plain"
+              type="button"
+              aria-label="Global navigation"
+            >
+              <span class="pf-v6-c-button__icon">
+                <svg
+                  viewBox="0 0 10 10"
+                  class="pf-v6-c-button--hamburger-icon pf-v6-svg"
+                  width="1em"
+                  height="1em"
+                >
+                  <path class="pf-v6-c-button--hamburger-icon--top" d="M1,1 L9,1" />
+                  <path
+                    class="pf-v6-c-button--hamburger-icon--middle"
+                    d="M1,5 L9,5"
+                  />
+                  <path
+                    class="pf-v6-c-button--hamburger-icon--arrow"
+                    d="M1,5 L1,5 L1,5"
+                  />
+                  <path
+                    class="pf-v6-c-button--hamburger-icon--bottom"
+                    d="M9,9 L1,9"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+          <div class="pf-v6-c-masthead__brand">
+            <a class="pf-v6-c-masthead__logo" href="/">
+              <img id="site-aside-left-img-logo" src="{{ STATIC_BASE_URL }}/svg/logo-{{ userSiteTheme | default(SITE_THEME) }}.svg"/>
+            </a>
+          </div>
+        </div>
+        <div class="pf-v6-c-masthead__content">
+          <div
+            class="pf-v6-c-toolbar pf-m-static"
+            id="page-demo-basic-masthead-toolbar"
+          >
+            <div class="pf-v6-c-toolbar__content">
+              <div class="pf-v6-c-toolbar__content-section">
+                <div
+                  class="pf-v6-c-toolbar__group pf-m-align-end pf-m-spacer-none pf-m-spacer-md-on-md pf-m-action-group-plain"
+                >
+                  <div
+                    class="pf-v6-c-toolbar__group pf-m-hidden pf-m-visible-on-lg pf-m-action-group-plain"
+                  >
+                    <div class="pf-v6-c-toolbar__item">
+                      <button
+                        class="pf-v6-c-menu-toggle pf-m-plain"
+                        type="button"
+                        aria-expanded="false"
+                        aria-label="Application launcher"
+                      >
+                        <span class="pf-v6-c-menu-toggle__icon">
+                          <i class="fas fa-th" aria-hidden="true"></i>
+                        </span>
+                      </button>
+                    </div>
+                    <div class="pf-v6-c-toolbar__item">
+                      <button
+                        class="pf-v6-c-menu-toggle pf-m-settings pf-m-plain"
+                        type="button"
+                        aria-expanded="false"
+                        aria-label="Settings"
+                      >
+                        <span class="pf-v6-c-menu-toggle__icon">
+                          <i class="fas fa-cog" aria-hidden="true"></i>
+                        </span>
+                      </button>
+                    </div>
+                    <div class="pf-v6-c-toolbar__item">
+                      <button
+                        class="pf-v6-c-menu-toggle pf-m-plain"
+                        type="button"
+                        aria-expanded="false"
+                        aria-label="Help"
+                      >
+                        <span class="pf-v6-c-menu-toggle__icon">
+                          <i class="fas fa-question-circle" aria-hidden="true"></i>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                
+                  <div class="pf-v6-c-toolbar__item pf-m-hidden-on-lg">
+                    <button
+                      class="pf-v6-c-menu-toggle pf-m-plain"
+                      type="button"
+                      aria-expanded="false"
+                      aria-label="Actions"
+                    >
+                      <span class="pf-v6-c-menu-toggle__icon">
+                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="pf-v6-c-page__sidebar">
+        <div class="pf-v6-c-page__sidebar-body">
+          <nav class="pf-v6-c-nav" id="page-demo-basic-primary-nav" aria-label="Global">
+            <ul class="pf-v6-l-grid pf-m-all-6-col-on-sm">
+              <li class="pf-v6-l-grid__item">
+                <pf-button variant="brand" href="https://www.youtube.com/watch?v=5_y5PFtsTYk&list=PLcVjtgfCeLvQu8KDUjmwHzbFqbg5K70zN" variant="brand" target="_blank">
+                  Youtube
+                  <i slot="start" label="Follow us on Youtube" class="fa-brands fa-youtube fa-2xl"></i>
+                </pf-button>
+              </li>
+              <li class="pf-v6-l-grid__item">
+                <pf-button variant="brand" href="https://github.com/{{ GITHUB_ORG }}/{{ SITE_NAME }}" variant="brand" target="_blank">
+                  GitHub
+                  <i slot="start" label="View our source code on GitHub" class="fa-brands fa-github fa-2xl"></i>
+                </pf-button>
+              </li>
+              <li class="pf-v6-l-grid__item">
+                <pf-button variant="brand" href="https://www.linkedin.com/in/computate/" variant="brand" target="_blank">
+                  LinkedIn
+                  <i slot="start" label="Share on LinkedIn" class="fa-brands fa-linkedin fa-2xl"></i>
+                </pf-button>
+              </li>
+              <li class="pf-v6-l-grid__item">
+                <pf-button variant="brand" href="mailto:{{ MAILING_LIST_EMAIL }}" variant="brand" target="_blank">
+                  Email
+                  <i slot="start" label="Share with email" class="{{ FONTAWESOME_STYLE }} fa-envelope-open fa-2xl"></i>
+                </pf-button>
+              </li>
+            </ul>
+            <ul class="pf-v6-c-nav__list" role="list">
+              <div>
+                {% if userName is defined -%}
+                <pf-details>
+                  <div slot="summary" class="pf-stack ">
+                    <pf-tooltip for="siteUserSummary">
+                      <div class="pf-stack ">
+                        <div>
+                          {{ userFullName }}{% if userEmail is defined %} &lt;{{ userEmail | e }}&gt;{% endif %}
+                        </div>
+                      </div>
+                    </pf-tooltip>
+                    <div id="siteUserSummary" class="pf-cluster ">
+                      <pf-avatar label="user"></pf-avatar>
+                      <div>
+                        user: {{ userName | e }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pf-stack ">
+                    <pf-tooltip for="site-button-user-page">see or change your user profile</pf-tooltip>
+                    <pf-tooltip for="site-button-logout" placement="right">sign out</pf-tooltip>
+                    <div>
+                      <pf-button id="site-button-user-page" variant="brand" href="{{ SITE_BASE_URL }}{% if userId is defined %}/en-us/edit/user/{{ userId }}{% else %}/en-us/search/user{% endif %}" label="see or change your user profile">
+                        <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-house-user"></i>
+                        <span>my user page</span>
+                      </pf-button>
+                      <pf-button id="site-button-logout" variant="brand" href="{{ logoutUrl }}" label="sign out">
+                        <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-person-from-portal"></i>
+                        <span>sign out</span>
+                      </pf-button>
+                    </div>
+                    <pf-details summary="User groups" open="true">
+                      <div class="pf-stack ">
+                        <pf-scroller>
+                            {% for group in userGroups %}
+                            <div>
+                              <a target="_blank" href="{{ AUTH_URL }}/admin/master/console/#/{{ AUTH_REALM | urlencode() }}/clients/{{ AUTH_CLIENT | urlencode() }}/authorization/policy/{{ AUTH_REALM | urlencode() }}-group-{{ group | regex_replace('/?(.*)', '$1') | urlencode() }}/group">
+                                <pf-badge variant="success">
+                                  {{ group | e }}
+                                </pf-badge>
+                              </a>
+                            </div>
+                            {% endfor %}
+                        </pf-scroller>
+                      </div>
+                    </pf-details>
+                    <pf-details summary="Current scopes" open="true">
+                      <div class="pf-stack ">
+                        <pf-scroller>
+                          <div>
+                            <pf-tag variant="neutral">{{ pageUri }}</pf-tag>
+                          </div>
+                          <div>
+                            {% for scope in scopes %}
+                            <a target="_blank" href="{{ AUTH_URL }}/admin/master/console/#/{{ AUTH_REALM | urlencode() }}/clients/{{ AUTH_CLIENT | urlencode() }}/authorization/scope/{{ AUTH_REALM | urlencode() }}-{{ scope | urlencode() }}">
+                              <pf-badge variant="success">
+                                {{ scope }}
+                              </pf-badge>
+                            </a>
+                            {% endfor %}
+                          </div>
+                        </pf-scroller>
+                      </div>
+                    </pf-details>
+                  </div>
+                </pf-details>
+                {% else -%}
+                <pf-button variant="brand" href="{{ SITE_BASE_URL }}/en-us/search/user">
+                  <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-person-to-portal"></i> login
+                </pf-button>
+                {%- endif %}
+              </div>
+              <pf-accordion expanded-index="0,1,2">
+
+                <pf-accordion-header>
+                  info
+                </pf-accordion-header>
+                <pf-accordion-panel>
+                  <ul class="pf-v6-c-nav__list" role="list">
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button style="width: 100%; " variant="brand" id="site-aside-left-model-button-SitePage" href="{{ SITE_BASE_URL }}/en-us/search/article">
+                        <i slot="start" class="fa-duotone fa-regular fa-newspaper"></i>
+                        articles
+                      </pf-button>
+                    </li>
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button style="width: 100%; " variant="brand" id="site-aside-left-model-button-SitePage" href="{{ SITE_BASE_URL }}/en-us/search/ai-telemetry-developer">
+                        <i slot="start" class="fa-duotone fa-regular fa-chart-fft"></i>
+                        AI Telemetry Developers
+                      </pf-button>
+                    </li>
+                  </ul>
+                </pf-accordion-panel>
+
+                {% if ENABLE_FEATURE_OBSERVABILITY -%}
+                <pf-accordion-header>
+                  OpenShift clusters
+                </pf-accordion-header>
+                <pf-accordion-panel>
+                  <ul class="pf-v6-c-nav__list" role="list">
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-Tenant" href="{{ SITE_BASE_URL }}/en-us/search/hub">
+                        <i class="fa-regular fa-sitemap"></i>
+                        ACM hubs
+                      </pf-button>
+                    </li>
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-Cluster" href="{{ SITE_BASE_URL }}/en-us/search/cluster">
+                        <i class="fa-regular fa-server"></i>
+                        clusters
+                      </pf-button>
+                    </li>
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-AiNode" href="{{ SITE_BASE_URL }}/en-us/search/ai-node">
+                        <i class="fa-regular fa-computer"></i>
+                        AI nodes
+                      </pf-button>
+                    </li>
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-GpuDevice" href="{{ SITE_BASE_URL }}/en-us/search/gpu-device">
+                        <i class="fa-regular fa-memory"></i>
+                        GPU devices
+                      </pf-button>
+                    </li>
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-Project" href="{{ SITE_BASE_URL }}/en-us/search/project">
+                        <i class="fa-regular fa-people-line"></i>
+                        projects
+                      </pf-button>
+                    </li>
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button style="width: 100%; " variant="brand" id="site-aside-left-model-button-VirtualMachine" href="{{ SITE_BASE_URL }}/en-us/search/vm">
+                        <i slot="start" class="fa-regular fa-sidebar"></i>
+                        view virtual machines
+                      </pf-button>
+                    </li>
+                    {% endif -%}
+                    {% if ENABLE_FEATURE_ORDER_CLUSTER or ENABLE_FEATURE_OBSERVE_CLUSTER -%}
+                    {% if ENABLE_FEATURE_ORDER_CLUSTER -%}
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button style="width: 100%; " variant="brand" id="site-aside-left-model-button-ClusterOrder" href="{{ SITE_BASE_URL }}/en-us/search/cluster-order">
+                        <i class="fa-regular fa-server"></i>
+                        click here to order cluster
+                      </pf-button>
+                    </li>
+                    {%- endif %}
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-ClusterTemplate" href="{{ SITE_BASE_URL }}/en-us/search/cluster-template">
+                        <i class="fa-regular fa-server"></i>
+                        view OpenShift cluster templates
+                      </pf-button>
+                    </li>
+                    {% if ENABLE_FEATURE_ORDER_CLUSTER -%}
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-ClusterOrder" href="{{ SITE_BASE_URL }}/en-us/search/cluster-order">
+                        <i class="fa-regular fa-server"></i>
+                        view OpenShift cluster orders
+                      </pf-button>
+                    </li>
+                    {% endif -%}
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-ManagedCluster" href="{{ SITE_BASE_URL }}/en-us/search/managed-cluster">
+                        <i class="fa-regular fa-server"></i>
+                        view ACM Hub clusters
+                      </pf-button>
+                    </li>
+                  {% endif -%}
+                  </ul>
+                </pf-accordion-panel>
+
+                {%- if ENABLE_FEATURE_ORDER_BARE_METAL || ENABLE_FEATURE_OBSERVE_BARE_METAL -%}
+                <pf-accordion-header>
+                  bare metal
+                </pf-accordion-header>
+                <pf-accordion-panel>
+                  <ul class="pf-v6-c-nav__list" role="list">
+                    {% if ENABLE_FEATURE_ORDER_BARE_METAL -%}
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button style="width: 100%; " variant="brand" id="site-aside-left-model-button-BareMetalOrder" href="{{ SITE_BASE_URL }}/en-us/search/bare-metal-order">
+                        <i class="fa-regular fa-regular fa-share-nodes"></i>
+                        click here to order bare metal
+                      </pf-button>
+                    </li>
+                    {%- endif %}
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-BareMetalResourceClass" href="{{ SITE_BASE_URL }}/en-us/search/bare-metal-resource-class">
+                        <i class="fa-regular fa-server"></i>
+                        view bare metal resource classes
+                      </pf-button>
+                    </li>
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-BareMetalNetwork" href="{{ SITE_BASE_URL }}/en-us/search/bare-metal-network">
+                        <i class="fa-regular fa-regular fa-network-wired"></i>
+                        view bare metal networks
+                      </pf-button>
+                    </li>
+                    {% if ENABLE_FEATURE_ORDER_BARE_METAL -%}
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-BareMetalOrder" href="{{ SITE_BASE_URL }}/en-us/search/bare-metal-order">
+                        <i class="fa-regular fa-regular fa-share-nodes"></i>
+                        view bare metal orders
+                      </pf-button>
+                    </li>
+                    {%- endif %}
+                    <li class="pf-v6-c-nav__item">
+                      <pf-button variant="brand" id="site-aside-left-model-button-BareMetalNode" href="{{ SITE_BASE_URL }}/en-us/search/bare-metal-node">
+                        <i class="fa-regular fa-regular fa-hexagon-nodes"></i>
+                        view bare metal nodes
+                      </pf-button>
+                    </li>
+                  </ul>
+                </pf-accordion-panel>
+                {%- endif %}
+              </pf-accordion>
+          </nav>
+        </div>
+      </div>
+      <div class="pf-v6-c-page__main-container" tabindex="-1">
+        <main
+          class="pf-v6-c-page__main"
+          tabindex="-1"
+          id="main-content-page-demo-basic"
+        >
+          <section class="pf-v6-c-page__main-breadcrumb pf-m-limit-width">
+            <div class="pf-v6-c-page__main-body">
+              <nav class="pf-v6-c-breadcrumb" aria-label="breadcrumb">
+                <ol class="pf-v6-c-breadcrumb__list" role="list">
+                  <li class="pf-v6-c-breadcrumb__item">
+                    <a href="#" class="pf-v6-c-breadcrumb__link">Section home</a>
+                  </li>
+                  <li class="pf-v6-c-breadcrumb__item">
+                    <span class="pf-v6-c-breadcrumb__item-divider">
+                      <i class="fas fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  
+                    <a href="#" class="pf-v6-c-breadcrumb__link">Section title</a>
+                  </li>
+                  <li class="pf-v6-c-breadcrumb__item">
+                    <span class="pf-v6-c-breadcrumb__item-divider">
+                      <i class="fas fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  
+                    <a href="#" class="pf-v6-c-breadcrumb__link">Section title</a>
+                  </li>
+                  <li class="pf-v6-c-breadcrumb__item">
+                    <span class="pf-v6-c-breadcrumb__item-divider">
+                      <i class="fas fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                  
+                    <a
+                      href="#"
+                      class="pf-v6-c-breadcrumb__link pf-m-current"
+                      aria-current="page"
+                    >Section landing</a>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </section>
+          <section class="pf-v6-c-page__main-section pf-m-limit-width">
+            <div class="pf-v6-c-page__main-body">
+              <h1 class="pf-v6-c-content--h1 pf-m-page-title">Main title</h1>
+              <p class="pf-v6-c-content--p">This is a full page demo.</p>
+            </div>
+          </section>
+          <section class="pf-v6-c-page__main-section pf-m-limit-width">
+            <div class="pf-v6-c-page__main-body">
+              <div class="pf-v6-l-gallery pf-m-gutter">
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+                <div class="pf-v6-c-card">
+                  <div class="pf-v6-c-card__body">This is a card</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+
+    {% if WEB_COMPONENTS_PRO == 'true' -%}
+    <pf-page disable-sticky="header">
+    {%- else -%}
+    <div id="site-grid">
+    {%- endif %}
+      <header slot="header">
+        <div class="pf-cluster ">
+          <pf-button size="small" data-toggle-nav variant="brand" label="open menu"{% if WEB_COMPONENTS_PRO == 'false' %} onclick="document.querySelector('#site-aside-left').open = true;"{% endif %}>
+            <i class="{{ FONTAWESOME_STYLE }} fa-bars"></i>
+          </pf-button>
+          <pf-popup placement="bottom-start" id="siteSearchDropdown">
+            <pf-input size="small" slot="anchor" placeholder="search" id="siteSearchInput">
+              <i slot="start" class="{{ FONTAWESOME_STYLE }}  fa-magnifying-glass"></i>
+            </pf-input>
+            <div id="siteSearchDropdownMenu">
+            </div>
+          </pf-popup>
+          {% if pageSearchForm is defined -%}
+          {{ pageSearchForm | default('') }}
+          {%- endif %}
+        </div>
+      </header>
+      {% if pageSearchButtons is defined or pageBreadcrumb is defined -%}
+      <header slot="subheader">
+        <div class="pf-cluster ">
+          <div>
+            {{ pageBreadcrumb | default('') }}
+          </div>
+          <div>
+            {{ pageSearchButtons }}
+          </div>
+        </div>
+      </header>
+      {%- endif %}
+{%- block htmBodyPageLayout %}
+{%- block htmBodyStartPageLayout %}
+      {% if WEB_COMPONENTS_PRO == 'false' -%}
+      <pf-drawer placement="start" id="site-aside-left" class="margin-block-end-1rem ">
+        {%- endif %}
+      {% if WEB_COMPONENTS_PRO == 'false' -%}
+      </pf-drawer>
+      {% endif %}
+      <main class="pf-stack ">
+        <pf-drawer id="warnings-drawer" label="Warnings">
+          <div id="warnings-drawer-stack" class="pf-stack ">
+          </div>
+        </pf-drawer>
+{%- endblock htmBodyStartPageLayout %}
+{% block htmBodyMiddlePageLayout %}
+        <main slot="main" class="pageContent pf-stack pf-gap-3xl ">
+          put stuff here
+        </main>
+{%- endblock htmBodyMiddlePageLayout %}
+{%- block htmBodyEndPageLayout %}
+        <footer class="no-gradient pf-cluster pf-align-items-center " slot="main-footer">
+          {% if GITHUB_ORG is defined %}
+          <pf-button variant="brand" href="https://github.com/{{ GITHUB_ORG }}/{{ SITE_NAME }}" variant="brand" target="_blank" appearance="filled outlined" class="tile">
+            <div class="pf-cluster" style="gap: 1ch;">
+              <span>This site is</span>
+              <i class="fa-brands fa-github fa-xl"></i>
+              <b>open source</b>
+            </div>
+          </pf-button>
+          {% endif %}
+          <pf-button variant="brand" href="https://computate.org/" variant="brand" target="_blank" id="footer-generated-by" appearance="filled outlined" class="tile">
+            <div class="pf-cluster" style="gap: 1ch;">
+              <span>Generated with </span>
+              <img class="footer-img" style="font-weight: var(--pf-font-weight-bold);" src="{{ STATIC_BASE_URL }}/svg/computate-keys.svg" alt="Computate"/>
+            </div>
+          </pf-button>
+          {% if SITE_POWERED_BY_URL is defined %}
+          <pf-button variant="brand" href="{{ SITE_POWERED_BY_URL }}" variant="brand" target="_blank" id="footer-powered-by" appearance="filled outlined" class="tile">
+            <div class="pf-cluster" style="gap: 1ch;">
+              <span>Powered by </span>
+              <i class="fa-brands fa-redhat fa-xl" style="color: #ff0000;"></i>
+              <b>{{ SITE_POWERED_BY_NAME | e }}</b>
+            </div>
+          </pf-button>
+          {% endif %}
+        </footer>
+      </main>
+    {% if WEB_COMPONENTS_PREFIX == 'pf-' -%}
+    </pf-page>
+    {%- else -%}
+    </div>
+    {% endif %}
+{%- endblock htmBodyEndPageLayout %}
+{%- endblock htmBodyPageLayout %}
+  </body>
+</html>

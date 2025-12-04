@@ -1,0 +1,22 @@
+#site-results-grid {
+  display: grid;
+  gap: var(--site-secondary-space);
+  background-color: var(--wa-color-surface-lowered);
+  > * {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: span 2;
+    align-items: center;
+    background-color: var(--wa-color-surface-raised);
+    &:not(:first-child) {
+      padding-inline-start: var(--wa-space-m);
+    }
+    wa-button {
+      &::part(base) {
+      }
+    }
+    @media (max-width:767px) {
+      grid-column: span 1;
+    }
+  }
+}

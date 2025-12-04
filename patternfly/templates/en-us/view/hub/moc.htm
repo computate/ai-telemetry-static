@@ -1,0 +1,24 @@
+{% extends "en-us/PageLayout.htm" %}
+{% block htmMetaPageLayout %}
+    <meta name="result.hubId" content="{{ result.shortFileName }}"/>
+    <meta name="result.hubResource" content="HUB-{{ result.shortFileName }}"/>
+    <meta name="result.hubName" content="Mass Open Cloud"/>
+    <meta name="result.description" content="The MOC is an open, distributed, multi-institutional platform powering research and development that requires large-scale compute resources, such as large diverse data sets, AI tools, and AI models,  in a real-world, well-managed, scalable infrastructure. The platform is built on Red Hat technology including Red Hat OpenStack, Red Hat OpenShift, and Red Hat OpenShift AI. "/>
+    <meta name="result.displayPage" content="https://research.redhat.com/mass-open-cloud/"/>
+    <meta name="result.localClusterName" content="nerc-ocp-infra"/>
+{% endblock htmMetaPageLayout %}
+{% block htmStylePageLayout %}
+
+wa-button, wa-details {
+  &::part(base) {
+    background: linear-gradient(130deg, var(--wa-color-pink-50), var(--wa-color-purple-40));
+    color: white;
+    border: solid 1px var(--wa-color-pink-30);
+  }
+}
+{% endblock htmStylePageLayout %}
+{% block htmTitlePageLayout %}
+    <title>{{ title }}</title>
+{% endblock htmTitlePageLayout %}
+{% block htmBodyMiddlePageLayout %}
+{% endblock %}

@@ -1,0 +1,338 @@
+{% extends "en-us/PageLayout.htm" %}
+{%- block htmTitlePageLayout %}
+{%- block htmTitleBareMetalOrderPage %}
+    <title>{{ result.objectTitle }}</title>
+{%- endblock htmTitleBareMetalOrderPage %}
+{%- endblock htmTitlePageLayout %}
+
+{%- block htmStylesPageLayout %}
+{{ super() }}
+    <link rel="stylesheet" href="{{ staticBaseUrl }}/css/en-us/search/bare-metal-order/BareMetalOrder.css"/>
+{%- block htmStylesBareMetalOrderPage %}
+{%- endblock htmStylesBareMetalOrderPage %}
+{%- endblock htmStylesPageLayout %}
+
+{%- block htmStylePageLayout %}
+      :root {
+        --site-results-number-of-columns: 4;
+      }
+{{ super() }}
+{%- block htmStyleBareMetalOrderPage %}
+{%- endblock htmStyleBareMetalOrderPage %}
+{%- endblock htmStylePageLayout %}
+
+{%- block htmScriptsPageLayout %}
+{{ super() }}
+{%- block htmScriptsBareMetalOrderPage %}
+    <script src="{{staticBaseUrl}}/js/en-us/search/bare-metal-order/BareMetalOrder.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/bare-metal-order/BareMetalOrderSearchPage.js"></script>
+    <script type="module" src="{{staticBaseUrl}}/js/en-us/search/bare-metal-order/BareMetalOrderEditPage.js"></script>
+    <script src="{{staticBaseUrl}}/js/en-us/search/bare-metal-network/BareMetalNetwork.js"></script>
+{%- endblock htmScriptsBareMetalOrderPage %}
+{%- endblock htmScriptsPageLayout %}
+
+{%- block htmScriptPageLayout %}
+{%- block htmScriptBareMetalOrderPage %}
+    <script>
+
+      function jsWebsocketBareMetalOrder(pk, vars, $response) {
+{%- block jsWebsocketBareMetalOrderPage %}{%- endblock %}
+      }
+
+      function jsTooltipBareMetalOrder(e, feature) {
+{%- block jsTooltipBareMetalOrderPage %}{%- endblock %}
+      }
+
+      function htmTooltipBareMetalOrder(feature, layer) {
+        return `{%- block htmTooltipBareMetalOrderPage %}
+<h3><i class="{{ classIconCssClasses }}  "></i><a href="${quoteattr(feature.properties.editPage)}">${feature.properties.objectTitle}</a></h3>
+{%- endblock htmTooltipBareMetalOrderPage %}`;
+      }
+
+      function facetSimpleRangeBareMetalOrderSuccess(pageContent) {
+{% block facetSimpleRangeBareMetalOrderSuccess %}{%- endblock facetSimpleRangeBareMetalOrderSuccess %}
+      }
+      function facetSimpleRangeBareMetalOrderError(pageContent) {
+{% block facetSimpleRangeBareMetalOrderError %}{%- endblock facetSimpleRangeBareMetalOrderError %}
+      }
+      function facetSimpleRangeBareMetalOrder(e) {
+        facetSimpleRange(e, facetSimpleRangeBareMetalOrderSuccess, facetSimpleRangeBareMetalOrderError);
+      }
+
+      function facetRangeTimeZoneBareMetalOrderSuccess(pageContent) {
+{% block facetRangeTimeZoneBareMetalOrderSuccess %}{%- endblock facetRangeTimeZoneBareMetalOrderSuccess %}
+      }
+      function facetRangeTimeZoneBareMetalOrderError(pageContent) {
+{% block facetRangeTimeZoneBareMetalOrderError %}{%- endblock facetRangeTimeZoneBareMetalOrderError %}
+      }
+      function facetRangeTimeZoneBareMetalOrder(e) {
+        facetRangeTimeZone(e, facetRangeTimeZoneBareMetalOrderSuccess, facetRangeTimeZoneBareMetalOrderError);
+      }
+
+      function facetRangeGapChangeBareMetalOrderSuccess(pageContent) {
+{% block facetRangeGapChangeBareMetalOrderSuccess %}{%- endblock facetRangeGapChangeBareMetalOrderSuccess %}
+      }
+      function facetRangeGapChangeBareMetalOrderError(pageContent) {
+{% block facetRangeGapChangeBareMetalOrderError %}{%- endblock facetRangeGapChangeBareMetalOrderError %}
+      }
+      function facetRangeGapChangeBareMetalOrder(classSimpleName, event) {
+        facetRangeGapChange(classSimpleName, event, facetRangeGapChangeBareMetalOrderSuccess, facetRangeGapChangeBareMetalOrderError);
+      }
+
+      function facetRangeStartChangeBareMetalOrderSuccess(pageContent) {
+{% block facetRangeStartChangeBareMetalOrderSuccess %}{%- endblock facetRangeStartChangeBareMetalOrderSuccess %}
+      }
+      function facetRangeStartChangeBareMetalOrderError(pageContent) {
+{% block facetRangeStartChangeBareMetalOrderError %}{%- endblock facetRangeStartChangeBareMetalOrderError %}
+      }
+      function facetRangeStartChangeBareMetalOrder(classSimpleName, event) {
+        facetRangeStartChange(classSimpleName, event, facetRangeStartChangeBareMetalOrderSuccess, facetRangeStartChangeBareMetalOrderError);
+      }
+
+      function facetRangeEndChangeBareMetalOrderSuccess(pageContent) {
+{% block facetRangeEndChangeBareMetalOrderSuccess %}{%- endblock facetRangeEndChangeBareMetalOrderSuccess %}
+      }
+      function facetRangeEndChangeBareMetalOrderError(pageContent) {
+{% block facetRangeEndChangeBareMetalOrderError %}{%- endblock facetRangeEndChangeBareMetalOrderError %}
+      }
+      function facetRangeEndChangeBareMetalOrder(classSimpleName, event) {
+        facetRangeEndChange(classSimpleName, event, facetRangeEndChangeBareMetalOrderSuccess, facetRangeEndChangeBareMetalOrderError);
+      }
+    </script>
+    <script type="module">
+{% if DEFAULT_MAP_LOCATION is defined %}
+      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% endif %}
+{% if DEFAULT_MAP_ZOOM is defined %}
+      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% endif %}
+      window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
+      Promise.all([
+        customElements.whenDefined('wa-button')
+        , customElements.whenDefined('wa-input')
+        , customElements.whenDefined('wa-select')
+        , customElements.whenDefined('wa-radio')
+        , customElements.whenDefined('wa-checkbox')
+      ]).then(() => {
+
+        var pk = {% if result.pk is defined %}{{ result.pk | tojson }}{% else %}null{% endif %};
+
+        if(pk == null) {
+          document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-details');
+          });
+          document.querySelector('#grid-toggle-list')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-card');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-list');
+          });
+          document.querySelector('#grid-toggle-card')?.addEventListener('click', () => {
+            document.querySelector('#site-results-grid').classList.remove('grid-mode-details', 'grid-mode-list');
+            document.querySelector('#site-results-grid').classList.add('grid-mode-card');
+          });
+        } else {
+          var o = document.querySelector('.pageForm .result')?.value;
+          if(o)
+            window.result = JSON.parse(o);
+        {% if result.pk is defined %}
+          function relate_networkId(event) {
+            suggestBareMetalOrderNetworkId(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + event.target.value }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,id,pk,editPage,objectTitle' } ] : [{%- if result.networkId is defined %}{'name':'fq','value':'id:{{ result.networkId }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , window.result.pk
+                , window.result.networkId
+                , true
+                );
+          }
+          document.querySelector('#POST_networkId')?.addEventListener('input', relate_networkId);
+          document.querySelector('#POST_networkId')?.addEventListener('focus', relate_networkId);
+          document.querySelector('#PATCH_networkId')?.addEventListener('input', relate_networkId);
+          document.querySelector('#PATCH_networkId')?.addEventListener('focus', relate_networkId);
+          document.querySelector('#Page_networkId')?.addEventListener('input', relate_networkId);
+          document.querySelector('#Page_networkId')?.addEventListener('focus', relate_networkId);
+          {% if "PATCH" in scopes %}
+          suggestBareMetalOrderNetworkId([{'name':'fq','value':'id:' + window.result.networkId}], document.querySelector('#listBareMetalOrderNetworkId_Page'), window.result.pk, window.result.networkId, true);
+          {% else %}
+          {% if "GET" in scopes %}
+          suggestBareMetalOrderNetworkId([{'name':'fq','value':'id:' + window.result.networkId}], document.querySelector('#listBareMetalOrderNetworkId_Page'), window.result.pk, window.result.networkId, true);
+          {% else %}
+          suggestBareMetalOrderNetworkId([{'name':'fq','value':'id:' + window.result.networkId}], document.querySelector('#listBareMetalOrderNetworkId_Page'), window.result.pk, window.result.networkId, false);
+          {% endif %}
+          {% endif %}
+        {% endif %}
+        }
+        var l = document.querySelector('.pageForm .listBareMetalOrder')?.value;
+        if(l)
+          window.listBareMetalOrder = JSON.parse(l);
+        window.varsFq = JSON.parse('{{ toJsonObjectStringInApostrophes(varsFq) }}');
+        window.varsRange = JSON.parse('{{ toJsonObjectStringInApostrophes(varsRange) }}');
+        window.defaultRangeVar = '{{ defaultRangeVar }}';
+        document.querySelector('#siteSidebarToggleRange')?.addEventListener('wa-after-hide', function(e) { document.querySelector('#pageFacetRangeTimeZonePopup').active = false; });
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneBareMetalOrder);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('input', facetRangeTimeZoneBareMetalOrder);
+        document.querySelector('#pageFacetRangeTimeZoneInput')?.addEventListener('focus', facetRangeTimeZoneBareMetalOrder);
+        document.querySelector('#pageFacetSimpleRangeDropdown')?.addEventListener('wa-select', facetSimpleRangeBareMetalOrder);
+        pageGraphBareMetalOrder();
+        {% for key, value in varsQ.items() %}
+
+        document.querySelector('#qBareMetalOrder_{{ key }}')?.addEventListener('wa-{% if var == 'objectSuggest' %}keyup{% else %}change{% endif %}', event => {
+          qChange('BareMetalOrder', event.target, document.querySelector('#qBareMetalOrderDiv_{{ key }}'));
+        });
+        {% endfor %}
+
+        document.querySelector('#qBareMetalOrder_rows')?.addEventListener('change', event => {
+          paramChange('BareMetalOrder', event.target, document.querySelector('#qBareMetalOrderDiv_rows'));
+        });
+
+        document.querySelector('#qBareMetalOrder_start')?.addEventListener('change', event => {
+          paramChange('BareMetalOrder', event.target, document.querySelector('#qBareMetalOrderDiv_start'));
+        });
+
+
+        var submitForm_patchBareMetalOrder = document.querySelector('#htmForm_patchBareMetalOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_patchBareMetalOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          patchBareMetalOrder(null, document.querySelector('#htmForm_patchBareMetalOrder'), document.querySelector('#htmFormButton_patchBareMetalOrder'), event.target.getAttribute('data-pk'));
+          return false;
+        });
+
+        var submitForm_postBareMetalOrder = document.querySelector('#htmForm_postBareMetalOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_postBareMetalOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          postBareMetalOrder(document.querySelector('#htmForm_postBareMetalOrder')
+          , document.querySelector('#htmFormButton_postBareMetalOrder')
+          , (json, target) => {
+            window.location.href = json.editPage;
+          });
+          return false;
+        });
+
+        var submitForm_deleteBareMetalOrder = document.querySelector('#htmForm_deleteBareMetalOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deleteBareMetalOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          deleteBareMetalOrder(event.target, event.target.getAttribute('data-pk'));
+          return false;
+        });
+
+        var submitForm_searchpageBareMetalOrder = document.querySelector('#htmForm_searchpageBareMetalOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_searchpageBareMetalOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          searchpageBareMetalOrder();
+          return false;
+        });
+
+        var submitForm_deletefilterBareMetalOrder = document.querySelector('#htmForm_deletefilterBareMetalOrder')?.addEventListener('submit', event => {
+          event.preventDefault();
+          return false;
+        });
+        document.querySelector('#htmFormButton_deletefilterBareMetalOrder')?.addEventListener('click', event => {
+          event.preventDefault();
+          deletefilterBareMetalOrder(event.target);
+          return false;
+        });
+{%- block htmScriptInitBareMetalOrderPage %}{%- endblock htmScriptInitBareMetalOrderPage %}
+      });
+    </script>
+{%- endblock htmScriptBareMetalOrderPage %}
+{%- endblock htmScriptPageLayout %}
+
+{%- block websocketPageLayout %}
+{%- block websocketBareMetalOrderPage %}
+{% if resultCount > 0 %}
+        window.eventBus = new EventBus('/eventbus');
+        window.eventBus.enableReconnect(true);
+        websocketBareMetalOrder(websocketBareMetalOrderInner);
+{% endif %}
+{%- endblock websocketBareMetalOrderPage %}
+{%- endblock websocketPageLayout %}
+
+{%- block htmUrlBareMetalOrderPage %}{{pageUri}}?q={{query.q}}&amp;rows={% if rows is defined %}{{rows}}{% else %}{{pagination.rows}}{% endif %}&amp;rows={% if start is defined %}{{start}}{% else %}{{pagination.start}}{% endif %}{% for item query.fq %}{% if fq == item %}{% else %}&fq={{fq}}:{{val}}{% endif %}{% endfor %}{% for item in query.sort %}{% if sort == item %}{% else %}&sort={{var}} {{order}}{% endif %}{% endfor %}{%- endblock htmUrlBareMetalOrderPage %}
+
+{%- block htmBodyStartPageLayout %}
+    {{ super() }}
+{%- block htmBodyStartBareMetalOrderPage %}
+{% if resultCount > 0 %}
+          <div class="wa-flank ">
+            <wa-tooltip for="return-to-BareMetalOrder">back to all bare metal orders</wa-tooltip>
+            <wa-button id="return-to-BareMetalOrder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-angle-left"></i>
+              all bare metal orders
+            </wa-button>
+            <h1 class="Page_objectTitle"><i class="fa-regular fa-share-nodes"></i> {{ result.objectTitle | e }}</h1>
+          </div>
+          <div class="margin-block">
+          </div>
+{% include en-us/search/bare-metal-order/BareMetalOrderSearchForm.htm %}
+          <wa-divider></wa-divider>
+{% include en-us/search/bare-metal-order/BareMetalOrderSearchButtons.htm %}
+{% endif %}
+{%- endblock htmBodyStartBareMetalOrderPage %}
+{%- endblock htmBodyStartPageLayout %}
+
+{%- block htmBodyMiddlePageLayout %}
+{%- block htmBodyMiddleBareMetalOrderPage %}
+        <div class="pageContent ">
+{%- include en-us/search/bare-metal-order/BareMetalOrderSidebar.htm %}
+{% if resultCount == 0 %}
+        <div class="wa-stack ">
+          <wa-tooltip for="return-to-BareMetalOrder">back to all bare metal orders</wa-tooltip></wa-tooltip>
+          <wa-breadcrumb>
+            <wa-breadcrumb-item id="return-to-BareMetalOrder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
+              <i class="fa-regular fa-share-nodes"></i>
+              all bare metal orders
+            </wa-breadcrumb-item>
+            <wa-breadcrumb-item>
+              no bare metal order found
+            </wa-breadcrumb-item>
+          </wa-breadcrumb>
+          <div class="wa-stack wa-align-items-center ">
+            <div class="wa-heading-3xl ">
+              <i class="fa-regular fa-share-nodes"></i>
+            </div>
+            <span class="wa-heading-m ">no bare metal order found</span>
+            <p class="wa-caption-l ">A bare metal order</p>
+{% include en-us/search/bare-metal-order/BareMetalOrderSearchForm.htm %}
+          </div>
+        </div>
+{% else %}
+{%- include en-us/search/bare-metal-order/BareMetalOrderSuggestedSearch.htm %}
+{% endif %}
+{%- block htmFormBareMetalOrderPage %}
+          <form action="/en-us/api/bare-metal-order" id="BareMetalOrderForm" class="pageForm " onsubmit="event.preventDefault(); return false; ">
+{% if result.pk is defined %}
+            <input name="pk" class="valuePk" type="hidden" value="{{ result.pk }}"/>
+            {% endif %}
+            <input name="focusId" type="hidden"/>
+            <input name="pageResponse" id="pageResponse" class="pageResponse"  value='{{ toJsonObjectStringInApostrophes(pageResponse) }}' type="hidden"/>
+            <input name="result" id="result" class="result"  value='{{ toJsonObjectStringInApostrophes(result) }}' type="hidden"/>
+            <input name="listBareMetalOrder" id="listBareMetalOrder" class="listBareMetalOrder"  value='{{ toJsonArrayStringInApostrophes(listBareMetalOrder) }}' type="hidden"/>
+          </form>
+  {% if solrId is defined %}
+          {{ htmButton_searchpageBareMetalOrder() }}
+          {{ htmForm_searchpageBareMetalOrder() }}
+  {% endif %}
+{%- endblock htmFormBareMetalOrderPage %}
+        </div>
+{%- endblock htmBodyMiddleBareMetalOrderPage %}
+{%- endblock htmBodyMiddlePageLayout %}
+
+{%- block htmBodyEndPageLayout %}
+{%- block htmBodyEndBareMetalOrderPage %}
+{%- include en-us/search/bare-metal-order/BareMetalOrderLocation.htm %}
+{%- endblock htmBodyEndBareMetalOrderPage %}
+      {{ super() }}
+{%- endblock htmBodyEndPageLayout %}
