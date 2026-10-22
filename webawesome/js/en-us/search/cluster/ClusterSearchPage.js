@@ -330,6 +330,17 @@ Promise.all([
     facetStatsChange('Cluster', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortCluster_apiUrl')?.addEventListener('change', (event) => {
+    sort('Cluster', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsCluster_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Cluster', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsCluster_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Cluster', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortCluster_displayPage')?.addEventListener('change', (event) => {
     sort('Cluster', 'displayPage', event.currentTarget.value);
   });
@@ -427,6 +438,17 @@ Promise.all([
   });
   document.querySelector('#pageStatsCluster_clusterResource')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('Cluster', 'clusterResource', false);
+  });
+
+  document.querySelector('#pageSelectSortCluster_entityShortId')?.addEventListener('change', (event) => {
+    sort('Cluster', 'entityShortId', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsCluster_entityShortId')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Cluster', 'entityShortId', true);
+  });
+  document.querySelector('#pageStatsCluster_entityShortId')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Cluster', 'entityShortId', false);
   });
 
   document.querySelector('#pageSelectSortCluster_locationColors')?.addEventListener('change', (event) => {
@@ -749,6 +771,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndCluster_ngsildData')?.addEventListener('change', (event) => {
             facetRangeEndChange('Cluster', event.currentTarget);
           });
+          document.querySelector('#fqCluster_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('Cluster', event.currentTarget, facetChangeClusterSuccess, facetChangeClusterError);
+          });
+          document.querySelector('#buttonFacetCluster_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotCluster_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapCluster_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartCluster_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndCluster_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('Cluster', event.currentTarget);
+          });
           document.querySelector('#fqCluster_displayPage')?.addEventListener('change', (event) => {
             fqChange('Cluster', event.currentTarget, facetChangeClusterSuccess, facetChangeClusterError);
           });
@@ -858,7 +898,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterCluster(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

@@ -154,6 +154,17 @@ Promise.all([
     facetStatsChange('TimeZone', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortTimeZone_apiUrl')?.addEventListener('change', (event) => {
+    sort('TimeZone', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsTimeZone_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('TimeZone', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsTimeZone_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('TimeZone', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortTimeZone_editPage')?.addEventListener('change', (event) => {
     sort('TimeZone', 'editPage', event.currentTarget.value);
   });
@@ -338,6 +349,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndTimeZone_displayPage')?.addEventListener('change', (event) => {
             facetRangeEndChange('TimeZone', event.currentTarget);
           });
+          document.querySelector('#fqTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('TimeZone', event.currentTarget, facetChangeTimeZoneSuccess, facetChangeTimeZoneError);
+          });
+          document.querySelector('#buttonFacetTimeZone_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('TimeZone', event.currentTarget);
+          });
           document.querySelector('#fqTimeZone_editPage')?.addEventListener('change', (event) => {
             fqChange('TimeZone', event.currentTarget, facetChangeTimeZoneSuccess, facetChangeTimeZoneError);
           });
@@ -429,7 +458,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterTimeZone(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

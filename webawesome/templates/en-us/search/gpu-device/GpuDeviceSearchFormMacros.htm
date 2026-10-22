@@ -1,44 +1,46 @@
-{%- macro inputPkGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro inputPkGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_pk">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       readonly
                       placeholder="[Long] primary key"
                       label="primary key"
                       type="number"
+                      step="any"
                       hint="The primary key of this object in the database"
                       id="GpuDevice_{{classApiMethodMethod}}_pk"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_pk setPk classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Pk "
                       name="setPk"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_pk setPk classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Pk "
                       name="setPk"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_pk valuePk classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Pk "
                       name="pk"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.pk | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmPkGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputPkGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputCreatedGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmPkGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputPkGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputCreatedGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_created">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       type="datetime-local"
                       readonly
@@ -48,25 +50,25 @@
                       placeholder="MM/dd/yyyy h:mm a '['VV']'"
                       data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
                       id="GpuDevice_{{classApiMethodMethod}}_created"
-  {% if 'Page' == classApiMethodMethod -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       value="{%- if "Page" == classApiMethodMethod and result.created is defined %}{{ formatZonedDateTime(result.created, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
-  {% endif -%}
+                      {% endif -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       data-zone="{{ defaultZoneId }}"
                       >
                   </wa-input>
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmCreatedGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputCreatedGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputModifiedGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmCreatedGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputCreatedGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputModifiedGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_modified">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       type="datetime-local"
                       readonly
@@ -76,26 +78,26 @@
                       placeholder="MM/dd/yyyy h:mm a '['VV']'"
                       data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
                       id="GpuDevice_{{classApiMethodMethod}}_modified"
-  {% if 'Page' == classApiMethodMethod -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       value="{%- if "Page" == classApiMethodMethod and result.modified is defined %}{{ formatZonedDateTime(result.modified, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
-  {% endif -%}
+                      {% endif -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       data-zone="{{ defaultZoneId }}"
                       >
                   </wa-input>
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmModifiedGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputModifiedGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputArchivedGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmModifiedGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputModifiedGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputArchivedGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_archived">
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
                   <wa-button variant="brand"
                       id="GpuDevice_{{classApiMethodMethod}}_archived"
                       placeholder="archive"
@@ -106,894 +108,675 @@
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       data-val="{{ result.archived | e }}"
                       >archive</wa-button>
-  {%- else %}
-  {% if 'Page' == classApiMethodMethod -%}
+                  {% else -%}
+                  {% if 'Page' == classApiMethodMethod -%}
                   <wa-checkbox
                       id="GpuDevice_{{classApiMethodMethod}}_archived"
                       value="true"
-  {%- else %}
+                      {%- else %}{{''}}
                   <wa-select
                       id="GpuDevice_{{classApiMethodMethod}}_archived"
-  {% endif -%}
+                      {% endif -%}
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="archive"
                       label="archive"
                       hint="For archiving this record"
-  {%- if 'Page' == classApiMethodMethod %}
+                      {% if 'Page' == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_archived classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Archived "
                       name="setArchived"
-  {%- else %}
-    {%- if 'Page' == classApiMethodMethod %}
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_archived classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Archived "
                       name="setArchived"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_archived setArchived valueArchived classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Archived "
                       name="setArchived"
-    {%- endif %}
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
-    {%- if result.archived == true %}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.archived == true -%}
                       checked
-    {%- endif %}
+                      {% endif -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       >archive</wa-checkbox>
-  {%- else %}
+                      {% else -%}
                       >
                     <wa-option value=""></wa-option>
                     <wa-option value="true">true</wa-option>
                     <wa-option value="false">false</wa-option>
                   </wa-select>
-  {%- endif %}
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
+                  {%- endif %}{{''}}
+                  {% endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmArchivedGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputArchivedGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputHubIdGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
-                <form class="subgrid-2col " id="PageForm_hubId">
-  {%- endif %}
-                  <wa-input
-                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
-                      placeholder="[String] ACM Hub"
-                      label="ACM Hub"
-                      hint="The name of the ACM Hub for this cluster in Prometheus Keycloak Proxy. "
-                      id="GpuDevice_{{classApiMethodMethod}}_hubId"
-  {%- if "Page" == classApiMethodMethod %}
-                      data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
-                      class="label-on-left GpuDevice_{{classApiMethodMethod}}_hubId setHubId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}HubId "
-                      name="setHubId"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
-                      class="label-on-left GpuDevice_{{classApiMethodMethod}}_hubId setHubId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}HubId "
-                      name="setHubId"
-    {%- else %}
-                      class="label-on-left GpuDevice_{{classApiMethodMethod}}_hubId valueHubId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}HubId "
-                      name="hubId"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
-                      value="{{result.hubId | e }}"
-  {% endif -%}
-                      ></wa-input>
-
-  {%- if 'Page' == classApiMethodMethod %}
-                </form>
-  {%- endif %}
-{%- endmacro %}
-
-{%- macro htmHubIdGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputHubIdGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputClusterNameGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmArchivedGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputArchivedGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputClusterNameGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_clusterName">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] cluster name"
                       label="cluster name"
                       hint="The name of this cluster"
                       id="GpuDevice_{{classApiMethodMethod}}_clusterName"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_clusterName setClusterName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}ClusterName "
                       name="setClusterName"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_clusterName setClusterName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}ClusterName "
                       name="setClusterName"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_clusterName valueClusterName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}ClusterName "
                       name="clusterName"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.clusterName | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmClusterNameGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputClusterNameGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputNodeNameGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmClusterNameGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputClusterNameGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputHubIdGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_hubId">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] ACM Hub"
+                      label="ACM Hub"
+                      hint="The name of the ACM Hub for this cluster in Prometheus Keycloak Proxy. "
+                      id="GpuDevice_{{classApiMethodMethod}}_hubId"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
+                      class="label-on-left GpuDevice_{{classApiMethodMethod}}_hubId setHubId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}HubId "
+                      name="setHubId"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left GpuDevice_{{classApiMethodMethod}}_hubId setHubId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}HubId "
+                      name="setHubId"
+                      {% else -%}
+                      class="label-on-left GpuDevice_{{classApiMethodMethod}}_hubId valueHubId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}HubId "
+                      name="hubId"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.hubId | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmHubIdGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputHubIdGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNodeNameGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_nodeName">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] node name"
                       label="node name"
                       hint="The name of this node"
                       id="GpuDevice_{{classApiMethodMethod}}_nodeName"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_nodeName setNodeName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NodeName "
                       name="setNodeName"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_nodeName setNodeName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NodeName "
                       name="setNodeName"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_nodeName valueNodeName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NodeName "
                       name="nodeName"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.nodeName | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmNodeNameGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputNodeNameGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputGpuDeviceNumberGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmNodeNameGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNodeNameGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputGpuDeviceNumberGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_gpuDeviceNumber">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[Integer] GPU device number"
                       label="GPU device number"
                       type="number"
+                      step="any"
                       hint="The number of this GPU device"
                       id="GpuDevice_{{classApiMethodMethod}}_gpuDeviceNumber"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_gpuDeviceNumber setGpuDeviceNumber classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}GpuDeviceNumber "
                       name="setGpuDeviceNumber"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_gpuDeviceNumber setGpuDeviceNumber classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}GpuDeviceNumber "
                       name="setGpuDeviceNumber"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_gpuDeviceNumber valueGpuDeviceNumber classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}GpuDeviceNumber "
                       name="gpuDeviceNumber"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.gpuDeviceNumber | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputGpuDeviceNumberGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputModelNameGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputGpuDeviceNumberGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputModelNameGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_modelName">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] model name"
                       label="model name"
                       hint="The GPU model"
                       id="GpuDevice_{{classApiMethodMethod}}_modelName"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_modelName setModelName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}ModelName "
                       name="setModelName"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_modelName setModelName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}ModelName "
                       name="setModelName"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_modelName valueModelName classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}ModelName "
                       name="modelName"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.modelName | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmModelNameGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputModelNameGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputDescriptionGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmModelNameGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputModelNameGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputDescriptionGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_description">
-  {%- endif %}
+                  {% endif -%}
                   <wa-textarea resize="auto"
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] description"
                       label="description"
                       hint="A description of this GPU device"
                       id="GpuDevice_{{classApiMethodMethod}}_description"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_description setDescription classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Description "
                       name="setDescription"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_description setDescription classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Description "
                       name="setDescription"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_description valueDescription classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Description "
                       name="description"
-    {%- endif %}
-  {%- endif %}
-{% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.description | e }}"
-{% endif -%}
+                      {% endif -%}
                       >
-</wa-textarea>
-  {%- if 'Page' == classApiMethodMethod %}
-                </form>
-  {%- endif %}
-{%- endmacro %}
+                  </wa-textarea>
 
-{%- macro htmDescriptionGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputDescriptionGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmDescriptionGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputDescriptionGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_gpuDeviceUtilization">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[Integer] GPU device utilization"
                       label="GPU device utilization"
                       type="number"
+                      step="any"
                       hint="Current utilization of the GPU device. "
                       id="GpuDevice_{{classApiMethodMethod}}_gpuDeviceUtilization"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_gpuDeviceUtilization setGpuDeviceUtilization classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}GpuDeviceUtilization "
                       name="setGpuDeviceUtilization"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_gpuDeviceUtilization setGpuDeviceUtilization classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}GpuDeviceUtilization "
                       name="setGpuDeviceUtilization"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_gpuDeviceUtilization valueGpuDeviceUtilization classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}GpuDeviceUtilization "
                       name="gpuDeviceUtilization"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.gpuDeviceUtilization | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputIdGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIdGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_id">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] entity ID"
                       label="entity ID"
                       hint="A unique ID for this Smart Data Model"
                       id="GpuDevice_{{classApiMethodMethod}}_id"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_id setId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Id "
                       name="setId"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_id setId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Id "
                       name="setId"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_id valueId classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Id "
                       name="id"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.id | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmIdGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputIdGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputNgsildTenantGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmIdGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIdGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNgsildTenantGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_ngsildTenant">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] NGSILD-Tenant"
                       label="NGSILD-Tenant"
                       hint="The NGSILD-Tenant or Fiware-Service"
                       id="GpuDevice_{{classApiMethodMethod}}_ngsildTenant"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildTenant setNgsildTenant classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildTenant "
                       name="setNgsildTenant"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildTenant setNgsildTenant classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildTenant "
                       name="setNgsildTenant"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildTenant valueNgsildTenant classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildTenant "
                       name="ngsildTenant"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.ngsildTenant | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmNgsildTenantGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputNgsildTenantGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputNgsildPathGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmNgsildTenantGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNgsildTenantGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNgsildPathGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_ngsildPath">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] NGSILD-Path"
                       label="NGSILD-Path"
                       hint="The NGSILD-Path or Fiware-ServicePath"
                       id="GpuDevice_{{classApiMethodMethod}}_ngsildPath"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildPath setNgsildPath classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildPath "
                       name="setNgsildPath"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildPath setNgsildPath classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildPath "
                       name="setNgsildPath"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildPath valueNgsildPath classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildPath "
                       name="ngsildPath"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.ngsildPath | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmNgsildPathGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputNgsildPathGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputNgsildContextGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmNgsildPathGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNgsildPathGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNgsildContextGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_ngsildContext">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] NGSILD context"
                       label="NGSILD context"
                       hint="The NGSILD context URL for @context data"
                       id="GpuDevice_{{classApiMethodMethod}}_ngsildContext"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildContext setNgsildContext classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildContext "
                       name="setNgsildContext"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildContext setNgsildContext classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildContext "
                       name="setNgsildContext"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildContext valueNgsildContext classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildContext "
                       name="ngsildContext"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.ngsildContext | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmNgsildContextGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputNgsildContextGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputNgsildDataGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmNgsildContextGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNgsildContextGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNgsildDataGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_ngsildData">
-  {%- endif %}
+                  {% endif -%}
                   <wa-textarea resize="auto"
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[JsonObject] NGSILD data"
                       label="NGSILD data"
                       hint="The NGSILD data with @context from the context broker"
                       id="GpuDevice_{{classApiMethodMethod}}_ngsildData"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildData setNgsildData classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildData "
                       name="setNgsildData"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildData setNgsildData classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildData "
                       name="setNgsildData"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_ngsildData valueNgsildData classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}NgsildData "
                       name="ngsildData"
-    {%- endif %}
-  {%- endif %}
-{% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{ toJsonObjectString(result.ngsildData) | e }}"
-{% endif -%}
+                      {% endif -%}
                       >
-</wa-textarea>
-  {%- if 'Page' == classApiMethodMethod %}
-                </form>
-  {%- endif %}
-{%- endmacro %}
+                  </wa-textarea>
 
-{%- macro htmNgsildDataGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputNgsildDataGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputLocationGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmNgsildDataGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNgsildDataGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputLocationGpuDevicePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_location">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[Point] location"
                       label="location"
                       hint="Geojson reference to the item. It can be Point, LineString, Polygon, MultiPoint, MultiLineString or MultiPolygon"
                       id="GpuDevice_{{classApiMethodMethod}}_location"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-gpuDeviceResource={{ result.gpuDeviceResource | tojson }}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_location setLocation classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Location "
                       name="setLocation"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_location setLocation classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Location "
                       name="setLocation"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left GpuDevice_{{classApiMethodMethod}}_location valueLocation classGpuDevice inputGpuDevice{{ result.gpuDeviceResource }}Location "
                       name="location"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{ toJsonObjectString(result.location) | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmLocationGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputLocationGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
+                {% macro htmLocationGpuDevicePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputLocationGpuDevicePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
 
-{%- macro htmFormButton_patchGpuDevice() %}
+          {% macro htmFormButton_patchGpuDevice() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_patchGpuDevice" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_patchGpuDevice"
                 >Modify GPU device</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_patchGpuDevice"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_patchGpuDevice(idSuffix='') %}
+        {% macro htmForm_patchGpuDevice(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="patchGpuDeviceDialog" label="Modify GPU device">
-          <form id="htmForm_patchGpuDevice" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_patchGpuDevice" class="wa-stack round-row primary-smart-border-radius ">
 
-            <wa-details open class="HtmRow" id="ai-node-details">
-              <div slot="summary">
-                <span>AI node details</span>
-              </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmHubIdGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmModelNameGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details open class="HtmRow" id="gpu-device-utilization-stats">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-4 " id="gpu-device-utilization-stats">
               <div slot="summary">
                 <span>GPU device utilization stats</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details class="HtmRow" id="ngsi-ld-data">
+            <wa-details class="{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}HtmRow HtmRow-5 " id="ngsi-ld-data">
               <div slot="summary">
                 <span>NGSI-LD data</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmIdGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmLocationGpuDevicePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
+            {{ htmFormButton_patchGpuDevice() }}
           </form>
-          {{ htmFormButton_patchGpuDevice() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_postGpuDevice() %}
+          {% macro htmFormButton_postGpuDevice() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_postGpuDevice" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_postGpuDevice"
                 >Create a GPU device</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_postGpuDevice"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_postGpuDevice(idSuffix='') %}
+        {% macro htmForm_postGpuDevice(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="postGpuDeviceDialog" label="Create a GPU device">
-          <form id="htmForm_postGpuDevice" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_postGpuDevice" class="wa-stack round-row primary-smart-border-radius ">
             <div>You can override any default values below: </div>
 
-            <wa-details open class="HtmRow" id="ai-node-details">
-              <div slot="summary">
-                <span>AI node details</span>
-              </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "POST" in scopes -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmHubIdGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmModelNameGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details open class="HtmRow" id="gpu-device-utilization-stats">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-4 " id="gpu-device-utilization-stats">
               <div slot="summary">
                 <span>GPU device utilization stats</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "POST" in scopes -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details class="HtmRow" id="ngsi-ld-data">
+            <wa-details class="{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}HtmRow HtmRow-5 " id="ngsi-ld-data">
               <div slot="summary">
                 <span>NGSI-LD data</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "POST" in scopes -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmIdGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
-                {% if "POST" in scopes -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmLocationGpuDevicePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
+            {{ htmFormButton_postGpuDevice() }}
           </form>
-          {{ htmFormButton_postGpuDevice() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_deleteGpuDevice() %}
+          {% macro htmFormButton_deleteGpuDevice() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_deleteGpuDevice" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_deleteGpuDevice"
                 >Delete GPU device</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_deleteGpuDevice"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_deleteGpuDevice(idSuffix='') %}
+        {% macro htmForm_deleteGpuDevice(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="deleteGpuDeviceDialog" label="Delete GPU device">
-          <form id="htmForm_deleteGpuDevice" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_deleteGpuDevice" class="wa-stack round-row primary-smart-border-radius ">
+            {{ htmFormButton_deleteGpuDevice() }}
           </form>
-          {{ htmFormButton_deleteGpuDevice() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_putimportGpuDevice() %}
+          {% macro htmFormButton_putimportGpuDevice() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_putimportGpuDevice" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_putimportGpuDevice"
                 >Import GPU devices</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_putimportGpuDevice"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_putimportGpuDevice(idSuffix='') %}
+        {% macro htmForm_putimportGpuDevice(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="putimportGpuDeviceDialog" label="Import GPU devices">
-          <form id="htmForm_putimportGpuDevice" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_putimportGpuDevice" class="wa-stack round-row primary-smart-border-radius ">
             <div>
               <wa-textarea
                   class="PUTImport_searchList "
@@ -1002,233 +785,81 @@
                   >
               </wa-textarea>
             </div>
+            {{ htmFormButton_putimportGpuDevice() }}
           </form>
-          {{ htmFormButton_putimportGpuDevice() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmForm_searchpageGpuDevice(idSuffix='') %}
+        {% macro htmForm_searchpageGpuDevice(idSuffix='', searchRelated=false) -%}
         <div with-header with-footer style="--width: min(64rem, 100vw); " id="searchpageGpuDeviceDialog" label="Search GPU devices">
-          <div id="htmForm_searchpageGpuDevice" class="round-row primary-smart-border-radius ">
+          <div id="htmForm_searchpageGpuDevice" class="wa-stack round-row primary-smart-border-radius ">
 
-            <wa-details class="HtmRow" id="primary-key-id-created-modified-archive-details">
+            <wa-details class="{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}HtmRow HtmRow-1 " id="primary-key-id-created-modified-archive-details">
               <div slot="summary">
                 <span>primary key, ID, created, modified, archive details</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmPkGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmPkGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmPkGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmCreatedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmCreatedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmCreatedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmModifiedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmModifiedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmModifiedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmPkGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCreatedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmModifiedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmArchivedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmArchivedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmArchivedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmArchivedGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
-            </wa-details>
 
-            <wa-details open class="HtmRow" id="ai-node-details">
-              <div slot="summary">
-                <span>AI node details</span>
-              </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubIdGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmModelNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmClusterNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmHubIdGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNodeNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmGpuDeviceNumberGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmModelNameGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details open class="HtmRow" id="gpu-device-utilization-stats">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-4 " id="gpu-device-utilization-stats">
               <div slot="summary">
                 <span>GPU device utilization stats</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmGpuDeviceUtilizationGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details class="HtmRow" id="ngsi-ld-data">
+            <wa-details class="{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}HtmRow HtmRow-5 " id="ngsi-ld-data">
               <div slot="summary">
                 <span>NGSI-LD data</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmIdGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmIdGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildTenantGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildPathGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildContextGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNgsildDataGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmLocationGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmLocationGpuDevicePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
           </div>
         </div>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_deletefilterGpuDevice() %}
+          {% macro htmFormButton_deletefilterGpuDevice() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_deletefilterGpuDevice" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_deletefilterGpuDevice"
                 >Delete GPU device</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_deletefilterGpuDevice"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_deletefilterGpuDevice(idSuffix='') %}
+        {% macro htmForm_deletefilterGpuDevice(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="deletefilterGpuDeviceDialog" label="Delete GPU device">
-          <form id="htmForm_deletefilterGpuDevice" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_deletefilterGpuDevice" class="wa-stack round-row primary-smart-border-radius ">
+            {{ htmFormButton_deletefilterGpuDevice() }}
           </form>
-          {{ htmFormButton_deletefilterGpuDevice() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}

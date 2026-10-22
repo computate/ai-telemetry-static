@@ -176,6 +176,17 @@ Promise.all([
     facetStatsChange('Hub', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortHub_apiUrl')?.addEventListener('change', (event) => {
+    sort('Hub', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsHub_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Hub', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsHub_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Hub', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortHub_displayPage')?.addEventListener('change', (event) => {
     sort('Hub', 'displayPage', event.currentTarget.value);
   });
@@ -382,6 +393,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndHub_pageId')?.addEventListener('change', (event) => {
             facetRangeEndChange('Hub', event.currentTarget);
           });
+          document.querySelector('#fqHub_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('Hub', event.currentTarget, facetChangeHubSuccess, facetChangeHubError);
+          });
+          document.querySelector('#buttonFacetHub_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('Hub', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotHub_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('Hub', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapHub_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('Hub', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartHub_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('Hub', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndHub_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('Hub', event.currentTarget);
+          });
           document.querySelector('#fqHub_displayPage')?.addEventListener('change', (event) => {
             fqChange('Hub', event.currentTarget, facetChangeHubSuccess, facetChangeHubError);
           });
@@ -509,7 +538,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterHub(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'hubId:' + event.currentTarget.getAttribute('data-hubId') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

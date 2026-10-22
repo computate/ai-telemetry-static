@@ -109,12 +109,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -178,10 +182,6 @@
 
         var submitForm_patchBareMetalNode = document.querySelector('#htmForm_patchBareMetalNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchBareMetalNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchBareMetalNode(null, document.querySelector('#htmForm_patchBareMetalNode')
               , document.querySelector('#htmFormButton_patchBareMetalNode')
@@ -214,10 +214,6 @@
 
         var submitForm_postBareMetalNode = document.querySelector('#htmForm_postBareMetalNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postBareMetalNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postBareMetalNode(document.querySelector('#htmForm_postBareMetalNode')
               , document.querySelector('#htmFormButton_postBareMetalNode')
@@ -249,10 +245,6 @@
 
         var submitForm_deleteBareMetalNode = document.querySelector('#htmForm_deleteBareMetalNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteBareMetalNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteBareMetalNode(event.target, event.target.getAttribute('data-nodeId')
               , (json, target) => {
@@ -282,10 +274,6 @@
         });
 
         var submitForm_putimportBareMetalNode = document.querySelector('#htmForm_putimportBareMetalNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportBareMetalNode')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportBareMetalNode(document.querySelector('#htmForm_putimportBareMetalNode')
@@ -317,22 +305,7 @@
           return false;
         });
 
-        var submitForm_searchpageBareMetalNode = document.querySelector('#htmForm_searchpageBareMetalNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageBareMetalNode')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageBareMetalNode();
-          return false;
-        });
-
         var submitForm_deletefilterBareMetalNode = document.querySelector('#htmForm_deletefilterBareMetalNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterBareMetalNode')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterBareMetalNode(event.target
@@ -409,7 +382,10 @@
 {%- block htmBodyStartBareMetalNodePage %}
 {% if resultCount > 0 %}
           <div class="wa-flank ">
-            <h1 class="Page_objectTitle"><i class="fa-regular fa-hexagon-nodes"></i> {{ result.objectTitle | e }}</h1>
+            <h1 id="Page_objectTitle" class="Page_objectTitle">
+              <i class="fa-regular fa-hexagon-nodes"></i>
+               {{ result.objectTitle | e }}
+            </h1>
           </div>
 {% endif %}
 {% include en-us/search/bare-metal-node/BareMetalNodeSearchForm.htm %}

@@ -154,6 +154,17 @@ Promise.all([
     facetStatsChange('SitePage', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortSitePage_apiUrl')?.addEventListener('change', (event) => {
+    sort('SitePage', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSitePage_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SitePage', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsSitePage_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SitePage', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortSitePage_editPage')?.addEventListener('change', (event) => {
     sort('SitePage', 'editPage', event.currentTarget.value);
   });
@@ -218,6 +229,61 @@ Promise.all([
   });
   document.querySelector('#pageStatsSitePage_solrId')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('SitePage', 'solrId', false);
+  });
+
+  document.querySelector('#pageSelectSortSitePage_pageImageAlt')?.addEventListener('change', (event) => {
+    sort('SitePage', 'pageImageAlt', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSitePage_pageImageAlt')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SitePage', 'pageImageAlt', true);
+  });
+  document.querySelector('#pageStatsSitePage_pageImageAlt')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SitePage', 'pageImageAlt', false);
+  });
+
+  document.querySelector('#pageSelectSortSitePage_prerequisiteArticleIds')?.addEventListener('change', (event) => {
+    sort('SitePage', 'prerequisiteArticleIds', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSitePage_prerequisiteArticleIds')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SitePage', 'prerequisiteArticleIds', true);
+  });
+  document.querySelector('#pageStatsSitePage_prerequisiteArticleIds')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SitePage', 'prerequisiteArticleIds', false);
+  });
+
+  document.querySelector('#pageSelectSortSitePage_nextArticleIds')?.addEventListener('change', (event) => {
+    sort('SitePage', 'nextArticleIds', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSitePage_nextArticleIds')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SitePage', 'nextArticleIds', true);
+  });
+  document.querySelector('#pageStatsSitePage_nextArticleIds')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SitePage', 'nextArticleIds', false);
+  });
+
+  document.querySelector('#pageSelectSortSitePage_labels')?.addEventListener('change', (event) => {
+    sort('SitePage', 'labels', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSitePage_labels')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SitePage', 'labels', true);
+  });
+  document.querySelector('#pageStatsSitePage_labels')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SitePage', 'labels', false);
+  });
+
+  document.querySelector('#pageSelectSortSitePage_relatedArticleIds')?.addEventListener('change', (event) => {
+    sort('SitePage', 'relatedArticleIds', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSitePage_relatedArticleIds')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SitePage', 'relatedArticleIds', true);
+  });
+  document.querySelector('#pageStatsSitePage_relatedArticleIds')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SitePage', 'relatedArticleIds', false);
   });
 
   document.querySelector('#pageSelectSortSitePage_courseNum')?.addEventListener('change', (event) => {
@@ -297,39 +363,6 @@ Promise.all([
     facetStatsChange('SitePage', 'pageImageType', false);
   });
 
-  document.querySelector('#pageSelectSortSitePage_pageImageAlt')?.addEventListener('change', (event) => {
-    sort('SitePage', 'pageImageAlt', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsSitePage_pageImageAlt')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('SitePage', 'pageImageAlt', true);
-  });
-  document.querySelector('#pageStatsSitePage_pageImageAlt')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('SitePage', 'pageImageAlt', false);
-  });
-
-  document.querySelector('#pageSelectSortSitePage_prerequisiteArticleIds')?.addEventListener('change', (event) => {
-    sort('SitePage', 'prerequisiteArticleIds', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsSitePage_prerequisiteArticleIds')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('SitePage', 'prerequisiteArticleIds', true);
-  });
-  document.querySelector('#pageStatsSitePage_prerequisiteArticleIds')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('SitePage', 'prerequisiteArticleIds', false);
-  });
-
-  document.querySelector('#pageSelectSortSitePage_nextArticleIds')?.addEventListener('change', (event) => {
-    sort('SitePage', 'nextArticleIds', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsSitePage_nextArticleIds')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('SitePage', 'nextArticleIds', true);
-  });
-  document.querySelector('#pageStatsSitePage_nextArticleIds')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('SitePage', 'nextArticleIds', false);
-  });
-
   document.querySelector('#pageSelectSortSitePage_labelsString')?.addEventListener('change', (event) => {
     sort('SitePage', 'labelsString', event.currentTarget.value);
   });
@@ -339,28 +372,6 @@ Promise.all([
   });
   document.querySelector('#pageStatsSitePage_labelsString')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('SitePage', 'labelsString', false);
-  });
-
-  document.querySelector('#pageSelectSortSitePage_labels')?.addEventListener('change', (event) => {
-    sort('SitePage', 'labels', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsSitePage_labels')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('SitePage', 'labels', true);
-  });
-  document.querySelector('#pageStatsSitePage_labels')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('SitePage', 'labels', false);
-  });
-
-  document.querySelector('#pageSelectSortSitePage_relatedArticleIds')?.addEventListener('change', (event) => {
-    sort('SitePage', 'relatedArticleIds', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsSitePage_relatedArticleIds')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('SitePage', 'relatedArticleIds', true);
-  });
-  document.querySelector('#pageStatsSitePage_relatedArticleIds')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('SitePage', 'relatedArticleIds', false);
   });
           document.querySelector('#fqSitePage_created')?.addEventListener('change', (event) => {
             fqChange('SitePage', event.currentTarget, facetChangeSitePageSuccess, facetChangeSitePageError);
@@ -468,6 +479,24 @@ Promise.all([
             facetRangeStartChange('SitePage', event.currentTarget);
           });
           document.querySelector('#pageFacetRangeEndSitePage_displayPage')?.addEventListener('change', (event) => {
+            facetRangeEndChange('SitePage', event.currentTarget);
+          });
+          document.querySelector('#fqSitePage_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('SitePage', event.currentTarget, facetChangeSitePageSuccess, facetChangeSitePageError);
+          });
+          document.querySelector('#buttonFacetSitePage_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('SitePage', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotSitePage_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('SitePage', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapSitePage_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('SitePage', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartSitePage_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('SitePage', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndSitePage_apiUrl')?.addEventListener('change', (event) => {
             facetRangeEndChange('SitePage', event.currentTarget);
           });
           document.querySelector('#fqSitePage_editPage')?.addEventListener('change', (event) => {
@@ -579,7 +608,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterSitePage(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pageId:' + event.currentTarget.getAttribute('data-pageId') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

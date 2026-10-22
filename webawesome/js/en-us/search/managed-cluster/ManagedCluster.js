@@ -84,7 +84,6 @@ async function websocketManagedClusterInner(apiRequest) {
         var inputArchived = null;
         var inputId = null;
         var inputState = null;
-        var inputApiUrl = null;
         var inputConsoleUrl = null;
         var inputClassCanonicalName = null;
         var inputClassSimpleName = null;
@@ -93,6 +92,7 @@ async function websocketManagedClusterInner(apiRequest) {
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
+        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
         var inputUserPage = null;
@@ -113,8 +113,6 @@ async function websocketManagedClusterInner(apiRequest) {
           inputId = $response.querySelector('.ManagedCluster_Page_id');
         if(vars.includes('state'))
           inputState = $response.querySelector('.ManagedCluster_Page_state');
-        if(vars.includes('apiUrl'))
-          inputApiUrl = $response.querySelector('.ManagedCluster_Page_apiUrl');
         if(vars.includes('consoleUrl'))
           inputConsoleUrl = $response.querySelector('.ManagedCluster_Page_consoleUrl');
         if(vars.includes('classCanonicalName'))
@@ -131,6 +129,8 @@ async function websocketManagedClusterInner(apiRequest) {
           inputSaves = $response.querySelector('.ManagedCluster_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.ManagedCluster_Page_objectTitle');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.ManagedCluster_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.ManagedCluster_Page_displayPage');
         if(vars.includes('editPage'))
@@ -146,13 +146,17 @@ async function websocketManagedClusterInner(apiRequest) {
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.ManagedCluster_Page_solrId');
 
-        jsWebsocketManagedCluster(id, vars, $response);
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listManagedCluster = JSON.parse($response.querySelector('.pageForm .listManagedCluster')?.value);
+        jsWebsocketManagedCluster(id, vars, $response);
 
 
         if(inputPk) {
           document.querySelectorAll('.ManagedCluster_Page_pk').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPk.getAttribute('value');
             else
@@ -163,6 +167,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputCreated) {
           document.querySelectorAll('.ManagedCluster_Page_created').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreated.getAttribute('value');
             else
@@ -173,6 +181,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputModified) {
           document.querySelectorAll('.ManagedCluster_Page_modified').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModified.getAttribute('value');
             else
@@ -183,6 +195,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputArchived) {
           document.querySelectorAll('.ManagedCluster_Page_archived').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputArchived.getAttribute('value');
             else
@@ -193,6 +209,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputId) {
           document.querySelectorAll('.ManagedCluster_Page_id').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputId.getAttribute('value');
             else
@@ -203,6 +223,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputState) {
           document.querySelectorAll('.ManagedCluster_Page_state').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputState.getAttribute('value');
             else
@@ -211,18 +235,12 @@ async function websocketManagedClusterInner(apiRequest) {
           addGlow(document.querySelector('.ManagedCluster_Page_state'));
         }
 
-        if(inputApiUrl) {
-          document.querySelectorAll('.ManagedCluster_Page_apiUrl').forEach((item, index) => {
-            if(typeof item.value !== 'undefined')
-              item.value = inputApiUrl.getAttribute('value');
-            else
-              item.textContent = inputApiUrl.textContent;
-          });
-          addGlow(document.querySelector('.ManagedCluster_Page_apiUrl'));
-        }
-
         if(inputConsoleUrl) {
           document.querySelectorAll('.ManagedCluster_Page_consoleUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputConsoleUrl.getAttribute('value');
             else
@@ -233,6 +251,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputClassCanonicalName) {
           document.querySelectorAll('.ManagedCluster_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalName.getAttribute('value');
             else
@@ -243,6 +265,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputClassSimpleName) {
           document.querySelectorAll('.ManagedCluster_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassSimpleName.getAttribute('value');
             else
@@ -253,6 +279,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.ManagedCluster_Page_classCanonicalNames').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalNames.getAttribute('value');
             else
@@ -263,6 +293,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputSessionId) {
           document.querySelectorAll('.ManagedCluster_Page_sessionId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSessionId.getAttribute('value');
             else
@@ -273,6 +307,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputUserKey) {
           document.querySelectorAll('.ManagedCluster_Page_userKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserKey.getAttribute('value');
             else
@@ -283,6 +321,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputSaves) {
           document.querySelectorAll('.ManagedCluster_Page_saves').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSaves.getAttribute('value');
             else
@@ -293,6 +335,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputObjectTitle) {
           document.querySelectorAll('.ManagedCluster_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectTitle.getAttribute('value');
             else
@@ -301,8 +347,26 @@ async function websocketManagedClusterInner(apiRequest) {
           addGlow(document.querySelector('.ManagedCluster_Page_objectTitle'));
         }
 
+        if(inputApiUrl) {
+          document.querySelectorAll('.ManagedCluster_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.ManagedCluster_Page_apiUrl'));
+        }
+
         if(inputDisplayPage) {
           document.querySelectorAll('.ManagedCluster_Page_displayPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDisplayPage.getAttribute('value');
             else
@@ -313,6 +377,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputEditPage) {
           document.querySelectorAll('.ManagedCluster_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEditPage.getAttribute('value');
             else
@@ -323,6 +391,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputUserPage) {
           document.querySelectorAll('.ManagedCluster_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserPage.getAttribute('value');
             else
@@ -333,6 +405,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputDownload) {
           document.querySelectorAll('.ManagedCluster_Page_download').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDownload.getAttribute('value');
             else
@@ -343,6 +419,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputObjectSuggest) {
           document.querySelectorAll('.ManagedCluster_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectSuggest.getAttribute('value');
             else
@@ -353,6 +433,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputObjectText) {
           document.querySelectorAll('.ManagedCluster_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectText.getAttribute('value');
             else
@@ -363,6 +447,10 @@ async function websocketManagedClusterInner(apiRequest) {
 
         if(inputSolrId) {
           document.querySelectorAll('.ManagedCluster_Page_solrId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSolrId.getAttribute('value');
             else
@@ -546,10 +634,6 @@ function searchManagedClusterFilters($formFilters) {
     if(filterState != null && filterState !== '')
       filters.push({ name: 'fq', value: 'state:' + filterState });
 
-    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
-    if(filterApiUrl != null && filterApiUrl !== '')
-      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
-
     var filterConsoleUrl = $formFilters.querySelector('.valueConsoleUrl')?.value;
     if(filterConsoleUrl != null && filterConsoleUrl !== '')
       filters.push({ name: 'fq', value: 'consoleUrl:' + filterConsoleUrl });
@@ -581,6 +665,10 @@ function searchManagedClusterFilters($formFilters) {
     var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
 
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
@@ -758,18 +846,6 @@ async function patchManagedCluster($formFilters, $formValues, target, id, succes
   if(removeState != null && removeState !== '')
     vals['removeState'] = removeState;
 
-  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
-  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
-  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
-  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
-  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
-    vals['setApiUrl'] = setApiUrl;
-  if(addApiUrl != null && addApiUrl !== '')
-    vals['addApiUrl'] = addApiUrl;
-  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
-  if(removeApiUrl != null && removeApiUrl !== '')
-    vals['removeApiUrl'] = removeApiUrl;
-
   var valueConsoleUrl = $formValues.querySelector('.valueConsoleUrl')?.value;
   var removeConsoleUrl = $formValues.querySelector('.removeConsoleUrl')?.value === 'true';
   var setConsoleUrl = removeConsoleUrl ? null : $formValues.querySelector('.setConsoleUrl')?.value;
@@ -817,6 +893,18 @@ async function patchManagedCluster($formFilters, $formValues, target, id, succes
   var removeObjectTitle = $formValues.querySelector('.removeObjectTitle')?.value;
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
+
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
 
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
@@ -904,10 +992,6 @@ function patchManagedClusterFilters($formFilters) {
     if(filterState != null && filterState !== '')
       filters.push({ name: 'fq', value: 'state:' + filterState });
 
-    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
-    if(filterApiUrl != null && filterApiUrl !== '')
-      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
-
     var filterConsoleUrl = $formFilters.querySelector('.valueConsoleUrl')?.value;
     if(filterConsoleUrl != null && filterConsoleUrl !== '')
       filters.push({ name: 'fq', value: 'consoleUrl:' + filterConsoleUrl });
@@ -939,6 +1023,10 @@ function patchManagedClusterFilters($formFilters) {
     var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
 
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
@@ -1054,10 +1142,6 @@ async function postManagedCluster($formValues, target, success, error) {
   if(valueState != null && valueState !== '')
     vals['state'] = valueState;
 
-  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
-  if(valueApiUrl != null && valueApiUrl !== '')
-    vals['apiUrl'] = valueApiUrl;
-
   var valueConsoleUrl = $formValues.querySelector('.valueConsoleUrl')?.value;
   if(valueConsoleUrl != null && valueConsoleUrl !== '')
     vals['consoleUrl'] = valueConsoleUrl;
@@ -1073,6 +1157,10 @@ async function postManagedCluster($formValues, target, success, error) {
   var valueObjectTitle = $formValues.querySelector('.valueObjectTitle')?.value;
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
+
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
 
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
@@ -1204,7 +1292,9 @@ function putimportManagedClusterVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterManagedCluster(target, success, error) {
+async function deletefilterManagedCluster($formFilterstarget, success, error) {
+  var filters = deletefilterManagedClusterFilters($formFilters);
+
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -1236,7 +1326,7 @@ async function deletefilterManagedCluster(target, success, error) {
   }
 
   fetch(
-    '/en-us/api/managed-cluster'
+    '/en-us/api/managed-cluster?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
       headers: {'Content-Type':'application/json; charset=utf-8'}
       , method: 'DELETE'
@@ -1248,4 +1338,105 @@ async function deletefilterManagedCluster(target, success, error) {
       }
     })
     .catch(response => error(response, target));
+}
+
+function deletefilterManagedClusterFilters($formFilters) {
+  var filters = [];
+  if($formFilters) {
+
+    var filterPk = $formFilters.querySelector('.valuePk')?.value;
+    if(filterPk != null && filterPk !== '')
+      filters.push({ name: 'fq', value: 'pk:' + filterPk });
+
+    var filterCreated = $formFilters.querySelector('.valueCreated')?.value;
+    if(filterCreated != null && filterCreated !== '')
+      filters.push({ name: 'fq', value: 'created:' + filterCreated });
+
+    var filterModified = $formFilters.querySelector('.valueModified')?.value;
+    if(filterModified != null && filterModified !== '')
+      filters.push({ name: 'fq', value: 'modified:' + filterModified });
+
+    var $filterArchivedCheckbox = $formFilters.querySelector('input.valueArchived[type = "checkbox"]');
+    var $filterArchivedSelect = $formFilters.querySelector('select.valueArchived');
+    var filterArchived = $filterArchivedSelect.length ? $filterArchivedSelect.value : $filterArchivedCheckbox.checked;
+    var filterArchivedSelectVal = $formFilters.querySelector('select.filterArchived')?.value;
+    var filterArchived = null;
+    if(filterArchivedSelectVal !== '')
+      filterArchived = filterArchivedSelectVal == 'true';
+    if(filterArchived != null && filterArchived === true)
+      filters.push({ name: 'fq', value: 'archived:' + filterArchived });
+
+    var filterId = $formFilters.querySelector('.valueId')?.value;
+    if(filterId != null && filterId !== '')
+      filters.push({ name: 'fq', value: 'id:' + filterId });
+
+    var filterState = $formFilters.querySelector('.valueState')?.value;
+    if(filterState != null && filterState !== '')
+      filters.push({ name: 'fq', value: 'state:' + filterState });
+
+    var filterConsoleUrl = $formFilters.querySelector('.valueConsoleUrl')?.value;
+    if(filterConsoleUrl != null && filterConsoleUrl !== '')
+      filters.push({ name: 'fq', value: 'consoleUrl:' + filterConsoleUrl });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
+    if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
+
+    var filterSessionId = $formFilters.querySelector('.valueSessionId')?.value;
+    if(filterSessionId != null && filterSessionId !== '')
+      filters.push({ name: 'fq', value: 'sessionId:' + filterSessionId });
+
+    var filterUserKey = $formFilters.querySelector('.valueUserKey')?.value;
+    if(filterUserKey != null && filterUserKey !== '')
+      filters.push({ name: 'fq', value: 'userKey:' + filterUserKey });
+
+    var filterSaves = $formFilters.querySelector('.valueSaves')?.value;
+    if(filterSaves != null && filterSaves !== '')
+      filters.push({ name: 'fq', value: 'saves:' + filterSaves });
+
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
+    if(filterDisplayPage != null && filterDisplayPage !== '')
+      filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
+    if(filterDownload != null && filterDownload !== '')
+      filters.push({ name: 'fq', value: 'download:' + filterDownload });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
+    if(filterSolrId != null && filterSolrId !== '')
+      filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+  }
+  return filters;
 }

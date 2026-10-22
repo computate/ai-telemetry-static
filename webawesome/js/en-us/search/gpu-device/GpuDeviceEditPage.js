@@ -61,27 +61,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH hubId
-          document.querySelector('#GpuDevice_Page_hubId')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_hubId');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchGpuDeviceVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'gpuDeviceResource:' + event.currentTarget.getAttribute('data-gpuDeviceResource') }]
-                  , 'setHubId', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#GpuDevice_Page_hubId')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#GpuDevice_Page_hubId')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_hubId');
-            const valid = form.reportValidity();
-          });
-
           // PATCH clusterName
           document.querySelector('#GpuDevice_Page_clusterName')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_clusterName');
@@ -100,6 +79,27 @@ Promise.all([
           });
           document.querySelector('#GpuDevice_Page_clusterName')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_clusterName');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH hubId
+          document.querySelector('#GpuDevice_Page_hubId')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_hubId');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchGpuDeviceVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'gpuDeviceResource:' + event.currentTarget.getAttribute('data-gpuDeviceResource') }]
+                  , 'setHubId', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#GpuDevice_Page_hubId')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#GpuDevice_Page_hubId')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_hubId');
             const valid = form.reportValidity();
           });
 
@@ -394,6 +394,27 @@ Promise.all([
           });
           document.querySelector('#GpuDevice_Page_objectTitle')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_objectTitle');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH apiUrl
+          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchGpuDeviceVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'gpuDeviceResource:' + event.currentTarget.getAttribute('data-gpuDeviceResource') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
             const valid = form.reportValidity();
           });
 

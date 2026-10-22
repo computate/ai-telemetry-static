@@ -506,6 +506,17 @@ Promise.all([
     facetStatsChange('BareMetalNetwork', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortBareMetalNetwork_apiUrl')?.addEventListener('change', (event) => {
+    sort('BareMetalNetwork', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsBareMetalNetwork_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('BareMetalNetwork', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsBareMetalNetwork_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('BareMetalNetwork', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortBareMetalNetwork_displayPage')?.addEventListener('change', (event) => {
     sort('BareMetalNetwork', 'displayPage', event.currentTarget.value);
   });
@@ -1230,6 +1241,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndBareMetalNetwork_locationZone')?.addEventListener('change', (event) => {
             facetRangeEndChange('BareMetalNetwork', event.currentTarget);
           });
+          document.querySelector('#fqBareMetalNetwork_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('BareMetalNetwork', event.currentTarget, facetChangeBareMetalNetworkSuccess, facetChangeBareMetalNetworkError);
+          });
+          document.querySelector('#buttonFacetBareMetalNetwork_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('BareMetalNetwork', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotBareMetalNetwork_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('BareMetalNetwork', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapBareMetalNetwork_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('BareMetalNetwork', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartBareMetalNetwork_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('BareMetalNetwork', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndBareMetalNetwork_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('BareMetalNetwork', event.currentTarget);
+          });
           document.querySelector('#fqBareMetalNetwork_displayPage')?.addEventListener('change', (event) => {
             fqChange('BareMetalNetwork', event.currentTarget, facetChangeBareMetalNetworkSuccess, facetChangeBareMetalNetworkError);
           });
@@ -1321,7 +1350,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterBareMetalNetwork(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

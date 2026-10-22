@@ -176,6 +176,17 @@ Promise.all([
     facetStatsChange('Tenant', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortTenant_apiUrl')?.addEventListener('change', (event) => {
+    sort('Tenant', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsTenant_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Tenant', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsTenant_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Tenant', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortTenant_displayPage')?.addEventListener('change', (event) => {
     sort('Tenant', 'displayPage', event.currentTarget.value);
   });
@@ -393,6 +404,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndTenant_pageId')?.addEventListener('change', (event) => {
             facetRangeEndChange('Tenant', event.currentTarget);
           });
+          document.querySelector('#fqTenant_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('Tenant', event.currentTarget, facetChangeTenantSuccess, facetChangeTenantError);
+          });
+          document.querySelector('#buttonFacetTenant_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('Tenant', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotTenant_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('Tenant', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapTenant_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('Tenant', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartTenant_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('Tenant', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndTenant_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('Tenant', event.currentTarget);
+          });
           document.querySelector('#fqTenant_displayPage')?.addEventListener('change', (event) => {
             fqChange('Tenant', event.currentTarget, facetChangeTenantSuccess, facetChangeTenantError);
           });
@@ -538,7 +567,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterTenant(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'tenantId:' + event.currentTarget.getAttribute('data-tenantId') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

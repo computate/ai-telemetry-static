@@ -109,12 +109,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -178,10 +182,6 @@
 
         var submitForm_patchBareMetalResourceClass = document.querySelector('#htmForm_patchBareMetalResourceClass')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchBareMetalResourceClass')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchBareMetalResourceClass(null, document.querySelector('#htmForm_patchBareMetalResourceClass')
               , document.querySelector('#htmFormButton_patchBareMetalResourceClass')
@@ -214,10 +214,6 @@
 
         var submitForm_postBareMetalResourceClass = document.querySelector('#htmForm_postBareMetalResourceClass')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postBareMetalResourceClass')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postBareMetalResourceClass(document.querySelector('#htmForm_postBareMetalResourceClass')
               , document.querySelector('#htmFormButton_postBareMetalResourceClass')
@@ -249,10 +245,6 @@
 
         var submitForm_deleteBareMetalResourceClass = document.querySelector('#htmForm_deleteBareMetalResourceClass')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteBareMetalResourceClass')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteBareMetalResourceClass(event.target, event.target.getAttribute('data-name')
               , (json, target) => {
@@ -282,10 +274,6 @@
         });
 
         var submitForm_putimportBareMetalResourceClass = document.querySelector('#htmForm_putimportBareMetalResourceClass')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportBareMetalResourceClass')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportBareMetalResourceClass(document.querySelector('#htmForm_putimportBareMetalResourceClass')
@@ -317,22 +305,7 @@
           return false;
         });
 
-        var submitForm_searchpageBareMetalResourceClass = document.querySelector('#htmForm_searchpageBareMetalResourceClass')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageBareMetalResourceClass')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageBareMetalResourceClass();
-          return false;
-        });
-
         var submitForm_deletefilterBareMetalResourceClass = document.querySelector('#htmForm_deletefilterBareMetalResourceClass')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterBareMetalResourceClass')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterBareMetalResourceClass(event.target
@@ -409,7 +382,10 @@
 {%- block htmBodyStartBareMetalResourceClassPage %}
 {% if resultCount > 0 %}
           <div class="wa-flank ">
-            <h1 class="Page_objectTitle"><i class="fa-regular fa-server"></i> {{ result.objectTitle | e }}</h1>
+            <h1 id="Page_objectTitle" class="Page_objectTitle">
+              <i class="fa-regular fa-server"></i>
+               {{ result.objectTitle | e }}
+            </h1>
           </div>
 {% endif %}
 {% include en-us/search/bare-metal-resource-class/BareMetalResourceClassSearchForm.htm %}

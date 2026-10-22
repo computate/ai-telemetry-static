@@ -1,64 +1,60 @@
 
-{%- macro htmButton_patchHub() %}<wa-button variant="brand" id="htmButton_patchHub"  data-dialog="open patchHubDialog" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{%- endmacro %}
+          {% macro htmButton_patchHub() -%}<wa-button variant="brand" id="htmButton_patchHub"  data-dialog="open patchHubDialog" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{% endmacro -%}
 
-{%- macro htmButton_postHub() %}<wa-button variant="brand" id="htmButton_postHub"  data-dialog="open postHubDialog" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{%- endmacro %}
+          {% macro htmButton_postHub() -%}<wa-button variant="brand" id="htmButton_postHub"  data-dialog="open postHubDialog" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{% endmacro -%}
 
-{%- macro htmButton_deleteHub() %}<wa-button variant="brand" id="htmButton_deleteHub" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+          {% macro htmButton_deleteHub() -%}<wa-button variant="brand" id="htmButton_deleteHub" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
 
-{%- macro htmButton_putimportHub() %}<wa-button variant="brand" id="htmButton_putimportHub"  data-dialog="open putimportHubDialog" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{%- endmacro %}
+          {% macro htmButton_putimportHub() -%}<wa-button variant="brand" id="htmButton_putimportHub"  data-dialog="open putimportHubDialog" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{% endmacro -%}
 
-{%- macro htmButton_deletefilterHub() %}<wa-button variant="brand" id="htmButton_deletefilterHub" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+          {% macro htmButton_deletefilterHub() -%}<wa-button variant="brand" id="htmButton_deletefilterHub" data-hubId={{ result.hubId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
           <div id="htmSearchForm">
             <wa-scroller>
               <wa-button-group>
-{% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {% if "PATCH" in scopes %}
-    {% if resultCount >= 1 %}
+                {% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+                {% if "PATCH" in scopes %}
+                {% if resultCount >= 1 %}
                 <wa-button variant="brand" id="refreshThisHubGenPage"
-                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'hubId:{{ result.hubId }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisHubGenPage')); }, function() { addError(document.querySelector('#refreshThisHubGenPage')); }); return false; ">
+                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'hubId:{{ result.hubId }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisHubGenPage')); }, function(response, target) { addError(document.querySelector('#refreshThisHubGenPage'), response); }); return false; ">
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-sync-alt "></i>
                   refresh
                 </wa-button>
-    {% endif %}
-    {% if resultCount > 0 %}
+                {% endif %}
+                {% if resultCount > 0 %}
                 <wa-button variant="brand" id="refreshAllHubGenPage{{ result.hubId | e }}"
-                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllHubGenPage{{ result.hubId | e }}')); }, function() { addError(document.querySelector('#refreshAllHubGenPage{{ result.hubId | e }}')); }); "
+                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllHubGenPage{{ result.hubId | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllHubGenPage{{ result.hubId | e }}')response); }); "
                     >
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrows-rotate"></i>
                   refresh all 
                 </wa-button>
-    {% endif %}
-  {% endif %}
-{% endif %}
-{%- if 'PATCH' in scopes %}
-  {%- if resultCount > 0 %}
-    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-    {{ htmButton_patchHub() }}
-    {%- endif %}
-  {%- endif %}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmButton_postHub() }}
-  {%- else %}
-    {{ htmButton_postHub() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if result is defined %}
-    {{ htmButton_deleteHub() }}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmButton_putimportHub() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if result is not defined %}
-    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-    {{ htmButton_deletefilterHub() }}
-    {%- endif %}
-  {%- endif %}
-{%- endif %}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'PATCH' in scopes -%}
+                {%- if resultCount > 0 -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_patchHub() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'POST' in scopes -%}
+                {{ htmButton_postHub() -}}
+                {% endif -%}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is defined -%}
+                {{ htmButton_deleteHub() -}}
+                {% endif -%}
+                {% endif -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_putimportHub() -}}
+                {%- endif %}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is not defined -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_deletefilterHub() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
 
               </wa-button-group>
             </wa-scroller>

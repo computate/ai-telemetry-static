@@ -330,6 +330,17 @@ Promise.all([
     facetStatsChange('Project', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortProject_apiUrl')?.addEventListener('change', (event) => {
+    sort('Project', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsProject_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Project', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsProject_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Project', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortProject_displayPage')?.addEventListener('change', (event) => {
     sort('Project', 'displayPage', event.currentTarget.value);
   });
@@ -449,6 +460,17 @@ Promise.all([
   });
   document.querySelector('#pageStatsProject_projectResource')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('Project', 'projectResource', false);
+  });
+
+  document.querySelector('#pageSelectSortProject_statusPageTemplateUri')?.addEventListener('change', (event) => {
+    sort('Project', 'statusPageTemplateUri', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsProject_statusPageTemplateUri')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Project', 'statusPageTemplateUri', true);
+  });
+  document.querySelector('#pageStatsProject_statusPageTemplateUri')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Project', 'statusPageTemplateUri', false);
   });
           document.querySelector('#fqProject_created')?.addEventListener('change', (event) => {
             fqChange('Project', event.currentTarget, facetChangeProjectSuccess, facetChangeProjectError);
@@ -774,6 +796,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndProject_namespaceTerminating')?.addEventListener('change', (event) => {
             facetRangeEndChange('Project', event.currentTarget);
           });
+          document.querySelector('#fqProject_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('Project', event.currentTarget, facetChangeProjectSuccess, facetChangeProjectError);
+          });
+          document.querySelector('#buttonFacetProject_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('Project', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotProject_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('Project', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapProject_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('Project', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartProject_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('Project', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndProject_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('Project', event.currentTarget);
+          });
           document.querySelector('#fqProject_displayPage')?.addEventListener('change', (event) => {
             fqChange('Project', event.currentTarget, facetChangeProjectSuccess, facetChangeProjectError);
           });
@@ -901,7 +941,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterProject(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

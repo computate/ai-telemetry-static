@@ -123,6 +123,7 @@ async function websocketBareMetalNetworkInner(apiRequest) {
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
+        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
         var inputUserPage = null;
@@ -221,6 +222,8 @@ async function websocketBareMetalNetworkInner(apiRequest) {
           inputSaves = $response.querySelector('.BareMetalNetwork_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.BareMetalNetwork_Page_objectTitle');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.BareMetalNetwork_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.BareMetalNetwork_Page_displayPage');
         if(vars.includes('editPage'))
@@ -236,13 +239,17 @@ async function websocketBareMetalNetworkInner(apiRequest) {
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.BareMetalNetwork_Page_solrId');
 
-        jsWebsocketBareMetalNetwork(id, vars, $response);
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listBareMetalNetwork = JSON.parse($response.querySelector('.pageForm .listBareMetalNetwork')?.value);
+        jsWebsocketBareMetalNetwork(id, vars, $response);
 
 
         if(inputPk) {
           document.querySelectorAll('.BareMetalNetwork_Page_pk').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPk.getAttribute('value');
             else
@@ -253,6 +260,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputCreated) {
           document.querySelectorAll('.BareMetalNetwork_Page_created').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreated.getAttribute('value');
             else
@@ -263,6 +274,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputModified) {
           document.querySelectorAll('.BareMetalNetwork_Page_modified').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModified.getAttribute('value');
             else
@@ -273,6 +288,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputArchived) {
           document.querySelectorAll('.BareMetalNetwork_Page_archived').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputArchived.getAttribute('value');
             else
@@ -283,6 +302,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputId) {
           document.querySelectorAll('.BareMetalNetwork_Page_id').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputId.getAttribute('value');
             else
@@ -293,6 +316,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputName) {
           document.querySelectorAll('.BareMetalNetwork_Page_name').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputName.getAttribute('value');
             else
@@ -303,6 +330,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputDescription) {
           document.querySelectorAll('.BareMetalNetwork_Page_description').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDescription.getAttribute('value');
             else
@@ -313,6 +344,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputAvailabilityZoneHints) {
           document.querySelectorAll('.BareMetalNetwork_Page_availabilityZoneHints').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputAvailabilityZoneHints.getAttribute('value');
             else
@@ -323,6 +358,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputAvailabilityZones) {
           document.querySelectorAll('.BareMetalNetwork_Page_availabilityZones').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputAvailabilityZones.getAttribute('value');
             else
@@ -333,6 +372,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputCreatedAt) {
           document.querySelectorAll('.BareMetalNetwork_Page_createdAt').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreatedAt.getAttribute('value');
             else
@@ -343,6 +386,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputDnsDomain) {
           document.querySelectorAll('.BareMetalNetwork_Page_dnsDomain').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDnsDomain.getAttribute('value');
             else
@@ -353,6 +400,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputMtu) {
           document.querySelectorAll('.BareMetalNetwork_Page_mtu').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputMtu.getAttribute('value');
             else
@@ -363,6 +414,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputProjectId) {
           document.querySelectorAll('.BareMetalNetwork_Page_projectId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProjectId.getAttribute('value');
             else
@@ -373,6 +428,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputProviderNetworkType) {
           document.querySelectorAll('.BareMetalNetwork_Page_providerNetworkType').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProviderNetworkType.getAttribute('value');
             else
@@ -383,6 +442,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputProviderPhysicalNetwork) {
           document.querySelectorAll('.BareMetalNetwork_Page_providerPhysicalNetwork').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProviderPhysicalNetwork.getAttribute('value');
             else
@@ -393,6 +456,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputProviderSegmentationId) {
           document.querySelectorAll('.BareMetalNetwork_Page_providerSegmentationId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProviderSegmentationId.getAttribute('value');
             else
@@ -403,6 +470,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputQosPolicyId) {
           document.querySelectorAll('.BareMetalNetwork_Page_qosPolicyId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputQosPolicyId.getAttribute('value');
             else
@@ -413,6 +484,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputRevisionNumber) {
           document.querySelectorAll('.BareMetalNetwork_Page_revisionNumber').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputRevisionNumber.getAttribute('value');
             else
@@ -423,6 +498,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputStatus) {
           document.querySelectorAll('.BareMetalNetwork_Page_status').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputStatus.getAttribute('value');
             else
@@ -433,6 +512,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputSubnetIds) {
           document.querySelectorAll('.BareMetalNetwork_Page_subnetIds').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSubnetIds.getAttribute('value');
             else
@@ -443,6 +526,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputTags) {
           document.querySelectorAll('.BareMetalNetwork_Page_tags').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputTags.getAttribute('value');
             else
@@ -453,6 +540,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputTenantId) {
           document.querySelectorAll('.BareMetalNetwork_Page_tenantId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputTenantId.getAttribute('value');
             else
@@ -463,6 +554,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputUpdatedAt) {
           document.querySelectorAll('.BareMetalNetwork_Page_updatedAt').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUpdatedAt.getAttribute('value');
             else
@@ -473,6 +568,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputIsAdminStateUp) {
           document.querySelectorAll('.BareMetalNetwork_Page_isAdminStateUp').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputIsAdminStateUp.getAttribute('value');
             else
@@ -483,6 +582,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputIsDefault) {
           document.querySelectorAll('.BareMetalNetwork_Page_isDefault').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputIsDefault.getAttribute('value');
             else
@@ -493,6 +596,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputIsPortSecurityEnabled) {
           document.querySelectorAll('.BareMetalNetwork_Page_isPortSecurityEnabled').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputIsPortSecurityEnabled.getAttribute('value');
             else
@@ -503,6 +610,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputIsRouterExternal) {
           document.querySelectorAll('.BareMetalNetwork_Page_isRouterExternal').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputIsRouterExternal.getAttribute('value');
             else
@@ -513,6 +624,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputIsShared) {
           document.querySelectorAll('.BareMetalNetwork_Page_isShared').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputIsShared.getAttribute('value');
             else
@@ -523,6 +638,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputIsVlanQueing) {
           document.querySelectorAll('.BareMetalNetwork_Page_isVlanQueing').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputIsVlanQueing.getAttribute('value');
             else
@@ -533,6 +652,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputIsVlanTransparent) {
           document.querySelectorAll('.BareMetalNetwork_Page_isVlanTransparent').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputIsVlanTransparent.getAttribute('value');
             else
@@ -543,6 +666,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputL2Adjacency) {
           document.querySelectorAll('.BareMetalNetwork_Page_l2Adjacency').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputL2Adjacency.getAttribute('value');
             else
@@ -553,6 +680,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputLocationCloud) {
           document.querySelectorAll('.BareMetalNetwork_Page_locationCloud').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationCloud.getAttribute('value');
             else
@@ -563,6 +694,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputLocationProjectDomainId) {
           document.querySelectorAll('.BareMetalNetwork_Page_locationProjectDomainId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationProjectDomainId.getAttribute('value');
             else
@@ -573,6 +708,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputLocationProjectDomainName) {
           document.querySelectorAll('.BareMetalNetwork_Page_locationProjectDomainName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationProjectDomainName.getAttribute('value');
             else
@@ -583,6 +722,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputLocationProjectId) {
           document.querySelectorAll('.BareMetalNetwork_Page_locationProjectId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationProjectId.getAttribute('value');
             else
@@ -593,6 +736,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputLocationProjectName) {
           document.querySelectorAll('.BareMetalNetwork_Page_locationProjectName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationProjectName.getAttribute('value');
             else
@@ -603,6 +750,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputLocationRegionName) {
           document.querySelectorAll('.BareMetalNetwork_Page_locationRegionName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationRegionName.getAttribute('value');
             else
@@ -613,6 +764,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputLocationZone) {
           document.querySelectorAll('.BareMetalNetwork_Page_locationZone').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationZone.getAttribute('value');
             else
@@ -623,6 +778,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputClassCanonicalName) {
           document.querySelectorAll('.BareMetalNetwork_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalName.getAttribute('value');
             else
@@ -633,6 +792,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputClassSimpleName) {
           document.querySelectorAll('.BareMetalNetwork_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassSimpleName.getAttribute('value');
             else
@@ -643,6 +806,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.BareMetalNetwork_Page_classCanonicalNames').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalNames.getAttribute('value');
             else
@@ -653,6 +820,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputSessionId) {
           document.querySelectorAll('.BareMetalNetwork_Page_sessionId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSessionId.getAttribute('value');
             else
@@ -663,6 +834,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputUserKey) {
           document.querySelectorAll('.BareMetalNetwork_Page_userKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserKey.getAttribute('value');
             else
@@ -673,6 +848,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputSaves) {
           document.querySelectorAll('.BareMetalNetwork_Page_saves').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSaves.getAttribute('value');
             else
@@ -683,6 +862,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputObjectTitle) {
           document.querySelectorAll('.BareMetalNetwork_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectTitle.getAttribute('value');
             else
@@ -691,8 +874,26 @@ async function websocketBareMetalNetworkInner(apiRequest) {
           addGlow(document.querySelector('.BareMetalNetwork_Page_objectTitle'));
         }
 
+        if(inputApiUrl) {
+          document.querySelectorAll('.BareMetalNetwork_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.BareMetalNetwork_Page_apiUrl'));
+        }
+
         if(inputDisplayPage) {
           document.querySelectorAll('.BareMetalNetwork_Page_displayPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDisplayPage.getAttribute('value');
             else
@@ -703,6 +904,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputEditPage) {
           document.querySelectorAll('.BareMetalNetwork_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEditPage.getAttribute('value');
             else
@@ -713,6 +918,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputUserPage) {
           document.querySelectorAll('.BareMetalNetwork_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserPage.getAttribute('value');
             else
@@ -723,6 +932,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputDownload) {
           document.querySelectorAll('.BareMetalNetwork_Page_download').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDownload.getAttribute('value');
             else
@@ -733,6 +946,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputObjectSuggest) {
           document.querySelectorAll('.BareMetalNetwork_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectSuggest.getAttribute('value');
             else
@@ -743,6 +960,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputObjectText) {
           document.querySelectorAll('.BareMetalNetwork_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectText.getAttribute('value');
             else
@@ -753,6 +974,10 @@ async function websocketBareMetalNetworkInner(apiRequest) {
 
         if(inputSolrId) {
           document.querySelectorAll('.BareMetalNetwork_Page_solrId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSolrId.getAttribute('value');
             else
@@ -1139,6 +1364,10 @@ function searchBareMetalNetworkFilters($formFilters) {
     var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
 
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
@@ -1792,6 +2021,18 @@ async function patchBareMetalNetwork($formFilters, $formValues, target, id, succ
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
   var setDisplayPage = removeDisplayPage ? null : $formValues.querySelector('.setDisplayPage')?.value;
@@ -2082,6 +2323,10 @@ function patchBareMetalNetworkFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -2206,7 +2451,7 @@ async function postBareMetalNetwork($formValues, target, success, error) {
 
   var valueAvailabilityZones = $formValues.querySelector('.valueAvailabilityZones')?.value;
   if(valueAvailabilityZones != null && valueAvailabilityZones !== '')
-    vals['availabilityZones'] = JSON.parse(valueAvailabilityZones);
+    vals['availabilityZones'] = valueAvailabilityZones;
 
   var valueCreatedAt = $formValues.querySelector('.valueCreatedAt')?.value;
   if(valueCreatedAt != null && valueCreatedAt !== '')
@@ -2250,11 +2495,11 @@ async function postBareMetalNetwork($formValues, target, success, error) {
 
   var valueSubnetIds = $formValues.querySelector('.valueSubnetIds')?.value;
   if(valueSubnetIds != null && valueSubnetIds !== '')
-    vals['subnetIds'] = JSON.parse(valueSubnetIds);
+    vals['subnetIds'] = valueSubnetIds;
 
   var valueTags = $formValues.querySelector('.valueTags')?.value;
   if(valueTags != null && valueTags !== '')
-    vals['tags'] = JSON.parse(valueTags);
+    vals['tags'] = valueTags;
 
   var valueTenantId = $formValues.querySelector('.valueTenantId')?.value;
   if(valueTenantId != null && valueTenantId !== '')
@@ -2335,6 +2580,10 @@ async function postBareMetalNetwork($formValues, target, success, error) {
   var valueObjectTitle = $formValues.querySelector('.valueObjectTitle')?.value;
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
+
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
 
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
@@ -2466,7 +2715,9 @@ function putimportBareMetalNetworkVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterBareMetalNetwork(target, success, error) {
+async function deletefilterBareMetalNetwork($formFilterstarget, success, error) {
+  var filters = deletefilterBareMetalNetworkFilters($formFilters);
+
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -2498,7 +2749,7 @@ async function deletefilterBareMetalNetwork(target, success, error) {
   }
 
   fetch(
-    '/en-us/api/bare-metal-network'
+    '/en-us/api/bare-metal-network?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
       headers: {'Content-Type':'application/json; charset=utf-8'}
       , method: 'DELETE'
@@ -2510,4 +2761,277 @@ async function deletefilterBareMetalNetwork(target, success, error) {
       }
     })
     .catch(response => error(response, target));
+}
+
+function deletefilterBareMetalNetworkFilters($formFilters) {
+  var filters = [];
+  if($formFilters) {
+
+    var filterPk = $formFilters.querySelector('.valuePk')?.value;
+    if(filterPk != null && filterPk !== '')
+      filters.push({ name: 'fq', value: 'pk:' + filterPk });
+
+    var filterCreated = $formFilters.querySelector('.valueCreated')?.value;
+    if(filterCreated != null && filterCreated !== '')
+      filters.push({ name: 'fq', value: 'created:' + filterCreated });
+
+    var filterModified = $formFilters.querySelector('.valueModified')?.value;
+    if(filterModified != null && filterModified !== '')
+      filters.push({ name: 'fq', value: 'modified:' + filterModified });
+
+    var $filterArchivedCheckbox = $formFilters.querySelector('input.valueArchived[type = "checkbox"]');
+    var $filterArchivedSelect = $formFilters.querySelector('select.valueArchived');
+    var filterArchived = $filterArchivedSelect.length ? $filterArchivedSelect.value : $filterArchivedCheckbox.checked;
+    var filterArchivedSelectVal = $formFilters.querySelector('select.filterArchived')?.value;
+    var filterArchived = null;
+    if(filterArchivedSelectVal !== '')
+      filterArchived = filterArchivedSelectVal == 'true';
+    if(filterArchived != null && filterArchived === true)
+      filters.push({ name: 'fq', value: 'archived:' + filterArchived });
+
+    var filterId = $formFilters.querySelector('.valueId')?.value;
+    if(filterId != null && filterId !== '')
+      filters.push({ name: 'fq', value: 'id:' + filterId });
+
+    var filterName = $formFilters.querySelector('.valueName')?.value;
+    if(filterName != null && filterName !== '')
+      filters.push({ name: 'fq', value: 'name:' + filterName });
+
+    var filterDescription = $formFilters.querySelector('.valueDescription')?.value;
+    if(filterDescription != null && filterDescription !== '')
+      filters.push({ name: 'fq', value: 'description:' + filterDescription });
+
+    var filterAvailabilityZoneHints = $formFilters.querySelector('.valueAvailabilityZoneHints')?.value;
+    if(filterAvailabilityZoneHints != null && filterAvailabilityZoneHints !== '')
+      filters.push({ name: 'fq', value: 'availabilityZoneHints:' + filterAvailabilityZoneHints });
+
+    var filterAvailabilityZones = $formFilters.querySelector('.valueAvailabilityZones')?.value;
+    if(filterAvailabilityZones != null && filterAvailabilityZones !== '')
+      filters.push({ name: 'fq', value: 'availabilityZones:' + filterAvailabilityZones });
+
+    var filterCreatedAt = $formFilters.querySelector('.valueCreatedAt')?.value;
+    if(filterCreatedAt != null && filterCreatedAt !== '')
+      filters.push({ name: 'fq', value: 'createdAt:' + filterCreatedAt });
+
+    var filterDnsDomain = $formFilters.querySelector('.valueDnsDomain')?.value;
+    if(filterDnsDomain != null && filterDnsDomain !== '')
+      filters.push({ name: 'fq', value: 'dnsDomain:' + filterDnsDomain });
+
+    var filterMtu = $formFilters.querySelector('.valueMtu')?.value;
+    if(filterMtu != null && filterMtu !== '')
+      filters.push({ name: 'fq', value: 'mtu:' + filterMtu });
+
+    var filterProjectId = $formFilters.querySelector('.valueProjectId')?.value;
+    if(filterProjectId != null && filterProjectId !== '')
+      filters.push({ name: 'fq', value: 'projectId:' + filterProjectId });
+
+    var filterProviderNetworkType = $formFilters.querySelector('.valueProviderNetworkType')?.value;
+    if(filterProviderNetworkType != null && filterProviderNetworkType !== '')
+      filters.push({ name: 'fq', value: 'providerNetworkType:' + filterProviderNetworkType });
+
+    var filterProviderPhysicalNetwork = $formFilters.querySelector('.valueProviderPhysicalNetwork')?.value;
+    if(filterProviderPhysicalNetwork != null && filterProviderPhysicalNetwork !== '')
+      filters.push({ name: 'fq', value: 'providerPhysicalNetwork:' + filterProviderPhysicalNetwork });
+
+    var filterProviderSegmentationId = $formFilters.querySelector('.valueProviderSegmentationId')?.value;
+    if(filterProviderSegmentationId != null && filterProviderSegmentationId !== '')
+      filters.push({ name: 'fq', value: 'providerSegmentationId:' + filterProviderSegmentationId });
+
+    var filterQosPolicyId = $formFilters.querySelector('.valueQosPolicyId')?.value;
+    if(filterQosPolicyId != null && filterQosPolicyId !== '')
+      filters.push({ name: 'fq', value: 'qosPolicyId:' + filterQosPolicyId });
+
+    var filterRevisionNumber = $formFilters.querySelector('.valueRevisionNumber')?.value;
+    if(filterRevisionNumber != null && filterRevisionNumber !== '')
+      filters.push({ name: 'fq', value: 'revisionNumber:' + filterRevisionNumber });
+
+    var filterStatus = $formFilters.querySelector('.valueStatus')?.value;
+    if(filterStatus != null && filterStatus !== '')
+      filters.push({ name: 'fq', value: 'status:' + filterStatus });
+
+    var filterSubnetIds = $formFilters.querySelector('.valueSubnetIds')?.value;
+    if(filterSubnetIds != null && filterSubnetIds !== '')
+      filters.push({ name: 'fq', value: 'subnetIds:' + filterSubnetIds });
+
+    var filterTags = $formFilters.querySelector('.valueTags')?.value;
+    if(filterTags != null && filterTags !== '')
+      filters.push({ name: 'fq', value: 'tags:' + filterTags });
+
+    var filterTenantId = $formFilters.querySelector('.valueTenantId')?.value;
+    if(filterTenantId != null && filterTenantId !== '')
+      filters.push({ name: 'fq', value: 'tenantId:' + filterTenantId });
+
+    var filterUpdatedAt = $formFilters.querySelector('.valueUpdatedAt')?.value;
+    if(filterUpdatedAt != null && filterUpdatedAt !== '')
+      filters.push({ name: 'fq', value: 'updatedAt:' + filterUpdatedAt });
+
+    var $filterIsAdminStateUpCheckbox = $formFilters.querySelector('input.valueIsAdminStateUp[type = "checkbox"]');
+    var $filterIsAdminStateUpSelect = $formFilters.querySelector('select.valueIsAdminStateUp');
+    var filterIsAdminStateUp = $filterIsAdminStateUpSelect.length ? $filterIsAdminStateUpSelect.value : $filterIsAdminStateUpCheckbox.checked;
+    var filterIsAdminStateUpSelectVal = $formFilters.querySelector('select.filterIsAdminStateUp')?.value;
+    var filterIsAdminStateUp = null;
+    if(filterIsAdminStateUpSelectVal !== '')
+      filterIsAdminStateUp = filterIsAdminStateUpSelectVal == 'true';
+    if(filterIsAdminStateUp != null && filterIsAdminStateUp === true)
+      filters.push({ name: 'fq', value: 'isAdminStateUp:' + filterIsAdminStateUp });
+
+    var $filterIsDefaultCheckbox = $formFilters.querySelector('input.valueIsDefault[type = "checkbox"]');
+    var $filterIsDefaultSelect = $formFilters.querySelector('select.valueIsDefault');
+    var filterIsDefault = $filterIsDefaultSelect.length ? $filterIsDefaultSelect.value : $filterIsDefaultCheckbox.checked;
+    var filterIsDefaultSelectVal = $formFilters.querySelector('select.filterIsDefault')?.value;
+    var filterIsDefault = null;
+    if(filterIsDefaultSelectVal !== '')
+      filterIsDefault = filterIsDefaultSelectVal == 'true';
+    if(filterIsDefault != null && filterIsDefault === true)
+      filters.push({ name: 'fq', value: 'isDefault:' + filterIsDefault });
+
+    var $filterIsPortSecurityEnabledCheckbox = $formFilters.querySelector('input.valueIsPortSecurityEnabled[type = "checkbox"]');
+    var $filterIsPortSecurityEnabledSelect = $formFilters.querySelector('select.valueIsPortSecurityEnabled');
+    var filterIsPortSecurityEnabled = $filterIsPortSecurityEnabledSelect.length ? $filterIsPortSecurityEnabledSelect.value : $filterIsPortSecurityEnabledCheckbox.checked;
+    var filterIsPortSecurityEnabledSelectVal = $formFilters.querySelector('select.filterIsPortSecurityEnabled')?.value;
+    var filterIsPortSecurityEnabled = null;
+    if(filterIsPortSecurityEnabledSelectVal !== '')
+      filterIsPortSecurityEnabled = filterIsPortSecurityEnabledSelectVal == 'true';
+    if(filterIsPortSecurityEnabled != null && filterIsPortSecurityEnabled === true)
+      filters.push({ name: 'fq', value: 'isPortSecurityEnabled:' + filterIsPortSecurityEnabled });
+
+    var $filterIsRouterExternalCheckbox = $formFilters.querySelector('input.valueIsRouterExternal[type = "checkbox"]');
+    var $filterIsRouterExternalSelect = $formFilters.querySelector('select.valueIsRouterExternal');
+    var filterIsRouterExternal = $filterIsRouterExternalSelect.length ? $filterIsRouterExternalSelect.value : $filterIsRouterExternalCheckbox.checked;
+    var filterIsRouterExternalSelectVal = $formFilters.querySelector('select.filterIsRouterExternal')?.value;
+    var filterIsRouterExternal = null;
+    if(filterIsRouterExternalSelectVal !== '')
+      filterIsRouterExternal = filterIsRouterExternalSelectVal == 'true';
+    if(filterIsRouterExternal != null && filterIsRouterExternal === true)
+      filters.push({ name: 'fq', value: 'isRouterExternal:' + filterIsRouterExternal });
+
+    var $filterIsSharedCheckbox = $formFilters.querySelector('input.valueIsShared[type = "checkbox"]');
+    var $filterIsSharedSelect = $formFilters.querySelector('select.valueIsShared');
+    var filterIsShared = $filterIsSharedSelect.length ? $filterIsSharedSelect.value : $filterIsSharedCheckbox.checked;
+    var filterIsSharedSelectVal = $formFilters.querySelector('select.filterIsShared')?.value;
+    var filterIsShared = null;
+    if(filterIsSharedSelectVal !== '')
+      filterIsShared = filterIsSharedSelectVal == 'true';
+    if(filterIsShared != null && filterIsShared === true)
+      filters.push({ name: 'fq', value: 'isShared:' + filterIsShared });
+
+    var $filterIsVlanQueingCheckbox = $formFilters.querySelector('input.valueIsVlanQueing[type = "checkbox"]');
+    var $filterIsVlanQueingSelect = $formFilters.querySelector('select.valueIsVlanQueing');
+    var filterIsVlanQueing = $filterIsVlanQueingSelect.length ? $filterIsVlanQueingSelect.value : $filterIsVlanQueingCheckbox.checked;
+    var filterIsVlanQueingSelectVal = $formFilters.querySelector('select.filterIsVlanQueing')?.value;
+    var filterIsVlanQueing = null;
+    if(filterIsVlanQueingSelectVal !== '')
+      filterIsVlanQueing = filterIsVlanQueingSelectVal == 'true';
+    if(filterIsVlanQueing != null && filterIsVlanQueing === true)
+      filters.push({ name: 'fq', value: 'isVlanQueing:' + filterIsVlanQueing });
+
+    var $filterIsVlanTransparentCheckbox = $formFilters.querySelector('input.valueIsVlanTransparent[type = "checkbox"]');
+    var $filterIsVlanTransparentSelect = $formFilters.querySelector('select.valueIsVlanTransparent');
+    var filterIsVlanTransparent = $filterIsVlanTransparentSelect.length ? $filterIsVlanTransparentSelect.value : $filterIsVlanTransparentCheckbox.checked;
+    var filterIsVlanTransparentSelectVal = $formFilters.querySelector('select.filterIsVlanTransparent')?.value;
+    var filterIsVlanTransparent = null;
+    if(filterIsVlanTransparentSelectVal !== '')
+      filterIsVlanTransparent = filterIsVlanTransparentSelectVal == 'true';
+    if(filterIsVlanTransparent != null && filterIsVlanTransparent === true)
+      filters.push({ name: 'fq', value: 'isVlanTransparent:' + filterIsVlanTransparent });
+
+    var $filterL2AdjacencyCheckbox = $formFilters.querySelector('input.valueL2Adjacency[type = "checkbox"]');
+    var $filterL2AdjacencySelect = $formFilters.querySelector('select.valueL2Adjacency');
+    var filterL2Adjacency = $filterL2AdjacencySelect.length ? $filterL2AdjacencySelect.value : $filterL2AdjacencyCheckbox.checked;
+    var filterL2AdjacencySelectVal = $formFilters.querySelector('select.filterL2Adjacency')?.value;
+    var filterL2Adjacency = null;
+    if(filterL2AdjacencySelectVal !== '')
+      filterL2Adjacency = filterL2AdjacencySelectVal == 'true';
+    if(filterL2Adjacency != null && filterL2Adjacency === true)
+      filters.push({ name: 'fq', value: 'l2Adjacency:' + filterL2Adjacency });
+
+    var filterLocationCloud = $formFilters.querySelector('.valueLocationCloud')?.value;
+    if(filterLocationCloud != null && filterLocationCloud !== '')
+      filters.push({ name: 'fq', value: 'locationCloud:' + filterLocationCloud });
+
+    var filterLocationProjectDomainId = $formFilters.querySelector('.valueLocationProjectDomainId')?.value;
+    if(filterLocationProjectDomainId != null && filterLocationProjectDomainId !== '')
+      filters.push({ name: 'fq', value: 'locationProjectDomainId:' + filterLocationProjectDomainId });
+
+    var filterLocationProjectDomainName = $formFilters.querySelector('.valueLocationProjectDomainName')?.value;
+    if(filterLocationProjectDomainName != null && filterLocationProjectDomainName !== '')
+      filters.push({ name: 'fq', value: 'locationProjectDomainName:' + filterLocationProjectDomainName });
+
+    var filterLocationProjectId = $formFilters.querySelector('.valueLocationProjectId')?.value;
+    if(filterLocationProjectId != null && filterLocationProjectId !== '')
+      filters.push({ name: 'fq', value: 'locationProjectId:' + filterLocationProjectId });
+
+    var filterLocationProjectName = $formFilters.querySelector('.valueLocationProjectName')?.value;
+    if(filterLocationProjectName != null && filterLocationProjectName !== '')
+      filters.push({ name: 'fq', value: 'locationProjectName:' + filterLocationProjectName });
+
+    var filterLocationRegionName = $formFilters.querySelector('.valueLocationRegionName')?.value;
+    if(filterLocationRegionName != null && filterLocationRegionName !== '')
+      filters.push({ name: 'fq', value: 'locationRegionName:' + filterLocationRegionName });
+
+    var filterLocationZone = $formFilters.querySelector('.valueLocationZone')?.value;
+    if(filterLocationZone != null && filterLocationZone !== '')
+      filters.push({ name: 'fq', value: 'locationZone:' + filterLocationZone });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
+    if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
+
+    var filterSessionId = $formFilters.querySelector('.valueSessionId')?.value;
+    if(filterSessionId != null && filterSessionId !== '')
+      filters.push({ name: 'fq', value: 'sessionId:' + filterSessionId });
+
+    var filterUserKey = $formFilters.querySelector('.valueUserKey')?.value;
+    if(filterUserKey != null && filterUserKey !== '')
+      filters.push({ name: 'fq', value: 'userKey:' + filterUserKey });
+
+    var filterSaves = $formFilters.querySelector('.valueSaves')?.value;
+    if(filterSaves != null && filterSaves !== '')
+      filters.push({ name: 'fq', value: 'saves:' + filterSaves });
+
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
+    if(filterDisplayPage != null && filterDisplayPage !== '')
+      filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
+    if(filterDownload != null && filterDownload !== '')
+      filters.push({ name: 'fq', value: 'download:' + filterDownload });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
+    if(filterSolrId != null && filterSolrId !== '')
+      filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+  }
+  return filters;
 }

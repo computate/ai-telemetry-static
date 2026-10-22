@@ -176,6 +176,17 @@ Promise.all([
     facetStatsChange('SiteUser', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortSiteUser_apiUrl')?.addEventListener('change', (event) => {
+    sort('SiteUser', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSiteUser_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SiteUser', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsSiteUser_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SiteUser', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortSiteUser_displayPage')?.addEventListener('change', (event) => {
     sort('SiteUser', 'displayPage', event.currentTarget.value);
   });
@@ -385,6 +396,24 @@ Promise.all([
             facetRangeStartChange('SiteUser', event.currentTarget);
           });
           document.querySelector('#pageFacetRangeEndSiteUser_archived')?.addEventListener('change', (event) => {
+            facetRangeEndChange('SiteUser', event.currentTarget);
+          });
+          document.querySelector('#fqSiteUser_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('SiteUser', event.currentTarget, facetChangeSiteUserSuccess, facetChangeSiteUserError);
+          });
+          document.querySelector('#buttonFacetSiteUser_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('SiteUser', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotSiteUser_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('SiteUser', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapSiteUser_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('SiteUser', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartSiteUser_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('SiteUser', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndSiteUser_apiUrl')?.addEventListener('change', (event) => {
             facetRangeEndChange('SiteUser', event.currentTarget);
           });
           document.querySelector('#fqSiteUser_displayPage')?.addEventListener('change', (event) => {

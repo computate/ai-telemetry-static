@@ -110,12 +110,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -129,6 +133,14 @@
 
         var id = {% if result.id is defined %}{{ result.id | tojson }}{% else %}null{% endif %};
 
+        document.querySelector('#postClusterTemplateDialog')?.addEventListener('wa-show', (event) => {
+          event.target.querySelectorAll('.searchRelated').forEach(child => {
+            if(child.value !== '') {
+              const focusEvent = new Event('focus', { bubbles: true });
+              child.dispatchEvent(focusEvent);
+            }
+          });
+        });
         if(id == null) {
           document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
             document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
@@ -210,10 +222,6 @@
 
         var submitForm_patchClusterOrder = document.querySelector('#htmForm_patchClusterOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchClusterOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchClusterOrder(null, document.querySelector('#htmForm_patchClusterOrder')
               , document.querySelector('#htmFormButton_patchClusterOrder')
@@ -246,10 +254,6 @@
 
         var submitForm_postClusterOrder = document.querySelector('#htmForm_postClusterOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postClusterOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postClusterOrder(document.querySelector('#htmForm_postClusterOrder')
               , document.querySelector('#htmFormButton_postClusterOrder')
@@ -281,10 +285,6 @@
 
         var submitForm_deleteClusterOrder = document.querySelector('#htmForm_deleteClusterOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteClusterOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteClusterOrder(event.target, event.target.getAttribute('data-id')
               , (json, target) => {
@@ -314,10 +314,6 @@
         });
 
         var submitForm_putimportClusterOrder = document.querySelector('#htmForm_putimportClusterOrder')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportClusterOrder')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportClusterOrder(document.querySelector('#htmForm_putimportClusterOrder')
@@ -349,22 +345,7 @@
           return false;
         });
 
-        var submitForm_searchpageClusterOrder = document.querySelector('#htmForm_searchpageClusterOrder')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageClusterOrder')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageClusterOrder();
-          return false;
-        });
-
         var submitForm_deletefilterClusterOrder = document.querySelector('#htmForm_deletefilterClusterOrder')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterClusterOrder')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterClusterOrder(event.target
@@ -394,7 +375,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postClusterTemplate')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postClusterTemplate')?.addEventListener('submit', event => {
           event.preventDefault();
           postClusterTemplate(document.querySelector('#htmForm_postClusterTemplate')
               , document.querySelector('#htmFormButton_postClusterTemplate')
@@ -472,7 +453,10 @@
 {%- block htmBodyStartClusterOrderPage %}
 {% if resultCount > 0 %}
           <div class="wa-flank ">
-            <h1 class="Page_objectTitle"><i class="fa-regular fa-server"></i> {{ result.objectTitle | e }}</h1>
+            <h1 id="Page_objectTitle" class="Page_objectTitle">
+              <i class="fa-regular fa-server"></i>
+               {{ result.objectTitle | e }}
+            </h1>
           </div>
 {% endif %}
 {% include en-us/search/cluster-order/ClusterOrderSearchForm.htm %}

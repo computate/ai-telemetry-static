@@ -1,64 +1,60 @@
 
-{%- macro htmButton_patchBareMetalResourceClass() %}<wa-button variant="brand" id="htmButton_patchBareMetalResourceClass"  data-dialog="open patchBareMetalResourceClassDialog" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{%- endmacro %}
+          {% macro htmButton_patchBareMetalResourceClass() -%}<wa-button variant="brand" id="htmButton_patchBareMetalResourceClass"  data-dialog="open patchBareMetalResourceClassDialog" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{% endmacro -%}
 
-{%- macro htmButton_postBareMetalResourceClass() %}<wa-button variant="brand" id="htmButton_postBareMetalResourceClass"  data-dialog="open postBareMetalResourceClassDialog" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{%- endmacro %}
+          {% macro htmButton_postBareMetalResourceClass() -%}<wa-button variant="brand" id="htmButton_postBareMetalResourceClass"  data-dialog="open postBareMetalResourceClassDialog" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{% endmacro -%}
 
-{%- macro htmButton_deleteBareMetalResourceClass() %}<wa-button variant="brand" id="htmButton_deleteBareMetalResourceClass" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+          {% macro htmButton_deleteBareMetalResourceClass() -%}<wa-button variant="brand" id="htmButton_deleteBareMetalResourceClass" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
 
-{%- macro htmButton_putimportBareMetalResourceClass() %}<wa-button variant="brand" id="htmButton_putimportBareMetalResourceClass"  data-dialog="open putimportBareMetalResourceClassDialog" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{%- endmacro %}
+          {% macro htmButton_putimportBareMetalResourceClass() -%}<wa-button variant="brand" id="htmButton_putimportBareMetalResourceClass"  data-dialog="open putimportBareMetalResourceClassDialog" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{% endmacro -%}
 
-{%- macro htmButton_deletefilterBareMetalResourceClass() %}<wa-button variant="brand" id="htmButton_deletefilterBareMetalResourceClass" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+          {% macro htmButton_deletefilterBareMetalResourceClass() -%}<wa-button variant="brand" id="htmButton_deletefilterBareMetalResourceClass" data-name={{ result.name | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
           <div id="htmSearchForm">
             <wa-scroller>
               <wa-button-group>
-{% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {% if "PATCH" in scopes %}
-    {% if resultCount >= 1 %}
+                {% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+                {% if "PATCH" in scopes %}
+                {% if resultCount >= 1 %}
                 <wa-button variant="brand" id="refreshThisBareMetalResourceClassGenPage"
-                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'name:{{ result.name }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisBareMetalResourceClassGenPage')); }, function() { addError(document.querySelector('#refreshThisBareMetalResourceClassGenPage')); }); return false; ">
+                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'name:{{ result.name }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisBareMetalResourceClassGenPage')); }, function(response, target) { addError(document.querySelector('#refreshThisBareMetalResourceClassGenPage'), response); }); return false; ">
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-sync-alt "></i>
                   refresh
                 </wa-button>
-    {% endif %}
-    {% if resultCount > 0 %}
+                {% endif %}
+                {% if resultCount > 0 %}
                 <wa-button variant="brand" id="refreshAllBareMetalResourceClassGenPage{{ result.name | e }}"
-                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllBareMetalResourceClassGenPage{{ result.name | e }}')); }, function() { addError(document.querySelector('#refreshAllBareMetalResourceClassGenPage{{ result.name | e }}')); }); "
+                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllBareMetalResourceClassGenPage{{ result.name | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllBareMetalResourceClassGenPage{{ result.name | e }}')response); }); "
                     >
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrows-rotate"></i>
                   refresh all 
                 </wa-button>
-    {% endif %}
-  {% endif %}
-{% endif %}
-{%- if 'PATCH' in scopes %}
-  {%- if resultCount > 0 %}
-    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-    {{ htmButton_patchBareMetalResourceClass() }}
-    {%- endif %}
-  {%- endif %}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmButton_postBareMetalResourceClass() }}
-  {%- else %}
-    {{ htmButton_postBareMetalResourceClass() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if result is defined %}
-    {{ htmButton_deleteBareMetalResourceClass() }}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmButton_putimportBareMetalResourceClass() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if result is not defined %}
-    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-    {{ htmButton_deletefilterBareMetalResourceClass() }}
-    {%- endif %}
-  {%- endif %}
-{%- endif %}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'PATCH' in scopes -%}
+                {%- if resultCount > 0 -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_patchBareMetalResourceClass() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'POST' in scopes -%}
+                {{ htmButton_postBareMetalResourceClass() -}}
+                {% endif -%}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is defined -%}
+                {{ htmButton_deleteBareMetalResourceClass() -}}
+                {% endif -%}
+                {% endif -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_putimportBareMetalResourceClass() -}}
+                {%- endif %}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is not defined -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_deletefilterBareMetalResourceClass() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
 
               </wa-button-group>
             </wa-scroller>

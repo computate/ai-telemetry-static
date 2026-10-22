@@ -101,6 +101,7 @@ async function websocketBareMetalOrderInner(apiRequest) {
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
+        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
         var inputUserPage = null;
@@ -108,6 +109,7 @@ async function websocketBareMetalOrderInner(apiRequest) {
         var inputObjectSuggest = null;
         var inputObjectText = null;
         var inputSolrId = null;
+        var inputNetworkName = null;
 
         if(vars.includes('pk'))
           inputPk = $response.querySelector('.BareMetalOrder_Page_pk');
@@ -155,6 +157,8 @@ async function websocketBareMetalOrderInner(apiRequest) {
           inputSaves = $response.querySelector('.BareMetalOrder_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.BareMetalOrder_Page_objectTitle');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.BareMetalOrder_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.BareMetalOrder_Page_displayPage');
         if(vars.includes('editPage'))
@@ -169,14 +173,20 @@ async function websocketBareMetalOrderInner(apiRequest) {
           inputObjectText = $response.querySelector('.BareMetalOrder_Page_objectText');
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.BareMetalOrder_Page_solrId');
+        if(vars.includes('networkName'))
+          inputNetworkName = $response.querySelector('.BareMetalOrder_Page_networkName');
 
-        jsWebsocketBareMetalOrder(pk, vars, $response);
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listBareMetalOrder = JSON.parse($response.querySelector('.pageForm .listBareMetalOrder')?.value);
+        jsWebsocketBareMetalOrder(pk, vars, $response);
 
 
         if(inputPk) {
           document.querySelectorAll('.BareMetalOrder_Page_pk').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPk.getAttribute('value');
             else
@@ -187,6 +197,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputCreated) {
           document.querySelectorAll('.BareMetalOrder_Page_created').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreated.getAttribute('value');
             else
@@ -197,6 +211,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputModified) {
           document.querySelectorAll('.BareMetalOrder_Page_modified').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModified.getAttribute('value');
             else
@@ -207,6 +225,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputArchived) {
           document.querySelectorAll('.BareMetalOrder_Page_archived').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputArchived.getAttribute('value');
             else
@@ -217,6 +239,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputDescription) {
           document.querySelectorAll('.BareMetalOrder_Page_description').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDescription.getAttribute('value');
             else
@@ -227,6 +253,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputNetworkId) {
           document.querySelectorAll('.BareMetalOrder_Page_networkId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNetworkId.getAttribute('value');
             else
@@ -237,6 +267,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputNumberOfFc430) {
           document.querySelectorAll('.BareMetalOrder_Page_numberOfFc430').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNumberOfFc430.getAttribute('value');
             else
@@ -247,6 +281,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputNumberOfFc830) {
           document.querySelectorAll('.BareMetalOrder_Page_numberOfFc830').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNumberOfFc830.getAttribute('value');
             else
@@ -257,6 +295,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputNumberOfR730xd) {
           document.querySelectorAll('.BareMetalOrder_Page_numberOfR730xd').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNumberOfR730xd.getAttribute('value');
             else
@@ -267,6 +309,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputNumberOfWhiteboxFlax1) {
           document.querySelectorAll('.BareMetalOrder_Page_numberOfWhiteboxFlax1').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNumberOfWhiteboxFlax1.getAttribute('value');
             else
@@ -277,6 +323,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputNumberOfLenovoSd650nv2A100) {
           document.querySelectorAll('.BareMetalOrder_Page_numberOfLenovoSd650nv2A100').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNumberOfLenovoSd650nv2A100.getAttribute('value');
             else
@@ -287,6 +337,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputNumberOfLenovoSd665nv3H100) {
           document.querySelectorAll('.BareMetalOrder_Page_numberOfLenovoSd665nv3H100').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNumberOfLenovoSd665nv3H100.getAttribute('value');
             else
@@ -297,6 +351,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputImage) {
           document.querySelectorAll('.BareMetalOrder_Page_image').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputImage.getAttribute('value');
             else
@@ -307,6 +365,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputSshPublicKey) {
           document.querySelectorAll('.BareMetalOrder_Page_sshPublicKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSshPublicKey.getAttribute('value');
             else
@@ -317,6 +379,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputFloatingIp) {
           document.querySelectorAll('.BareMetalOrder_Page_floatingIp').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputFloatingIp.getAttribute('value');
             else
@@ -327,6 +393,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputStatus) {
           document.querySelectorAll('.BareMetalOrder_Page_status').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputStatus.getAttribute('value');
             else
@@ -337,6 +407,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputClassCanonicalName) {
           document.querySelectorAll('.BareMetalOrder_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalName.getAttribute('value');
             else
@@ -347,6 +421,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputClassSimpleName) {
           document.querySelectorAll('.BareMetalOrder_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassSimpleName.getAttribute('value');
             else
@@ -357,6 +435,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.BareMetalOrder_Page_classCanonicalNames').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalNames.getAttribute('value');
             else
@@ -367,6 +449,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputSessionId) {
           document.querySelectorAll('.BareMetalOrder_Page_sessionId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSessionId.getAttribute('value');
             else
@@ -377,6 +463,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputUserKey) {
           document.querySelectorAll('.BareMetalOrder_Page_userKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserKey.getAttribute('value');
             else
@@ -387,6 +477,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputSaves) {
           document.querySelectorAll('.BareMetalOrder_Page_saves').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSaves.getAttribute('value');
             else
@@ -397,6 +491,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputObjectTitle) {
           document.querySelectorAll('.BareMetalOrder_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectTitle.getAttribute('value');
             else
@@ -405,8 +503,26 @@ async function websocketBareMetalOrderInner(apiRequest) {
           addGlow(document.querySelector('.BareMetalOrder_Page_objectTitle'));
         }
 
+        if(inputApiUrl) {
+          document.querySelectorAll('.BareMetalOrder_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.BareMetalOrder_Page_apiUrl'));
+        }
+
         if(inputDisplayPage) {
           document.querySelectorAll('.BareMetalOrder_Page_displayPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDisplayPage.getAttribute('value');
             else
@@ -417,6 +533,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputEditPage) {
           document.querySelectorAll('.BareMetalOrder_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEditPage.getAttribute('value');
             else
@@ -427,6 +547,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputUserPage) {
           document.querySelectorAll('.BareMetalOrder_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserPage.getAttribute('value');
             else
@@ -437,6 +561,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputDownload) {
           document.querySelectorAll('.BareMetalOrder_Page_download').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDownload.getAttribute('value');
             else
@@ -447,6 +575,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputObjectSuggest) {
           document.querySelectorAll('.BareMetalOrder_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectSuggest.getAttribute('value');
             else
@@ -457,6 +589,10 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputObjectText) {
           document.querySelectorAll('.BareMetalOrder_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectText.getAttribute('value');
             else
@@ -467,12 +603,30 @@ async function websocketBareMetalOrderInner(apiRequest) {
 
         if(inputSolrId) {
           document.querySelectorAll('.BareMetalOrder_Page_solrId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSolrId.getAttribute('value');
             else
               item.textContent = inputSolrId.textContent;
           });
           addGlow(document.querySelector('.BareMetalOrder_Page_solrId'));
+        }
+
+        if(inputNetworkName) {
+          document.querySelectorAll('.BareMetalOrder_Page_networkName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputNetworkName.getAttribute('value');
+            else
+              item.textContent = inputNetworkName.textContent;
+          });
+          addGlow(document.querySelector('.BareMetalOrder_Page_networkName'));
         }
 
           pageGraphBareMetalOrder();
@@ -724,6 +878,10 @@ function searchBareMetalOrderFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -751,6 +909,10 @@ function searchBareMetalOrderFilters($formFilters) {
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
       filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
+    if(filterNetworkName != null && filterNetworkName !== '')
+      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
   }
   return filters;
 }
@@ -773,7 +935,7 @@ function searchBareMetalOrderVals(filters, target, success, error) {
     .catch(response => error(response, target));
 }
 
-function suggestBareMetalOrderNetworkId(filters, $list, pk = null, networkId = null, relate=true, target) {
+function suggestBareMetalOrderNetworkId(filters, $list, pkBareMetalOrder = null, networkId = null, relate=true, target) {
   success = function( data, textStatus, jQxhr ) {
     if($list) {
       $list.innerHTML = '';
@@ -794,19 +956,19 @@ function suggestBareMetalOrderNetworkId(filters, $list, pk = null, networkId = n
         var val = o[inputVar];
         var checked = val == null ? false : (networkId != null && val === networkId.toString());
         var $input = document.createElement('wa-checkbox');
-        $input.setAttribute('id', 'GET_networkId_' + pk + '_id_' + o[inputVar]);
+        $input.setAttribute('id', 'GET_networkId_' + pkBareMetalOrder + '_id_' + o[inputVar]);
         $input.setAttribute('name', inputVar);
         $input.setAttribute('data-target', target.getAttribute('id'));
         $input.value = o[inputVar];
         $input.setAttribute('class', 'valueNetworkId ');
-        if(pk != null) {
+        if(pkBareMetalOrder != null) {
           $input.addEventListener('change', function(event) {
             document.getElementById(event.target.getAttribute('data-target')).value = o[inputVar];
-            patchBareMetalOrderVals([{ name: 'fq', value: 'pk:' + pk }], { [(event.target.checked ? 'set' : 'remove') + 'NetworkId']: o[inputVar] }
+            patchBareMetalOrderVals([{ name: 'fq', value: 'pk:' + pkBareMetalOrder }], { [(event.target.checked ? 'set' : 'remove') + 'NetworkId']: o[inputVar] }
                 , target
                 , function(response, target) {
                   addGlow(target);
-                  suggestBareMetalOrderNetworkId(filters, $list, pk, o[inputVar], relate, target);
+                  suggestBareMetalOrderNetworkId(filters, $list, pkBareMetalOrder, o[inputVar], relate, target);
                 }
                 , function(response, target) { addError(target); }
             );
@@ -1119,6 +1281,18 @@ async function patchBareMetalOrder($formFilters, $formValues, target, pk, succes
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
   var setDisplayPage = removeDisplayPage ? null : $formValues.querySelector('.setDisplayPage')?.value;
@@ -1166,6 +1340,18 @@ async function patchBareMetalOrder($formFilters, $formValues, target, pk, succes
   var removeDownload = $formValues.querySelector('.removeDownload')?.value;
   if(removeDownload != null && removeDownload !== '')
     vals['removeDownload'] = removeDownload;
+
+  var valueNetworkName = $formValues.querySelector('.valueNetworkName')?.value;
+  var removeNetworkName = $formValues.querySelector('.removeNetworkName')?.value === 'true';
+  var setNetworkName = removeNetworkName ? null : $formValues.querySelector('.setNetworkName')?.value;
+  var addNetworkName = $formValues.querySelector('.addNetworkName')?.value;
+  if(removeNetworkName || setNetworkName != null && setNetworkName !== '')
+    vals['setNetworkName'] = setNetworkName;
+  if(addNetworkName != null && addNetworkName !== '')
+    vals['addNetworkName'] = addNetworkName;
+  var removeNetworkName = $formValues.querySelector('.removeNetworkName')?.value;
+  if(removeNetworkName != null && removeNetworkName !== '')
+    vals['removeNetworkName'] = removeNetworkName;
 
   patchBareMetalOrderVals(pk == null ? deparam(window.location.search ? window.location.search.substring(1) : window.location.search) : [{name:'fq', value:'pk:' + pk}], vals, target, success, error);
 }
@@ -1279,6 +1465,10 @@ function patchBareMetalOrderFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -1306,6 +1496,10 @@ function patchBareMetalOrderFilters($formFilters) {
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
       filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
+    if(filterNetworkName != null && filterNetworkName !== '')
+      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
   }
   return filters;
 }
@@ -1445,6 +1639,10 @@ async function postBareMetalOrder($formValues, target, success, error) {
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
     vals['displayPage'] = valueDisplayPage;
@@ -1460,6 +1658,10 @@ async function postBareMetalOrder($formValues, target, success, error) {
   var valueDownload = $formValues.querySelector('.valueDownload')?.value;
   if(valueDownload != null && valueDownload !== '')
     vals['download'] = valueDownload;
+
+  var valueNetworkName = $formValues.querySelector('.valueNetworkName')?.value;
+  if(valueNetworkName != null && valueNetworkName !== '')
+    vals['networkName'] = valueNetworkName;
 
   fetch(
     '/en-us/api/bare-metal-order'
@@ -1548,7 +1750,9 @@ async function deleteBareMetalOrder(target, pk, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterBareMetalOrder(target, success, error) {
+async function deletefilterBareMetalOrder($formFilterstarget, success, error) {
+  var filters = deletefilterBareMetalOrderFilters($formFilters);
+
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -1580,7 +1784,7 @@ async function deletefilterBareMetalOrder(target, success, error) {
   }
 
   fetch(
-    '/en-us/api/bare-metal-order'
+    '/en-us/api/bare-metal-order?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
       headers: {'Content-Type':'application/json; charset=utf-8'}
       , method: 'DELETE'
@@ -1592,4 +1796,151 @@ async function deletefilterBareMetalOrder(target, success, error) {
       }
     })
     .catch(response => error(response, target));
+}
+
+function deletefilterBareMetalOrderFilters($formFilters) {
+  var filters = [];
+  if($formFilters) {
+
+    var filterPk = $formFilters.querySelector('.valuePk')?.value;
+    if(filterPk != null && filterPk !== '')
+      filters.push({ name: 'fq', value: 'pk:' + filterPk });
+
+    var filterCreated = $formFilters.querySelector('.valueCreated')?.value;
+    if(filterCreated != null && filterCreated !== '')
+      filters.push({ name: 'fq', value: 'created:' + filterCreated });
+
+    var filterModified = $formFilters.querySelector('.valueModified')?.value;
+    if(filterModified != null && filterModified !== '')
+      filters.push({ name: 'fq', value: 'modified:' + filterModified });
+
+    var $filterArchivedCheckbox = $formFilters.querySelector('input.valueArchived[type = "checkbox"]');
+    var $filterArchivedSelect = $formFilters.querySelector('select.valueArchived');
+    var filterArchived = $filterArchivedSelect.length ? $filterArchivedSelect.value : $filterArchivedCheckbox.checked;
+    var filterArchivedSelectVal = $formFilters.querySelector('select.filterArchived')?.value;
+    var filterArchived = null;
+    if(filterArchivedSelectVal !== '')
+      filterArchived = filterArchivedSelectVal == 'true';
+    if(filterArchived != null && filterArchived === true)
+      filters.push({ name: 'fq', value: 'archived:' + filterArchived });
+
+    var filterDescription = $formFilters.querySelector('.valueDescription')?.value;
+    if(filterDescription != null && filterDescription !== '')
+      filters.push({ name: 'fq', value: 'description:' + filterDescription });
+
+    var filterNetworkId = $formFilters.querySelector('.valueNetworkId')?.value;
+    if(filterNetworkId != null && filterNetworkId !== '')
+      filters.push({ name: 'fq', value: 'networkId:' + filterNetworkId });
+
+    var filterNumberOfFc430 = $formFilters.querySelector('.valueNumberOfFc430')?.value;
+    if(filterNumberOfFc430 != null && filterNumberOfFc430 !== '')
+      filters.push({ name: 'fq', value: 'numberOfFc430:' + filterNumberOfFc430 });
+
+    var filterNumberOfFc830 = $formFilters.querySelector('.valueNumberOfFc830')?.value;
+    if(filterNumberOfFc830 != null && filterNumberOfFc830 !== '')
+      filters.push({ name: 'fq', value: 'numberOfFc830:' + filterNumberOfFc830 });
+
+    var filterNumberOfR730xd = $formFilters.querySelector('.valueNumberOfR730xd')?.value;
+    if(filterNumberOfR730xd != null && filterNumberOfR730xd !== '')
+      filters.push({ name: 'fq', value: 'numberOfR730xd:' + filterNumberOfR730xd });
+
+    var filterNumberOfWhiteboxFlax1 = $formFilters.querySelector('.valueNumberOfWhiteboxFlax1')?.value;
+    if(filterNumberOfWhiteboxFlax1 != null && filterNumberOfWhiteboxFlax1 !== '')
+      filters.push({ name: 'fq', value: 'numberOfWhiteboxFlax1:' + filterNumberOfWhiteboxFlax1 });
+
+    var filterNumberOfLenovoSd650nv2A100 = $formFilters.querySelector('.valueNumberOfLenovoSd650nv2A100')?.value;
+    if(filterNumberOfLenovoSd650nv2A100 != null && filterNumberOfLenovoSd650nv2A100 !== '')
+      filters.push({ name: 'fq', value: 'numberOfLenovoSd650nv2A100:' + filterNumberOfLenovoSd650nv2A100 });
+
+    var filterNumberOfLenovoSd665nv3H100 = $formFilters.querySelector('.valueNumberOfLenovoSd665nv3H100')?.value;
+    if(filterNumberOfLenovoSd665nv3H100 != null && filterNumberOfLenovoSd665nv3H100 !== '')
+      filters.push({ name: 'fq', value: 'numberOfLenovoSd665nv3H100:' + filterNumberOfLenovoSd665nv3H100 });
+
+    var filterImage = $formFilters.querySelector('.valueImage')?.value;
+    if(filterImage != null && filterImage !== '')
+      filters.push({ name: 'fq', value: 'image:' + filterImage });
+
+    var filterSshPublicKey = $formFilters.querySelector('.valueSshPublicKey')?.value;
+    if(filterSshPublicKey != null && filterSshPublicKey !== '')
+      filters.push({ name: 'fq', value: 'sshPublicKey:' + filterSshPublicKey });
+
+    var $filterFloatingIpCheckbox = $formFilters.querySelector('input.valueFloatingIp[type = "checkbox"]');
+    var $filterFloatingIpSelect = $formFilters.querySelector('select.valueFloatingIp');
+    var filterFloatingIp = $filterFloatingIpSelect.length ? $filterFloatingIpSelect.value : $filterFloatingIpCheckbox.checked;
+    var filterFloatingIpSelectVal = $formFilters.querySelector('select.filterFloatingIp')?.value;
+    var filterFloatingIp = null;
+    if(filterFloatingIpSelectVal !== '')
+      filterFloatingIp = filterFloatingIpSelectVal == 'true';
+    if(filterFloatingIp != null && filterFloatingIp === true)
+      filters.push({ name: 'fq', value: 'floatingIp:' + filterFloatingIp });
+
+    var filterStatus = $formFilters.querySelector('.valueStatus')?.value;
+    if(filterStatus != null && filterStatus !== '')
+      filters.push({ name: 'fq', value: 'status:' + filterStatus });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
+    if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
+
+    var filterSessionId = $formFilters.querySelector('.valueSessionId')?.value;
+    if(filterSessionId != null && filterSessionId !== '')
+      filters.push({ name: 'fq', value: 'sessionId:' + filterSessionId });
+
+    var filterUserKey = $formFilters.querySelector('.valueUserKey')?.value;
+    if(filterUserKey != null && filterUserKey !== '')
+      filters.push({ name: 'fq', value: 'userKey:' + filterUserKey });
+
+    var filterSaves = $formFilters.querySelector('.valueSaves')?.value;
+    if(filterSaves != null && filterSaves !== '')
+      filters.push({ name: 'fq', value: 'saves:' + filterSaves });
+
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
+    if(filterDisplayPage != null && filterDisplayPage !== '')
+      filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
+    if(filterDownload != null && filterDownload !== '')
+      filters.push({ name: 'fq', value: 'download:' + filterDownload });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
+    if(filterSolrId != null && filterSolrId !== '')
+      filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
+    if(filterNetworkName != null && filterNetworkName !== '')
+      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
+  }
+  return filters;
 }

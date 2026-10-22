@@ -193,12 +193,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -212,22 +216,6 @@
 
         var nodeResource = {% if result.nodeResource is defined %}{{ result.nodeResource | tojson }}{% else %}null{% endif %};
 
-          function relate_hubResource(event) {
-            suggestAiNodeHubResource(
-                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + (event.target.value ? event.target.value : '') }
-                , { 'name': 'rows', 'value': '10' }
-                , { 'name': 'fl', 'value': 'classCanonicalName,hubId,hubResource,pk,editPage,objectTitle' } ] : [{%- if result.hubResource is defined %}{'name':'fq','value':'hubResource:{{ result.hubResource }}'}{%- else %}{%- endif %}]
-                , document.querySelector('#' + event.target.getAttribute('data-list'))
-                , null
-                , null
-                , true
-                , this
-                );
-          }
-          document.querySelector('#AiNode_POST_hubResource')?.addEventListener('input', relate_hubResource);
-          document.querySelector('#AiNode_POST_hubResource')?.addEventListener('focus', relate_hubResource);
-          document.querySelector('#AiNode_PATCH_hubResource')?.addEventListener('input', relate_hubResource);
-          document.querySelector('#AiNode_PATCH_hubResource')?.addEventListener('focus', relate_hubResource);
           function relate_clusterResource(event) {
             suggestAiNodeClusterResource(
                 event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + (event.target.value ? event.target.value : '') }
@@ -244,6 +232,22 @@
           document.querySelector('#AiNode_POST_clusterResource')?.addEventListener('focus', relate_clusterResource);
           document.querySelector('#AiNode_PATCH_clusterResource')?.addEventListener('input', relate_clusterResource);
           document.querySelector('#AiNode_PATCH_clusterResource')?.addEventListener('focus', relate_clusterResource);
+          function relate_hubResource(event) {
+            suggestAiNodeHubResource(
+                event.target.value ? [ { 'name': 'q', 'value': 'objectSuggest:' + (event.target.value ? event.target.value : '') }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,hubId,hubResource,pk,editPage,objectTitle' } ] : [{%- if result.hubResource is defined %}{'name':'fq','value':'hubResource:{{ result.hubResource }}'}{%- else %}{%- endif %}]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , null
+                , null
+                , true
+                , this
+                );
+          }
+          document.querySelector('#AiNode_POST_hubResource')?.addEventListener('input', relate_hubResource);
+          document.querySelector('#AiNode_POST_hubResource')?.addEventListener('focus', relate_hubResource);
+          document.querySelector('#AiNode_PATCH_hubResource')?.addEventListener('input', relate_hubResource);
+          document.querySelector('#AiNode_PATCH_hubResource')?.addEventListener('focus', relate_hubResource);
         if(nodeResource == null) {
           document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
             document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
@@ -294,10 +298,6 @@
 
         var submitForm_patchAiNode = document.querySelector('#htmForm_patchAiNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchAiNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchAiNode(null, document.querySelector('#htmForm_patchAiNode')
               , document.querySelector('#htmFormButton_patchAiNode')
@@ -330,10 +330,6 @@
 
         var submitForm_postAiNode = document.querySelector('#htmForm_postAiNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postAiNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postAiNode(document.querySelector('#htmForm_postAiNode')
               , document.querySelector('#htmFormButton_postAiNode')
@@ -365,10 +361,6 @@
 
         var submitForm_deleteAiNode = document.querySelector('#htmForm_deleteAiNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteAiNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteAiNode(event.target, event.target.getAttribute('data-nodeResource')
               , (json, target) => {
@@ -398,10 +390,6 @@
         });
 
         var submitForm_putimportAiNode = document.querySelector('#htmForm_putimportAiNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportAiNode')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportAiNode(document.querySelector('#htmForm_putimportAiNode')
@@ -433,22 +421,7 @@
           return false;
         });
 
-        var submitForm_searchpageAiNode = document.querySelector('#htmForm_searchpageAiNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageAiNode')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageAiNode();
-          return false;
-        });
-
         var submitForm_deletefilterAiNode = document.querySelector('#htmForm_deletefilterAiNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterAiNode')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterAiNode(event.target
@@ -478,7 +451,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postHub')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postHub')?.addEventListener('submit', event => {
           event.preventDefault();
           postHub(document.querySelector('#htmForm_postHub')
               , document.querySelector('#htmFormButton_postHub')
@@ -509,7 +482,7 @@
           });
         });
 
-        document.querySelector('#htmFormButton_postCluster')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postCluster')?.addEventListener('submit', event => {
           event.preventDefault();
           postCluster(document.querySelector('#htmForm_postCluster')
               , document.querySelector('#htmFormButton_postCluster')
@@ -630,19 +603,6 @@
 {% include en-us/search/ai-node/AiNodePaginationButtons.htm %}
                 <div class="card-like-thing background-color-surface-border" id="site-results-grid">
                   <div>
-                    <wa-dropdown id="htmDropdown-hubId">
-                      <wa-button variant="brand" slot="trigger" caret>ACM Hub</wa-button>
-                      <wa-menu>
-                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortAiNode_hubId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-AiNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-hubId-asc">
-                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
-                          sort by ACM Hub ascending
-                        </wa-menu-item>
-                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortAiNode_hubId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-AiNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-hubId-desc">
-                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
-                          sort by ACM Hub descending
-                        </wa-menu-item>
-                      </wa-menu>
-                    </wa-dropdown>
                     <wa-dropdown id="htmDropdown-clusterName">
                       <wa-button variant="brand" slot="trigger" caret>cluster name</wa-button>
                       <wa-menu>
@@ -653,6 +613,19 @@
                         <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortAiNode_clusterName'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-AiNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-clusterName-desc">
                           <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
                           sort by cluster name descending
+                        </wa-menu-item>
+                      </wa-menu>
+                    </wa-dropdown>
+                    <wa-dropdown id="htmDropdown-hubId">
+                      <wa-button variant="brand" slot="trigger" caret>ACM Hub</wa-button>
+                      <wa-menu>
+                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortAiNode_hubId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-AiNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-hubId-asc">
+                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                          sort by ACM Hub ascending
+                        </wa-menu-item>
+                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortAiNode_hubId'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-AiNode').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-hubId-desc">
+                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                          sort by ACM Hub descending
                         </wa-menu-item>
                       </wa-menu>
                     </wa-dropdown>
@@ -674,21 +647,21 @@
                   <div>
                     <a href="{{ item.displayPage }}">
                       <i class="fa-regular fa-computer"></i>
-                      <span>{{ item.hubId | e }}</span>
+                      <span>{{ item.clusterName | e }}</span>
                     </a>
                     <a href="{{ item.displayPage }}">
-                      <span>{{ item.clusterName | e }}</span>
+                      <span>{{ item.hubId | e }}</span>
                     </a>
                     <a href="{{ item.displayPage }}">
                       <span>{{ item.nodeName | e }}</span>
                     </a>
                   </div>
                   {% endfor %}
-              {% if getColumnHubId is defined %}
+              {% if getColumnClusterName is defined %}
                 <div>
                 </div>
               {% endif %}
-              {% if getColumnClusterName is defined %}
+              {% if getColumnHubId is defined %}
                 <div>
                 </div>
               {% endif %}

@@ -111,12 +111,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -212,10 +216,6 @@
 
         var submitForm_patchClusterRequest = document.querySelector('#htmForm_patchClusterRequest')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchClusterRequest')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchClusterRequest(null, document.querySelector('#htmForm_patchClusterRequest')
               , document.querySelector('#htmFormButton_patchClusterRequest')
@@ -248,10 +248,6 @@
 
         var submitForm_postClusterRequest = document.querySelector('#htmForm_postClusterRequest')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postClusterRequest')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postClusterRequest(document.querySelector('#htmForm_postClusterRequest')
               , document.querySelector('#htmFormButton_postClusterRequest')
@@ -283,10 +279,6 @@
 
         var submitForm_deleteClusterRequest = document.querySelector('#htmForm_deleteClusterRequest')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteClusterRequest')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteClusterRequest(event.target, event.target.getAttribute('data-name')
               , (json, target) => {
@@ -316,10 +308,6 @@
         });
 
         var submitForm_putimportClusterRequest = document.querySelector('#htmForm_putimportClusterRequest')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportClusterRequest')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportClusterRequest(document.querySelector('#htmForm_putimportClusterRequest')
@@ -351,22 +339,7 @@
           return false;
         });
 
-        var submitForm_searchpageClusterRequest = document.querySelector('#htmForm_searchpageClusterRequest')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageClusterRequest')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageClusterRequest();
-          return false;
-        });
-
         var submitForm_deletefilterClusterRequest = document.querySelector('#htmForm_deletefilterClusterRequest')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterClusterRequest')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterClusterRequest(event.target
@@ -396,7 +369,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postClusterTemplate')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postClusterTemplate')?.addEventListener('submit', event => {
           event.preventDefault();
           postClusterTemplate(document.querySelector('#htmForm_postClusterTemplate')
               , document.querySelector('#htmFormButton_postClusterTemplate')
@@ -427,7 +400,7 @@
           });
         });
 
-        document.querySelector('#htmFormButton_postSiteUser')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postSiteUser')?.addEventListener('submit', event => {
           event.preventDefault();
           postSiteUser(document.querySelector('#htmForm_postSiteUser')
               , document.querySelector('#htmFormButton_postSiteUser')
