@@ -73,6 +73,9 @@ wa-button.tile {
   }
 } */
 
+.display-none {
+  display: none;
+}
 /* @media stuff */
 @media (max-width: 767px) {
   /* Mobile mode */
@@ -550,4 +553,13 @@ main, footer {
   overscroll-behavior: none;
   max-width: var(--auto-size-available-width);
   max-height: var(--auto-size-available-height);
+}
+
+.pdf-page-break-before {
+  margin-top: var(--wa-space-2xl); 
+  page-break-before: always;
+}
+.pdf-page-break-after {
+  margin-top: var(--wa-space-2xl); 
+  page-break-after: always;
 }

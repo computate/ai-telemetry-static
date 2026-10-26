@@ -1,44 +1,46 @@
-{%- macro inputPkHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro inputPkHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_pk">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       readonly
                       placeholder="[Long] primary key"
                       label="primary key"
                       type="number"
+                      step="any"
                       hint="The primary key of this object in the database"
                       id="Hub_{{classApiMethodMethod}}_pk"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-hubId={{ result.hubId | tojson }}
                       class="label-on-left Hub_{{classApiMethodMethod}}_pk setPk classHub inputHub{{ result.hubId }}Pk "
                       name="setPk"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_pk setPk classHub inputHub{{ result.hubId }}Pk "
                       name="setPk"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_pk valuePk classHub inputHub{{ result.hubId }}Pk "
                       name="pk"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.pk | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmPkHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputPkHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputCreatedHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmPkHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputPkHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputCreatedHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_created">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       type="datetime-local"
                       readonly
@@ -48,25 +50,25 @@
                       placeholder="MM/dd/yyyy h:mm a '['VV']'"
                       data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
                       id="Hub_{{classApiMethodMethod}}_created"
-  {% if 'Page' == classApiMethodMethod -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       value="{%- if "Page" == classApiMethodMethod and result.created is defined %}{{ formatZonedDateTime(result.created, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
-  {% endif -%}
+                      {% endif -%}
                       data-hubId={{ result.hubId | tojson }}
                       data-zone="{{ defaultZoneId }}"
                       >
                   </wa-input>
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmCreatedHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputCreatedHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputModifiedHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmCreatedHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputCreatedHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputModifiedHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_modified">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       type="datetime-local"
                       readonly
@@ -76,26 +78,26 @@
                       placeholder="MM/dd/yyyy h:mm a '['VV']'"
                       data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
                       id="Hub_{{classApiMethodMethod}}_modified"
-  {% if 'Page' == classApiMethodMethod -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       value="{%- if "Page" == classApiMethodMethod and result.modified is defined %}{{ formatZonedDateTime(result.modified, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
-  {% endif -%}
+                      {% endif -%}
                       data-hubId={{ result.hubId | tojson }}
                       data-zone="{{ defaultZoneId }}"
                       >
                   </wa-input>
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmModifiedHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputModifiedHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputArchivedHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmModifiedHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputModifiedHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputArchivedHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_archived">
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
                   <wa-button variant="brand"
                       id="Hub_{{classApiMethodMethod}}_archived"
                       placeholder="archive"
@@ -106,370 +108,306 @@
                       data-hubId={{ result.hubId | tojson }}
                       data-val="{{ result.archived | e }}"
                       >archive</wa-button>
-  {%- else %}
-  {% if 'Page' == classApiMethodMethod -%}
+                  {% else -%}
+                  {% if 'Page' == classApiMethodMethod -%}
                   <wa-checkbox
                       id="Hub_{{classApiMethodMethod}}_archived"
                       value="true"
-  {%- else %}
+                      {%- else %}{{''}}
                   <wa-select
                       id="Hub_{{classApiMethodMethod}}_archived"
-  {% endif -%}
+                      {% endif -%}
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="archive"
                       label="archive"
                       hint="For archiving this record"
-  {%- if 'Page' == classApiMethodMethod %}
+                      {% if 'Page' == classApiMethodMethod -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_archived classHub inputHub{{ result.hubId }}Archived "
                       name="setArchived"
-  {%- else %}
-    {%- if 'Page' == classApiMethodMethod %}
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_archived classHub inputHub{{ result.hubId }}Archived "
                       name="setArchived"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_archived setArchived valueArchived classHub inputHub{{ result.hubId }}Archived "
                       name="setArchived"
-    {%- endif %}
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
-    {%- if result.archived == true %}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.archived == true -%}
                       checked
-    {%- endif %}
+                      {% endif -%}
                       data-hubId={{ result.hubId | tojson }}
                       >archive</wa-checkbox>
-  {%- else %}
+                      {% else -%}
                       >
                     <wa-option value=""></wa-option>
                     <wa-option value="true">true</wa-option>
                     <wa-option value="false">false</wa-option>
                   </wa-select>
-  {%- endif %}
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
+                  {%- endif %}{{''}}
+                  {% endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmArchivedHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputArchivedHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputHubNameHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmArchivedHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputArchivedHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputHubNameHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_hubName">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] hub name"
                       label="hub name"
                       hint="The name of this hub"
                       id="Hub_{{classApiMethodMethod}}_hubName"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-hubId={{ result.hubId | tojson }}
                       class="label-on-left Hub_{{classApiMethodMethod}}_hubName setHubName classHub inputHub{{ result.hubId }}HubName "
                       name="setHubName"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_hubName setHubName classHub inputHub{{ result.hubId }}HubName "
                       name="setHubName"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_hubName valueHubName classHub inputHub{{ result.hubId }}HubName "
                       name="hubName"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.hubName | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmHubNameHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputHubNameHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputHubIdHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmHubNameHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputHubNameHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputHubIdHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_hubId">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] hub ID"
                       label="hub ID"
                       hint="The ID of this hub"
                       id="Hub_{{classApiMethodMethod}}_hubId"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-hubId={{ result.hubId | tojson }}
                       class="label-on-left Hub_{{classApiMethodMethod}}_hubId setHubId classHub inputHub{{ result.hubId }}HubId "
                       name="setHubId"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_hubId setHubId classHub inputHub{{ result.hubId }}HubId "
                       name="setHubId"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_hubId valueHubId classHub inputHub{{ result.hubId }}HubId "
                       name="hubId"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.hubId | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmHubIdHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputHubIdHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputDescriptionHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmHubIdHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputHubIdHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputDescriptionHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_description">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] description"
                       label="description"
                       hint="A description of this hub"
                       id="Hub_{{classApiMethodMethod}}_description"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-hubId={{ result.hubId | tojson }}
                       class="label-on-left Hub_{{classApiMethodMethod}}_description setDescription classHub inputHub{{ result.hubId }}Description "
                       name="setDescription"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_description setDescription classHub inputHub{{ result.hubId }}Description "
                       name="setDescription"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_description valueDescription classHub inputHub{{ result.hubId }}Description "
                       name="description"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.description | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmDescriptionHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputDescriptionHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputPageIdHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmDescriptionHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputDescriptionHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputPageIdHubPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_pageId">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] Page ID"
                       label="Page ID"
                       hint="The ID for this page. "
                       id="Hub_{{classApiMethodMethod}}_pageId"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-hubId={{ result.hubId | tojson }}
                       class="label-on-left Hub_{{classApiMethodMethod}}_pageId setPageId classHub inputHub{{ result.hubId }}PageId "
                       name="setPageId"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_pageId setPageId classHub inputHub{{ result.hubId }}PageId "
                       name="setPageId"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left Hub_{{classApiMethodMethod}}_pageId valuePageId classHub inputHub{{ result.hubId }}PageId "
                       name="pageId"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.pageId | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmPageIdHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputPageIdHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
+                {% macro htmPageIdHubPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputPageIdHubPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
 
-{%- macro htmFormButton_patchHub() %}
+          {% macro htmFormButton_patchHub() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_patchHub" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_patchHub"
                 >Modify ACM hub</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_patchHub"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_patchHub(idSuffix='') %}
+        {% macro htmForm_patchHub(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="patchHubDialog" label="Modify ACM hub">
-          <form id="htmForm_patchHub" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_patchHub" class="wa-stack round-row primary-smart-border-radius ">
 
-            <wa-details open class="HtmRow" id="hub-details">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="hub-details">
               <div slot="summary">
                 <span>hub details</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmHubNameHubPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmHubIdHubPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionHubPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details open class="HtmRow" id="useful-urls">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-99 " id="useful-urls">
               <div slot="summary">
                 <span>Useful URLs</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmPageIdHubPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
+            {{ htmFormButton_patchHub() }}
           </form>
-          {{ htmFormButton_patchHub() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_postHub() %}
+          {% macro htmFormButton_postHub() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_postHub" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_postHub"
                 >Create an ACM hub</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_postHub"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_postHub(idSuffix='') %}
+        {% macro htmForm_postHub(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="postHubDialog" label="Create an ACM hub">
-          <form id="htmForm_postHub" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_postHub" class="wa-stack round-row primary-smart-border-radius ">
             <div>You can override any default values below: </div>
 
-            <wa-details open class="HtmRow" id="hub-details">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="hub-details">
               <div slot="summary">
                 <span>hub details</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "POST" in scopes -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmHubNameHubPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmHubIdHubPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionHubPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details open class="HtmRow" id="useful-urls">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-99 " id="useful-urls">
               <div slot="summary">
                 <span>Useful URLs</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "POST" in scopes -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmPageIdHubPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
+            {{ htmFormButton_postHub() }}
           </form>
-          {{ htmFormButton_postHub() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_deleteHub() %}
+          {% macro htmFormButton_deleteHub() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_deleteHub" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_deleteHub"
                 >Delete ACM hub</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_deleteHub"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_deleteHub(idSuffix='') %}
+        {% macro htmForm_deleteHub(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="deleteHubDialog" label="Delete ACM hub">
-          <form id="htmForm_deleteHub" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_deleteHub" class="wa-stack round-row primary-smart-border-radius ">
+            {{ htmFormButton_deleteHub() }}
           </form>
-          {{ htmFormButton_deleteHub() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_putimportHub() %}
+          {% macro htmFormButton_putimportHub() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_putimportHub" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_putimportHub"
                 >Import ACM hubs</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_putimportHub"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_putimportHub(idSuffix='') %}
+        {% macro htmForm_putimportHub(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="putimportHubDialog" label="Import ACM hubs">
-          <form id="htmForm_putimportHub" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_putimportHub" class="wa-stack round-row primary-smart-border-radius ">
             <div>
               <wa-textarea
                   class="PUTImport_searchList "
@@ -478,134 +416,66 @@
                   >
               </wa-textarea>
             </div>
+            {{ htmFormButton_putimportHub() }}
           </form>
-          {{ htmFormButton_putimportHub() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmForm_searchpageHub(idSuffix='') %}
+        {% macro htmForm_searchpageHub(idSuffix='', searchRelated=false) -%}
         <div with-header with-footer style="--width: min(64rem, 100vw); " id="searchpageHubDialog" label="Search ACM hubs">
-          <div id="htmForm_searchpageHub" class="round-row primary-smart-border-radius ">
+          <div id="htmForm_searchpageHub" class="wa-stack round-row primary-smart-border-radius ">
 
-            <wa-details class="HtmRow" id="primary-key-id-created-modified-archive-details">
+            <wa-details class="{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}HtmRow HtmRow-1 " id="primary-key-id-created-modified-archive-details">
               <div slot="summary">
                 <span>primary key, ID, created, modified, archive details</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmPkHubPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmPkHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmPkHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmCreatedHubPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmCreatedHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmCreatedHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmModifiedHubPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmModifiedHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmModifiedHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmPkHubPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCreatedHubPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmModifiedHubPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmArchivedHubPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmArchivedHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmArchivedHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmArchivedHubPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details open class="HtmRow" id="hub-details">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="hub-details">
               <div slot="summary">
                 <span>hub details</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubNameHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmHubIdHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmDescriptionHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmHubNameHubPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmHubIdHubPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionHubPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details open class="HtmRow" id="useful-urls">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-99 " id="useful-urls">
               <div slot="summary">
                 <span>Useful URLs</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmPageIdHubPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmPageIdHubPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
           </div>
         </div>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_deletefilterHub() %}
+          {% macro htmFormButton_deletefilterHub() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_deletefilterHub" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_deletefilterHub"
                 >Delete ACM hub</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_deletefilterHub"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_deletefilterHub(idSuffix='') %}
+        {% macro htmForm_deletefilterHub(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="deletefilterHubDialog" label="Delete ACM hub">
-          <form id="htmForm_deletefilterHub" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_deletefilterHub" class="wa-stack round-row primary-smart-border-radius ">
+            {{ htmFormButton_deletefilterHub() }}
           </form>
-          {{ htmFormButton_deletefilterHub() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}

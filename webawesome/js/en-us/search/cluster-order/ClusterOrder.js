@@ -24,7 +24,7 @@ async function websocketClusterOrder(success) {
       $header.setAttribute('class', 'w3-container fa- ');
       $header.setAttribute('id', 'header-' + id);
       var iTemplate = document.createElement('template');
-      iTemplate.innerHTML = '<i class="fa-regular fa-server"></i>';
+      iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-server"></i>';
       var $i = iTemplate.content;
       var $headerSpan = document.createElement('span');
       $headerSpan.setAttribute('class', '');
@@ -93,6 +93,7 @@ async function websocketClusterOrderInner(apiRequest) {
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
+        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
         var inputUserPage = null;
@@ -131,6 +132,8 @@ async function websocketClusterOrderInner(apiRequest) {
           inputSaves = $response.querySelector('.ClusterOrder_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.ClusterOrder_Page_objectTitle');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.ClusterOrder_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.ClusterOrder_Page_displayPage');
         if(vars.includes('editPage'))
@@ -146,13 +149,17 @@ async function websocketClusterOrderInner(apiRequest) {
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.ClusterOrder_Page_solrId');
 
-        jsWebsocketClusterOrder(id, vars, $response);
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listClusterOrder = JSON.parse($response.querySelector('.pageForm .listClusterOrder')?.value);
+        jsWebsocketClusterOrder(id, vars, $response);
 
 
         if(inputPk) {
           document.querySelectorAll('.ClusterOrder_Page_pk').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPk.getAttribute('value');
             else
@@ -163,6 +170,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputCreated) {
           document.querySelectorAll('.ClusterOrder_Page_created').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreated.getAttribute('value');
             else
@@ -173,6 +184,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputModified) {
           document.querySelectorAll('.ClusterOrder_Page_modified').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModified.getAttribute('value');
             else
@@ -183,6 +198,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputArchived) {
           document.querySelectorAll('.ClusterOrder_Page_archived').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputArchived.getAttribute('value');
             else
@@ -193,6 +212,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputId) {
           document.querySelectorAll('.ClusterOrder_Page_id').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputId.getAttribute('value');
             else
@@ -203,6 +226,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputTemplateId) {
           document.querySelectorAll('.ClusterOrder_Page_templateId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputTemplateId.getAttribute('value');
             else
@@ -213,6 +240,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputState) {
           document.querySelectorAll('.ClusterOrder_Page_state').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputState.getAttribute('value');
             else
@@ -223,6 +254,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputClusterId) {
           document.querySelectorAll('.ClusterOrder_Page_clusterId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClusterId.getAttribute('value');
             else
@@ -233,6 +268,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputClassCanonicalName) {
           document.querySelectorAll('.ClusterOrder_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalName.getAttribute('value');
             else
@@ -243,6 +282,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputClassSimpleName) {
           document.querySelectorAll('.ClusterOrder_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassSimpleName.getAttribute('value');
             else
@@ -253,6 +296,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.ClusterOrder_Page_classCanonicalNames').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalNames.getAttribute('value');
             else
@@ -263,6 +310,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputSessionId) {
           document.querySelectorAll('.ClusterOrder_Page_sessionId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSessionId.getAttribute('value');
             else
@@ -273,6 +324,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputUserKey) {
           document.querySelectorAll('.ClusterOrder_Page_userKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserKey.getAttribute('value');
             else
@@ -283,6 +338,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputSaves) {
           document.querySelectorAll('.ClusterOrder_Page_saves').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSaves.getAttribute('value');
             else
@@ -293,6 +352,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputObjectTitle) {
           document.querySelectorAll('.ClusterOrder_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectTitle.getAttribute('value');
             else
@@ -301,8 +364,26 @@ async function websocketClusterOrderInner(apiRequest) {
           addGlow(document.querySelector('.ClusterOrder_Page_objectTitle'));
         }
 
+        if(inputApiUrl) {
+          document.querySelectorAll('.ClusterOrder_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.ClusterOrder_Page_apiUrl'));
+        }
+
         if(inputDisplayPage) {
           document.querySelectorAll('.ClusterOrder_Page_displayPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDisplayPage.getAttribute('value');
             else
@@ -313,6 +394,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputEditPage) {
           document.querySelectorAll('.ClusterOrder_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEditPage.getAttribute('value');
             else
@@ -323,6 +408,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputUserPage) {
           document.querySelectorAll('.ClusterOrder_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserPage.getAttribute('value');
             else
@@ -333,6 +422,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputDownload) {
           document.querySelectorAll('.ClusterOrder_Page_download').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDownload.getAttribute('value');
             else
@@ -343,6 +436,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputObjectSuggest) {
           document.querySelectorAll('.ClusterOrder_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectSuggest.getAttribute('value');
             else
@@ -353,6 +450,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputObjectText) {
           document.querySelectorAll('.ClusterOrder_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectText.getAttribute('value');
             else
@@ -363,6 +464,10 @@ async function websocketClusterOrderInner(apiRequest) {
 
         if(inputSolrId) {
           document.querySelectorAll('.ClusterOrder_Page_solrId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSolrId.getAttribute('value');
             else
@@ -582,6 +687,10 @@ function searchClusterOrderFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -631,13 +740,13 @@ function searchClusterOrderVals(filters, target, success, error) {
     .catch(response => error(response, target));
 }
 
-function suggestClusterOrderTemplateId(filters, $list, id = null, templateId = null, relate=true, target) {
+function suggestClusterOrderTemplateId(filters, $list, idClusterOrder = null, templateId = null, relate=true, target) {
   success = function( data, textStatus, jQxhr ) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
         var iTemplate = document.createElement('template');
-        iTemplate.innerHTML = '<i class="fa-regular fa-server"></i>';
+        iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-server"></i>';
         var $i = iTemplate.content;
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
@@ -652,19 +761,19 @@ function suggestClusterOrderTemplateId(filters, $list, id = null, templateId = n
         var val = o[inputVar];
         var checked = val == null ? false : (templateId != null && val === templateId.toString());
         var $input = document.createElement('wa-checkbox');
-        $input.setAttribute('id', 'GET_templateId_' + id + '_id_' + o[inputVar]);
+        $input.setAttribute('id', 'GET_templateId_' + idClusterOrder + '_id_' + o[inputVar]);
         $input.setAttribute('name', inputVar);
         $input.setAttribute('data-target', target.getAttribute('id'));
         $input.value = o[inputVar];
         $input.setAttribute('class', 'valueTemplateId ');
-        if(id != null) {
+        if(idClusterOrder != null) {
           $input.addEventListener('change', function(event) {
             document.getElementById(event.target.getAttribute('data-target')).value = o[inputVar];
-            patchClusterOrderVals([{ name: 'fq', value: 'id:' + id }], { [(event.target.checked ? 'set' : 'remove') + 'TemplateId']: o[inputVar] }
+            patchClusterOrderVals([{ name: 'fq', value: 'id:' + idClusterOrder }], { [(event.target.checked ? 'set' : 'remove') + 'TemplateId']: o[inputVar] }
                 , target
                 , function(response, target) {
                   addGlow(target);
-                  suggestClusterOrderTemplateId(filters, $list, id, o[inputVar], relate, target);
+                  suggestClusterOrderTemplateId(filters, $list, idClusterOrder, o[inputVar], relate, target);
                 }
                 , function(response, target) { addError(target); }
             );
@@ -700,7 +809,7 @@ function suggestClusterOrderObjectSuggest($formFilters, $list, target) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
-        var $i = document.querySelector('<i class="fa-regular fa-server"></i>');
+        var $i = document.querySelector('<i class="{{ FONTAWESOME_STYLE }} fa-server"></i>');
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
         $span.innerText = o['objectTitle'];
@@ -874,6 +983,18 @@ async function patchClusterOrder($formFilters, $formValues, target, id, success,
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
   var setDisplayPage = removeDisplayPage ? null : $formValues.querySelector('.setDisplayPage')?.value;
@@ -995,6 +1116,10 @@ function patchClusterOrderFilters($formFilters) {
     var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
 
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
@@ -1130,6 +1255,10 @@ async function postClusterOrder($formValues, target, success, error) {
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
     vals['displayPage'] = valueDisplayPage;
@@ -1260,7 +1389,9 @@ function putimportClusterOrderVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterClusterOrder(target, success, error) {
+async function deletefilterClusterOrder($formFilterstarget, success, error) {
+  var filters = deletefilterClusterOrderFilters($formFilters);
+
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -1292,7 +1423,7 @@ async function deletefilterClusterOrder(target, success, error) {
   }
 
   fetch(
-    '/en-us/api/cluster-order'
+    '/en-us/api/cluster-order?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
       headers: {'Content-Type':'application/json; charset=utf-8'}
       , method: 'DELETE'
@@ -1304,4 +1435,109 @@ async function deletefilterClusterOrder(target, success, error) {
       }
     })
     .catch(response => error(response, target));
+}
+
+function deletefilterClusterOrderFilters($formFilters) {
+  var filters = [];
+  if($formFilters) {
+
+    var filterPk = $formFilters.querySelector('.valuePk')?.value;
+    if(filterPk != null && filterPk !== '')
+      filters.push({ name: 'fq', value: 'pk:' + filterPk });
+
+    var filterCreated = $formFilters.querySelector('.valueCreated')?.value;
+    if(filterCreated != null && filterCreated !== '')
+      filters.push({ name: 'fq', value: 'created:' + filterCreated });
+
+    var filterModified = $formFilters.querySelector('.valueModified')?.value;
+    if(filterModified != null && filterModified !== '')
+      filters.push({ name: 'fq', value: 'modified:' + filterModified });
+
+    var $filterArchivedCheckbox = $formFilters.querySelector('input.valueArchived[type = "checkbox"]');
+    var $filterArchivedSelect = $formFilters.querySelector('select.valueArchived');
+    var filterArchived = $filterArchivedSelect.length ? $filterArchivedSelect.value : $filterArchivedCheckbox.checked;
+    var filterArchivedSelectVal = $formFilters.querySelector('select.filterArchived')?.value;
+    var filterArchived = null;
+    if(filterArchivedSelectVal !== '')
+      filterArchived = filterArchivedSelectVal == 'true';
+    if(filterArchived != null && filterArchived === true)
+      filters.push({ name: 'fq', value: 'archived:' + filterArchived });
+
+    var filterId = $formFilters.querySelector('.valueId')?.value;
+    if(filterId != null && filterId !== '')
+      filters.push({ name: 'fq', value: 'id:' + filterId });
+
+    var filterTemplateId = $formFilters.querySelector('.valueTemplateId')?.value;
+    if(filterTemplateId != null && filterTemplateId !== '')
+      filters.push({ name: 'fq', value: 'templateId:' + filterTemplateId });
+
+    var filterState = $formFilters.querySelector('.valueState')?.value;
+    if(filterState != null && filterState !== '')
+      filters.push({ name: 'fq', value: 'state:' + filterState });
+
+    var filterClusterId = $formFilters.querySelector('.valueClusterId')?.value;
+    if(filterClusterId != null && filterClusterId !== '')
+      filters.push({ name: 'fq', value: 'clusterId:' + filterClusterId });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
+    if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
+
+    var filterSessionId = $formFilters.querySelector('.valueSessionId')?.value;
+    if(filterSessionId != null && filterSessionId !== '')
+      filters.push({ name: 'fq', value: 'sessionId:' + filterSessionId });
+
+    var filterUserKey = $formFilters.querySelector('.valueUserKey')?.value;
+    if(filterUserKey != null && filterUserKey !== '')
+      filters.push({ name: 'fq', value: 'userKey:' + filterUserKey });
+
+    var filterSaves = $formFilters.querySelector('.valueSaves')?.value;
+    if(filterSaves != null && filterSaves !== '')
+      filters.push({ name: 'fq', value: 'saves:' + filterSaves });
+
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
+    if(filterDisplayPage != null && filterDisplayPage !== '')
+      filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
+    if(filterDownload != null && filterDownload !== '')
+      filters.push({ name: 'fq', value: 'download:' + filterDownload });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
+    if(filterSolrId != null && filterSolrId !== '')
+      filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+  }
+  return filters;
 }

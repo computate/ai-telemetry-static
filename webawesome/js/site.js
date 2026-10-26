@@ -18,9 +18,11 @@ function removeGlow($input, jqXhr) {
 }
 
 function addError($input, jqXhr) {
-  jqXhr.json().then((json) => {
-    addErrorJson($input, jqXhr, json);
-  });
+  if(jqXhr) {
+    jqXhr.json().then((json) => {
+      addErrorJson($input, jqXhr, json);
+    });
+  }
 }
 
 function addErrorJson($input, jqXhr, json) {

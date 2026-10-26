@@ -1,64 +1,60 @@
 
-{%- macro htmButton_patchAiNode() %}<wa-button variant="brand" id="htmButton_patchAiNode"  data-dialog="open patchAiNodeDialog" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{%- endmacro %}
+          {% macro htmButton_patchAiNode() -%}<wa-button variant="brand" id="htmButton_patchAiNode"  data-dialog="open patchAiNodeDialog" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{% endmacro -%}
 
-{%- macro htmButton_postAiNode() %}<wa-button variant="brand" id="htmButton_postAiNode"  data-dialog="open postAiNodeDialog" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{%- endmacro %}
+          {% macro htmButton_postAiNode() -%}<wa-button variant="brand" id="htmButton_postAiNode"  data-dialog="open postAiNodeDialog" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{% endmacro -%}
 
-{%- macro htmButton_deleteAiNode() %}<wa-button variant="brand" id="htmButton_deleteAiNode" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+          {% macro htmButton_deleteAiNode() -%}<wa-button variant="brand" id="htmButton_deleteAiNode" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
 
-{%- macro htmButton_putimportAiNode() %}<wa-button variant="brand" id="htmButton_putimportAiNode"  data-dialog="open putimportAiNodeDialog" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{%- endmacro %}
+          {% macro htmButton_putimportAiNode() -%}<wa-button variant="brand" id="htmButton_putimportAiNode"  data-dialog="open putimportAiNodeDialog" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{% endmacro -%}
 
-{%- macro htmButton_deletefilterAiNode() %}<wa-button variant="brand" id="htmButton_deletefilterAiNode" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+          {% macro htmButton_deletefilterAiNode() -%}<wa-button variant="brand" id="htmButton_deletefilterAiNode" data-nodeResource={{ result.nodeResource | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
           <div id="htmSearchForm">
             <wa-scroller>
               <wa-button-group>
-{% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {% if "PATCH" in scopes %}
-    {% if resultCount >= 1 %}
+                {% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+                {% if "PATCH" in scopes %}
+                {% if resultCount >= 1 %}
                 <wa-button variant="brand" id="refreshThisAiNodeGenPage"
-                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'nodeResource:{{ result.nodeResource }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisAiNodeGenPage')); }, function() { addError(document.querySelector('#refreshThisAiNodeGenPage')); }); return false; ">
+                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'nodeResource:{{ result.nodeResource }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisAiNodeGenPage')); }, function(response, target) { addError(document.querySelector('#refreshThisAiNodeGenPage'), response); }); return false; ">
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-sync-alt "></i>
                   refresh
                 </wa-button>
-    {% endif %}
-    {% if resultCount > 0 %}
+                {% endif %}
+                {% if resultCount > 0 %}
                 <wa-button variant="brand" id="refreshAllAiNodeGenPage{{ result.nodeResource | e }}"
-                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllAiNodeGenPage{{ result.nodeResource | e }}')); }, function() { addError(document.querySelector('#refreshAllAiNodeGenPage{{ result.nodeResource | e }}')); }); "
+                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllAiNodeGenPage{{ result.nodeResource | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllAiNodeGenPage{{ result.nodeResource | e }}')response); }); "
                     >
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrows-rotate"></i>
                   refresh all 
                 </wa-button>
-    {% endif %}
-  {% endif %}
-{% endif %}
-{%- if 'PATCH' in scopes %}
-  {%- if resultCount > 0 %}
-    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-    {{ htmButton_patchAiNode() }}
-    {%- endif %}
-  {%- endif %}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmButton_postAiNode() }}
-  {%- else %}
-    {{ htmButton_postAiNode() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if result is defined %}
-    {{ htmButton_deleteAiNode() }}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmButton_putimportAiNode() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if result is not defined %}
-    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-    {{ htmButton_deletefilterAiNode() }}
-    {%- endif %}
-  {%- endif %}
-{%- endif %}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'PATCH' in scopes -%}
+                {%- if resultCount > 0 -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_patchAiNode() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'POST' in scopes -%}
+                {{ htmButton_postAiNode() -}}
+                {% endif -%}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is defined -%}
+                {{ htmButton_deleteAiNode() -}}
+                {% endif -%}
+                {% endif -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_putimportAiNode() -}}
+                {%- endif %}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is not defined -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_deletefilterAiNode() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
 
               </wa-button-group>
             </wa-scroller>

@@ -103,27 +103,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH name
-          document.querySelector('#TimeZone_Page_name')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_name');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchTimeZoneVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
-                  , 'setName', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#TimeZone_Page_name')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#TimeZone_Page_name')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_name');
-            const valid = form.reportValidity();
-          });
-
           // PATCH id
           document.querySelector('#TimeZone_Page_id')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_id');
@@ -142,6 +121,27 @@ Promise.all([
           });
           document.querySelector('#TimeZone_Page_id')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_id');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH name
+          document.querySelector('#TimeZone_Page_name')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_name');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchTimeZoneVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
+                  , 'setName', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#TimeZone_Page_name')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#TimeZone_Page_name')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_name');
             const valid = form.reportValidity();
           });
 
@@ -184,6 +184,27 @@ Promise.all([
           });
           document.querySelector('#TimeZone_Page_objectTitle')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_objectTitle');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH apiUrl
+          document.querySelector('#TimeZone_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchTimeZoneVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#TimeZone_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#TimeZone_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
             const valid = form.reportValidity();
           });
 

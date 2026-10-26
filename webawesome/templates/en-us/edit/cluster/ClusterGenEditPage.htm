@@ -192,12 +192,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -292,10 +296,6 @@
 
         var submitForm_patchCluster = document.querySelector('#htmForm_patchCluster')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchCluster')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchCluster(null, document.querySelector('#htmForm_patchCluster')
               , document.querySelector('#htmFormButton_patchCluster')
@@ -328,10 +328,6 @@
 
         var submitForm_postCluster = document.querySelector('#htmForm_postCluster')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postCluster')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postCluster(document.querySelector('#htmForm_postCluster')
               , document.querySelector('#htmFormButton_postCluster')
@@ -363,10 +359,6 @@
 
         var submitForm_deleteCluster = document.querySelector('#htmForm_deleteCluster')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteCluster')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteCluster(event.target, event.target.getAttribute('data-clusterResource')
               , (json, target) => {
@@ -396,10 +388,6 @@
         });
 
         var submitForm_putimportCluster = document.querySelector('#htmForm_putimportCluster')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportCluster')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportCluster(document.querySelector('#htmForm_putimportCluster')
@@ -431,22 +419,7 @@
           return false;
         });
 
-        var submitForm_searchpageCluster = document.querySelector('#htmForm_searchpageCluster')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageCluster')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageCluster();
-          return false;
-        });
-
         var submitForm_deletefilterCluster = document.querySelector('#htmForm_deletefilterCluster')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterCluster')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterCluster(event.target
@@ -476,7 +449,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postHub')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postHub')?.addEventListener('submit', event => {
           event.preventDefault();
           postHub(document.querySelector('#htmForm_postHub')
               , document.querySelector('#htmFormButton_postHub')
@@ -539,7 +512,7 @@
               <wa-tooltip for="return-to-Cluster">back to all OpenShift clusters</wa-tooltip>
               <wa-breadcrumb>
                 <wa-breadcrumb-item id="return-to-Cluster" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-                  <i class="fa-regular fa-server"></i>
+                  <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
                   all OpenShift clusters
                 </wa-breadcrumb-item>
                 <wa-breadcrumb-item>
@@ -554,7 +527,10 @@
 {%- block htmBodyStartClusterPage %}
 {% if resultCount > 0 %}
           <div class="wa-flank ">
-            <h1 class="Page_objectTitle"><i class="fa-regular fa-server"></i> {{ result.objectTitle | e }}</h1>
+            <h1 id="Page_objectTitle" class="Page_objectTitle">
+              <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
+               {{ result.objectTitle | e }}
+            </h1>
           </div>
 {% endif %}
 {% include en-us/search/cluster/ClusterSearchForm.htm %}
@@ -570,7 +546,7 @@
           <wa-tooltip for="return-to-Cluster">back to all OpenShift clusters</wa-tooltip></wa-tooltip>
           <wa-breadcrumb>
             <wa-breadcrumb-item id="return-to-Cluster" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-              <i class="fa-regular fa-server"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
               all OpenShift clusters
             </wa-breadcrumb-item>
             <wa-breadcrumb-item>
@@ -579,7 +555,7 @@
           </wa-breadcrumb>
           <div class="wa-stack wa-align-items-center ">
             <div class="wa-heading-3xl ">
-              <i class="fa-regular fa-server"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
             </div>
             <span class="wa-heading-m ">no OpenShift cluster found</span>
             <p class="wa-caption-l ">A Red Hat OpenShift cluster containing GPUs</p>

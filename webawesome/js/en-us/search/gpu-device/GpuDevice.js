@@ -24,7 +24,7 @@ async function websocketGpuDevice(success) {
       $header.setAttribute('class', 'w3-container fa- ');
       $header.setAttribute('id', 'header-' + gpuDeviceResource);
       var iTemplate = document.createElement('template');
-      iTemplate.innerHTML = '<i class="fa-regular fa-memory"></i>';
+      iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-memory"></i>';
       var $i = iTemplate.content;
       var $headerSpan = document.createElement('span');
       $headerSpan.setAttribute('class', '');
@@ -102,6 +102,7 @@ async function websocketGpuDeviceInner(apiRequest) {
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
+        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
         var inputUserPage = null;
@@ -167,6 +168,8 @@ async function websocketGpuDeviceInner(apiRequest) {
           inputSaves = $response.querySelector('.GpuDevice_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.GpuDevice_Page_objectTitle');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.GpuDevice_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.GpuDevice_Page_displayPage');
         if(vars.includes('editPage'))
@@ -200,13 +203,17 @@ async function websocketGpuDeviceInner(apiRequest) {
         if(vars.includes('entityShortId'))
           inputEntityShortId = $response.querySelector('.GpuDevice_Page_entityShortId');
 
-        jsWebsocketGpuDevice(gpuDeviceResource, vars, $response);
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listGpuDevice = JSON.parse($response.querySelector('.pageForm .listGpuDevice')?.value);
+        jsWebsocketGpuDevice(gpuDeviceResource, vars, $response);
 
 
         if(inputPk) {
           document.querySelectorAll('.GpuDevice_Page_pk').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPk.getAttribute('value');
             else
@@ -217,6 +224,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputCreated) {
           document.querySelectorAll('.GpuDevice_Page_created').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreated.getAttribute('value');
             else
@@ -227,6 +238,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputModified) {
           document.querySelectorAll('.GpuDevice_Page_modified').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModified.getAttribute('value');
             else
@@ -237,6 +252,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputArchived) {
           document.querySelectorAll('.GpuDevice_Page_archived').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputArchived.getAttribute('value');
             else
@@ -247,6 +266,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputHubId) {
           document.querySelectorAll('.GpuDevice_Page_hubId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputHubId.getAttribute('value');
             else
@@ -257,6 +280,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputClusterName) {
           document.querySelectorAll('.GpuDevice_Page_clusterName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClusterName.getAttribute('value');
             else
@@ -267,6 +294,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputNodeName) {
           document.querySelectorAll('.GpuDevice_Page_nodeName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNodeName.getAttribute('value');
             else
@@ -277,6 +308,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputGpuDeviceNumber) {
           document.querySelectorAll('.GpuDevice_Page_gpuDeviceNumber').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputGpuDeviceNumber.getAttribute('value');
             else
@@ -287,6 +322,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputModelName) {
           document.querySelectorAll('.GpuDevice_Page_modelName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModelName.getAttribute('value');
             else
@@ -297,6 +336,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputDescription) {
           document.querySelectorAll('.GpuDevice_Page_description').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDescription.getAttribute('value');
             else
@@ -307,6 +350,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputGpuDeviceUtilization) {
           document.querySelectorAll('.GpuDevice_Page_gpuDeviceUtilization').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputGpuDeviceUtilization.getAttribute('value');
             else
@@ -317,6 +364,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputId) {
           document.querySelectorAll('.GpuDevice_Page_id').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputId.getAttribute('value');
             else
@@ -327,6 +378,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputNgsildTenant) {
           document.querySelectorAll('.GpuDevice_Page_ngsildTenant').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNgsildTenant.getAttribute('value');
             else
@@ -337,6 +392,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputNgsildPath) {
           document.querySelectorAll('.GpuDevice_Page_ngsildPath').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNgsildPath.getAttribute('value');
             else
@@ -347,6 +406,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputNgsildContext) {
           document.querySelectorAll('.GpuDevice_Page_ngsildContext').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNgsildContext.getAttribute('value');
             else
@@ -357,6 +420,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputNgsildData) {
           document.querySelectorAll('.GpuDevice_Page_ngsildData').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNgsildData.getAttribute('value');
             else
@@ -367,6 +434,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputLocation) {
           document.querySelectorAll('.GpuDevice_Page_location').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocation.getAttribute('value');
             else
@@ -377,6 +448,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputClassCanonicalName) {
           document.querySelectorAll('.GpuDevice_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalName.getAttribute('value');
             else
@@ -387,6 +462,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputClassSimpleName) {
           document.querySelectorAll('.GpuDevice_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassSimpleName.getAttribute('value');
             else
@@ -397,6 +476,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.GpuDevice_Page_classCanonicalNames').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalNames.getAttribute('value');
             else
@@ -407,6 +490,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputSessionId) {
           document.querySelectorAll('.GpuDevice_Page_sessionId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSessionId.getAttribute('value');
             else
@@ -417,6 +504,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputUserKey) {
           document.querySelectorAll('.GpuDevice_Page_userKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserKey.getAttribute('value');
             else
@@ -427,6 +518,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputSaves) {
           document.querySelectorAll('.GpuDevice_Page_saves').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSaves.getAttribute('value');
             else
@@ -437,6 +532,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputObjectTitle) {
           document.querySelectorAll('.GpuDevice_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectTitle.getAttribute('value');
             else
@@ -445,8 +544,26 @@ async function websocketGpuDeviceInner(apiRequest) {
           addGlow(document.querySelector('.GpuDevice_Page_objectTitle'));
         }
 
+        if(inputApiUrl) {
+          document.querySelectorAll('.GpuDevice_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.GpuDevice_Page_apiUrl'));
+        }
+
         if(inputDisplayPage) {
           document.querySelectorAll('.GpuDevice_Page_displayPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDisplayPage.getAttribute('value');
             else
@@ -457,6 +574,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputEditPage) {
           document.querySelectorAll('.GpuDevice_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEditPage.getAttribute('value');
             else
@@ -467,6 +588,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputUserPage) {
           document.querySelectorAll('.GpuDevice_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserPage.getAttribute('value');
             else
@@ -477,6 +602,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputDownload) {
           document.querySelectorAll('.GpuDevice_Page_download').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDownload.getAttribute('value');
             else
@@ -487,6 +616,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputObjectSuggest) {
           document.querySelectorAll('.GpuDevice_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectSuggest.getAttribute('value');
             else
@@ -497,6 +630,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputObjectText) {
           document.querySelectorAll('.GpuDevice_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectText.getAttribute('value');
             else
@@ -507,6 +644,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputSolrId) {
           document.querySelectorAll('.GpuDevice_Page_solrId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSolrId.getAttribute('value');
             else
@@ -517,6 +658,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputHubResource) {
           document.querySelectorAll('.GpuDevice_Page_hubResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputHubResource.getAttribute('value');
             else
@@ -527,6 +672,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputClusterResource) {
           document.querySelectorAll('.GpuDevice_Page_clusterResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClusterResource.getAttribute('value');
             else
@@ -537,6 +686,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputNodeResource) {
           document.querySelectorAll('.GpuDevice_Page_nodeResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNodeResource.getAttribute('value');
             else
@@ -547,6 +700,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputGpuDeviceResource) {
           document.querySelectorAll('.GpuDevice_Page_gpuDeviceResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputGpuDeviceResource.getAttribute('value');
             else
@@ -557,6 +714,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputGpuDeviceDisplayName) {
           document.querySelectorAll('.GpuDevice_Page_gpuDeviceDisplayName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputGpuDeviceDisplayName.getAttribute('value');
             else
@@ -567,6 +728,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputLocationColors) {
           document.querySelectorAll('.GpuDevice_Page_locationColors').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationColors.getAttribute('value');
             else
@@ -577,6 +742,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputLocationTitles) {
           document.querySelectorAll('.GpuDevice_Page_locationTitles').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationTitles.getAttribute('value');
             else
@@ -587,6 +756,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputLocationLinks) {
           document.querySelectorAll('.GpuDevice_Page_locationLinks').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocationLinks.getAttribute('value');
             else
@@ -597,6 +770,10 @@ async function websocketGpuDeviceInner(apiRequest) {
 
         if(inputEntityShortId) {
           document.querySelectorAll('.GpuDevice_Page_entityShortId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEntityShortId.getAttribute('value');
             else
@@ -1012,6 +1189,10 @@ function searchGpuDeviceFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -1098,13 +1279,13 @@ function searchGpuDeviceVals(filters, target, success, error) {
     .catch(response => error(response, target));
 }
 
-function suggestGpuDeviceHubResource(filters, $list, gpuDeviceResource = null, hubResource = null, relate=true, target) {
+function suggestGpuDeviceHubResource(filters, $list, gpuDeviceResourceGpuDevice = null, hubResource = null, relate=true, target) {
   success = function( data, textStatus, jQxhr ) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
         var iTemplate = document.createElement('template');
-        iTemplate.innerHTML = '<i class="fa-regular fa-sitemap"></i>';
+        iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-sitemap"></i>';
         var $i = iTemplate.content;
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
@@ -1119,19 +1300,19 @@ function suggestGpuDeviceHubResource(filters, $list, gpuDeviceResource = null, h
         var val = o[inputVar];
         var checked = val == null ? false : (hubResource != null && val === hubResource.toString());
         var $input = document.createElement('wa-checkbox');
-        $input.setAttribute('id', 'GET_hubResource_' + gpuDeviceResource + '_hubResource_' + o[inputVar]);
+        $input.setAttribute('id', 'GET_hubResource_' + gpuDeviceResourceGpuDevice + '_hubResource_' + o[inputVar]);
         $input.setAttribute('name', inputVar);
         $input.setAttribute('data-target', target.getAttribute('id'));
         $input.value = o[inputVar];
         $input.setAttribute('class', 'valueHubResource ');
-        if(gpuDeviceResource != null) {
+        if(gpuDeviceResourceGpuDevice != null) {
           $input.addEventListener('change', function(event) {
             document.getElementById(event.target.getAttribute('data-target')).value = o[inputVar];
-            patchGpuDeviceVals([{ name: 'fq', value: 'gpuDeviceResource:' + gpuDeviceResource }], { [(event.target.checked ? 'set' : 'remove') + 'HubResource']: o[inputVar] }
+            patchGpuDeviceVals([{ name: 'fq', value: 'gpuDeviceResource:' + gpuDeviceResourceGpuDevice }], { [(event.target.checked ? 'set' : 'remove') + 'HubResource']: o[inputVar] }
                 , target
                 , function(response, target) {
                   addGlow(target);
-                  suggestGpuDeviceHubResource(filters, $list, gpuDeviceResource, o[inputVar], relate, target);
+                  suggestGpuDeviceHubResource(filters, $list, gpuDeviceResourceGpuDevice, o[inputVar], relate, target);
                 }
                 , function(response, target) { addError(target); }
             );
@@ -1162,13 +1343,13 @@ function suggestGpuDeviceHubResource(filters, $list, gpuDeviceResource = null, h
   }
 }
 
-function suggestGpuDeviceClusterResource(filters, $list, gpuDeviceResource = null, clusterResource = null, relate=true, target) {
+function suggestGpuDeviceClusterResource(filters, $list, gpuDeviceResourceGpuDevice = null, clusterResource = null, relate=true, target) {
   success = function( data, textStatus, jQxhr ) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
         var iTemplate = document.createElement('template');
-        iTemplate.innerHTML = '<i class="fa-regular fa-server"></i>';
+        iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-server"></i>';
         var $i = iTemplate.content;
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
@@ -1183,19 +1364,19 @@ function suggestGpuDeviceClusterResource(filters, $list, gpuDeviceResource = nul
         var val = o[inputVar];
         var checked = val == null ? false : (clusterResource != null && val === clusterResource.toString());
         var $input = document.createElement('wa-checkbox');
-        $input.setAttribute('id', 'GET_clusterResource_' + gpuDeviceResource + '_clusterResource_' + o[inputVar]);
+        $input.setAttribute('id', 'GET_clusterResource_' + gpuDeviceResourceGpuDevice + '_clusterResource_' + o[inputVar]);
         $input.setAttribute('name', inputVar);
         $input.setAttribute('data-target', target.getAttribute('id'));
         $input.value = o[inputVar];
         $input.setAttribute('class', 'valueClusterResource ');
-        if(gpuDeviceResource != null) {
+        if(gpuDeviceResourceGpuDevice != null) {
           $input.addEventListener('change', function(event) {
             document.getElementById(event.target.getAttribute('data-target')).value = o[inputVar];
-            patchGpuDeviceVals([{ name: 'fq', value: 'gpuDeviceResource:' + gpuDeviceResource }], { [(event.target.checked ? 'set' : 'remove') + 'ClusterResource']: o[inputVar] }
+            patchGpuDeviceVals([{ name: 'fq', value: 'gpuDeviceResource:' + gpuDeviceResourceGpuDevice }], { [(event.target.checked ? 'set' : 'remove') + 'ClusterResource']: o[inputVar] }
                 , target
                 , function(response, target) {
                   addGlow(target);
-                  suggestGpuDeviceClusterResource(filters, $list, gpuDeviceResource, o[inputVar], relate, target);
+                  suggestGpuDeviceClusterResource(filters, $list, gpuDeviceResourceGpuDevice, o[inputVar], relate, target);
                 }
                 , function(response, target) { addError(target); }
             );
@@ -1226,7 +1407,7 @@ function suggestGpuDeviceClusterResource(filters, $list, gpuDeviceResource = nul
   }
 }
 
-function suggestGpuDeviceNodeResource(filters, $list, gpuDeviceResource = null, nodeResource = null, relate=true, target) {
+function suggestGpuDeviceNodeResource(filters, $list, gpuDeviceResourceGpuDevice = null, nodeResource = null, relate=true, target) {
   success = function( data, textStatus, jQxhr ) {
     if($list) {
       $list.innerHTML = '';
@@ -1247,19 +1428,19 @@ function suggestGpuDeviceNodeResource(filters, $list, gpuDeviceResource = null, 
         var val = o[inputVar];
         var checked = val == null ? false : (nodeResource != null && val === nodeResource.toString());
         var $input = document.createElement('wa-checkbox');
-        $input.setAttribute('id', 'GET_nodeResource_' + gpuDeviceResource + '_nodeResource_' + o[inputVar]);
+        $input.setAttribute('id', 'GET_nodeResource_' + gpuDeviceResourceGpuDevice + '_nodeResource_' + o[inputVar]);
         $input.setAttribute('name', inputVar);
         $input.setAttribute('data-target', target.getAttribute('id'));
         $input.value = o[inputVar];
         $input.setAttribute('class', 'valueNodeResource ');
-        if(gpuDeviceResource != null) {
+        if(gpuDeviceResourceGpuDevice != null) {
           $input.addEventListener('change', function(event) {
             document.getElementById(event.target.getAttribute('data-target')).value = o[inputVar];
-            patchGpuDeviceVals([{ name: 'fq', value: 'gpuDeviceResource:' + gpuDeviceResource }], { [(event.target.checked ? 'set' : 'remove') + 'NodeResource']: o[inputVar] }
+            patchGpuDeviceVals([{ name: 'fq', value: 'gpuDeviceResource:' + gpuDeviceResourceGpuDevice }], { [(event.target.checked ? 'set' : 'remove') + 'NodeResource']: o[inputVar] }
                 , target
                 , function(response, target) {
                   addGlow(target);
-                  suggestGpuDeviceNodeResource(filters, $list, gpuDeviceResource, o[inputVar], relate, target);
+                  suggestGpuDeviceNodeResource(filters, $list, gpuDeviceResourceGpuDevice, o[inputVar], relate, target);
                 }
                 , function(response, target) { addError(target); }
             );
@@ -1295,7 +1476,7 @@ function suggestGpuDeviceObjectSuggest($formFilters, $list, target) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
-        var $i = document.querySelector('<i class="fa-regular fa-memory"></i>');
+        var $i = document.querySelector('<i class="{{ FONTAWESOME_STYLE }} fa-memory"></i>');
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
         $span.innerText = o['objectTitle'];
@@ -1585,6 +1766,18 @@ async function patchGpuDevice($formFilters, $formValues, target, gpuDeviceResour
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
   var setDisplayPage = removeDisplayPage ? null : $formValues.querySelector('.setDisplayPage')?.value;
@@ -1766,6 +1959,10 @@ function patchGpuDeviceFilters($formFilters) {
     var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
 
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
@@ -1973,6 +2170,10 @@ async function postGpuDevice($formValues, target, success, error) {
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
     vals['displayPage'] = valueDisplayPage;
@@ -2119,7 +2320,9 @@ function putimportGpuDeviceVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterGpuDevice(target, success, error) {
+async function deletefilterGpuDevice($formFilterstarget, success, error) {
+  var filters = deletefilterGpuDeviceFilters($formFilters);
+
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -2151,7 +2354,7 @@ async function deletefilterGpuDevice(target, success, error) {
   }
 
   fetch(
-    '/en-us/api/gpu-device'
+    '/en-us/api/gpu-device?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
       headers: {'Content-Type':'application/json; charset=utf-8'}
       , method: 'DELETE'
@@ -2163,4 +2366,181 @@ async function deletefilterGpuDevice(target, success, error) {
       }
     })
     .catch(response => error(response, target));
+}
+
+function deletefilterGpuDeviceFilters($formFilters) {
+  var filters = [];
+  if($formFilters) {
+
+    var filterPk = $formFilters.querySelector('.valuePk')?.value;
+    if(filterPk != null && filterPk !== '')
+      filters.push({ name: 'fq', value: 'pk:' + filterPk });
+
+    var filterCreated = $formFilters.querySelector('.valueCreated')?.value;
+    if(filterCreated != null && filterCreated !== '')
+      filters.push({ name: 'fq', value: 'created:' + filterCreated });
+
+    var filterModified = $formFilters.querySelector('.valueModified')?.value;
+    if(filterModified != null && filterModified !== '')
+      filters.push({ name: 'fq', value: 'modified:' + filterModified });
+
+    var $filterArchivedCheckbox = $formFilters.querySelector('input.valueArchived[type = "checkbox"]');
+    var $filterArchivedSelect = $formFilters.querySelector('select.valueArchived');
+    var filterArchived = $filterArchivedSelect.length ? $filterArchivedSelect.value : $filterArchivedCheckbox.checked;
+    var filterArchivedSelectVal = $formFilters.querySelector('select.filterArchived')?.value;
+    var filterArchived = null;
+    if(filterArchivedSelectVal !== '')
+      filterArchived = filterArchivedSelectVal == 'true';
+    if(filterArchived != null && filterArchived === true)
+      filters.push({ name: 'fq', value: 'archived:' + filterArchived });
+
+    var filterHubId = $formFilters.querySelector('.valueHubId')?.value;
+    if(filterHubId != null && filterHubId !== '')
+      filters.push({ name: 'fq', value: 'hubId:' + filterHubId });
+
+    var filterClusterName = $formFilters.querySelector('.valueClusterName')?.value;
+    if(filterClusterName != null && filterClusterName !== '')
+      filters.push({ name: 'fq', value: 'clusterName:' + filterClusterName });
+
+    var filterNodeName = $formFilters.querySelector('.valueNodeName')?.value;
+    if(filterNodeName != null && filterNodeName !== '')
+      filters.push({ name: 'fq', value: 'nodeName:' + filterNodeName });
+
+    var filterGpuDeviceNumber = $formFilters.querySelector('.valueGpuDeviceNumber')?.value;
+    if(filterGpuDeviceNumber != null && filterGpuDeviceNumber !== '')
+      filters.push({ name: 'fq', value: 'gpuDeviceNumber:' + filterGpuDeviceNumber });
+
+    var filterModelName = $formFilters.querySelector('.valueModelName')?.value;
+    if(filterModelName != null && filterModelName !== '')
+      filters.push({ name: 'fq', value: 'modelName:' + filterModelName });
+
+    var filterDescription = $formFilters.querySelector('.valueDescription')?.value;
+    if(filterDescription != null && filterDescription !== '')
+      filters.push({ name: 'fq', value: 'description:' + filterDescription });
+
+    var filterGpuDeviceUtilization = $formFilters.querySelector('.valueGpuDeviceUtilization')?.value;
+    if(filterGpuDeviceUtilization != null && filterGpuDeviceUtilization !== '')
+      filters.push({ name: 'fq', value: 'gpuDeviceUtilization:' + filterGpuDeviceUtilization });
+
+    var filterId = $formFilters.querySelector('.valueId')?.value;
+    if(filterId != null && filterId !== '')
+      filters.push({ name: 'fq', value: 'id:' + filterId });
+
+    var filterNgsildTenant = $formFilters.querySelector('.valueNgsildTenant')?.value;
+    if(filterNgsildTenant != null && filterNgsildTenant !== '')
+      filters.push({ name: 'fq', value: 'ngsildTenant:' + filterNgsildTenant });
+
+    var filterNgsildPath = $formFilters.querySelector('.valueNgsildPath')?.value;
+    if(filterNgsildPath != null && filterNgsildPath !== '')
+      filters.push({ name: 'fq', value: 'ngsildPath:' + filterNgsildPath });
+
+    var filterNgsildContext = $formFilters.querySelector('.valueNgsildContext')?.value;
+    if(filterNgsildContext != null && filterNgsildContext !== '')
+      filters.push({ name: 'fq', value: 'ngsildContext:' + filterNgsildContext });
+
+    var filterNgsildData = $formFilters.querySelector('.valueNgsildData')?.value;
+    if(filterNgsildData != null && filterNgsildData !== '')
+      filters.push({ name: 'fq', value: 'ngsildData:' + filterNgsildData });
+
+    var filterLocation = $formFilters.querySelector('.valueLocation')?.value;
+    if(filterLocation != null && filterLocation !== '')
+      filters.push({ name: 'fq', value: 'location:' + filterLocation });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
+    if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
+
+    var filterSessionId = $formFilters.querySelector('.valueSessionId')?.value;
+    if(filterSessionId != null && filterSessionId !== '')
+      filters.push({ name: 'fq', value: 'sessionId:' + filterSessionId });
+
+    var filterUserKey = $formFilters.querySelector('.valueUserKey')?.value;
+    if(filterUserKey != null && filterUserKey !== '')
+      filters.push({ name: 'fq', value: 'userKey:' + filterUserKey });
+
+    var filterSaves = $formFilters.querySelector('.valueSaves')?.value;
+    if(filterSaves != null && filterSaves !== '')
+      filters.push({ name: 'fq', value: 'saves:' + filterSaves });
+
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
+    if(filterDisplayPage != null && filterDisplayPage !== '')
+      filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
+    if(filterDownload != null && filterDownload !== '')
+      filters.push({ name: 'fq', value: 'download:' + filterDownload });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
+    if(filterSolrId != null && filterSolrId !== '')
+      filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterHubResource = $formFilters.querySelector('.valueHubResource')?.value;
+    if(filterHubResource != null && filterHubResource !== '')
+      filters.push({ name: 'fq', value: 'hubResource:' + filterHubResource });
+
+    var filterClusterResource = $formFilters.querySelector('.valueClusterResource')?.value;
+    if(filterClusterResource != null && filterClusterResource !== '')
+      filters.push({ name: 'fq', value: 'clusterResource:' + filterClusterResource });
+
+    var filterNodeResource = $formFilters.querySelector('.valueNodeResource')?.value;
+    if(filterNodeResource != null && filterNodeResource !== '')
+      filters.push({ name: 'fq', value: 'nodeResource:' + filterNodeResource });
+
+    var filterGpuDeviceResource = $formFilters.querySelector('.valueGpuDeviceResource')?.value;
+    if(filterGpuDeviceResource != null && filterGpuDeviceResource !== '')
+      filters.push({ name: 'fq', value: 'gpuDeviceResource:' + filterGpuDeviceResource });
+
+    var filterGpuDeviceDisplayName = $formFilters.querySelector('.valueGpuDeviceDisplayName')?.value;
+    if(filterGpuDeviceDisplayName != null && filterGpuDeviceDisplayName !== '')
+      filters.push({ name: 'fq', value: 'gpuDeviceDisplayName:' + filterGpuDeviceDisplayName });
+
+    var filterLocationColors = $formFilters.querySelector('.valueLocationColors')?.value;
+    if(filterLocationColors != null && filterLocationColors !== '')
+      filters.push({ name: 'fq', value: 'locationColors:' + filterLocationColors });
+
+    var filterLocationTitles = $formFilters.querySelector('.valueLocationTitles')?.value;
+    if(filterLocationTitles != null && filterLocationTitles !== '')
+      filters.push({ name: 'fq', value: 'locationTitles:' + filterLocationTitles });
+
+    var filterLocationLinks = $formFilters.querySelector('.valueLocationLinks')?.value;
+    if(filterLocationLinks != null && filterLocationLinks !== '')
+      filters.push({ name: 'fq', value: 'locationLinks:' + filterLocationLinks });
+
+    var filterEntityShortId = $formFilters.querySelector('.valueEntityShortId')?.value;
+    if(filterEntityShortId != null && filterEntityShortId !== '')
+      filters.push({ name: 'fq', value: 'entityShortId:' + filterEntityShortId });
+  }
+  return filters;
 }

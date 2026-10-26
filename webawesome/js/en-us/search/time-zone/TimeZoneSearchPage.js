@@ -66,17 +66,6 @@ Promise.all([
     facetStatsChange('TimeZone', 'location', false);
   });
 
-  document.querySelector('#pageSelectSortTimeZone_name')?.addEventListener('change', (event) => {
-    sort('TimeZone', 'name', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsTimeZone_name')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('TimeZone', 'name', true);
-  });
-  document.querySelector('#pageStatsTimeZone_name')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('TimeZone', 'name', false);
-  });
-
   document.querySelector('#pageSelectSortTimeZone_id')?.addEventListener('change', (event) => {
     sort('TimeZone', 'id', event.currentTarget.value);
   });
@@ -86,6 +75,17 @@ Promise.all([
   });
   document.querySelector('#pageStatsTimeZone_id')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('TimeZone', 'id', false);
+  });
+
+  document.querySelector('#pageSelectSortTimeZone_name')?.addEventListener('change', (event) => {
+    sort('TimeZone', 'name', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsTimeZone_name')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('TimeZone', 'name', true);
+  });
+  document.querySelector('#pageStatsTimeZone_name')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('TimeZone', 'name', false);
   });
 
   document.querySelector('#pageSelectSortTimeZone_displayPage')?.addEventListener('change', (event) => {
@@ -152,6 +152,17 @@ Promise.all([
   });
   document.querySelector('#pageStatsTimeZone_objectTitle')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('TimeZone', 'objectTitle', false);
+  });
+
+  document.querySelector('#pageSelectSortTimeZone_apiUrl')?.addEventListener('change', (event) => {
+    sort('TimeZone', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsTimeZone_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('TimeZone', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsTimeZone_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('TimeZone', 'apiUrl', false);
   });
 
   document.querySelector('#pageSelectSortTimeZone_editPage')?.addEventListener('change', (event) => {
@@ -284,24 +295,6 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndTimeZone_location')?.addEventListener('change', (event) => {
             facetRangeEndChange('TimeZone', event.currentTarget);
           });
-          document.querySelector('#fqTimeZone_name')?.addEventListener('change', (event) => {
-            fqChange('TimeZone', event.currentTarget, facetChangeTimeZoneSuccess, facetChangeTimeZoneError);
-          });
-          document.querySelector('#buttonFacetTimeZone_name')?.addEventListener('click', (event) => {
-            facetFieldChange('TimeZone', event.currentTarget);
-          });
-          document.querySelector('#pageFacetPivotTimeZone_name')?.addEventListener('change', (event) => {
-            facetPivotChange('TimeZone', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeGapTimeZone_name')?.addEventListener('change', (event) => {
-            facetRangeGapChange('TimeZone', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeStartTimeZone_name')?.addEventListener('change', (event) => {
-            facetRangeStartChange('TimeZone', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeEndTimeZone_name')?.addEventListener('change', (event) => {
-            facetRangeEndChange('TimeZone', event.currentTarget);
-          });
           document.querySelector('#fqTimeZone_id')?.addEventListener('change', (event) => {
             fqChange('TimeZone', event.currentTarget, facetChangeTimeZoneSuccess, facetChangeTimeZoneError);
           });
@@ -320,6 +313,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndTimeZone_id')?.addEventListener('change', (event) => {
             facetRangeEndChange('TimeZone', event.currentTarget);
           });
+          document.querySelector('#fqTimeZone_name')?.addEventListener('change', (event) => {
+            fqChange('TimeZone', event.currentTarget, facetChangeTimeZoneSuccess, facetChangeTimeZoneError);
+          });
+          document.querySelector('#buttonFacetTimeZone_name')?.addEventListener('click', (event) => {
+            facetFieldChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotTimeZone_name')?.addEventListener('change', (event) => {
+            facetPivotChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapTimeZone_name')?.addEventListener('change', (event) => {
+            facetRangeGapChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartTimeZone_name')?.addEventListener('change', (event) => {
+            facetRangeStartChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndTimeZone_name')?.addEventListener('change', (event) => {
+            facetRangeEndChange('TimeZone', event.currentTarget);
+          });
           document.querySelector('#fqTimeZone_displayPage')?.addEventListener('change', (event) => {
             fqChange('TimeZone', event.currentTarget, facetChangeTimeZoneSuccess, facetChangeTimeZoneError);
           });
@@ -336,6 +347,24 @@ Promise.all([
             facetRangeStartChange('TimeZone', event.currentTarget);
           });
           document.querySelector('#pageFacetRangeEndTimeZone_displayPage')?.addEventListener('change', (event) => {
+            facetRangeEndChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#fqTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('TimeZone', event.currentTarget, facetChangeTimeZoneSuccess, facetChangeTimeZoneError);
+          });
+          document.querySelector('#buttonFacetTimeZone_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartTimeZone_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('TimeZone', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndTimeZone_apiUrl')?.addEventListener('change', (event) => {
             facetRangeEndChange('TimeZone', event.currentTarget);
           });
           document.querySelector('#fqTimeZone_editPage')?.addEventListener('change', (event) => {
@@ -429,7 +458,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterTimeZone(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

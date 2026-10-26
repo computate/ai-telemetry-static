@@ -1,26 +1,26 @@
 {% include en-us/search/bare-metal-node/BareMetalNodeSearchFormMacros.htm %}
-{%- if 'DELETE' in scopes %}
-    {{ htmForm_patchBareMetalNode() }}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_postBareMetalNode() }}
-  {%- else %}
-    {{ htmForm_postBareMetalNode() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deleteBareMetalNode() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmForm_putimportBareMetalNode() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deletefilterBareMetalNode() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
+        {% if 'DELETE' in scopes -%}
+        {{ htmForm_patchBareMetalNode() -}}
+        {% endif -%}
+        {% if 'POST' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_postBareMetalNode() -}}
+        {% else -%}
+        {{ htmForm_postBareMetalNode() -}}
+        {% endif -%}
+        {% endif -%}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deleteBareMetalNode() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}
+        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+        {{ htmForm_putimportBareMetalNode() -}}
+        {% endif %}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deletefilterBareMetalNode() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}

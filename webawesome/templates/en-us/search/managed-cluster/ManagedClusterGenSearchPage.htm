@@ -15,7 +15,7 @@
 
 {%- block htmStylePageLayout %}
       :root {
-        --site-results-number-of-columns: 4;
+        --site-results-number-of-columns: 3;
       }
 {{ super() }}
 {%- block htmStyleManagedClusterPage %}
@@ -109,12 +109,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -178,10 +182,6 @@
 
         var submitForm_patchManagedCluster = document.querySelector('#htmForm_patchManagedCluster')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchManagedCluster')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchManagedCluster(null, document.querySelector('#htmForm_patchManagedCluster')
               , document.querySelector('#htmFormButton_patchManagedCluster')
@@ -214,10 +214,6 @@
 
         var submitForm_postManagedCluster = document.querySelector('#htmForm_postManagedCluster')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postManagedCluster')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postManagedCluster(document.querySelector('#htmForm_postManagedCluster')
               , document.querySelector('#htmFormButton_postManagedCluster')
@@ -249,10 +245,6 @@
 
         var submitForm_deleteManagedCluster = document.querySelector('#htmForm_deleteManagedCluster')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteManagedCluster')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteManagedCluster(event.target, event.target.getAttribute('data-id')
               , (json, target) => {
@@ -282,10 +274,6 @@
         });
 
         var submitForm_putimportManagedCluster = document.querySelector('#htmForm_putimportManagedCluster')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportManagedCluster')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportManagedCluster(document.querySelector('#htmForm_putimportManagedCluster')
@@ -317,22 +305,7 @@
           return false;
         });
 
-        var submitForm_searchpageManagedCluster = document.querySelector('#htmForm_searchpageManagedCluster')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageManagedCluster')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageManagedCluster();
-          return false;
-        });
-
         var submitForm_deletefilterManagedCluster = document.querySelector('#htmForm_deletefilterManagedCluster')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterManagedCluster')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterManagedCluster(event.target
@@ -383,7 +356,7 @@
               <wa-tooltip for="return-to-ManagedCluster">back to all tenant clusters</wa-tooltip>
               <wa-breadcrumb>
                 <wa-breadcrumb-item id="return-to-ManagedCluster" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-                  <i class="fa-regular fa-server"></i>
+                  <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
                   all tenant clusters
                 </wa-breadcrumb-item>
                 <wa-breadcrumb-item>
@@ -402,7 +375,7 @@
           <wa-tooltip for="return-to-ManagedCluster">back to all tenant clusters</wa-tooltip></wa-tooltip>
           <wa-breadcrumb>
             <wa-breadcrumb-item id="return-to-ManagedCluster" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-              <i class="fa-regular fa-server"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
               all tenant clusters
             </wa-breadcrumb-item>
             <wa-breadcrumb-item>
@@ -411,7 +384,7 @@
           </wa-breadcrumb>
           <div class="wa-stack wa-align-items-center ">
             <div class="wa-heading-3xl ">
-              <i class="fa-regular fa-server"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
             </div>
             <span class="wa-heading-m ">no tenant cluster found</span>
             <p class="wa-caption-l ">An OpenShift tenant cluster</p>
@@ -478,19 +451,6 @@
                         </wa-menu-item>
                       </wa-menu>
                     </wa-dropdown>
-                    <wa-dropdown id="htmDropdown-apiUrl">
-                      <wa-button variant="brand" slot="trigger" caret>cluster API URL</wa-button>
-                      <wa-menu>
-                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortManagedCluster_apiUrl'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ManagedCluster').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-apiUrl-asc">
-                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
-                          sort by cluster API URL ascending
-                        </wa-menu-item>
-                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortManagedCluster_apiUrl'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-ManagedCluster').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-apiUrl-desc">
-                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
-                          sort by cluster API URL descending
-                        </wa-menu-item>
-                      </wa-menu>
-                    </wa-dropdown>
                     <wa-dropdown id="htmDropdown-consoleUrl">
                       <wa-button variant="brand" slot="trigger" caret>cluster console URL</wa-button>
                       <wa-menu>
@@ -508,14 +468,11 @@
                   {% for item in listManagedCluster%}
                   <div>
                     <a href="{{ item.displayPage }}">
-                      <i class="fa-regular fa-server"></i>
+                      <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
                       <span>{{ item.id | e }}</span>
                     </a>
                     <a href="{{ item.displayPage }}">
                       <span>{{ item.state | e }}</span>
-                    </a>
-                    <a href="{{ item.displayPage }}">
-                      <span>{{ item.apiUrl | e }}</span>
                     </a>
                     <a href="{{ item.displayPage }}">
                       <span>{{ item.consoleUrl | e }}</span>
@@ -527,10 +484,6 @@
                 </div>
               {% endif %}
               {% if getColumnState is defined %}
-                <div>
-                </div>
-              {% endif %}
-              {% if getColumnApiUrl is defined %}
                 <div>
                 </div>
               {% endif %}

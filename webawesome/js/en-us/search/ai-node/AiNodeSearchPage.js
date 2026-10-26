@@ -253,6 +253,17 @@ Promise.all([
     facetStatsChange('AiNode', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortAiNode_apiUrl')?.addEventListener('change', (event) => {
+    sort('AiNode', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsAiNode_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('AiNode', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsAiNode_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('AiNode', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortAiNode_displayPage')?.addEventListener('change', (event) => {
     sort('AiNode', 'displayPage', event.currentTarget.value);
   });
@@ -633,6 +644,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndAiNode_location')?.addEventListener('change', (event) => {
             facetRangeEndChange('AiNode', event.currentTarget);
           });
+          document.querySelector('#fqAiNode_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('AiNode', event.currentTarget, facetChangeAiNodeSuccess, facetChangeAiNodeError);
+          });
+          document.querySelector('#buttonFacetAiNode_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('AiNode', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotAiNode_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('AiNode', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapAiNode_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('AiNode', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartAiNode_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('AiNode', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndAiNode_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('AiNode', event.currentTarget);
+          });
           document.querySelector('#fqAiNode_displayPage')?.addEventListener('change', (event) => {
             fqChange('AiNode', event.currentTarget, facetChangeAiNodeSuccess, facetChangeAiNodeError);
           });
@@ -742,7 +771,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterAiNode(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'nodeResource:' + event.currentTarget.getAttribute('data-nodeResource') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

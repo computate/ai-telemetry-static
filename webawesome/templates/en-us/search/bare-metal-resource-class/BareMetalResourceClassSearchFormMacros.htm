@@ -1,44 +1,46 @@
-{%- macro inputPkBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro inputPkBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_pk">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       readonly
                       placeholder="[Long] primary key"
                       label="primary key"
                       type="number"
+                      step="any"
                       hint="The primary key of this object in the database"
                       id="BareMetalResourceClass_{{classApiMethodMethod}}_pk"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-name={{ result.name | tojson }}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_pk setPk classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Pk "
                       name="setPk"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_pk setPk classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Pk "
                       name="setPk"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_pk valuePk classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Pk "
                       name="pk"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.pk | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmPkBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputPkBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputCreatedBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmPkBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputPkBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputCreatedBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_created">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       type="datetime-local"
                       readonly
@@ -48,25 +50,25 @@
                       placeholder="MM/dd/yyyy h:mm a '['VV']'"
                       data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
                       id="BareMetalResourceClass_{{classApiMethodMethod}}_created"
-  {% if 'Page' == classApiMethodMethod -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       value="{%- if "Page" == classApiMethodMethod and result.created is defined %}{{ formatZonedDateTime(result.created, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
-  {% endif -%}
+                      {% endif -%}
                       data-name={{ result.name | tojson }}
                       data-zone="{{ defaultZoneId }}"
                       >
                   </wa-input>
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmCreatedBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputCreatedBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputModifiedBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmCreatedBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputCreatedBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputModifiedBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_modified">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       type="datetime-local"
                       readonly
@@ -76,26 +78,26 @@
                       placeholder="MM/dd/yyyy h:mm a '['VV']'"
                       data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
                       id="BareMetalResourceClass_{{classApiMethodMethod}}_modified"
-  {% if 'Page' == classApiMethodMethod -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       value="{%- if "Page" == classApiMethodMethod and result.modified is defined %}{{ formatZonedDateTime(result.modified, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
-  {% endif -%}
+                      {% endif -%}
                       data-name={{ result.name | tojson }}
                       data-zone="{{ defaultZoneId }}"
                       >
                   </wa-input>
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmModifiedBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputModifiedBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputArchivedBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmModifiedBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputModifiedBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputArchivedBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_archived">
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
                   <wa-button variant="brand"
                       id="BareMetalResourceClass_{{classApiMethodMethod}}_archived"
                       placeholder="archive"
@@ -106,244 +108,212 @@
                       data-name={{ result.name | tojson }}
                       data-val="{{ result.archived | e }}"
                       >archive</wa-button>
-  {%- else %}
-  {% if 'Page' == classApiMethodMethod -%}
+                  {% else -%}
+                  {% if 'Page' == classApiMethodMethod -%}
                   <wa-checkbox
                       id="BareMetalResourceClass_{{classApiMethodMethod}}_archived"
                       value="true"
-  {%- else %}
+                      {%- else %}{{''}}
                   <wa-select
                       id="BareMetalResourceClass_{{classApiMethodMethod}}_archived"
-  {% endif -%}
+                      {% endif -%}
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="archive"
                       label="archive"
                       hint="For archiving this record"
-  {%- if 'Page' == classApiMethodMethod %}
+                      {% if 'Page' == classApiMethodMethod -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_archived classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Archived "
                       name="setArchived"
-  {%- else %}
-    {%- if 'Page' == classApiMethodMethod %}
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_archived classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Archived "
                       name="setArchived"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_archived setArchived valueArchived classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Archived "
                       name="setArchived"
-    {%- endif %}
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
-    {%- if result.archived == true %}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.archived == true -%}
                       checked
-    {%- endif %}
+                      {% endif -%}
                       data-name={{ result.name | tojson }}
                       >archive</wa-checkbox>
-  {%- else %}
+                      {% else -%}
                       >
                     <wa-option value=""></wa-option>
                     <wa-option value="true">true</wa-option>
                     <wa-option value="false">false</wa-option>
                   </wa-select>
-  {%- endif %}
-  {%- endif %}
-  {%- if 'Page' == classApiMethodMethod %}
+                  {%- endif %}{{''}}
+                  {% endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmArchivedBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputArchivedBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputNameBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmArchivedBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputArchivedBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNameBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_name">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] resource class name"
                       label="resource class name"
                       hint="The name of the resource class"
                       id="BareMetalResourceClass_{{classApiMethodMethod}}_name"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-name={{ result.name | tojson }}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_name setName classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Name "
                       name="setName"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_name setName classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Name "
                       name="setName"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_name valueName classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Name "
                       name="name"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.name | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmNameBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputNameBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
-{%- macro inputCountBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='') %}
-  {%- if 'Page' == classApiMethodMethod %}
+                {% macro htmNameBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNameBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputCountBareMetalResourceClassPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_count">
-  {%- endif %}
+                  {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] number of available nodes"
                       label="number of available nodes"
                       hint="The number of available nodes"
                       id="BareMetalResourceClass_{{classApiMethodMethod}}_count"
-  {%- if "Page" == classApiMethodMethod %}
+                      {% if "Page" == classApiMethodMethod -%}
                       data-name={{ result.name | tojson }}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_count setCount classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Count "
                       name="setCount"
-  {%- else %}
-    {%- if "PATCH" == classApiMethodMethod %}
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_count setCount classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Count "
                       name="setCount"
-    {%- else %}
+                      {% else -%}
                       class="label-on-left BareMetalResourceClass_{{classApiMethodMethod}}_count valueCount classBareMetalResourceClass inputBareMetalResourceClass{{ result.name }}Count "
                       name="count"
-    {%- endif %}
-  {%- endif %}
-  {% if "Page" == classApiMethodMethod -%}
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
                       value="{{result.count | e }}"
-  {% endif -%}
-                      ></wa-input>
+                      {% endif -%}
+                      >
+                  </wa-input>
 
-  {%- if 'Page' == classApiMethodMethod %}
+                  {% if 'Page' == classApiMethodMethod -%}
                 </form>
-  {%- endif %}
-{%- endmacro %}
+                {%- endif %}{{''}}
+                {% endmacro -%}
 
-{%- macro htmCountBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) %}
-                            {{ inputCountBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-{%- endmacro %}
+                {% macro htmCountBareMetalResourceClassPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputCountBareMetalResourceClassPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
 
-{%- macro htmFormButton_patchBareMetalResourceClass() %}
+          {% macro htmFormButton_patchBareMetalResourceClass() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_patchBareMetalResourceClass" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_patchBareMetalResourceClass"
                 >Modify bare metal resource class</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_patchBareMetalResourceClass"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_patchBareMetalResourceClass(idSuffix='') %}
+        {% macro htmForm_patchBareMetalResourceClass(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="patchBareMetalResourceClassDialog" label="Modify bare metal resource class">
-          <form id="htmForm_patchBareMetalResourceClass" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_patchBareMetalResourceClass" class="wa-stack round-row primary-smart-border-radius ">
 
-            <wa-details open class="HtmRow" id="name">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="name">
               <div slot="summary">
                 <span>name</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='PATCH', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='PATCH', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
+            {{ htmFormButton_patchBareMetalResourceClass() }}
           </form>
-          {{ htmFormButton_patchBareMetalResourceClass() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_postBareMetalResourceClass() %}
+          {% macro htmFormButton_postBareMetalResourceClass() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_postBareMetalResourceClass" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_postBareMetalResourceClass"
                 >Create a bare metal resource class</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_postBareMetalResourceClass"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_postBareMetalResourceClass(idSuffix='') %}
+        {% macro htmForm_postBareMetalResourceClass(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="postBareMetalResourceClassDialog" label="Create a bare metal resource class">
-          <form id="htmForm_postBareMetalResourceClass" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_postBareMetalResourceClass" class="wa-stack round-row primary-smart-border-radius ">
             <div>You can override any default values below: </div>
 
-            <wa-details open class="HtmRow" id="name">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="name">
               <div slot="summary">
                 <span>name</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "POST" in scopes -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "POST" in scopes -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='POST', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='POST', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
+            {{ htmFormButton_postBareMetalResourceClass() }}
           </form>
-          {{ htmFormButton_postBareMetalResourceClass() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_deleteBareMetalResourceClass() %}
+          {% macro htmFormButton_deleteBareMetalResourceClass() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_deleteBareMetalResourceClass" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_deleteBareMetalResourceClass"
                 >Delete bare metal resource class</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_deleteBareMetalResourceClass"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_deleteBareMetalResourceClass(idSuffix='') %}
+        {% macro htmForm_deleteBareMetalResourceClass(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="deleteBareMetalResourceClassDialog" label="Delete bare metal resource class">
-          <form id="htmForm_deleteBareMetalResourceClass" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_deleteBareMetalResourceClass" class="wa-stack round-row primary-smart-border-radius ">
+            {{ htmFormButton_deleteBareMetalResourceClass() }}
           </form>
-          {{ htmFormButton_deleteBareMetalResourceClass() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_putimportBareMetalResourceClass() %}
+          {% macro htmFormButton_putimportBareMetalResourceClass() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_putimportBareMetalResourceClass" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_putimportBareMetalResourceClass"
                 >Import bare metal resource classes</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_putimportBareMetalResourceClass"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_putimportBareMetalResourceClass(idSuffix='') %}
+        {% macro htmForm_putimportBareMetalResourceClass(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="putimportBareMetalResourceClassDialog" label="Import bare metal resource classes">
-          <form id="htmForm_putimportBareMetalResourceClass" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_putimportBareMetalResourceClass" class="wa-stack round-row primary-smart-border-radius ">
             <div>
               <wa-textarea
                   class="PUTImport_searchList "
@@ -352,107 +322,56 @@
                   >
               </wa-textarea>
             </div>
+            {{ htmFormButton_putimportBareMetalResourceClass() }}
           </form>
-          {{ htmFormButton_putimportBareMetalResourceClass() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmForm_searchpageBareMetalResourceClass(idSuffix='') %}
+        {% macro htmForm_searchpageBareMetalResourceClass(idSuffix='', searchRelated=false) -%}
         <div with-header with-footer style="--width: min(64rem, 100vw); " id="searchpageBareMetalResourceClassDialog" label="Search bare metal resource classes">
-          <div id="htmForm_searchpageBareMetalResourceClass" class="round-row primary-smart-border-radius ">
+          <div id="htmForm_searchpageBareMetalResourceClass" class="wa-stack round-row primary-smart-border-radius ">
 
-            <wa-details class="HtmRow" id="primary-key-id-created-modified-archive-details">
+            <wa-details class="{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}HtmRow HtmRow-1 " id="primary-key-id-created-modified-archive-details">
               <div slot="summary">
                 <span>primary key, ID, created, modified, archive details</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmPkBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmPkBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmPkBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmCreatedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmCreatedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmCreatedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmModifiedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmModifiedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmModifiedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmPkBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCreatedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmModifiedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmArchivedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmArchivedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmArchivedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmArchivedBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
-            <wa-details open class="HtmRow" id="name">
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="name">
               <div slot="summary">
                 <span>name</span>
               </div>
               <div class="grid-with-subgrid-2col ">
-                {% if "PATCH" in scopes -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
-
-                {% if "PATCH" in scopes -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=true, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {% if "GET" in scopes -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=true, idSuffix=idSuffix) }}
-                {% else -%}
-                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=false, authForReadBool=false, idSuffix=idSuffix) }}
-                {%- endif %}
-                {%- endif %}
+                {{ htmNameBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCountBareMetalResourceClassPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
           </div>
         </div>
-{%- endmacro %}
+        {%- endmacro -%}
 
-{%- macro htmFormButton_deletefilterBareMetalResourceClass() %}
+          {% macro htmFormButton_deletefilterBareMetalResourceClass() -%}
           <wa-popup  auto-size="both" placement="top" id="alertButton_deletefilterBareMetalResourceClass" duration="5000" closable class="wa-header-l ">
             <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
                  id="htmFormButton_deletefilterBareMetalResourceClass"
                 >Delete bare metal resource class</wa-button>
             <wa-badge class="alertPopup" id="alertPopupButton_deletefilterBareMetalResourceClass"></wa-badge>
           </wa-popup>
-{%- endmacro %}
+          {% endmacro -%}
 
-{%- macro htmForm_deletefilterBareMetalResourceClass(idSuffix='') %}
+        {% macro htmForm_deletefilterBareMetalResourceClass(idSuffix='', searchRelated=false) -%}
         <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="deletefilterBareMetalResourceClassDialog" label="Delete bare metal resource class">
-          <form id="htmForm_deletefilterBareMetalResourceClass" class="round-row primary-smart-border-radius ">
+          <form id="htmForm_deletefilterBareMetalResourceClass" class="wa-stack round-row primary-smart-border-radius ">
+            {{ htmFormButton_deletefilterBareMetalResourceClass() }}
           </form>
-          {{ htmFormButton_deletefilterBareMetalResourceClass() }}
         </wa-dialog>
-{%- endmacro %}
+        {%- endmacro -%}

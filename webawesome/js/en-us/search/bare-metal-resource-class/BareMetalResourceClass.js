@@ -24,7 +24,7 @@ async function websocketBareMetalResourceClass(success) {
       $header.setAttribute('class', 'w3-container fa- ');
       $header.setAttribute('id', 'header-' + name);
       var iTemplate = document.createElement('template');
-      iTemplate.innerHTML = '<i class="fa-regular fa-server"></i>';
+      iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-server"></i>';
       var $i = iTemplate.content;
       var $headerSpan = document.createElement('span');
       $headerSpan.setAttribute('class', '');
@@ -91,6 +91,7 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
+        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
         var inputUserPage = null;
@@ -125,6 +126,8 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
           inputSaves = $response.querySelector('.BareMetalResourceClass_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.BareMetalResourceClass_Page_objectTitle');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.BareMetalResourceClass_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.BareMetalResourceClass_Page_displayPage');
         if(vars.includes('editPage'))
@@ -140,13 +143,17 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.BareMetalResourceClass_Page_solrId');
 
-        jsWebsocketBareMetalResourceClass(name, vars, $response);
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listBareMetalResourceClass = JSON.parse($response.querySelector('.pageForm .listBareMetalResourceClass')?.value);
+        jsWebsocketBareMetalResourceClass(name, vars, $response);
 
 
         if(inputPk) {
           document.querySelectorAll('.BareMetalResourceClass_Page_pk').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPk.getAttribute('value');
             else
@@ -157,6 +164,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputCreated) {
           document.querySelectorAll('.BareMetalResourceClass_Page_created').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreated.getAttribute('value');
             else
@@ -167,6 +178,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputModified) {
           document.querySelectorAll('.BareMetalResourceClass_Page_modified').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModified.getAttribute('value');
             else
@@ -177,6 +192,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputArchived) {
           document.querySelectorAll('.BareMetalResourceClass_Page_archived').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputArchived.getAttribute('value');
             else
@@ -187,6 +206,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputName) {
           document.querySelectorAll('.BareMetalResourceClass_Page_name').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputName.getAttribute('value');
             else
@@ -197,6 +220,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputCount) {
           document.querySelectorAll('.BareMetalResourceClass_Page_count').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCount.getAttribute('value');
             else
@@ -207,6 +234,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputClassCanonicalName) {
           document.querySelectorAll('.BareMetalResourceClass_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalName.getAttribute('value');
             else
@@ -217,6 +248,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputClassSimpleName) {
           document.querySelectorAll('.BareMetalResourceClass_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassSimpleName.getAttribute('value');
             else
@@ -227,6 +262,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.BareMetalResourceClass_Page_classCanonicalNames').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalNames.getAttribute('value');
             else
@@ -237,6 +276,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputSessionId) {
           document.querySelectorAll('.BareMetalResourceClass_Page_sessionId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSessionId.getAttribute('value');
             else
@@ -247,6 +290,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputUserKey) {
           document.querySelectorAll('.BareMetalResourceClass_Page_userKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserKey.getAttribute('value');
             else
@@ -257,6 +304,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputSaves) {
           document.querySelectorAll('.BareMetalResourceClass_Page_saves').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSaves.getAttribute('value');
             else
@@ -267,6 +318,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputObjectTitle) {
           document.querySelectorAll('.BareMetalResourceClass_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectTitle.getAttribute('value');
             else
@@ -275,8 +330,26 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
           addGlow(document.querySelector('.BareMetalResourceClass_Page_objectTitle'));
         }
 
+        if(inputApiUrl) {
+          document.querySelectorAll('.BareMetalResourceClass_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.BareMetalResourceClass_Page_apiUrl'));
+        }
+
         if(inputDisplayPage) {
           document.querySelectorAll('.BareMetalResourceClass_Page_displayPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDisplayPage.getAttribute('value');
             else
@@ -287,6 +360,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputEditPage) {
           document.querySelectorAll('.BareMetalResourceClass_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEditPage.getAttribute('value');
             else
@@ -297,6 +374,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputUserPage) {
           document.querySelectorAll('.BareMetalResourceClass_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserPage.getAttribute('value');
             else
@@ -307,6 +388,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputDownload) {
           document.querySelectorAll('.BareMetalResourceClass_Page_download').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDownload.getAttribute('value');
             else
@@ -317,6 +402,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputObjectSuggest) {
           document.querySelectorAll('.BareMetalResourceClass_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectSuggest.getAttribute('value');
             else
@@ -327,6 +416,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputObjectText) {
           document.querySelectorAll('.BareMetalResourceClass_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectText.getAttribute('value');
             else
@@ -337,6 +430,10 @@ async function websocketBareMetalResourceClassInner(apiRequest) {
 
         if(inputSolrId) {
           document.querySelectorAll('.BareMetalResourceClass_Page_solrId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSolrId.getAttribute('value');
             else
@@ -548,6 +645,10 @@ function searchBareMetalResourceClassFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -602,7 +703,7 @@ function suggestBareMetalResourceClassObjectSuggest($formFilters, $list, target)
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
-        var $i = document.querySelector('<i class="fa-regular fa-server"></i>');
+        var $i = document.querySelector('<i class="{{ FONTAWESOME_STYLE }} fa-server"></i>');
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
         $span.innerText = o['objectTitle'];
@@ -760,6 +861,18 @@ async function patchBareMetalResourceClass($formFilters, $formValues, target, na
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
   var setDisplayPage = removeDisplayPage ? null : $formValues.querySelector('.setDisplayPage')?.value;
@@ -873,6 +986,10 @@ function patchBareMetalResourceClassFilters($formFilters) {
     var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
 
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
@@ -999,6 +1116,10 @@ async function postBareMetalResourceClass($formValues, target, success, error) {
   var valueObjectTitle = $formValues.querySelector('.valueObjectTitle')?.value;
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
+
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
 
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
@@ -1130,7 +1251,9 @@ function putimportBareMetalResourceClassVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterBareMetalResourceClass(target, success, error) {
+async function deletefilterBareMetalResourceClass($formFilterstarget, success, error) {
+  var filters = deletefilterBareMetalResourceClassFilters($formFilters);
+
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -1162,7 +1285,7 @@ async function deletefilterBareMetalResourceClass(target, success, error) {
   }
 
   fetch(
-    '/en-us/api/bare-metal-resource-class'
+    '/en-us/api/bare-metal-resource-class?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
       headers: {'Content-Type':'application/json; charset=utf-8'}
       , method: 'DELETE'
@@ -1174,4 +1297,101 @@ async function deletefilterBareMetalResourceClass(target, success, error) {
       }
     })
     .catch(response => error(response, target));
+}
+
+function deletefilterBareMetalResourceClassFilters($formFilters) {
+  var filters = [];
+  if($formFilters) {
+
+    var filterPk = $formFilters.querySelector('.valuePk')?.value;
+    if(filterPk != null && filterPk !== '')
+      filters.push({ name: 'fq', value: 'pk:' + filterPk });
+
+    var filterCreated = $formFilters.querySelector('.valueCreated')?.value;
+    if(filterCreated != null && filterCreated !== '')
+      filters.push({ name: 'fq', value: 'created:' + filterCreated });
+
+    var filterModified = $formFilters.querySelector('.valueModified')?.value;
+    if(filterModified != null && filterModified !== '')
+      filters.push({ name: 'fq', value: 'modified:' + filterModified });
+
+    var $filterArchivedCheckbox = $formFilters.querySelector('input.valueArchived[type = "checkbox"]');
+    var $filterArchivedSelect = $formFilters.querySelector('select.valueArchived');
+    var filterArchived = $filterArchivedSelect.length ? $filterArchivedSelect.value : $filterArchivedCheckbox.checked;
+    var filterArchivedSelectVal = $formFilters.querySelector('select.filterArchived')?.value;
+    var filterArchived = null;
+    if(filterArchivedSelectVal !== '')
+      filterArchived = filterArchivedSelectVal == 'true';
+    if(filterArchived != null && filterArchived === true)
+      filters.push({ name: 'fq', value: 'archived:' + filterArchived });
+
+    var filterName = $formFilters.querySelector('.valueName')?.value;
+    if(filterName != null && filterName !== '')
+      filters.push({ name: 'fq', value: 'name:' + filterName });
+
+    var filterCount = $formFilters.querySelector('.valueCount')?.value;
+    if(filterCount != null && filterCount !== '')
+      filters.push({ name: 'fq', value: 'count:' + filterCount });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
+    if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
+
+    var filterSessionId = $formFilters.querySelector('.valueSessionId')?.value;
+    if(filterSessionId != null && filterSessionId !== '')
+      filters.push({ name: 'fq', value: 'sessionId:' + filterSessionId });
+
+    var filterUserKey = $formFilters.querySelector('.valueUserKey')?.value;
+    if(filterUserKey != null && filterUserKey !== '')
+      filters.push({ name: 'fq', value: 'userKey:' + filterUserKey });
+
+    var filterSaves = $formFilters.querySelector('.valueSaves')?.value;
+    if(filterSaves != null && filterSaves !== '')
+      filters.push({ name: 'fq', value: 'saves:' + filterSaves });
+
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
+    if(filterDisplayPage != null && filterDisplayPage !== '')
+      filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
+    if(filterDownload != null && filterDownload !== '')
+      filters.push({ name: 'fq', value: 'download:' + filterDownload });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
+    if(filterSolrId != null && filterSolrId !== '')
+      filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+  }
+  return filters;
 }

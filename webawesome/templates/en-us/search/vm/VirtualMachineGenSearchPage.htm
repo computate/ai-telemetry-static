@@ -193,12 +193,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -294,10 +298,6 @@
 
         var submitForm_patchVirtualMachine = document.querySelector('#htmForm_patchVirtualMachine')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchVirtualMachine')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchVirtualMachine(null, document.querySelector('#htmForm_patchVirtualMachine')
               , document.querySelector('#htmFormButton_patchVirtualMachine')
@@ -330,10 +330,6 @@
 
         var submitForm_postVirtualMachine = document.querySelector('#htmForm_postVirtualMachine')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postVirtualMachine')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postVirtualMachine(document.querySelector('#htmForm_postVirtualMachine')
               , document.querySelector('#htmFormButton_postVirtualMachine')
@@ -365,10 +361,6 @@
 
         var submitForm_deleteVirtualMachine = document.querySelector('#htmForm_deleteVirtualMachine')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteVirtualMachine')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteVirtualMachine(event.target, event.target.getAttribute('data-vmResource')
               , (json, target) => {
@@ -398,10 +390,6 @@
         });
 
         var submitForm_putimportVirtualMachine = document.querySelector('#htmForm_putimportVirtualMachine')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportVirtualMachine')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportVirtualMachine(document.querySelector('#htmForm_putimportVirtualMachine')
@@ -433,22 +421,7 @@
           return false;
         });
 
-        var submitForm_searchpageVirtualMachine = document.querySelector('#htmForm_searchpageVirtualMachine')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageVirtualMachine')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageVirtualMachine();
-          return false;
-        });
-
         var submitForm_deletefilterVirtualMachine = document.querySelector('#htmForm_deletefilterVirtualMachine')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterVirtualMachine')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterVirtualMachine(event.target
@@ -478,7 +451,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postHub')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postHub')?.addEventListener('submit', event => {
           event.preventDefault();
           postHub(document.querySelector('#htmForm_postHub')
               , document.querySelector('#htmFormButton_postHub')
@@ -509,7 +482,7 @@
           });
         });
 
-        document.querySelector('#htmFormButton_postCluster')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postCluster')?.addEventListener('submit', event => {
           event.preventDefault();
           postCluster(document.querySelector('#htmForm_postCluster')
               , document.querySelector('#htmFormButton_postCluster')
@@ -561,7 +534,7 @@
               <wa-tooltip for="return-to-VirtualMachine">back to all virtual machines</wa-tooltip>
               <wa-breadcrumb>
                 <wa-breadcrumb-item id="return-to-VirtualMachine" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-                  <i class="fa-regular fa-sidebar"></i>
+                  <i class="{{ FONTAWESOME_STYLE }} fa-sidebar"></i>
                   all virtual machines
                 </wa-breadcrumb-item>
                 <wa-breadcrumb-item>
@@ -580,7 +553,7 @@
           <wa-tooltip for="return-to-VirtualMachine">back to all virtual machines</wa-tooltip></wa-tooltip>
           <wa-breadcrumb>
             <wa-breadcrumb-item id="return-to-VirtualMachine" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-              <i class="fa-regular fa-sidebar"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-sidebar"></i>
               all virtual machines
             </wa-breadcrumb-item>
             <wa-breadcrumb-item>
@@ -589,7 +562,7 @@
           </wa-breadcrumb>
           <div class="wa-stack wa-align-items-center ">
             <div class="wa-heading-3xl ">
-              <i class="fa-regular fa-sidebar"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-sidebar"></i>
             </div>
             <span class="wa-heading-m ">no virtual machine found</span>
             <p class="wa-caption-l ">A Red Hat OpenShift virtual machine</p>
@@ -699,7 +672,7 @@
                   {% for item in listVirtualMachine%}
                   <div>
                     <a href="{{ item.displayPage }}">
-                      <i class="fa-regular fa-sidebar"></i>
+                      <i class="{{ FONTAWESOME_STYLE }} fa-sidebar"></i>
                       <span>{{ item.hubId | e }}</span>
                     </a>
                     <a href="{{ item.displayPage }}">

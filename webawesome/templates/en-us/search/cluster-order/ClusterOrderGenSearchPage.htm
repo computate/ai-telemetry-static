@@ -110,12 +110,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -195,10 +199,6 @@
 
         var submitForm_patchClusterOrder = document.querySelector('#htmForm_patchClusterOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchClusterOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchClusterOrder(null, document.querySelector('#htmForm_patchClusterOrder')
               , document.querySelector('#htmFormButton_patchClusterOrder')
@@ -231,10 +231,6 @@
 
         var submitForm_postClusterOrder = document.querySelector('#htmForm_postClusterOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postClusterOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postClusterOrder(document.querySelector('#htmForm_postClusterOrder')
               , document.querySelector('#htmFormButton_postClusterOrder')
@@ -266,10 +262,6 @@
 
         var submitForm_deleteClusterOrder = document.querySelector('#htmForm_deleteClusterOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteClusterOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteClusterOrder(event.target, event.target.getAttribute('data-id')
               , (json, target) => {
@@ -299,10 +291,6 @@
         });
 
         var submitForm_putimportClusterOrder = document.querySelector('#htmForm_putimportClusterOrder')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportClusterOrder')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportClusterOrder(document.querySelector('#htmForm_putimportClusterOrder')
@@ -334,22 +322,7 @@
           return false;
         });
 
-        var submitForm_searchpageClusterOrder = document.querySelector('#htmForm_searchpageClusterOrder')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageClusterOrder')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageClusterOrder();
-          return false;
-        });
-
         var submitForm_deletefilterClusterOrder = document.querySelector('#htmForm_deletefilterClusterOrder')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterClusterOrder')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterClusterOrder(event.target
@@ -379,7 +352,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postClusterTemplate')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postClusterTemplate')?.addEventListener('submit', event => {
           event.preventDefault();
           postClusterTemplate(document.querySelector('#htmForm_postClusterTemplate')
               , document.querySelector('#htmFormButton_postClusterTemplate')
@@ -431,7 +404,7 @@
               <wa-tooltip for="return-to-ClusterOrder">back to all OpenShift cluster orders</wa-tooltip>
               <wa-breadcrumb>
                 <wa-breadcrumb-item id="return-to-ClusterOrder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-                  <i class="fa-regular fa-server"></i>
+                  <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
                   all OpenShift cluster orders
                 </wa-breadcrumb-item>
                 <wa-breadcrumb-item>
@@ -450,7 +423,7 @@
           <wa-tooltip for="return-to-ClusterOrder">back to all OpenShift cluster orders</wa-tooltip></wa-tooltip>
           <wa-breadcrumb>
             <wa-breadcrumb-item id="return-to-ClusterOrder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-              <i class="fa-regular fa-server"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
               all OpenShift cluster orders
             </wa-breadcrumb-item>
             <wa-breadcrumb-item>
@@ -459,7 +432,7 @@
           </wa-breadcrumb>
           <div class="wa-stack wa-align-items-center ">
             <div class="wa-heading-3xl ">
-              <i class="fa-regular fa-server"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
             </div>
             <span class="wa-heading-m ">no OpenShift cluster order found</span>
             <p class="wa-caption-l ">Manage your own Red Hat OpenShift cluster in the cloud. </p>
@@ -556,7 +529,7 @@
                   {% for item in listClusterOrder%}
                   <div>
                     <a href="{{ item.displayPage }}">
-                      <i class="fa-regular fa-server"></i>
+                      <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
                       <span>{{ item.id | e }}</span>
                     </a>
                     <a href="{{ item.displayPage }}">

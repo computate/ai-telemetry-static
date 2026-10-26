@@ -193,12 +193,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -298,8 +302,8 @@
                 , { 'name': 'rows', 'value': '10' }
                 , { 'name': 'fl', 'value': 'classCanonicalName,hubId,pk,editPage,objectTitle' } ]
                 , document.querySelector('#' + event.target.getAttribute('data-list'))
-                , event.target.getAttribute('data-method') === 'Page' ? window.result.nodeResource : null
-                , event.target.getAttribute('data-method') === 'Page' ? window.result.hubResource : null
+                , (event.target.getAttribute('data-method') === 'Page' || event.target.getAttribute('data-method') === 'POST') ? window.result.nodeResource : null
+                , (event.target.getAttribute('data-method') === 'Page' || event.target.getAttribute('data-method') === 'POST') ? window.result.hubResource : null
                 , true
                 , document.querySelector('#Cluster_POST_hubResource_AiNode_POST_clusterResource')
                 );
@@ -338,10 +342,6 @@
 
         var submitForm_patchAiNode = document.querySelector('#htmForm_patchAiNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchAiNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchAiNode(null, document.querySelector('#htmForm_patchAiNode')
               , document.querySelector('#htmFormButton_patchAiNode')
@@ -374,10 +374,6 @@
 
         var submitForm_postAiNode = document.querySelector('#htmForm_postAiNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postAiNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postAiNode(document.querySelector('#htmForm_postAiNode')
               , document.querySelector('#htmFormButton_postAiNode')
@@ -409,10 +405,6 @@
 
         var submitForm_deleteAiNode = document.querySelector('#htmForm_deleteAiNode')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteAiNode')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteAiNode(event.target, event.target.getAttribute('data-nodeResource')
               , (json, target) => {
@@ -442,10 +434,6 @@
         });
 
         var submitForm_putimportAiNode = document.querySelector('#htmForm_putimportAiNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportAiNode')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportAiNode(document.querySelector('#htmForm_putimportAiNode')
@@ -477,22 +465,7 @@
           return false;
         });
 
-        var submitForm_searchpageAiNode = document.querySelector('#htmForm_searchpageAiNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageAiNode')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageAiNode();
-          return false;
-        });
-
         var submitForm_deletefilterAiNode = document.querySelector('#htmForm_deletefilterAiNode')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterAiNode')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterAiNode(event.target
@@ -522,7 +495,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postHub')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postHub')?.addEventListener('submit', event => {
           event.preventDefault();
           postHub(document.querySelector('#htmForm_postHub')
               , document.querySelector('#htmFormButton_postHub')
@@ -553,7 +526,7 @@
           });
         });
 
-        document.querySelector('#htmFormButton_postCluster')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postCluster')?.addEventListener('submit', event => {
           event.preventDefault();
           postCluster(document.querySelector('#htmForm_postCluster')
               , document.querySelector('#htmFormButton_postCluster')
@@ -616,7 +589,7 @@
               <wa-tooltip for="return-to-AiNode">back to all AI nodes</wa-tooltip>
               <wa-breadcrumb>
                 <wa-breadcrumb-item id="return-to-AiNode" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-                  <i class="fa-regular fa-computer"></i>
+                  <i class="{{ FONTAWESOME_STYLE }} fa-computer"></i>
                   all AI nodes
                 </wa-breadcrumb-item>
                 <wa-breadcrumb-item>
@@ -631,7 +604,10 @@
 {%- block htmBodyStartAiNodePage %}
 {% if resultCount > 0 %}
           <div class="wa-flank ">
-            <h1 class="Page_objectTitle"><i class="fa-regular fa-computer"></i> {{ result.objectTitle | e }}</h1>
+            <h1 id="Page_objectTitle" class="Page_objectTitle">
+              <i class="{{ FONTAWESOME_STYLE }} fa-computer"></i>
+               {{ result.objectTitle | e }}
+            </h1>
           </div>
 {% endif %}
 {% include en-us/search/ai-node/AiNodeSearchForm.htm %}
@@ -647,7 +623,7 @@
           <wa-tooltip for="return-to-AiNode">back to all AI nodes</wa-tooltip></wa-tooltip>
           <wa-breadcrumb>
             <wa-breadcrumb-item id="return-to-AiNode" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-              <i class="fa-regular fa-computer"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-computer"></i>
               all AI nodes
             </wa-breadcrumb-item>
             <wa-breadcrumb-item>
@@ -656,7 +632,7 @@
           </wa-breadcrumb>
           <div class="wa-stack wa-align-items-center ">
             <div class="wa-heading-3xl ">
-              <i class="fa-regular fa-computer"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-computer"></i>
             </div>
             <span class="wa-heading-m ">no AI node found</span>
             <p class="wa-caption-l ">A Red Hat OpenShift node containing GPUs</p>

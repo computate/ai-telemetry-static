@@ -110,12 +110,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -129,6 +133,14 @@
 
         var pk = {% if result.pk is defined %}{{ result.pk | tojson }}{% else %}null{% endif %};
 
+        document.querySelector('#postBareMetalNetworkDialog')?.addEventListener('wa-show', (event) => {
+          event.target.querySelectorAll('.searchRelated').forEach(child => {
+            if(child.value !== '') {
+              const focusEvent = new Event('focus', { bubbles: true });
+              child.dispatchEvent(focusEvent);
+            }
+          });
+        });
         if(pk == null) {
           document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
             document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
@@ -210,10 +222,6 @@
 
         var submitForm_patchBareMetalOrder = document.querySelector('#htmForm_patchBareMetalOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchBareMetalOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchBareMetalOrder(null, document.querySelector('#htmForm_patchBareMetalOrder')
               , document.querySelector('#htmFormButton_patchBareMetalOrder')
@@ -246,10 +254,6 @@
 
         var submitForm_postBareMetalOrder = document.querySelector('#htmForm_postBareMetalOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postBareMetalOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postBareMetalOrder(document.querySelector('#htmForm_postBareMetalOrder')
               , document.querySelector('#htmFormButton_postBareMetalOrder')
@@ -281,10 +285,6 @@
 
         var submitForm_deleteBareMetalOrder = document.querySelector('#htmForm_deleteBareMetalOrder')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteBareMetalOrder')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteBareMetalOrder(event.target, event.target.getAttribute('data-pk')
               , (json, target) => {
@@ -313,22 +313,7 @@
           return false;
         });
 
-        var submitForm_searchpageBareMetalOrder = document.querySelector('#htmForm_searchpageBareMetalOrder')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageBareMetalOrder')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageBareMetalOrder();
-          return false;
-        });
-
         var submitForm_deletefilterBareMetalOrder = document.querySelector('#htmForm_deletefilterBareMetalOrder')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterBareMetalOrder')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterBareMetalOrder(event.target
@@ -358,7 +343,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postBareMetalNetwork')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postBareMetalNetwork')?.addEventListener('submit', event => {
           event.preventDefault();
           postBareMetalNetwork(document.querySelector('#htmForm_postBareMetalNetwork')
               , document.querySelector('#htmFormButton_postBareMetalNetwork')
@@ -421,7 +406,7 @@
               <wa-tooltip for="return-to-BareMetalOrder">back to all bare metal orders</wa-tooltip>
               <wa-breadcrumb>
                 <wa-breadcrumb-item id="return-to-BareMetalOrder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-                  <i class="fa-regular fa-share-nodes"></i>
+                  <i class="{{ FONTAWESOME_STYLE }} fa-share-nodes"></i>
                   all bare metal orders
                 </wa-breadcrumb-item>
                 <wa-breadcrumb-item>
@@ -436,7 +421,10 @@
 {%- block htmBodyStartBareMetalOrderPage %}
 {% if resultCount > 0 %}
           <div class="wa-flank ">
-            <h1 class="Page_objectTitle"><i class="fa-regular fa-share-nodes"></i> {{ result.objectTitle | e }}</h1>
+            <h1 id="Page_objectTitle" class="Page_objectTitle">
+              <i class="{{ FONTAWESOME_STYLE }} fa-share-nodes"></i>
+               {{ result.objectTitle | e }}
+            </h1>
           </div>
 {% endif %}
 {% include en-us/search/bare-metal-order/BareMetalOrderSearchForm.htm %}
@@ -452,7 +440,7 @@
           <wa-tooltip for="return-to-BareMetalOrder">back to all bare metal orders</wa-tooltip></wa-tooltip>
           <wa-breadcrumb>
             <wa-breadcrumb-item id="return-to-BareMetalOrder" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-              <i class="fa-regular fa-share-nodes"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-share-nodes"></i>
               all bare metal orders
             </wa-breadcrumb-item>
             <wa-breadcrumb-item>
@@ -461,7 +449,7 @@
           </wa-breadcrumb>
           <div class="wa-stack wa-align-items-center ">
             <div class="wa-heading-3xl ">
-              <i class="fa-regular fa-share-nodes"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-share-nodes"></i>
             </div>
             <span class="wa-heading-m ">no bare metal order found</span>
             <p class="wa-caption-l ">A bare metal order</p>

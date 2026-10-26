@@ -277,7 +277,7 @@ Promise.all([
             const valid = form.checkValidity();
             if(valid) {
               patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
-                  , 'setPodsRestarting', event.currentTarget.value == '' ? null : JSON.parse(event.currentTarget.value)
+                  , 'setPodsRestarting', event.currentTarget.value == '' ? null : event.currentTarget.value
                   , event.currentTarget
                   , function(response, target) { addGlow(target); }
                   , function(response, target) { addError(target); }
@@ -319,7 +319,7 @@ Promise.all([
             const valid = form.checkValidity();
             if(valid) {
               patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
-                  , 'setPodsTerminating', event.currentTarget.value == '' ? null : JSON.parse(event.currentTarget.value)
+                  , 'setPodsTerminating', event.currentTarget.value == '' ? null : event.currentTarget.value
                   , event.currentTarget
                   , function(response, target) { addGlow(target); }
                   , function(response, target) { addError(target); }
@@ -361,7 +361,7 @@ Promise.all([
             const valid = form.checkValidity();
             if(valid) {
               patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
-                  , 'setFullPvcs', event.currentTarget.value == '' ? null : JSON.parse(event.currentTarget.value)
+                  , 'setFullPvcs', event.currentTarget.value == '' ? null : event.currentTarget.value
                   , event.currentTarget
                   , function(response, target) { addGlow(target); }
                   , function(response, target) { addError(target); }
@@ -457,6 +457,27 @@ Promise.all([
           });
           document.querySelector('#Project_Page_objectTitle')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_objectTitle');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH apiUrl
+          document.querySelector('#Project_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Project_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Project_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
             const valid = form.reportValidity();
           });
 
@@ -583,6 +604,27 @@ Promise.all([
           });
           document.querySelector('#Project_Page_projectResource')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_projectResource');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH statusPageTemplateUri
+          document.querySelector('#Project_Page_statusPageTemplateUri')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_statusPageTemplateUri');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
+                  , 'setStatusPageTemplateUri', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Project_Page_statusPageTemplateUri')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Project_Page_statusPageTemplateUri')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_statusPageTemplateUri');
             const valid = form.reportValidity();
           });
 });

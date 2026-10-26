@@ -65,6 +65,7 @@ Promise.all([
           document.querySelector('#SiteUser_Page_seeArchived')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_seeArchived');
             const valid = form.checkValidity();
+            document.cookie = "ENABLE_ARCHIVED=" + escape(event.currentTarget.checked) + "; path=/";
             if(valid) {
               patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
                   , 'setSeeArchived', event.currentTarget.checked
@@ -86,6 +87,7 @@ Promise.all([
           document.querySelector('#SiteUser_Page_siteFontSize')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_siteFontSize');
             const valid = form.checkValidity();
+            document.cookie = "SITE_FONT_SIZE=" + escape(event.currentTarget.value) + "; path=/";
             if(valid) {
               patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
                   , 'setSiteFontSize', event.currentTarget.value
@@ -114,6 +116,7 @@ Promise.all([
           document.querySelector('#SiteUser_Page_siteTheme')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_siteTheme');
             const valid = form.checkValidity();
+            document.cookie = "SITE_THEME=" + escape(event.currentTarget.value) + "; path=/";
             if(valid) {
               patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
                   , 'setSiteTheme', event.currentTarget.value
@@ -222,6 +225,27 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
+          // PATCH apiUrl
+          document.querySelector('#SiteUser_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#SiteUser_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#SiteUser_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.reportValidity();
+          });
+
           // PATCH displayPage
           document.querySelector('#SiteUser_Page_displayPage')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_displayPage');
@@ -306,27 +330,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH userId
-          document.querySelector('#SiteUser_Page_userId')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_userId');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
-                  , 'setUserId', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#SiteUser_Page_userId')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#SiteUser_Page_userId')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_userId');
-            const valid = form.reportValidity();
-          });
-
           // PATCH userName
           document.querySelector('#SiteUser_Page_userName')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_userName');
@@ -345,48 +348,6 @@ Promise.all([
           });
           document.querySelector('#SiteUser_Page_userName')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_userName');
-            const valid = form.reportValidity();
-          });
-
-          // PATCH userEmail
-          document.querySelector('#SiteUser_Page_userEmail')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_userEmail');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
-                  , 'setUserEmail', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#SiteUser_Page_userEmail')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#SiteUser_Page_userEmail')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_userEmail');
-            const valid = form.reportValidity();
-          });
-
-          // PATCH userFirstName
-          document.querySelector('#SiteUser_Page_userFirstName')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_userFirstName');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
-                  , 'setUserFirstName', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#SiteUser_Page_userFirstName')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#SiteUser_Page_userFirstName')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_userFirstName');
             const valid = form.reportValidity();
           });
 
@@ -429,6 +390,69 @@ Promise.all([
           });
           document.querySelector('#SiteUser_Page_userFullName')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_userFullName');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH userId
+          document.querySelector('#SiteUser_Page_userId')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_userId');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
+                  , 'setUserId', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#SiteUser_Page_userId')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#SiteUser_Page_userId')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_userId');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH userEmail
+          document.querySelector('#SiteUser_Page_userEmail')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_userEmail');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
+                  , 'setUserEmail', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#SiteUser_Page_userEmail')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#SiteUser_Page_userEmail')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_userEmail');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH userFirstName
+          document.querySelector('#SiteUser_Page_userFirstName')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_userFirstName');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSiteUserVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'userId:' + event.currentTarget.getAttribute('data-userId') }]
+                  , 'setUserFirstName', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#SiteUser_Page_userFirstName')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#SiteUser_Page_userFirstName')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_userFirstName');
             const valid = form.reportValidity();
           });
 

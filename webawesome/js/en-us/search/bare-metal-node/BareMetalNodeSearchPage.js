@@ -231,6 +231,17 @@ Promise.all([
     facetStatsChange('BareMetalNode', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortBareMetalNode_apiUrl')?.addEventListener('change', (event) => {
+    sort('BareMetalNode', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsBareMetalNode_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('BareMetalNode', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsBareMetalNode_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('BareMetalNode', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortBareMetalNode_displayPage')?.addEventListener('change', (event) => {
     sort('BareMetalNode', 'displayPage', event.currentTarget.value);
   });
@@ -505,6 +516,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndBareMetalNode_nodeResourceClass')?.addEventListener('change', (event) => {
             facetRangeEndChange('BareMetalNode', event.currentTarget);
           });
+          document.querySelector('#fqBareMetalNode_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('BareMetalNode', event.currentTarget, facetChangeBareMetalNodeSuccess, facetChangeBareMetalNodeError);
+          });
+          document.querySelector('#buttonFacetBareMetalNode_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('BareMetalNode', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotBareMetalNode_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('BareMetalNode', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapBareMetalNode_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('BareMetalNode', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartBareMetalNode_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('BareMetalNode', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndBareMetalNode_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('BareMetalNode', event.currentTarget);
+          });
           document.querySelector('#fqBareMetalNode_displayPage')?.addEventListener('change', (event) => {
             fqChange('BareMetalNode', event.currentTarget, facetChangeBareMetalNodeSuccess, facetChangeBareMetalNodeError);
           });
@@ -596,7 +625,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterBareMetalNode(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'nodeId:' + event.currentTarget.getAttribute('data-nodeId') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

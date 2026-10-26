@@ -176,6 +176,17 @@ Promise.all([
     facetStatsChange('ClusterOrder', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortClusterOrder_apiUrl')?.addEventListener('change', (event) => {
+    sort('ClusterOrder', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsClusterOrder_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('ClusterOrder', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsClusterOrder_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('ClusterOrder', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortClusterOrder_displayPage')?.addEventListener('change', (event) => {
     sort('ClusterOrder', 'displayPage', event.currentTarget.value);
   });
@@ -342,6 +353,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndClusterOrder_clusterId')?.addEventListener('change', (event) => {
             facetRangeEndChange('ClusterOrder', event.currentTarget);
           });
+          document.querySelector('#fqClusterOrder_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('ClusterOrder', event.currentTarget, facetChangeClusterOrderSuccess, facetChangeClusterOrderError);
+          });
+          document.querySelector('#buttonFacetClusterOrder_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('ClusterOrder', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotClusterOrder_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('ClusterOrder', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapClusterOrder_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('ClusterOrder', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartClusterOrder_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('ClusterOrder', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndClusterOrder_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('ClusterOrder', event.currentTarget);
+          });
           document.querySelector('#fqClusterOrder_displayPage')?.addEventListener('change', (event) => {
             fqChange('ClusterOrder', event.currentTarget, facetChangeClusterOrderSuccess, facetChangeClusterOrderError);
           });
@@ -433,7 +462,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterClusterOrder(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

@@ -24,7 +24,7 @@ async function websocketProject(success) {
       $header.setAttribute('class', 'w3-container fa- ');
       $header.setAttribute('id', 'header-' + projectResource);
       var iTemplate = document.createElement('template');
-      iTemplate.innerHTML = '<i class="fa-regular fa-people-line"></i>';
+      iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-people-line"></i>';
       var $i = iTemplate.content;
       var $headerSpan = document.createElement('span');
       $headerSpan.setAttribute('class', '');
@@ -107,6 +107,7 @@ async function websocketProjectInner(apiRequest) {
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
+        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
         var inputUserPage = null;
@@ -118,6 +119,7 @@ async function websocketProjectInner(apiRequest) {
         var inputHubResource = null;
         var inputClusterResource = null;
         var inputProjectResource = null;
+        var inputStatusPageTemplateUri = null;
 
         if(vars.includes('pk'))
           inputPk = $response.querySelector('.Project_Page_pk');
@@ -177,6 +179,8 @@ async function websocketProjectInner(apiRequest) {
           inputSaves = $response.querySelector('.Project_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.Project_Page_objectTitle');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.Project_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.Project_Page_displayPage');
         if(vars.includes('editPage'))
@@ -199,14 +203,20 @@ async function websocketProjectInner(apiRequest) {
           inputClusterResource = $response.querySelector('.Project_Page_clusterResource');
         if(vars.includes('projectResource'))
           inputProjectResource = $response.querySelector('.Project_Page_projectResource');
+        if(vars.includes('statusPageTemplateUri'))
+          inputStatusPageTemplateUri = $response.querySelector('.Project_Page_statusPageTemplateUri');
 
-        jsWebsocketProject(projectResource, vars, $response);
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listProject = JSON.parse($response.querySelector('.pageForm .listProject')?.value);
+        jsWebsocketProject(projectResource, vars, $response);
 
 
         if(inputPk) {
           document.querySelectorAll('.Project_Page_pk').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPk.getAttribute('value');
             else
@@ -217,6 +227,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputCreated) {
           document.querySelectorAll('.Project_Page_created').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreated.getAttribute('value');
             else
@@ -227,6 +241,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputModified) {
           document.querySelectorAll('.Project_Page_modified').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModified.getAttribute('value');
             else
@@ -237,6 +255,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputArchived) {
           document.querySelectorAll('.Project_Page_archived').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputArchived.getAttribute('value');
             else
@@ -247,6 +269,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputTenantResource) {
           document.querySelectorAll('.Project_Page_tenantResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputTenantResource.getAttribute('value');
             else
@@ -257,6 +283,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputHubId) {
           document.querySelectorAll('.Project_Page_hubId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputHubId.getAttribute('value');
             else
@@ -267,6 +297,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputClusterName) {
           document.querySelectorAll('.Project_Page_clusterName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClusterName.getAttribute('value');
             else
@@ -277,6 +311,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputProjectName) {
           document.querySelectorAll('.Project_Page_projectName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProjectName.getAttribute('value');
             else
@@ -287,6 +325,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputProjectDisplayName) {
           document.querySelectorAll('.Project_Page_projectDisplayName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProjectDisplayName.getAttribute('value');
             else
@@ -297,6 +339,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputProjectTitle) {
           document.querySelectorAll('.Project_Page_projectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProjectTitle.getAttribute('value');
             else
@@ -307,6 +353,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputDescription) {
           document.querySelectorAll('.Project_Page_description').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDescription.getAttribute('value');
             else
@@ -317,6 +367,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputProjectFieldOfScience) {
           document.querySelectorAll('.Project_Page_projectFieldOfScience').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProjectFieldOfScience.getAttribute('value');
             else
@@ -327,6 +381,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputProjectActive) {
           document.querySelectorAll('.Project_Page_projectActive').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProjectActive.getAttribute('value');
             else
@@ -337,6 +395,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputGpuEnabled) {
           document.querySelectorAll('.Project_Page_gpuEnabled').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputGpuEnabled.getAttribute('value');
             else
@@ -347,6 +409,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputVllmEnabled) {
           document.querySelectorAll('.Project_Page_vllmEnabled').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputVllmEnabled.getAttribute('value');
             else
@@ -357,6 +423,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputPodRestartCount) {
           document.querySelectorAll('.Project_Page_podRestartCount').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPodRestartCount.getAttribute('value');
             else
@@ -367,6 +437,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputPodsRestarting) {
           document.querySelectorAll('.Project_Page_podsRestarting').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPodsRestarting.getAttribute('value');
             else
@@ -377,6 +451,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputPodTerminatingCount) {
           document.querySelectorAll('.Project_Page_podTerminatingCount').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPodTerminatingCount.getAttribute('value');
             else
@@ -387,6 +465,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputPodsTerminating) {
           document.querySelectorAll('.Project_Page_podsTerminating').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPodsTerminating.getAttribute('value');
             else
@@ -397,6 +479,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputFullPvcsCount) {
           document.querySelectorAll('.Project_Page_fullPvcsCount').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputFullPvcsCount.getAttribute('value');
             else
@@ -407,6 +493,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputFullPvcs) {
           document.querySelectorAll('.Project_Page_fullPvcs').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputFullPvcs.getAttribute('value');
             else
@@ -417,6 +507,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputNamespaceTerminating) {
           document.querySelectorAll('.Project_Page_namespaceTerminating').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputNamespaceTerminating.getAttribute('value');
             else
@@ -427,6 +521,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputClassCanonicalName) {
           document.querySelectorAll('.Project_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalName.getAttribute('value');
             else
@@ -437,6 +535,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputClassSimpleName) {
           document.querySelectorAll('.Project_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassSimpleName.getAttribute('value');
             else
@@ -447,6 +549,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.Project_Page_classCanonicalNames').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalNames.getAttribute('value');
             else
@@ -457,6 +563,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputSessionId) {
           document.querySelectorAll('.Project_Page_sessionId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSessionId.getAttribute('value');
             else
@@ -467,6 +577,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputUserKey) {
           document.querySelectorAll('.Project_Page_userKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserKey.getAttribute('value');
             else
@@ -477,6 +591,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputSaves) {
           document.querySelectorAll('.Project_Page_saves').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSaves.getAttribute('value');
             else
@@ -487,6 +605,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputObjectTitle) {
           document.querySelectorAll('.Project_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectTitle.getAttribute('value');
             else
@@ -495,8 +617,26 @@ async function websocketProjectInner(apiRequest) {
           addGlow(document.querySelector('.Project_Page_objectTitle'));
         }
 
+        if(inputApiUrl) {
+          document.querySelectorAll('.Project_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_apiUrl'));
+        }
+
         if(inputDisplayPage) {
           document.querySelectorAll('.Project_Page_displayPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDisplayPage.getAttribute('value');
             else
@@ -507,6 +647,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputEditPage) {
           document.querySelectorAll('.Project_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEditPage.getAttribute('value');
             else
@@ -517,6 +661,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputUserPage) {
           document.querySelectorAll('.Project_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserPage.getAttribute('value');
             else
@@ -527,6 +675,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputDownload) {
           document.querySelectorAll('.Project_Page_download').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDownload.getAttribute('value');
             else
@@ -537,6 +689,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputObjectSuggest) {
           document.querySelectorAll('.Project_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectSuggest.getAttribute('value');
             else
@@ -547,6 +703,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputObjectText) {
           document.querySelectorAll('.Project_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectText.getAttribute('value');
             else
@@ -557,6 +717,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputSolrId) {
           document.querySelectorAll('.Project_Page_solrId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSolrId.getAttribute('value');
             else
@@ -567,6 +731,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputLocalClusterName) {
           document.querySelectorAll('.Project_Page_localClusterName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputLocalClusterName.getAttribute('value');
             else
@@ -577,6 +745,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputHubResource) {
           document.querySelectorAll('.Project_Page_hubResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputHubResource.getAttribute('value');
             else
@@ -587,6 +759,10 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputClusterResource) {
           document.querySelectorAll('.Project_Page_clusterResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClusterResource.getAttribute('value');
             else
@@ -597,12 +773,30 @@ async function websocketProjectInner(apiRequest) {
 
         if(inputProjectResource) {
           document.querySelectorAll('.Project_Page_projectResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputProjectResource.getAttribute('value');
             else
               item.textContent = inputProjectResource.textContent;
           });
           addGlow(document.querySelector('.Project_Page_projectResource'));
+        }
+
+        if(inputStatusPageTemplateUri) {
+          document.querySelectorAll('.Project_Page_statusPageTemplateUri').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputStatusPageTemplateUri.getAttribute('value');
+            else
+              item.textContent = inputStatusPageTemplateUri.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_statusPageTemplateUri'));
         }
 
           pageGraphProject();
@@ -896,6 +1090,10 @@ function searchProjectFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -939,6 +1137,10 @@ function searchProjectFilters($formFilters) {
     var filterProjectResource = $formFilters.querySelector('.valueProjectResource')?.value;
     if(filterProjectResource != null && filterProjectResource !== '')
       filters.push({ name: 'fq', value: 'projectResource:' + filterProjectResource });
+
+    var filterStatusPageTemplateUri = $formFilters.querySelector('.valueStatusPageTemplateUri')?.value;
+    if(filterStatusPageTemplateUri != null && filterStatusPageTemplateUri !== '')
+      filters.push({ name: 'fq', value: 'statusPageTemplateUri:' + filterStatusPageTemplateUri });
   }
   return filters;
 }
@@ -962,13 +1164,13 @@ function searchProjectVals(filters, target, success, error) {
     .catch(response => error(response, target));
 }
 
-function suggestProjectTenantResource(filters, $list, projectResource = null, tenantResource = null, relate=true, target) {
+function suggestProjectTenantResource(filters, $list, projectResourceProject = null, tenantResource = null, relate=true, target) {
   success = function( data, textStatus, jQxhr ) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
         var iTemplate = document.createElement('template');
-        iTemplate.innerHTML = '<i class="fa-regular fa-buildings"></i>';
+        iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-buildings"></i>';
         var $i = iTemplate.content;
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
@@ -983,19 +1185,19 @@ function suggestProjectTenantResource(filters, $list, projectResource = null, te
         var val = o[inputVar];
         var checked = val == null ? false : (tenantResource != null && val === tenantResource.toString());
         var $input = document.createElement('wa-checkbox');
-        $input.setAttribute('id', 'GET_tenantResource_' + projectResource + '_tenantResource_' + o[inputVar]);
+        $input.setAttribute('id', 'GET_tenantResource_' + projectResourceProject + '_tenantResource_' + o[inputVar]);
         $input.setAttribute('name', inputVar);
         $input.setAttribute('data-target', target.getAttribute('id'));
         $input.value = o[inputVar];
         $input.setAttribute('class', 'valueTenantResource ');
-        if(projectResource != null) {
+        if(projectResourceProject != null) {
           $input.addEventListener('change', function(event) {
             document.getElementById(event.target.getAttribute('data-target')).value = o[inputVar];
-            patchProjectVals([{ name: 'fq', value: 'projectResource:' + projectResource }], { [(event.target.checked ? 'set' : 'remove') + 'TenantResource']: o[inputVar] }
+            patchProjectVals([{ name: 'fq', value: 'projectResource:' + projectResourceProject }], { [(event.target.checked ? 'set' : 'remove') + 'TenantResource']: o[inputVar] }
                 , target
                 , function(response, target) {
                   addGlow(target);
-                  suggestProjectTenantResource(filters, $list, projectResource, o[inputVar], relate, target);
+                  suggestProjectTenantResource(filters, $list, projectResourceProject, o[inputVar], relate, target);
                 }
                 , function(response, target) { addError(target); }
             );
@@ -1026,13 +1228,13 @@ function suggestProjectTenantResource(filters, $list, projectResource = null, te
   }
 }
 
-function suggestProjectHubResource(filters, $list, projectResource = null, hubResource = null, relate=true, target) {
+function suggestProjectHubResource(filters, $list, projectResourceProject = null, hubResource = null, relate=true, target) {
   success = function( data, textStatus, jQxhr ) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
         var iTemplate = document.createElement('template');
-        iTemplate.innerHTML = '<i class="fa-regular fa-sitemap"></i>';
+        iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-sitemap"></i>';
         var $i = iTemplate.content;
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
@@ -1047,19 +1249,19 @@ function suggestProjectHubResource(filters, $list, projectResource = null, hubRe
         var val = o[inputVar];
         var checked = val == null ? false : (hubResource != null && val === hubResource.toString());
         var $input = document.createElement('wa-checkbox');
-        $input.setAttribute('id', 'GET_hubResource_' + projectResource + '_hubResource_' + o[inputVar]);
+        $input.setAttribute('id', 'GET_hubResource_' + projectResourceProject + '_hubResource_' + o[inputVar]);
         $input.setAttribute('name', inputVar);
         $input.setAttribute('data-target', target.getAttribute('id'));
         $input.value = o[inputVar];
         $input.setAttribute('class', 'valueHubResource ');
-        if(projectResource != null) {
+        if(projectResourceProject != null) {
           $input.addEventListener('change', function(event) {
             document.getElementById(event.target.getAttribute('data-target')).value = o[inputVar];
-            patchProjectVals([{ name: 'fq', value: 'projectResource:' + projectResource }], { [(event.target.checked ? 'set' : 'remove') + 'HubResource']: o[inputVar] }
+            patchProjectVals([{ name: 'fq', value: 'projectResource:' + projectResourceProject }], { [(event.target.checked ? 'set' : 'remove') + 'HubResource']: o[inputVar] }
                 , target
                 , function(response, target) {
                   addGlow(target);
-                  suggestProjectHubResource(filters, $list, projectResource, o[inputVar], relate, target);
+                  suggestProjectHubResource(filters, $list, projectResourceProject, o[inputVar], relate, target);
                 }
                 , function(response, target) { addError(target); }
             );
@@ -1090,13 +1292,13 @@ function suggestProjectHubResource(filters, $list, projectResource = null, hubRe
   }
 }
 
-function suggestProjectClusterResource(filters, $list, projectResource = null, clusterResource = null, relate=true, target) {
+function suggestProjectClusterResource(filters, $list, projectResourceProject = null, clusterResource = null, relate=true, target) {
   success = function( data, textStatus, jQxhr ) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
         var iTemplate = document.createElement('template');
-        iTemplate.innerHTML = '<i class="fa-regular fa-server"></i>';
+        iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-server"></i>';
         var $i = iTemplate.content;
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
@@ -1111,19 +1313,19 @@ function suggestProjectClusterResource(filters, $list, projectResource = null, c
         var val = o[inputVar];
         var checked = val == null ? false : (clusterResource != null && val === clusterResource.toString());
         var $input = document.createElement('wa-checkbox');
-        $input.setAttribute('id', 'GET_clusterResource_' + projectResource + '_clusterResource_' + o[inputVar]);
+        $input.setAttribute('id', 'GET_clusterResource_' + projectResourceProject + '_clusterResource_' + o[inputVar]);
         $input.setAttribute('name', inputVar);
         $input.setAttribute('data-target', target.getAttribute('id'));
         $input.value = o[inputVar];
         $input.setAttribute('class', 'valueClusterResource ');
-        if(projectResource != null) {
+        if(projectResourceProject != null) {
           $input.addEventListener('change', function(event) {
             document.getElementById(event.target.getAttribute('data-target')).value = o[inputVar];
-            patchProjectVals([{ name: 'fq', value: 'projectResource:' + projectResource }], { [(event.target.checked ? 'set' : 'remove') + 'ClusterResource']: o[inputVar] }
+            patchProjectVals([{ name: 'fq', value: 'projectResource:' + projectResourceProject }], { [(event.target.checked ? 'set' : 'remove') + 'ClusterResource']: o[inputVar] }
                 , target
                 , function(response, target) {
                   addGlow(target);
-                  suggestProjectClusterResource(filters, $list, projectResource, o[inputVar], relate, target);
+                  suggestProjectClusterResource(filters, $list, projectResourceProject, o[inputVar], relate, target);
                 }
                 , function(response, target) { addError(target); }
             );
@@ -1159,7 +1361,7 @@ function suggestProjectObjectSuggest($formFilters, $list, target) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
-        var $i = document.querySelector('<i class="fa-regular fa-people-line"></i>');
+        var $i = document.querySelector('<i class="{{ FONTAWESOME_STYLE }} fa-people-line"></i>');
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
         $span.innerText = o['objectTitle'];
@@ -1529,6 +1731,18 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
   var setDisplayPage = removeDisplayPage ? null : $formValues.querySelector('.setDisplayPage')?.value;
@@ -1608,6 +1822,18 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   var removeProjectResource = $formValues.querySelector('.removeProjectResource')?.value;
   if(removeProjectResource != null && removeProjectResource !== '')
     vals['removeProjectResource'] = removeProjectResource;
+
+  var valueStatusPageTemplateUri = $formValues.querySelector('.valueStatusPageTemplateUri')?.value;
+  var removeStatusPageTemplateUri = $formValues.querySelector('.removeStatusPageTemplateUri')?.value === 'true';
+  var setStatusPageTemplateUri = removeStatusPageTemplateUri ? null : $formValues.querySelector('.setStatusPageTemplateUri')?.value;
+  var addStatusPageTemplateUri = $formValues.querySelector('.addStatusPageTemplateUri')?.value;
+  if(removeStatusPageTemplateUri || setStatusPageTemplateUri != null && setStatusPageTemplateUri !== '')
+    vals['setStatusPageTemplateUri'] = setStatusPageTemplateUri;
+  if(addStatusPageTemplateUri != null && addStatusPageTemplateUri !== '')
+    vals['addStatusPageTemplateUri'] = addStatusPageTemplateUri;
+  var removeStatusPageTemplateUri = $formValues.querySelector('.removeStatusPageTemplateUri')?.value;
+  if(removeStatusPageTemplateUri != null && removeStatusPageTemplateUri !== '')
+    vals['removeStatusPageTemplateUri'] = removeStatusPageTemplateUri;
 
   patchProjectVals(projectResource == null ? deparam(window.location.search ? window.location.search.substring(1) : window.location.search) : [{name:'fq', value:'projectResource:' + projectResource}], vals, target, success, error);
 }
@@ -1763,6 +1989,10 @@ function patchProjectFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -1806,6 +2036,10 @@ function patchProjectFilters($formFilters) {
     var filterProjectResource = $formFilters.querySelector('.valueProjectResource')?.value;
     if(filterProjectResource != null && filterProjectResource !== '')
       filters.push({ name: 'fq', value: 'projectResource:' + filterProjectResource });
+
+    var filterStatusPageTemplateUri = $formFilters.querySelector('.valueStatusPageTemplateUri')?.value;
+    if(filterStatusPageTemplateUri != null && filterStatusPageTemplateUri !== '')
+      filters.push({ name: 'fq', value: 'statusPageTemplateUri:' + filterStatusPageTemplateUri });
   }
   return filters;
 }
@@ -1935,7 +2169,7 @@ async function postProject($formValues, target, success, error) {
 
   var valuePodsRestarting = $formValues.querySelector('.valuePodsRestarting')?.value;
   if(valuePodsRestarting != null && valuePodsRestarting !== '')
-    vals['podsRestarting'] = JSON.parse(valuePodsRestarting);
+    vals['podsRestarting'] = valuePodsRestarting;
 
   var valuePodTerminatingCount = $formValues.querySelector('.valuePodTerminatingCount')?.value;
   if(valuePodTerminatingCount != null && valuePodTerminatingCount !== '')
@@ -1943,7 +2177,7 @@ async function postProject($formValues, target, success, error) {
 
   var valuePodsTerminating = $formValues.querySelector('.valuePodsTerminating')?.value;
   if(valuePodsTerminating != null && valuePodsTerminating !== '')
-    vals['podsTerminating'] = JSON.parse(valuePodsTerminating);
+    vals['podsTerminating'] = valuePodsTerminating;
 
   var valueFullPvcsCount = $formValues.querySelector('.valueFullPvcsCount')?.value;
   if(valueFullPvcsCount != null && valueFullPvcsCount !== '')
@@ -1951,7 +2185,7 @@ async function postProject($formValues, target, success, error) {
 
   var valueFullPvcs = $formValues.querySelector('.valueFullPvcs')?.value;
   if(valueFullPvcs != null && valueFullPvcs !== '')
-    vals['fullPvcs'] = JSON.parse(valueFullPvcs);
+    vals['fullPvcs'] = valueFullPvcs;
 
   var valueNamespaceTerminating = $formValues.querySelector('.valueNamespaceTerminating')?.value;
   if(valueNamespaceTerminating != null && valueNamespaceTerminating !== '')
@@ -1968,6 +2202,10 @@ async function postProject($formValues, target, success, error) {
   var valueObjectTitle = $formValues.querySelector('.valueObjectTitle')?.value;
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
+
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
 
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
@@ -2000,6 +2238,10 @@ async function postProject($formValues, target, success, error) {
   var valueProjectResource = $formValues.querySelector('.valueProjectResource')?.value;
   if(valueProjectResource != null && valueProjectResource !== '')
     vals['projectResource'] = valueProjectResource;
+
+  var valueStatusPageTemplateUri = $formValues.querySelector('.valueStatusPageTemplateUri')?.value;
+  if(valueStatusPageTemplateUri != null && valueStatusPageTemplateUri !== '')
+    vals['statusPageTemplateUri'] = valueStatusPageTemplateUri;
 
   fetch(
     '/en-us/api/project'
@@ -2115,7 +2357,9 @@ function putimportProjectVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterProject(target, success, error) {
+async function deletefilterProject($formFilterstarget, success, error) {
+  var filters = deletefilterProjectFilters($formFilters);
+
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -2147,7 +2391,7 @@ async function deletefilterProject(target, success, error) {
   }
 
   fetch(
-    '/en-us/api/project'
+    '/en-us/api/project?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
       headers: {'Content-Type':'application/json; charset=utf-8'}
       , method: 'DELETE'
@@ -2159,4 +2403,209 @@ async function deletefilterProject(target, success, error) {
       }
     })
     .catch(response => error(response, target));
+}
+
+function deletefilterProjectFilters($formFilters) {
+  var filters = [];
+  if($formFilters) {
+
+    var filterPk = $formFilters.querySelector('.valuePk')?.value;
+    if(filterPk != null && filterPk !== '')
+      filters.push({ name: 'fq', value: 'pk:' + filterPk });
+
+    var filterCreated = $formFilters.querySelector('.valueCreated')?.value;
+    if(filterCreated != null && filterCreated !== '')
+      filters.push({ name: 'fq', value: 'created:' + filterCreated });
+
+    var filterModified = $formFilters.querySelector('.valueModified')?.value;
+    if(filterModified != null && filterModified !== '')
+      filters.push({ name: 'fq', value: 'modified:' + filterModified });
+
+    var $filterArchivedCheckbox = $formFilters.querySelector('input.valueArchived[type = "checkbox"]');
+    var $filterArchivedSelect = $formFilters.querySelector('select.valueArchived');
+    var filterArchived = $filterArchivedSelect.length ? $filterArchivedSelect.value : $filterArchivedCheckbox.checked;
+    var filterArchivedSelectVal = $formFilters.querySelector('select.filterArchived')?.value;
+    var filterArchived = null;
+    if(filterArchivedSelectVal !== '')
+      filterArchived = filterArchivedSelectVal == 'true';
+    if(filterArchived != null && filterArchived === true)
+      filters.push({ name: 'fq', value: 'archived:' + filterArchived });
+
+    var filterTenantResource = $formFilters.querySelector('.valueTenantResource')?.value;
+    if(filterTenantResource != null && filterTenantResource !== '')
+      filters.push({ name: 'fq', value: 'tenantResource:' + filterTenantResource });
+
+    var filterHubId = $formFilters.querySelector('.valueHubId')?.value;
+    if(filterHubId != null && filterHubId !== '')
+      filters.push({ name: 'fq', value: 'hubId:' + filterHubId });
+
+    var filterClusterName = $formFilters.querySelector('.valueClusterName')?.value;
+    if(filterClusterName != null && filterClusterName !== '')
+      filters.push({ name: 'fq', value: 'clusterName:' + filterClusterName });
+
+    var filterProjectName = $formFilters.querySelector('.valueProjectName')?.value;
+    if(filterProjectName != null && filterProjectName !== '')
+      filters.push({ name: 'fq', value: 'projectName:' + filterProjectName });
+
+    var filterProjectDisplayName = $formFilters.querySelector('.valueProjectDisplayName')?.value;
+    if(filterProjectDisplayName != null && filterProjectDisplayName !== '')
+      filters.push({ name: 'fq', value: 'projectDisplayName:' + filterProjectDisplayName });
+
+    var filterProjectTitle = $formFilters.querySelector('.valueProjectTitle')?.value;
+    if(filterProjectTitle != null && filterProjectTitle !== '')
+      filters.push({ name: 'fq', value: 'projectTitle:' + filterProjectTitle });
+
+    var filterDescription = $formFilters.querySelector('.valueDescription')?.value;
+    if(filterDescription != null && filterDescription !== '')
+      filters.push({ name: 'fq', value: 'description:' + filterDescription });
+
+    var filterProjectFieldOfScience = $formFilters.querySelector('.valueProjectFieldOfScience')?.value;
+    if(filterProjectFieldOfScience != null && filterProjectFieldOfScience !== '')
+      filters.push({ name: 'fq', value: 'projectFieldOfScience:' + filterProjectFieldOfScience });
+
+    var $filterProjectActiveCheckbox = $formFilters.querySelector('input.valueProjectActive[type = "checkbox"]');
+    var $filterProjectActiveSelect = $formFilters.querySelector('select.valueProjectActive');
+    var filterProjectActive = $filterProjectActiveSelect.length ? $filterProjectActiveSelect.value : $filterProjectActiveCheckbox.checked;
+    var filterProjectActiveSelectVal = $formFilters.querySelector('select.filterProjectActive')?.value;
+    var filterProjectActive = null;
+    if(filterProjectActiveSelectVal !== '')
+      filterProjectActive = filterProjectActiveSelectVal == 'true';
+    if(filterProjectActive != null && filterProjectActive === true)
+      filters.push({ name: 'fq', value: 'projectActive:' + filterProjectActive });
+
+    var $filterGpuEnabledCheckbox = $formFilters.querySelector('input.valueGpuEnabled[type = "checkbox"]');
+    var $filterGpuEnabledSelect = $formFilters.querySelector('select.valueGpuEnabled');
+    var filterGpuEnabled = $filterGpuEnabledSelect.length ? $filterGpuEnabledSelect.value : $filterGpuEnabledCheckbox.checked;
+    var filterGpuEnabledSelectVal = $formFilters.querySelector('select.filterGpuEnabled')?.value;
+    var filterGpuEnabled = null;
+    if(filterGpuEnabledSelectVal !== '')
+      filterGpuEnabled = filterGpuEnabledSelectVal == 'true';
+    if(filterGpuEnabled != null && filterGpuEnabled === true)
+      filters.push({ name: 'fq', value: 'gpuEnabled:' + filterGpuEnabled });
+
+    var $filterVllmEnabledCheckbox = $formFilters.querySelector('input.valueVllmEnabled[type = "checkbox"]');
+    var $filterVllmEnabledSelect = $formFilters.querySelector('select.valueVllmEnabled');
+    var filterVllmEnabled = $filterVllmEnabledSelect.length ? $filterVllmEnabledSelect.value : $filterVllmEnabledCheckbox.checked;
+    var filterVllmEnabledSelectVal = $formFilters.querySelector('select.filterVllmEnabled')?.value;
+    var filterVllmEnabled = null;
+    if(filterVllmEnabledSelectVal !== '')
+      filterVllmEnabled = filterVllmEnabledSelectVal == 'true';
+    if(filterVllmEnabled != null && filterVllmEnabled === true)
+      filters.push({ name: 'fq', value: 'vllmEnabled:' + filterVllmEnabled });
+
+    var filterPodRestartCount = $formFilters.querySelector('.valuePodRestartCount')?.value;
+    if(filterPodRestartCount != null && filterPodRestartCount !== '')
+      filters.push({ name: 'fq', value: 'podRestartCount:' + filterPodRestartCount });
+
+    var filterPodsRestarting = $formFilters.querySelector('.valuePodsRestarting')?.value;
+    if(filterPodsRestarting != null && filterPodsRestarting !== '')
+      filters.push({ name: 'fq', value: 'podsRestarting:' + filterPodsRestarting });
+
+    var filterPodTerminatingCount = $formFilters.querySelector('.valuePodTerminatingCount')?.value;
+    if(filterPodTerminatingCount != null && filterPodTerminatingCount !== '')
+      filters.push({ name: 'fq', value: 'podTerminatingCount:' + filterPodTerminatingCount });
+
+    var filterPodsTerminating = $formFilters.querySelector('.valuePodsTerminating')?.value;
+    if(filterPodsTerminating != null && filterPodsTerminating !== '')
+      filters.push({ name: 'fq', value: 'podsTerminating:' + filterPodsTerminating });
+
+    var filterFullPvcsCount = $formFilters.querySelector('.valueFullPvcsCount')?.value;
+    if(filterFullPvcsCount != null && filterFullPvcsCount !== '')
+      filters.push({ name: 'fq', value: 'fullPvcsCount:' + filterFullPvcsCount });
+
+    var filterFullPvcs = $formFilters.querySelector('.valueFullPvcs')?.value;
+    if(filterFullPvcs != null && filterFullPvcs !== '')
+      filters.push({ name: 'fq', value: 'fullPvcs:' + filterFullPvcs });
+
+    var $filterNamespaceTerminatingCheckbox = $formFilters.querySelector('input.valueNamespaceTerminating[type = "checkbox"]');
+    var $filterNamespaceTerminatingSelect = $formFilters.querySelector('select.valueNamespaceTerminating');
+    var filterNamespaceTerminating = $filterNamespaceTerminatingSelect.length ? $filterNamespaceTerminatingSelect.value : $filterNamespaceTerminatingCheckbox.checked;
+    var filterNamespaceTerminatingSelectVal = $formFilters.querySelector('select.filterNamespaceTerminating')?.value;
+    var filterNamespaceTerminating = null;
+    if(filterNamespaceTerminatingSelectVal !== '')
+      filterNamespaceTerminating = filterNamespaceTerminatingSelectVal == 'true';
+    if(filterNamespaceTerminating != null && filterNamespaceTerminating === true)
+      filters.push({ name: 'fq', value: 'namespaceTerminating:' + filterNamespaceTerminating });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
+    if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
+
+    var filterSessionId = $formFilters.querySelector('.valueSessionId')?.value;
+    if(filterSessionId != null && filterSessionId !== '')
+      filters.push({ name: 'fq', value: 'sessionId:' + filterSessionId });
+
+    var filterUserKey = $formFilters.querySelector('.valueUserKey')?.value;
+    if(filterUserKey != null && filterUserKey !== '')
+      filters.push({ name: 'fq', value: 'userKey:' + filterUserKey });
+
+    var filterSaves = $formFilters.querySelector('.valueSaves')?.value;
+    if(filterSaves != null && filterSaves !== '')
+      filters.push({ name: 'fq', value: 'saves:' + filterSaves });
+
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
+    if(filterDisplayPage != null && filterDisplayPage !== '')
+      filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
+    if(filterDownload != null && filterDownload !== '')
+      filters.push({ name: 'fq', value: 'download:' + filterDownload });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
+    if(filterSolrId != null && filterSolrId !== '')
+      filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterLocalClusterName = $formFilters.querySelector('.valueLocalClusterName')?.value;
+    if(filterLocalClusterName != null && filterLocalClusterName !== '')
+      filters.push({ name: 'fq', value: 'localClusterName:' + filterLocalClusterName });
+
+    var filterHubResource = $formFilters.querySelector('.valueHubResource')?.value;
+    if(filterHubResource != null && filterHubResource !== '')
+      filters.push({ name: 'fq', value: 'hubResource:' + filterHubResource });
+
+    var filterClusterResource = $formFilters.querySelector('.valueClusterResource')?.value;
+    if(filterClusterResource != null && filterClusterResource !== '')
+      filters.push({ name: 'fq', value: 'clusterResource:' + filterClusterResource });
+
+    var filterProjectResource = $formFilters.querySelector('.valueProjectResource')?.value;
+    if(filterProjectResource != null && filterProjectResource !== '')
+      filters.push({ name: 'fq', value: 'projectResource:' + filterProjectResource });
+
+    var filterStatusPageTemplateUri = $formFilters.querySelector('.valueStatusPageTemplateUri')?.value;
+    if(filterStatusPageTemplateUri != null && filterStatusPageTemplateUri !== '')
+      filters.push({ name: 'fq', value: 'statusPageTemplateUri:' + filterStatusPageTemplateUri });
+  }
+  return filters;
 }

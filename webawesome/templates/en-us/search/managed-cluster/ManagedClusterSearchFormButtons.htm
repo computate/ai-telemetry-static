@@ -1,64 +1,60 @@
 
-{%- macro htmButton_patchManagedCluster() %}<wa-button variant="brand" id="htmButton_patchManagedCluster"  data-dialog="open patchManagedClusterDialog" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{%- endmacro %}
+          {% macro htmButton_patchManagedCluster() -%}<wa-button variant="brand" id="htmButton_patchManagedCluster"  data-dialog="open patchManagedClusterDialog" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{% endmacro -%}
 
-{%- macro htmButton_postManagedCluster() %}<wa-button variant="brand" id="htmButton_postManagedCluster"  data-dialog="open postManagedClusterDialog" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{%- endmacro %}
+          {% macro htmButton_postManagedCluster() -%}<wa-button variant="brand" id="htmButton_postManagedCluster"  data-dialog="open postManagedClusterDialog" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{% endmacro -%}
 
-{%- macro htmButton_deleteManagedCluster() %}<wa-button variant="brand" id="htmButton_deleteManagedCluster" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+          {% macro htmButton_deleteManagedCluster() -%}<wa-button variant="brand" id="htmButton_deleteManagedCluster" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
 
-{%- macro htmButton_putimportManagedCluster() %}<wa-button variant="brand" id="htmButton_putimportManagedCluster"  data-dialog="open putimportManagedClusterDialog" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{%- endmacro %}
+          {% macro htmButton_putimportManagedCluster() -%}<wa-button variant="brand" id="htmButton_putimportManagedCluster"  data-dialog="open putimportManagedClusterDialog" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{% endmacro -%}
 
-{%- macro htmButton_deletefilterManagedCluster() %}<wa-button variant="brand" id="htmButton_deletefilterManagedCluster" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{%- endmacro %}
+          {% macro htmButton_deletefilterManagedCluster() -%}<wa-button variant="brand" id="htmButton_deletefilterManagedCluster" data-id={{ result.id | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
           <div id="htmSearchForm">
             <wa-scroller>
               <wa-button-group>
-{% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {% if "PATCH" in scopes %}
-    {% if resultCount >= 1 %}
+                {% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+                {% if "PATCH" in scopes %}
+                {% if resultCount >= 1 %}
                 <wa-button variant="brand" id="refreshThisManagedClusterGenPage"
-                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'id:{{ result.id }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisManagedClusterGenPage')); }, function() { addError(document.querySelector('#refreshThisManagedClusterGenPage')); }); return false; ">
+                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'id:{{ result.id }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisManagedClusterGenPage')); }, function(response, target) { addError(document.querySelector('#refreshThisManagedClusterGenPage'), response); }); return false; ">
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-sync-alt "></i>
                   refresh
                 </wa-button>
-    {% endif %}
-    {% if resultCount > 0 %}
+                {% endif %}
+                {% if resultCount > 0 %}
                 <wa-button variant="brand" id="refreshAllManagedClusterGenPage{{ result.id | e }}"
-                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllManagedClusterGenPage{{ result.id | e }}')); }, function() { addError(document.querySelector('#refreshAllManagedClusterGenPage{{ result.id | e }}')); }); "
+                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllManagedClusterGenPage{{ result.id | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllManagedClusterGenPage{{ result.id | e }}')response); }); "
                     >
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrows-rotate"></i>
                   refresh all 
                 </wa-button>
-    {% endif %}
-  {% endif %}
-{% endif %}
-{%- if 'PATCH' in scopes %}
-  {%- if resultCount > 0 %}
-    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-    {{ htmButton_patchManagedCluster() }}
-    {%- endif %}
-  {%- endif %}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmButton_postManagedCluster() }}
-  {%- else %}
-    {{ htmButton_postManagedCluster() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if result is defined %}
-    {{ htmButton_deleteManagedCluster() }}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmButton_putimportManagedCluster() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if result is not defined %}
-    {%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-    {{ htmButton_deletefilterManagedCluster() }}
-    {%- endif %}
-  {%- endif %}
-{%- endif %}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'PATCH' in scopes -%}
+                {%- if resultCount > 0 -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_patchManagedCluster() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'POST' in scopes -%}
+                {{ htmButton_postManagedCluster() -}}
+                {% endif -%}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is defined -%}
+                {{ htmButton_deleteManagedCluster() -}}
+                {% endif -%}
+                {% endif -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_putimportManagedCluster() -}}
+                {%- endif %}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is not defined -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_deletefilterManagedCluster() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
 
               </wa-button-group>
             </wa-scroller>

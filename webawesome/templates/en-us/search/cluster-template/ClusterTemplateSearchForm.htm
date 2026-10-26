@@ -1,26 +1,26 @@
 {% include en-us/search/cluster-template/ClusterTemplateSearchFormMacros.htm %}
-{%- if 'DELETE' in scopes %}
-    {{ htmForm_patchClusterTemplate() }}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_postClusterTemplate() }}
-  {%- else %}
-    {{ htmForm_postClusterTemplate() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deleteClusterTemplate() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmForm_putimportClusterTemplate() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deletefilterClusterTemplate() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
+        {% if 'DELETE' in scopes -%}
+        {{ htmForm_patchClusterTemplate() -}}
+        {% endif -%}
+        {% if 'POST' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_postClusterTemplate() -}}
+        {% else -%}
+        {{ htmForm_postClusterTemplate() -}}
+        {% endif -%}
+        {% endif -%}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deleteClusterTemplate() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}
+        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+        {{ htmForm_putimportClusterTemplate() -}}
+        {% endif %}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deletefilterClusterTemplate() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}

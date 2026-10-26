@@ -112,12 +112,16 @@
       }
     </script>
     <script type="module">
-{% if DEFAULT_MAP_LOCATION is defined %}
-      window.DEFAULT_MAP_LOCATION = { type: 'Point', coordinates: [ {{ DEFAULT_MAP_LOCATION.coordinates[0] }}, {{ DEFAULT_MAP_LOCATION.coordinates[1] }} ]};
+{% if location is defined %}
+      window.mapLocation = { type: 'Point', coordinates: [ {{ location.coordinates[0] }}, {{ location.coordinates[1] }} ]};
 {% endif %}
-{% if DEFAULT_MAP_ZOOM is defined %}
-      window.DEFAULT_MAP_ZOOM = {{ DEFAULT_MAP_ZOOM }};
+{% if zoom is defined %}
+      window.mapZoom = {{ zoom }};
 {% endif %}
+{% if pitch is defined %}
+      window.mapPitch = {{ toDegree(pitch) }};
+{% endif %}
+      window.STATIC_BASE_URL = '{{ STATIC_BASE_URL }}';
       window.DEFAULT_ZONE_ID = '{{ defaultZoneId }}';
       Promise.all([
         customElements.whenDefined('wa-button')
@@ -131,6 +135,14 @@
 
         var projectResource = {% if result.projectResource is defined %}{{ result.projectResource | tojson }}{% else %}null{% endif %};
 
+        document.querySelector('#postTenantDialog')?.addEventListener('wa-show', (event) => {
+          event.target.querySelectorAll('.searchRelated').forEach(child => {
+            if(child.value !== '') {
+              const focusEvent = new Event('focus', { bubbles: true });
+              child.dispatchEvent(focusEvent);
+            }
+          });
+        });
         if(projectResource == null) {
           document.querySelector('#grid-toggle-details')?.addEventListener('click', () => {
             document.querySelector('#site-results-grid').classList.remove('grid-mode-list', 'grid-mode-card');
@@ -248,8 +260,8 @@
                 , { 'name': 'rows', 'value': '10' }
                 , { 'name': 'fl', 'value': 'classCanonicalName,hubId,pk,editPage,objectTitle' } ]
                 , document.querySelector('#' + event.target.getAttribute('data-list'))
-                , event.target.getAttribute('data-method') === 'Page' ? window.result.projectResource : null
-                , event.target.getAttribute('data-method') === 'Page' ? window.result.hubResource : null
+                , (event.target.getAttribute('data-method') === 'Page' || event.target.getAttribute('data-method') === 'POST') ? window.result.projectResource : null
+                , (event.target.getAttribute('data-method') === 'Page' || event.target.getAttribute('data-method') === 'POST') ? window.result.hubResource : null
                 , true
                 , document.querySelector('#Cluster_POST_hubResource_Project_POST_clusterResource')
                 );
@@ -288,10 +300,6 @@
 
         var submitForm_patchProject = document.querySelector('#htmForm_patchProject')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_patchProject')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           patchProject(null, document.querySelector('#htmForm_patchProject')
               , document.querySelector('#htmFormButton_patchProject')
@@ -324,10 +332,6 @@
 
         var submitForm_postProject = document.querySelector('#htmForm_postProject')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_postProject')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           postProject(document.querySelector('#htmForm_postProject')
               , document.querySelector('#htmFormButton_postProject')
@@ -359,10 +363,6 @@
 
         var submitForm_deleteProject = document.querySelector('#htmForm_deleteProject')?.addEventListener('submit', event => {
           event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deleteProject')?.addEventListener('click', event => {
-          event.preventDefault();
           event.target.setAttribute('loading', true);
           deleteProject(event.target, event.target.getAttribute('data-projectResource')
               , (json, target) => {
@@ -392,10 +392,6 @@
         });
 
         var submitForm_putimportProject = document.querySelector('#htmForm_putimportProject')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_putimportProject')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           putimportProject(document.querySelector('#htmForm_putimportProject')
@@ -427,22 +423,7 @@
           return false;
         });
 
-        var submitForm_searchpageProject = document.querySelector('#htmForm_searchpageProject')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_searchpageProject')?.addEventListener('click', event => {
-          event.preventDefault();
-          event.target.setAttribute('loading', true);
-          searchpageProject();
-          return false;
-        });
-
         var submitForm_deletefilterProject = document.querySelector('#htmForm_deletefilterProject')?.addEventListener('submit', event => {
-          event.preventDefault();
-          return false;
-        });
-        document.querySelector('#htmFormButton_deletefilterProject')?.addEventListener('click', event => {
           event.preventDefault();
           event.target.setAttribute('loading', true);
           deletefilterProject(event.target
@@ -472,7 +453,7 @@
           return false;
         });
 
-        document.querySelector('#htmFormButton_postTenant')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postTenant')?.addEventListener('submit', event => {
           event.preventDefault();
           postTenant(document.querySelector('#htmForm_postTenant')
               , document.querySelector('#htmFormButton_postTenant')
@@ -503,7 +484,7 @@
           });
         });
 
-        document.querySelector('#htmFormButton_postHub')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postHub')?.addEventListener('submit', event => {
           event.preventDefault();
           postHub(document.querySelector('#htmForm_postHub')
               , document.querySelector('#htmFormButton_postHub')
@@ -534,7 +515,7 @@
           });
         });
 
-        document.querySelector('#htmFormButton_postCluster')?.addEventListener('click', event => {
+        document.querySelector('#htmForm_postCluster')?.addEventListener('submit', event => {
           event.preventDefault();
           postCluster(document.querySelector('#htmForm_postCluster')
               , document.querySelector('#htmFormButton_postCluster')
@@ -597,7 +578,7 @@
               <wa-tooltip for="return-to-Project">back to all projects</wa-tooltip>
               <wa-breadcrumb>
                 <wa-breadcrumb-item id="return-to-Project" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-                  <i class="fa-regular fa-people-line"></i>
+                  <i class="{{ FONTAWESOME_STYLE }} fa-people-line"></i>
                   all projects
                 </wa-breadcrumb-item>
                 <wa-breadcrumb-item>
@@ -612,7 +593,10 @@
 {%- block htmBodyStartProjectPage %}
 {% if resultCount > 0 %}
           <div class="wa-flank ">
-            <h1 class="Page_objectTitle"><i class="fa-regular fa-people-line"></i> {{ result.objectTitle | e }}</h1>
+            <h1 id="Page_objectTitle" class="Page_objectTitle">
+              <i class="{{ FONTAWESOME_STYLE }} fa-people-line"></i>
+               {{ result.objectTitle | e }}
+            </h1>
           </div>
 {% endif %}
 {% include en-us/search/project/ProjectSearchForm.htm %}
@@ -628,7 +612,7 @@
           <wa-tooltip for="return-to-Project">back to all projects</wa-tooltip></wa-tooltip>
           <wa-breadcrumb>
             <wa-breadcrumb-item id="return-to-Project" variant="brand" href="{{ SITE_BASE_URL }}{{ pageUri }}">
-              <i class="fa-regular fa-people-line"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-people-line"></i>
               all projects
             </wa-breadcrumb-item>
             <wa-breadcrumb-item>
@@ -637,7 +621,7 @@
           </wa-breadcrumb>
           <div class="wa-stack wa-align-items-center ">
             <div class="wa-heading-3xl ">
-              <i class="fa-regular fa-people-line"></i>
+              <i class="{{ FONTAWESOME_STYLE }} fa-people-line"></i>
             </div>
             <span class="wa-heading-m ">no project found</span>
             <p class="wa-caption-l ">A research project using AI and GPUs</p>

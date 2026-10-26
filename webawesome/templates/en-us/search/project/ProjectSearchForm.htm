@@ -2,28 +2,28 @@
 {% include en-us/search/tenant/TenantSearchFormMacros.htm %}
 {% include en-us/search/hub/HubSearchFormMacros.htm %}
 {% include en-us/search/cluster/ClusterSearchFormMacros.htm %}
-{%- if 'DELETE' in scopes %}
-    {{ htmForm_patchProject() }}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_postProject() }}
-  {%- else %}
-    {{ htmForm_postProject() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deleteProject() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmForm_putimportProject() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deletefilterProject() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
+        {% if 'DELETE' in scopes -%}
+        {{ htmForm_patchProject() -}}
+        {% endif -%}
+        {% if 'POST' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_postProject() -}}
+        {% else -%}
+        {{ htmForm_postProject() -}}
+        {% endif -%}
+        {% endif -%}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deleteProject() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}
+        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+        {{ htmForm_putimportProject() -}}
+        {% endif %}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deletefilterProject() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}

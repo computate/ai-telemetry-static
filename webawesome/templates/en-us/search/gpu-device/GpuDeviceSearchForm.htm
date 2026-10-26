@@ -2,28 +2,28 @@
 {% include en-us/search/hub/HubSearchFormMacros.htm %}
 {% include en-us/search/cluster/ClusterSearchFormMacros.htm %}
 {% include en-us/search/ai-node/AiNodeSearchFormMacros.htm %}
-{%- if 'DELETE' in scopes %}
-    {{ htmForm_patchGpuDevice() }}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_postGpuDevice() }}
-  {%- else %}
-    {{ htmForm_postGpuDevice() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deleteGpuDevice() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmForm_putimportGpuDevice() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deletefilterGpuDevice() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
+        {% if 'DELETE' in scopes -%}
+        {{ htmForm_patchGpuDevice() -}}
+        {% endif -%}
+        {% if 'POST' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_postGpuDevice() -}}
+        {% else -%}
+        {{ htmForm_postGpuDevice() -}}
+        {% endif -%}
+        {% endif -%}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deleteGpuDevice() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}
+        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+        {{ htmForm_putimportGpuDevice() -}}
+        {% endif %}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deletefilterGpuDevice() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}

@@ -208,6 +208,27 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
+          // PATCH apiUrl
+          document.querySelector('#Tenant_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchTenantVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'tenantId:' + event.currentTarget.getAttribute('data-tenantId') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Tenant_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Tenant_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.reportValidity();
+          });
+
           // PATCH displayPage
           document.querySelector('#Tenant_Page_displayPage')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_displayPage');
@@ -292,6 +313,27 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
+          // PATCH clusterName
+          document.querySelector('#Tenant_Page_clusterName')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_clusterName');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchTenantVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'tenantId:' + event.currentTarget.getAttribute('data-tenantId') }]
+                  , 'setClusterName', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Tenant_Page_clusterName')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Tenant_Page_clusterName')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_clusterName');
+            const valid = form.reportValidity();
+          });
+
           // PATCH tenantResource
           document.querySelector('#Tenant_Page_tenantResource')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_tenantResource');
@@ -331,27 +373,6 @@ Promise.all([
           });
           document.querySelector('#Tenant_Page_hubId')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_hubId');
-            const valid = form.reportValidity();
-          });
-
-          // PATCH clusterName
-          document.querySelector('#Tenant_Page_clusterName')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_clusterName');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchTenantVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'tenantId:' + event.currentTarget.getAttribute('data-tenantId') }]
-                  , 'setClusterName', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#Tenant_Page_clusterName')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Tenant_Page_clusterName')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_clusterName');
             const valid = form.reportValidity();
           });
 });

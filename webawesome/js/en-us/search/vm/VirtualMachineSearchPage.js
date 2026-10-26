@@ -275,6 +275,17 @@ Promise.all([
     facetStatsChange('VirtualMachine', 'objectTitle', false);
   });
 
+  document.querySelector('#pageSelectSortVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'apiUrl', false);
+  });
+
   document.querySelector('#pageSelectSortVirtualMachine_displayPage')?.addEventListener('change', (event) => {
     sort('VirtualMachine', 'displayPage', event.currentTarget.value);
   });
@@ -662,6 +673,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndVirtualMachine_location')?.addEventListener('change', (event) => {
             facetRangeEndChange('VirtualMachine', event.currentTarget);
           });
+          document.querySelector('#fqVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
+          });
+          document.querySelector('#buttonFacetVirtualMachine_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('VirtualMachine', event.currentTarget);
+          });
           document.querySelector('#fqVirtualMachine_displayPage')?.addEventListener('change', (event) => {
             fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
           });
@@ -771,7 +800,8 @@ Promise.all([
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
       deletefilterVirtualMachine(
-          event.currentTarget
+          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'vmResource:' + event.currentTarget.getAttribute('data-vmResource') }]
+          , event.currentTarget
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

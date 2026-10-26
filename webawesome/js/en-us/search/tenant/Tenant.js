@@ -24,7 +24,7 @@ async function websocketTenant(success) {
       $header.setAttribute('class', 'w3-container fa- ');
       $header.setAttribute('id', 'header-' + tenantId);
       var iTemplate = document.createElement('template');
-      iTemplate.innerHTML = '<i class="fa-regular fa-buildings"></i>';
+      iTemplate.innerHTML = '<i class="' + window.FONTAWESOME_STYLE + ' fa-buildings"></i>';
       var $i = iTemplate.content;
       var $headerSpan = document.createElement('span');
       $headerSpan.setAttribute('class', '');
@@ -93,6 +93,7 @@ async function websocketTenantInner(apiRequest) {
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
+        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
         var inputUserPage = null;
@@ -100,9 +101,9 @@ async function websocketTenantInner(apiRequest) {
         var inputObjectSuggest = null;
         var inputObjectText = null;
         var inputSolrId = null;
+        var inputClusterName = null;
         var inputTenantResource = null;
         var inputHubId = null;
-        var inputClusterName = null;
 
         if(vars.includes('pk'))
           inputPk = $response.querySelector('.Tenant_Page_pk');
@@ -134,6 +135,8 @@ async function websocketTenantInner(apiRequest) {
           inputSaves = $response.querySelector('.Tenant_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.Tenant_Page_objectTitle');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.Tenant_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.Tenant_Page_displayPage');
         if(vars.includes('editPage'))
@@ -148,20 +151,24 @@ async function websocketTenantInner(apiRequest) {
           inputObjectText = $response.querySelector('.Tenant_Page_objectText');
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.Tenant_Page_solrId');
+        if(vars.includes('clusterName'))
+          inputClusterName = $response.querySelector('.Tenant_Page_clusterName');
         if(vars.includes('tenantResource'))
           inputTenantResource = $response.querySelector('.Tenant_Page_tenantResource');
         if(vars.includes('hubId'))
           inputHubId = $response.querySelector('.Tenant_Page_hubId');
-        if(vars.includes('clusterName'))
-          inputClusterName = $response.querySelector('.Tenant_Page_clusterName');
 
-        jsWebsocketTenant(tenantId, vars, $response);
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listTenant = JSON.parse($response.querySelector('.pageForm .listTenant')?.value);
+        jsWebsocketTenant(tenantId, vars, $response);
 
 
         if(inputPk) {
           document.querySelectorAll('.Tenant_Page_pk').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPk.getAttribute('value');
             else
@@ -172,6 +179,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputCreated) {
           document.querySelectorAll('.Tenant_Page_created').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputCreated.getAttribute('value');
             else
@@ -182,6 +193,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputModified) {
           document.querySelectorAll('.Tenant_Page_modified').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputModified.getAttribute('value');
             else
@@ -192,6 +207,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputArchived) {
           document.querySelectorAll('.Tenant_Page_archived').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputArchived.getAttribute('value');
             else
@@ -202,6 +221,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputTenantName) {
           document.querySelectorAll('.Tenant_Page_tenantName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputTenantName.getAttribute('value');
             else
@@ -212,6 +235,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputTenantId) {
           document.querySelectorAll('.Tenant_Page_tenantId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputTenantId.getAttribute('value');
             else
@@ -222,6 +249,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputDescription) {
           document.querySelectorAll('.Tenant_Page_description').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDescription.getAttribute('value');
             else
@@ -232,6 +263,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputPageId) {
           document.querySelectorAll('.Tenant_Page_pageId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputPageId.getAttribute('value');
             else
@@ -242,6 +277,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputClassCanonicalName) {
           document.querySelectorAll('.Tenant_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalName.getAttribute('value');
             else
@@ -252,6 +291,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputClassSimpleName) {
           document.querySelectorAll('.Tenant_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassSimpleName.getAttribute('value');
             else
@@ -262,6 +305,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.Tenant_Page_classCanonicalNames').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputClassCanonicalNames.getAttribute('value');
             else
@@ -272,6 +319,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputSessionId) {
           document.querySelectorAll('.Tenant_Page_sessionId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSessionId.getAttribute('value');
             else
@@ -282,6 +333,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputUserKey) {
           document.querySelectorAll('.Tenant_Page_userKey').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserKey.getAttribute('value');
             else
@@ -292,6 +347,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputSaves) {
           document.querySelectorAll('.Tenant_Page_saves').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSaves.getAttribute('value');
             else
@@ -302,6 +361,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputObjectTitle) {
           document.querySelectorAll('.Tenant_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectTitle.getAttribute('value');
             else
@@ -310,8 +373,26 @@ async function websocketTenantInner(apiRequest) {
           addGlow(document.querySelector('.Tenant_Page_objectTitle'));
         }
 
+        if(inputApiUrl) {
+          document.querySelectorAll('.Tenant_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.Tenant_Page_apiUrl'));
+        }
+
         if(inputDisplayPage) {
           document.querySelectorAll('.Tenant_Page_displayPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDisplayPage.getAttribute('value');
             else
@@ -322,6 +403,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputEditPage) {
           document.querySelectorAll('.Tenant_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputEditPage.getAttribute('value');
             else
@@ -332,6 +417,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputUserPage) {
           document.querySelectorAll('.Tenant_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputUserPage.getAttribute('value');
             else
@@ -342,6 +431,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputDownload) {
           document.querySelectorAll('.Tenant_Page_download').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputDownload.getAttribute('value');
             else
@@ -352,6 +445,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputObjectSuggest) {
           document.querySelectorAll('.Tenant_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectSuggest.getAttribute('value');
             else
@@ -362,6 +459,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputObjectText) {
           document.querySelectorAll('.Tenant_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputObjectText.getAttribute('value');
             else
@@ -372,6 +473,10 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputSolrId) {
           document.querySelectorAll('.Tenant_Page_solrId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputSolrId.getAttribute('value');
             else
@@ -380,8 +485,26 @@ async function websocketTenantInner(apiRequest) {
           addGlow(document.querySelector('.Tenant_Page_solrId'));
         }
 
+        if(inputClusterName) {
+          document.querySelectorAll('.Tenant_Page_clusterName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputClusterName.getAttribute('value');
+            else
+              item.textContent = inputClusterName.textContent;
+          });
+          addGlow(document.querySelector('.Tenant_Page_clusterName'));
+        }
+
         if(inputTenantResource) {
           document.querySelectorAll('.Tenant_Page_tenantResource').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputTenantResource.getAttribute('value');
             else
@@ -392,22 +515,16 @@ async function websocketTenantInner(apiRequest) {
 
         if(inputHubId) {
           document.querySelectorAll('.Tenant_Page_hubId').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
             if(typeof item.value !== 'undefined')
               item.value = inputHubId.getAttribute('value');
             else
               item.textContent = inputHubId.textContent;
           });
           addGlow(document.querySelector('.Tenant_Page_hubId'));
-        }
-
-        if(inputClusterName) {
-          document.querySelectorAll('.Tenant_Page_clusterName').forEach((item, index) => {
-            if(typeof item.value !== 'undefined')
-              item.value = inputClusterName.getAttribute('value');
-            else
-              item.textContent = inputClusterName.textContent;
-          });
-          addGlow(document.querySelector('.Tenant_Page_clusterName'));
         }
 
           pageGraphTenant();
@@ -621,6 +738,10 @@ function searchTenantFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -649,6 +770,10 @@ function searchTenantFilters($formFilters) {
     if(filterSolrId != null && filterSolrId !== '')
       filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
 
+    var filterClusterName = $formFilters.querySelector('.valueClusterName')?.value;
+    if(filterClusterName != null && filterClusterName !== '')
+      filters.push({ name: 'fq', value: 'clusterName:' + filterClusterName });
+
     var filterTenantResource = $formFilters.querySelector('.valueTenantResource')?.value;
     if(filterTenantResource != null && filterTenantResource !== '')
       filters.push({ name: 'fq', value: 'tenantResource:' + filterTenantResource });
@@ -656,10 +781,6 @@ function searchTenantFilters($formFilters) {
     var filterHubId = $formFilters.querySelector('.valueHubId')?.value;
     if(filterHubId != null && filterHubId !== '')
       filters.push({ name: 'fq', value: 'hubId:' + filterHubId });
-
-    var filterClusterName = $formFilters.querySelector('.valueClusterName')?.value;
-    if(filterClusterName != null && filterClusterName !== '')
-      filters.push({ name: 'fq', value: 'clusterName:' + filterClusterName });
   }
   return filters;
 }
@@ -687,7 +808,7 @@ function suggestTenantObjectSuggest($formFilters, $list, target) {
     if($list) {
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
-        var $i = document.querySelector('<i class="fa-regular fa-buildings"></i>');
+        var $i = document.querySelector('<i class="{{ FONTAWESOME_STYLE }} fa-buildings"></i>');
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
         $span.innerText = o['objectTitle'];
@@ -869,6 +990,18 @@ async function patchTenant($formFilters, $formValues, target, tenantId, success,
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
   var setDisplayPage = removeDisplayPage ? null : $formValues.querySelector('.setDisplayPage')?.value;
@@ -917,6 +1050,18 @@ async function patchTenant($formFilters, $formValues, target, tenantId, success,
   if(removeDownload != null && removeDownload !== '')
     vals['removeDownload'] = removeDownload;
 
+  var valueClusterName = $formValues.querySelector('.valueClusterName')?.value;
+  var removeClusterName = $formValues.querySelector('.removeClusterName')?.value === 'true';
+  var setClusterName = removeClusterName ? null : $formValues.querySelector('.setClusterName')?.value;
+  var addClusterName = $formValues.querySelector('.addClusterName')?.value;
+  if(removeClusterName || setClusterName != null && setClusterName !== '')
+    vals['setClusterName'] = setClusterName;
+  if(addClusterName != null && addClusterName !== '')
+    vals['addClusterName'] = addClusterName;
+  var removeClusterName = $formValues.querySelector('.removeClusterName')?.value;
+  if(removeClusterName != null && removeClusterName !== '')
+    vals['removeClusterName'] = removeClusterName;
+
   var valueTenantResource = $formValues.querySelector('.valueTenantResource')?.value;
   var removeTenantResource = $formValues.querySelector('.removeTenantResource')?.value === 'true';
   var setTenantResource = removeTenantResource ? null : $formValues.querySelector('.setTenantResource')?.value;
@@ -940,18 +1085,6 @@ async function patchTenant($formFilters, $formValues, target, tenantId, success,
   var removeHubId = $formValues.querySelector('.removeHubId')?.value;
   if(removeHubId != null && removeHubId !== '')
     vals['removeHubId'] = removeHubId;
-
-  var valueClusterName = $formValues.querySelector('.valueClusterName')?.value;
-  var removeClusterName = $formValues.querySelector('.removeClusterName')?.value === 'true';
-  var setClusterName = removeClusterName ? null : $formValues.querySelector('.setClusterName')?.value;
-  var addClusterName = $formValues.querySelector('.addClusterName')?.value;
-  if(removeClusterName || setClusterName != null && setClusterName !== '')
-    vals['setClusterName'] = setClusterName;
-  if(addClusterName != null && addClusterName !== '')
-    vals['addClusterName'] = addClusterName;
-  var removeClusterName = $formValues.querySelector('.removeClusterName')?.value;
-  if(removeClusterName != null && removeClusterName !== '')
-    vals['removeClusterName'] = removeClusterName;
 
   patchTenantVals(tenantId == null ? deparam(window.location.search ? window.location.search.substring(1) : window.location.search) : [{name:'fq', value:'tenantId:' + tenantId}], vals, target, success, error);
 }
@@ -1027,6 +1160,10 @@ function patchTenantFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -1055,6 +1192,10 @@ function patchTenantFilters($formFilters) {
     if(filterSolrId != null && filterSolrId !== '')
       filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
 
+    var filterClusterName = $formFilters.querySelector('.valueClusterName')?.value;
+    if(filterClusterName != null && filterClusterName !== '')
+      filters.push({ name: 'fq', value: 'clusterName:' + filterClusterName });
+
     var filterTenantResource = $formFilters.querySelector('.valueTenantResource')?.value;
     if(filterTenantResource != null && filterTenantResource !== '')
       filters.push({ name: 'fq', value: 'tenantResource:' + filterTenantResource });
@@ -1062,10 +1203,6 @@ function patchTenantFilters($formFilters) {
     var filterHubId = $formFilters.querySelector('.valueHubId')?.value;
     if(filterHubId != null && filterHubId !== '')
       filters.push({ name: 'fq', value: 'hubId:' + filterHubId });
-
-    var filterClusterName = $formFilters.querySelector('.valueClusterName')?.value;
-    if(filterClusterName != null && filterClusterName !== '')
-      filters.push({ name: 'fq', value: 'clusterName:' + filterClusterName });
   }
   return filters;
 }
@@ -1173,6 +1310,10 @@ async function postTenant($formValues, target, success, error) {
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
+
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
     vals['displayPage'] = valueDisplayPage;
@@ -1189,6 +1330,10 @@ async function postTenant($formValues, target, success, error) {
   if(valueDownload != null && valueDownload !== '')
     vals['download'] = valueDownload;
 
+  var valueClusterName = $formValues.querySelector('.valueClusterName')?.value;
+  if(valueClusterName != null && valueClusterName !== '')
+    vals['clusterName'] = valueClusterName;
+
   var valueTenantResource = $formValues.querySelector('.valueTenantResource')?.value;
   if(valueTenantResource != null && valueTenantResource !== '')
     vals['tenantResource'] = valueTenantResource;
@@ -1196,10 +1341,6 @@ async function postTenant($formValues, target, success, error) {
   var valueHubId = $formValues.querySelector('.valueHubId')?.value;
   if(valueHubId != null && valueHubId !== '')
     vals['hubId'] = valueHubId;
-
-  var valueClusterName = $formValues.querySelector('.valueClusterName')?.value;
-  if(valueClusterName != null && valueClusterName !== '')
-    vals['clusterName'] = valueClusterName;
 
   fetch(
     '/en-us/api/tenant'
@@ -1315,7 +1456,9 @@ function putimportTenantVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterTenant(target, success, error) {
+async function deletefilterTenant($formFilterstarget, success, error) {
+  var filters = deletefilterTenantFilters($formFilters);
+
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -1347,7 +1490,7 @@ async function deletefilterTenant(target, success, error) {
   }
 
   fetch(
-    '/en-us/api/tenant'
+    '/en-us/api/tenant?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
       headers: {'Content-Type':'application/json; charset=utf-8'}
       , method: 'DELETE'
@@ -1359,4 +1502,121 @@ async function deletefilterTenant(target, success, error) {
       }
     })
     .catch(response => error(response, target));
+}
+
+function deletefilterTenantFilters($formFilters) {
+  var filters = [];
+  if($formFilters) {
+
+    var filterPk = $formFilters.querySelector('.valuePk')?.value;
+    if(filterPk != null && filterPk !== '')
+      filters.push({ name: 'fq', value: 'pk:' + filterPk });
+
+    var filterCreated = $formFilters.querySelector('.valueCreated')?.value;
+    if(filterCreated != null && filterCreated !== '')
+      filters.push({ name: 'fq', value: 'created:' + filterCreated });
+
+    var filterModified = $formFilters.querySelector('.valueModified')?.value;
+    if(filterModified != null && filterModified !== '')
+      filters.push({ name: 'fq', value: 'modified:' + filterModified });
+
+    var $filterArchivedCheckbox = $formFilters.querySelector('input.valueArchived[type = "checkbox"]');
+    var $filterArchivedSelect = $formFilters.querySelector('select.valueArchived');
+    var filterArchived = $filterArchivedSelect.length ? $filterArchivedSelect.value : $filterArchivedCheckbox.checked;
+    var filterArchivedSelectVal = $formFilters.querySelector('select.filterArchived')?.value;
+    var filterArchived = null;
+    if(filterArchivedSelectVal !== '')
+      filterArchived = filterArchivedSelectVal == 'true';
+    if(filterArchived != null && filterArchived === true)
+      filters.push({ name: 'fq', value: 'archived:' + filterArchived });
+
+    var filterTenantName = $formFilters.querySelector('.valueTenantName')?.value;
+    if(filterTenantName != null && filterTenantName !== '')
+      filters.push({ name: 'fq', value: 'tenantName:' + filterTenantName });
+
+    var filterTenantId = $formFilters.querySelector('.valueTenantId')?.value;
+    if(filterTenantId != null && filterTenantId !== '')
+      filters.push({ name: 'fq', value: 'tenantId:' + filterTenantId });
+
+    var filterDescription = $formFilters.querySelector('.valueDescription')?.value;
+    if(filterDescription != null && filterDescription !== '')
+      filters.push({ name: 'fq', value: 'description:' + filterDescription });
+
+    var filterPageId = $formFilters.querySelector('.valuePageId')?.value;
+    if(filterPageId != null && filterPageId !== '')
+      filters.push({ name: 'fq', value: 'pageId:' + filterPageId });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
+    if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
+
+    var filterSessionId = $formFilters.querySelector('.valueSessionId')?.value;
+    if(filterSessionId != null && filterSessionId !== '')
+      filters.push({ name: 'fq', value: 'sessionId:' + filterSessionId });
+
+    var filterUserKey = $formFilters.querySelector('.valueUserKey')?.value;
+    if(filterUserKey != null && filterUserKey !== '')
+      filters.push({ name: 'fq', value: 'userKey:' + filterUserKey });
+
+    var filterSaves = $formFilters.querySelector('.valueSaves')?.value;
+    if(filterSaves != null && filterSaves !== '')
+      filters.push({ name: 'fq', value: 'saves:' + filterSaves });
+
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
+    if(filterDisplayPage != null && filterDisplayPage !== '')
+      filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
+    if(filterDownload != null && filterDownload !== '')
+      filters.push({ name: 'fq', value: 'download:' + filterDownload });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
+    if(filterSolrId != null && filterSolrId !== '')
+      filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterClusterName = $formFilters.querySelector('.valueClusterName')?.value;
+    if(filterClusterName != null && filterClusterName !== '')
+      filters.push({ name: 'fq', value: 'clusterName:' + filterClusterName });
+
+    var filterTenantResource = $formFilters.querySelector('.valueTenantResource')?.value;
+    if(filterTenantResource != null && filterTenantResource !== '')
+      filters.push({ name: 'fq', value: 'tenantResource:' + filterTenantResource });
+
+    var filterHubId = $formFilters.querySelector('.valueHubId')?.value;
+    if(filterHubId != null && filterHubId !== '')
+      filters.push({ name: 'fq', value: 'hubId:' + filterHubId });
+  }
+  return filters;
 }

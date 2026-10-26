@@ -1,27 +1,27 @@
 {% include en-us/search/cluster-order/ClusterOrderSearchFormMacros.htm %}
 {% include en-us/search/cluster-template/ClusterTemplateSearchFormMacros.htm %}
-{%- if 'DELETE' in scopes %}
-    {{ htmForm_patchClusterOrder() }}
-{%- endif %}
-{%- if 'POST' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_postClusterOrder() }}
-  {%- else %}
-    {{ htmForm_postClusterOrder() }}
-  {%- endif %}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deleteClusterOrder() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
-{%- if AUTH_SCOPE_SUPER_ADMIN in scopes %}
-  {{ htmForm_putimportClusterOrder() }}
-{%- endif %}
-{%- if 'DELETE' in scopes %}
-  {%- if resultCount >= 1 %}
-    {{ htmForm_deletefilterClusterOrder() }}
-  {%- else %}
-  {%- endif %}
-{%- endif %}
+        {% if 'DELETE' in scopes -%}
+        {{ htmForm_patchClusterOrder() -}}
+        {% endif -%}
+        {% if 'POST' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_postClusterOrder() -}}
+        {% else -%}
+        {{ htmForm_postClusterOrder() -}}
+        {% endif -%}
+        {% endif -%}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deleteClusterOrder() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}
+        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+        {{ htmForm_putimportClusterOrder() -}}
+        {% endif %}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deletefilterClusterOrder() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}

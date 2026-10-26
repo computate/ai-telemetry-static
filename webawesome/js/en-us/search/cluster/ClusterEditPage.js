@@ -61,6 +61,27 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
+          // PATCH statusStorage
+          document.querySelector('#Cluster_Page_statusStorage')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_statusStorage');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setStatusStorage', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_statusStorage')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_statusStorage')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_statusStorage');
+            const valid = form.reportValidity();
+          });
+
           // PATCH hubId
           document.querySelector('#Cluster_Page_hubId')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_hubId');
@@ -271,6 +292,48 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
+          // PATCH cephUsedBytes
+          document.querySelector('#Cluster_Page_cephUsedBytes')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_cephUsedBytes');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setCephUsedBytes', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_cephUsedBytes')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_cephUsedBytes')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_cephUsedBytes');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH cephCapacityBytes
+          document.querySelector('#Cluster_Page_cephCapacityBytes')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_cephCapacityBytes');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setCephCapacityBytes', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_cephCapacityBytes')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_cephCapacityBytes')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_cephCapacityBytes');
+            const valid = form.reportValidity();
+          });
+
           // PATCH id
           document.querySelector('#Cluster_Page_id')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_id');
@@ -436,6 +499,27 @@ Promise.all([
           });
           document.querySelector('#Cluster_Page_objectTitle')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_objectTitle');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH apiUrl
+          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
             const valid = form.reportValidity();
           });
 
