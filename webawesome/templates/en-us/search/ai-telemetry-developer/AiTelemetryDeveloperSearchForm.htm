@@ -1,0 +1,26 @@
+{% include en-us/search/ai-telemetry-developer/AiTelemetryDeveloperSearchFormMacros.htm %}
+        {% if 'DELETE' in scopes -%}
+        {{ htmForm_patchAiTelemetryDeveloper() -}}
+        {% endif -%}
+        {% if 'POST' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_postAiTelemetryDeveloper() -}}
+        {% else -%}
+        {{ htmForm_postAiTelemetryDeveloper() -}}
+        {% endif -%}
+        {% endif -%}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deleteAiTelemetryDeveloper() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}
+        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+        {{ htmForm_putimportAiTelemetryDeveloper() -}}
+        {% endif %}
+        {% if 'DELETE' in scopes -%}
+        {% if resultCount >= 1 -%}
+        {{ htmForm_deletefilterAiTelemetryDeveloper() -}}
+        {% else -%}
+        {% endif -%}
+        {% endif -%}

@@ -165,7 +165,6 @@
                         class="Cluster_{{classApiMethodMethod}}_statusStorage inputCluster{{ result.clusterResource }}StatusStorage "
                         id="Cluster_{{classApiMethodMethod}}_statusStorage"
                         start="true"
-                        end="true"
                         completed="{{ result.statusStorage == 'success' }}"
                         variant="{{ result.statusStorage }}"
                         label="Storage"
@@ -175,7 +174,6 @@
                       <i slot="icon" class="{{ FONTAWESOME_STYLE }} fa-{{ 'check' if result.statusStorage == 'success' else ('check' if result.statusStorage == 'neutral' else ('bell-exclamation' if result.statusStorage == 'danger' else result.statusStorage)) }}"></i>
                       <span slot="description">{{ 'Warning, no storage metrics were found. The system cannot determine the health of the storage of this cluster. ' if (cephUsedBytes is not defined or cephCapacityBytes is not defined) else 'Ceph storage status' }}</span>
                     </wa-step>
-                  </wa-stepper>
                     {% else -%}
                   <wa-select with-clear
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
@@ -208,12 +206,68 @@
 
                     {% endif -%}
                   {% if 'Page' == classApiMethodMethod -%}
-                </form>
                 {%- endif %}{{''}}
                 {% endmacro -%}
 
                 {% macro htmStatusStorageClusterPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
                 {{ inputStatusStorageClusterPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputStatusNodesClusterPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                    <wa-step
+                        class="Cluster_{{classApiMethodMethod}}_statusNodes inputCluster{{ result.clusterResource }}StatusNodes "
+                        id="Cluster_{{classApiMethodMethod}}_statusNodes"
+                        end="true"
+                        completed="{{ result.statusNodes == 'success' }}"
+                        variant="{{ result.statusNodes }}"
+                        label="Nodes"
+                        description="{{ 'Warning, no node metrics were found. The system cannot determine the health of the nodes of this cluster. ' if (result.nodesReadyTotal is not defined or result.nodesReadyTotal == 0) else (('All ' + result.nodesReadyTotal + ' nodes healthy') if result.nodesNotReadyTotal == 0 else (result.nodesNotReadyTotal + '/' + result.nodesReadyTotal + ' nodes not ready')) }}"
+                        >
+                      Nodes
+                      <i slot="icon" class="{{ FONTAWESOME_STYLE }} fa-{{ 'check' if result.statusNodes == 'success' else ('check' if result.statusNodes == 'neutral' else ('bell-exclamation' if result.statusNodes == 'danger' else result.statusNodes)) }}"></i>
+                      <span slot="description">{{ 'Warning, no node metrics were found. The system cannot determine the health of the nodes of this cluster. ' if (result.nodesReadyTotal is not defined or result.nodesReadyTotal == 0) else (('All ' + result.nodesReadyTotal + ' nodes healthy') if result.nodesNotReadyTotal == 0 else (result.nodesNotReadyTotal + '/' + result.nodesReadyTotal + ' nodes not ready')) }}</span>
+                    </wa-step>
+                  </wa-stepper>
+                    {% else -%}
+                  <wa-select with-clear
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] Nodes"
+                      label="Nodes"
+                      hint="{{ 'Warning, no node metrics were found. The system cannot determine the health of the nodes of this cluster. ' if (result.nodesReadyTotal is not defined or result.nodesReadyTotal == 0) else (('All ' + result.nodesReadyTotal + ' nodes healthy') if result.nodesNotReadyTotal == 0 else (result.nodesNotReadyTotal + '/' + result.nodesReadyTotal + ' nodes not ready')) }}"
+                      id="Cluster_{{classApiMethodMethod}}_statusNodes"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-clusterResource={{ result.clusterResource | tojson }}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_statusNodes setStatusNodes classCluster inputCluster{{ result.clusterResource }}StatusNodes "
+                      name="setStatusNodes"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_statusNodes setStatusNodes classCluster inputCluster{{ result.clusterResource }}StatusNodes "
+                      name="setStatusNodes"
+                      {% else -%}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_statusNodes valueStatusNodes classCluster inputCluster{{ result.clusterResource }}StatusNodes "
+                      name="statusNodes"
+                      {% endif -%}
+                      {% endif -%}
+                      orientation="horizontal"
+                      value="{{result.statusNodes | e }}"
+                      >
+                      <i slot="start" slot="icon" class="{{ FONTAWESOME_STYLE }} fa-{{ 'check' if result.statusNodes == 'success' else ('check' if result.statusNodes == 'neutral' else ('bell-exclamation' if result.statusNodes == 'danger' else result.statusNodes)) }}"></i>
+                    <wa-option value="success">Successful</wa-option>
+                    <wa-option value="neutral">Neutral</wa-option>
+                    <wa-option value="warning">Warning</wa-option>
+                    <wa-option value="danger">Danger</wa-option>
+                  </wa-select>
+
+                    {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmStatusNodesClusterPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputStatusNodesClusterPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
                 {% endmacro -%}
                 {% macro inputHubIdClusterPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
                 {% if 'Page' == classApiMethodMethod -%}
@@ -485,6 +539,84 @@
 
                 {% macro htmLocationClusterPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
                 {{ inputLocationClusterPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNodesReadyTotalClusterPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_nodesReadyTotal">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[Integer] nodes ready total"
+                      label="nodes ready total"
+                      type="number"
+                      step="any"
+                      hint="The total number of ready nodes on this cluster. "
+                      id="Cluster_{{classApiMethodMethod}}_nodesReadyTotal"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-clusterResource={{ result.clusterResource | tojson }}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_nodesReadyTotal setNodesReadyTotal classCluster inputCluster{{ result.clusterResource }}NodesReadyTotal "
+                      name="setNodesReadyTotal"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_nodesReadyTotal setNodesReadyTotal classCluster inputCluster{{ result.clusterResource }}NodesReadyTotal "
+                      name="setNodesReadyTotal"
+                      {% else -%}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_nodesReadyTotal valueNodesReadyTotal classCluster inputCluster{{ result.clusterResource }}NodesReadyTotal "
+                      name="nodesReadyTotal"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.nodesReadyTotal | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmNodesReadyTotalClusterPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNodesReadyTotalClusterPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNodesNotReadyTotalClusterPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_nodesNotReadyTotal">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[Integer] nodes not ready total"
+                      label="nodes not ready total"
+                      type="number"
+                      step="any"
+                      hint="The total number of not ready nodes on this cluster. "
+                      id="Cluster_{{classApiMethodMethod}}_nodesNotReadyTotal"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-clusterResource={{ result.clusterResource | tojson }}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_nodesNotReadyTotal setNodesNotReadyTotal classCluster inputCluster{{ result.clusterResource }}NodesNotReadyTotal "
+                      name="setNodesNotReadyTotal"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_nodesNotReadyTotal setNodesNotReadyTotal classCluster inputCluster{{ result.clusterResource }}NodesNotReadyTotal "
+                      name="setNodesNotReadyTotal"
+                      {% else -%}
+                      class="label-on-left Cluster_{{classApiMethodMethod}}_nodesNotReadyTotal valueNodesNotReadyTotal classCluster inputCluster{{ result.clusterResource }}NodesNotReadyTotal "
+                      name="nodesNotReadyTotal"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.nodesNotReadyTotal | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmNodesNotReadyTotalClusterPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNodesNotReadyTotalClusterPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
                 {% endmacro -%}
                 {% macro inputAiNodesTotalClusterPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
                 {% if 'Page' == classApiMethodMethod -%}
@@ -1014,6 +1146,7 @@
               </div>
               <div class="grid-with-subgrid-2col ">
                 {{ htmStatusStorageClusterPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmStatusNodesClusterPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
@@ -1037,6 +1170,8 @@
                 <span>cluster totals</span>
               </div>
               <div class="grid-with-subgrid-2col ">
+                {{ htmNodesReadyTotalClusterPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNodesNotReadyTotalClusterPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmAiNodesTotalClusterPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmGpuDevicesTotalClusterPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVmsTotalClusterPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
@@ -1085,6 +1220,7 @@
               </div>
               <div class="grid-with-subgrid-2col ">
                 {{ htmStatusStorageClusterPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmStatusNodesClusterPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
@@ -1108,6 +1244,8 @@
                 <span>cluster totals</span>
               </div>
               <div class="grid-with-subgrid-2col ">
+                {{ htmNodesReadyTotalClusterPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNodesNotReadyTotalClusterPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmAiNodesTotalClusterPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmGpuDevicesTotalClusterPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVmsTotalClusterPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
@@ -1203,6 +1341,7 @@
               </div>
               <div class="grid-with-subgrid-2col ">
                 {{ htmStatusStorageClusterPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmStatusNodesClusterPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
             </wa-details>
 
@@ -1226,6 +1365,8 @@
                 <span>cluster totals</span>
               </div>
               <div class="grid-with-subgrid-2col ">
+                {{ htmNodesReadyTotalClusterPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNodesNotReadyTotalClusterPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmAiNodesTotalClusterPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmGpuDevicesTotalClusterPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVmsTotalClusterPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}

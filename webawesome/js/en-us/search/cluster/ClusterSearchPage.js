@@ -66,6 +66,17 @@ Promise.all([
     facetStatsChange('Cluster', 'statusStorage', false);
   });
 
+  document.querySelector('#pageSelectSortCluster_statusNodes')?.addEventListener('change', (event) => {
+    sort('Cluster', 'statusNodes', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsCluster_statusNodes')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Cluster', 'statusNodes', true);
+  });
+  document.querySelector('#pageStatsCluster_statusNodes')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Cluster', 'statusNodes', false);
+  });
+
   document.querySelector('#pageSelectSortCluster_hubId')?.addEventListener('change', (event) => {
     sort('Cluster', 'hubId', event.currentTarget.value);
   });
@@ -141,6 +152,28 @@ Promise.all([
   });
   document.querySelector('#pageStatsCluster_location')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('Cluster', 'location', false);
+  });
+
+  document.querySelector('#pageSelectSortCluster_nodesReadyTotal')?.addEventListener('change', (event) => {
+    sort('Cluster', 'nodesReadyTotal', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsCluster_nodesReadyTotal')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Cluster', 'nodesReadyTotal', true);
+  });
+  document.querySelector('#pageStatsCluster_nodesReadyTotal')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Cluster', 'nodesReadyTotal', false);
+  });
+
+  document.querySelector('#pageSelectSortCluster_nodesNotReadyTotal')?.addEventListener('change', (event) => {
+    sort('Cluster', 'nodesNotReadyTotal', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsCluster_nodesNotReadyTotal')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('Cluster', 'nodesNotReadyTotal', true);
+  });
+  document.querySelector('#pageStatsCluster_nodesNotReadyTotal')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('Cluster', 'nodesNotReadyTotal', false);
   });
 
   document.querySelector('#pageSelectSortCluster_aiNodesTotal')?.addEventListener('change', (event) => {
@@ -622,6 +655,42 @@ Promise.all([
             facetRangeStartChange('Cluster', event.currentTarget);
           });
           document.querySelector('#pageFacetRangeEndCluster_location')?.addEventListener('change', (event) => {
+            facetRangeEndChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#fqCluster_nodesReadyTotal')?.addEventListener('change', (event) => {
+            fqChange('Cluster', event.currentTarget, facetChangeClusterSuccess, facetChangeClusterError);
+          });
+          document.querySelector('#buttonFacetCluster_nodesReadyTotal')?.addEventListener('click', (event) => {
+            facetFieldChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotCluster_nodesReadyTotal')?.addEventListener('change', (event) => {
+            facetPivotChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapCluster_nodesReadyTotal')?.addEventListener('change', (event) => {
+            facetRangeGapChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartCluster_nodesReadyTotal')?.addEventListener('change', (event) => {
+            facetRangeStartChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndCluster_nodesReadyTotal')?.addEventListener('change', (event) => {
+            facetRangeEndChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#fqCluster_nodesNotReadyTotal')?.addEventListener('change', (event) => {
+            fqChange('Cluster', event.currentTarget, facetChangeClusterSuccess, facetChangeClusterError);
+          });
+          document.querySelector('#buttonFacetCluster_nodesNotReadyTotal')?.addEventListener('click', (event) => {
+            facetFieldChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotCluster_nodesNotReadyTotal')?.addEventListener('change', (event) => {
+            facetPivotChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapCluster_nodesNotReadyTotal')?.addEventListener('change', (event) => {
+            facetRangeGapChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartCluster_nodesNotReadyTotal')?.addEventListener('change', (event) => {
+            facetRangeStartChange('Cluster', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndCluster_nodesNotReadyTotal')?.addEventListener('change', (event) => {
             facetRangeEndChange('Cluster', event.currentTarget);
           });
           document.querySelector('#fqCluster_aiNodesTotal')?.addEventListener('change', (event) => {

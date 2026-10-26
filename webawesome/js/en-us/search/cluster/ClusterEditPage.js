@@ -82,6 +82,27 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
+          // PATCH statusNodes
+          document.querySelector('#Cluster_Page_statusNodes')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_statusNodes');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setStatusNodes', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_statusNodes')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_statusNodes')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_statusNodes');
+            const valid = form.reportValidity();
+          });
+
           // PATCH hubId
           document.querySelector('#Cluster_Page_hubId')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_hubId');
@@ -184,6 +205,48 @@ Promise.all([
           });
           document.querySelector('#Cluster_Page_location')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_location');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH nodesReadyTotal
+          document.querySelector('#Cluster_Page_nodesReadyTotal')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_nodesReadyTotal');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setNodesReadyTotal', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_nodesReadyTotal')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_nodesReadyTotal')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_nodesReadyTotal');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH nodesNotReadyTotal
+          document.querySelector('#Cluster_Page_nodesNotReadyTotal')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_nodesNotReadyTotal');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setNodesNotReadyTotal', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_nodesNotReadyTotal')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_nodesNotReadyTotal')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_nodesNotReadyTotal');
             const valid = form.reportValidity();
           });
 

@@ -83,6 +83,7 @@ async function websocketClusterInner(apiRequest) {
         var inputModified = null;
         var inputArchived = null;
         var inputStatusStorage = null;
+        var inputStatusNodes = null;
         var inputHubId = null;
         var inputClusterName = null;
         var inputHubCluster = null;
@@ -90,6 +91,8 @@ async function websocketClusterInner(apiRequest) {
         var inputUniqueName = null;
         var inputDescription = null;
         var inputLocation = null;
+        var inputNodesReadyTotal = null;
+        var inputNodesNotReadyTotal = null;
         var inputAiNodesTotal = null;
         var inputGpuDevicesTotal = null;
         var inputVmsTotal = null;
@@ -135,6 +138,8 @@ async function websocketClusterInner(apiRequest) {
           inputArchived = $response.querySelector('.Cluster_Page_archived');
         if(vars.includes('statusStorage'))
           inputStatusStorage = $response.querySelector('.Cluster_Page_statusStorage');
+        if(vars.includes('statusNodes'))
+          inputStatusNodes = $response.querySelector('.Cluster_Page_statusNodes');
         if(vars.includes('hubId'))
           inputHubId = $response.querySelector('.Cluster_Page_hubId');
         if(vars.includes('clusterName'))
@@ -149,6 +154,10 @@ async function websocketClusterInner(apiRequest) {
           inputDescription = $response.querySelector('.Cluster_Page_description');
         if(vars.includes('location'))
           inputLocation = $response.querySelector('.Cluster_Page_location');
+        if(vars.includes('nodesReadyTotal'))
+          inputNodesReadyTotal = $response.querySelector('.Cluster_Page_nodesReadyTotal');
+        if(vars.includes('nodesNotReadyTotal'))
+          inputNodesNotReadyTotal = $response.querySelector('.Cluster_Page_nodesNotReadyTotal');
         if(vars.includes('aiNodesTotal'))
           inputAiNodesTotal = $response.querySelector('.Cluster_Page_aiNodesTotal');
         if(vars.includes('gpuDevicesTotal'))
@@ -290,6 +299,17 @@ async function websocketClusterInner(apiRequest) {
           addGlow(document.querySelector('.Cluster_Page_statusStorage'));
         }
 
+        if(inputStatusNodes) {
+          document.querySelectorAll('.Cluster_Page_statusNodes').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            item.replaceWith(inputStatusNodes);
+          });
+          addGlow(document.querySelector('.Cluster_Page_statusNodes'));
+        }
+
         if(inputHubId) {
           document.querySelectorAll('.Cluster_Page_hubId').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -386,6 +406,34 @@ async function websocketClusterInner(apiRequest) {
               item.textContent = inputLocation.textContent;
           });
           addGlow(document.querySelector('.Cluster_Page_location'));
+        }
+
+        if(inputNodesReadyTotal) {
+          document.querySelectorAll('.Cluster_Page_nodesReadyTotal').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputNodesReadyTotal.getAttribute('value');
+            else
+              item.textContent = inputNodesReadyTotal.textContent;
+          });
+          addGlow(document.querySelector('.Cluster_Page_nodesReadyTotal'));
+        }
+
+        if(inputNodesNotReadyTotal) {
+          document.querySelectorAll('.Cluster_Page_nodesNotReadyTotal').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputNodesNotReadyTotal.getAttribute('value');
+            else
+              item.textContent = inputNodesNotReadyTotal.textContent;
+          });
+          addGlow(document.querySelector('.Cluster_Page_nodesNotReadyTotal'));
         }
 
         if(inputAiNodesTotal) {
@@ -1195,6 +1243,10 @@ function searchClusterFilters($formFilters) {
     if(filterStatusStorage != null && filterStatusStorage !== '')
       filters.push({ name: 'fq', value: 'statusStorage:' + filterStatusStorage });
 
+    var filterStatusNodes = $formFilters.querySelector('.valueStatusNodes')?.value;
+    if(filterStatusNodes != null && filterStatusNodes !== '')
+      filters.push({ name: 'fq', value: 'statusNodes:' + filterStatusNodes });
+
     var filterHubId = $formFilters.querySelector('.valueHubId')?.value;
     if(filterHubId != null && filterHubId !== '')
       filters.push({ name: 'fq', value: 'hubId:' + filterHubId });
@@ -1228,6 +1280,14 @@ function searchClusterFilters($formFilters) {
     var filterLocation = $formFilters.querySelector('.valueLocation')?.value;
     if(filterLocation != null && filterLocation !== '')
       filters.push({ name: 'fq', value: 'location:' + filterLocation });
+
+    var filterNodesReadyTotal = $formFilters.querySelector('.valueNodesReadyTotal')?.value;
+    if(filterNodesReadyTotal != null && filterNodesReadyTotal !== '')
+      filters.push({ name: 'fq', value: 'nodesReadyTotal:' + filterNodesReadyTotal });
+
+    var filterNodesNotReadyTotal = $formFilters.querySelector('.valueNodesNotReadyTotal')?.value;
+    if(filterNodesNotReadyTotal != null && filterNodesNotReadyTotal !== '')
+      filters.push({ name: 'fq', value: 'nodesNotReadyTotal:' + filterNodesNotReadyTotal });
 
     var filterAiNodesTotal = $formFilters.querySelector('.valueAiNodesTotal')?.value;
     if(filterAiNodesTotal != null && filterAiNodesTotal !== '')
@@ -1566,6 +1626,18 @@ async function patchCluster($formFilters, $formValues, target, clusterResource, 
   if(removeStatusStorage != null && removeStatusStorage !== '')
     vals['removeStatusStorage'] = removeStatusStorage;
 
+  var valueStatusNodes = $formValues.querySelector('.valueStatusNodes')?.value;
+  var removeStatusNodes = $formValues.querySelector('.removeStatusNodes')?.value === 'true';
+  var setStatusNodes = removeStatusNodes ? null : $formValues.querySelector('.setStatusNodes')?.value;
+  var addStatusNodes = $formValues.querySelector('.addStatusNodes')?.value;
+  if(removeStatusNodes || setStatusNodes != null && setStatusNodes !== '')
+    vals['setStatusNodes'] = setStatusNodes;
+  if(addStatusNodes != null && addStatusNodes !== '')
+    vals['addStatusNodes'] = addStatusNodes;
+  var removeStatusNodes = $formValues.querySelector('.removeStatusNodes')?.value;
+  if(removeStatusNodes != null && removeStatusNodes !== '')
+    vals['removeStatusNodes'] = removeStatusNodes;
+
   var valueHubId = $formValues.querySelector('.valueHubId')?.value;
   var removeHubId = $formValues.querySelector('.removeHubId')?.value === 'true';
   var setHubId = removeHubId ? null : $formValues.querySelector('.setHubId')?.value;
@@ -1656,6 +1728,30 @@ async function patchCluster($formFilters, $formValues, target, clusterResource, 
   var removeLocation = $formValues.querySelector('.removeLocation')?.value;
   if(removeLocation != null && removeLocation !== '')
     vals['removeLocation'] = removeLocation;
+
+  var valueNodesReadyTotal = $formValues.querySelector('.valueNodesReadyTotal')?.value;
+  var removeNodesReadyTotal = $formValues.querySelector('.removeNodesReadyTotal')?.value === 'true';
+  var setNodesReadyTotal = removeNodesReadyTotal ? null : $formValues.querySelector('.setNodesReadyTotal')?.value;
+  var addNodesReadyTotal = $formValues.querySelector('.addNodesReadyTotal')?.value;
+  if(removeNodesReadyTotal || setNodesReadyTotal != null && setNodesReadyTotal !== '')
+    vals['setNodesReadyTotal'] = setNodesReadyTotal;
+  if(addNodesReadyTotal != null && addNodesReadyTotal !== '')
+    vals['addNodesReadyTotal'] = addNodesReadyTotal;
+  var removeNodesReadyTotal = $formValues.querySelector('.removeNodesReadyTotal')?.value;
+  if(removeNodesReadyTotal != null && removeNodesReadyTotal !== '')
+    vals['removeNodesReadyTotal'] = removeNodesReadyTotal;
+
+  var valueNodesNotReadyTotal = $formValues.querySelector('.valueNodesNotReadyTotal')?.value;
+  var removeNodesNotReadyTotal = $formValues.querySelector('.removeNodesNotReadyTotal')?.value === 'true';
+  var setNodesNotReadyTotal = removeNodesNotReadyTotal ? null : $formValues.querySelector('.setNodesNotReadyTotal')?.value;
+  var addNodesNotReadyTotal = $formValues.querySelector('.addNodesNotReadyTotal')?.value;
+  if(removeNodesNotReadyTotal || setNodesNotReadyTotal != null && setNodesNotReadyTotal !== '')
+    vals['setNodesNotReadyTotal'] = setNodesNotReadyTotal;
+  if(addNodesNotReadyTotal != null && addNodesNotReadyTotal !== '')
+    vals['addNodesNotReadyTotal'] = addNodesNotReadyTotal;
+  var removeNodesNotReadyTotal = $formValues.querySelector('.removeNodesNotReadyTotal')?.value;
+  if(removeNodesNotReadyTotal != null && removeNodesNotReadyTotal !== '')
+    vals['removeNodesNotReadyTotal'] = removeNodesNotReadyTotal;
 
   var valueAiNodesTotal = $formValues.querySelector('.valueAiNodesTotal')?.value;
   var removeAiNodesTotal = $formValues.querySelector('.removeAiNodesTotal')?.value === 'true';
@@ -1959,6 +2055,10 @@ function patchClusterFilters($formFilters) {
     if(filterStatusStorage != null && filterStatusStorage !== '')
       filters.push({ name: 'fq', value: 'statusStorage:' + filterStatusStorage });
 
+    var filterStatusNodes = $formFilters.querySelector('.valueStatusNodes')?.value;
+    if(filterStatusNodes != null && filterStatusNodes !== '')
+      filters.push({ name: 'fq', value: 'statusNodes:' + filterStatusNodes });
+
     var filterHubId = $formFilters.querySelector('.valueHubId')?.value;
     if(filterHubId != null && filterHubId !== '')
       filters.push({ name: 'fq', value: 'hubId:' + filterHubId });
@@ -1992,6 +2092,14 @@ function patchClusterFilters($formFilters) {
     var filterLocation = $formFilters.querySelector('.valueLocation')?.value;
     if(filterLocation != null && filterLocation !== '')
       filters.push({ name: 'fq', value: 'location:' + filterLocation });
+
+    var filterNodesReadyTotal = $formFilters.querySelector('.valueNodesReadyTotal')?.value;
+    if(filterNodesReadyTotal != null && filterNodesReadyTotal !== '')
+      filters.push({ name: 'fq', value: 'nodesReadyTotal:' + filterNodesReadyTotal });
+
+    var filterNodesNotReadyTotal = $formFilters.querySelector('.valueNodesNotReadyTotal')?.value;
+    if(filterNodesNotReadyTotal != null && filterNodesNotReadyTotal !== '')
+      filters.push({ name: 'fq', value: 'nodesNotReadyTotal:' + filterNodesNotReadyTotal });
 
     var filterAiNodesTotal = $formFilters.querySelector('.valueAiNodesTotal')?.value;
     if(filterAiNodesTotal != null && filterAiNodesTotal !== '')
@@ -2211,6 +2319,10 @@ async function postCluster($formValues, target, success, error) {
   if(valueStatusStorage != null && valueStatusStorage !== '')
     vals['statusStorage'] = valueStatusStorage;
 
+  var valueStatusNodes = $formValues.querySelector('.valueStatusNodes')?.value;
+  if(valueStatusNodes != null && valueStatusNodes !== '')
+    vals['statusNodes'] = valueStatusNodes;
+
   var valueHubId = $formValues.querySelector('.valueHubId')?.value;
   if(valueHubId != null && valueHubId !== '')
     vals['hubId'] = valueHubId;
@@ -2238,6 +2350,14 @@ async function postCluster($formValues, target, success, error) {
   var valueLocation = $formValues.querySelector('.valueLocation')?.value;
   if(valueLocation != null && valueLocation !== '')
     vals['location'] = JSON.parse(valueLocation);
+
+  var valueNodesReadyTotal = $formValues.querySelector('.valueNodesReadyTotal')?.value;
+  if(valueNodesReadyTotal != null && valueNodesReadyTotal !== '')
+    vals['nodesReadyTotal'] = valueNodesReadyTotal;
+
+  var valueNodesNotReadyTotal = $formValues.querySelector('.valueNodesNotReadyTotal')?.value;
+  if(valueNodesNotReadyTotal != null && valueNodesNotReadyTotal !== '')
+    vals['nodesNotReadyTotal'] = valueNodesNotReadyTotal;
 
   var valueAiNodesTotal = $formValues.querySelector('.valueAiNodesTotal')?.value;
   if(valueAiNodesTotal != null && valueAiNodesTotal !== '')
@@ -2523,6 +2643,10 @@ function deletefilterClusterFilters($formFilters) {
     if(filterStatusStorage != null && filterStatusStorage !== '')
       filters.push({ name: 'fq', value: 'statusStorage:' + filterStatusStorage });
 
+    var filterStatusNodes = $formFilters.querySelector('.valueStatusNodes')?.value;
+    if(filterStatusNodes != null && filterStatusNodes !== '')
+      filters.push({ name: 'fq', value: 'statusNodes:' + filterStatusNodes });
+
     var filterHubId = $formFilters.querySelector('.valueHubId')?.value;
     if(filterHubId != null && filterHubId !== '')
       filters.push({ name: 'fq', value: 'hubId:' + filterHubId });
@@ -2556,6 +2680,14 @@ function deletefilterClusterFilters($formFilters) {
     var filterLocation = $formFilters.querySelector('.valueLocation')?.value;
     if(filterLocation != null && filterLocation !== '')
       filters.push({ name: 'fq', value: 'location:' + filterLocation });
+
+    var filterNodesReadyTotal = $formFilters.querySelector('.valueNodesReadyTotal')?.value;
+    if(filterNodesReadyTotal != null && filterNodesReadyTotal !== '')
+      filters.push({ name: 'fq', value: 'nodesReadyTotal:' + filterNodesReadyTotal });
+
+    var filterNodesNotReadyTotal = $formFilters.querySelector('.valueNodesNotReadyTotal')?.value;
+    if(filterNodesNotReadyTotal != null && filterNodesNotReadyTotal !== '')
+      filters.push({ name: 'fq', value: 'nodesNotReadyTotal:' + filterNodesNotReadyTotal });
 
     var filterAiNodesTotal = $formFilters.querySelector('.valueAiNodesTotal')?.value;
     if(filterAiNodesTotal != null && filterAiNodesTotal !== '')

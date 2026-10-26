@@ -1,0 +1,1753 @@
+                {% macro inputPkBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_pk">
+                  {% endif -%}
+                  <wa-input
+                      readonly
+                      placeholder="[Long] primary key"
+                      label="primary key"
+                      type="number"
+                      step="any"
+                      hint="The primary key of this object in the database"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_pk"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_pk setPk classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Pk "
+                      name="setPk"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_pk setPk classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Pk "
+                      name="setPk"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_pk valuePk classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Pk "
+                      name="pk"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.pk | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmPkBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputPkBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputCreatedBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_created">
+                  {% endif -%}
+                  <wa-input
+                      type="datetime-local"
+                      readonly
+                      hint="A created timestamp for this record in the database"
+                      label="created {{ formatZonedDateTime(result.created, "'['VV']'", defaultLocaleId, defaultZoneId) | e }}"
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_created datetimepicker setCreated classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Created "
+                      placeholder="MM/dd/yyyy h:mm a '['VV']'"
+                      data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_created"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      value="{%- if "Page" == classApiMethodMethod and result.created is defined %}{{ formatZonedDateTime(result.created, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      data-zone="{{ defaultZoneId }}"
+                      >
+                  </wa-input>
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmCreatedBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputCreatedBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputModifiedBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_modified">
+                  {% endif -%}
+                  <wa-input
+                      type="datetime-local"
+                      readonly
+                      hint="A modified timestamp for this record in the database"
+                      label="modified {{ formatZonedDateTime(result.modified, "'['VV']'", defaultLocaleId, defaultZoneId) | e }}"
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_modified datetimepicker setModified classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Modified "
+                      placeholder="MM/dd/yyyy h:mm a '['VV']'"
+                      data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_modified"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      value="{%- if "Page" == classApiMethodMethod and result.modified is defined %}{{ formatZonedDateTime(result.modified, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      data-zone="{{ defaultZoneId }}"
+                      >
+                  </wa-input>
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmModifiedBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputModifiedBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputArchivedBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_archived">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-button variant="brand"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_archived"
+                      placeholder="archive"
+                      label="archive"
+                      hint="For archiving this record"
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_archived classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Archived "
+                      name="setArchived"
+                      data-id={{ result.id | tojson }}
+                      data-val="{{ result.archived | e }}"
+                      >archive</wa-button>
+                  {% else -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_archived"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_archived"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="archive"
+                      label="archive"
+                      hint="For archiving this record"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_archived classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Archived "
+                      name="setArchived"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_archived classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Archived "
+                      name="setArchived"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_archived setArchived valueArchived classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Archived "
+                      name="setArchived"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.archived == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >archive</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmArchivedBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputArchivedBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIdBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_id">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] network ID"
+                      label="network ID"
+                      hint="The ID of this bare metal network"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_id"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_id setId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Id "
+                      name="setId"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_id setId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Id "
+                      name="setId"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_id valueId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Id "
+                      name="id"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.id | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmIdBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIdBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputNameBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_name">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] network name"
+                      label="network name"
+                      hint="The name of this bare metal network"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_name"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_name setName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Name "
+                      name="setName"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_name setName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Name "
+                      name="setName"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_name valueName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Name "
+                      name="name"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.name | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmNameBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputNameBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputDescriptionBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_description">
+                  {% endif -%}
+                  <wa-textarea resize="auto"
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] network description"
+                      label="network description"
+                      hint="The description of this bare metal network"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_description"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_description setDescription classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Description "
+                      name="setDescription"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_description setDescription classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Description "
+                      name="setDescription"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_description valueDescription classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Description "
+                      name="description"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.description | e }}"
+                      {% endif -%}
+                      >
+                  </wa-textarea>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmDescriptionBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputDescriptionBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputAvailabilityZoneHintsBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_availabilityZoneHints">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[JsonArray] availability zone hints"
+                      label="availability zone hints"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_availabilityZoneHints"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_availabilityZoneHints setAvailabilityZoneHints classBareMetalNetwork inputBareMetalNetwork{{ result.id }}AvailabilityZoneHints "
+                      name="setAvailabilityZoneHints"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_availabilityZoneHints setAvailabilityZoneHints classBareMetalNetwork inputBareMetalNetwork{{ result.id }}AvailabilityZoneHints "
+                      name="setAvailabilityZoneHints"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_availabilityZoneHints valueAvailabilityZoneHints classBareMetalNetwork inputBareMetalNetwork{{ result.id }}AvailabilityZoneHints "
+                      name="availabilityZoneHints"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{ toJsonArrayString(result.availabilityZoneHints) | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmAvailabilityZoneHintsBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputAvailabilityZoneHintsBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputAvailabilityZonesBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_availabilityZones">
+                  {% endif -%}
+                  <wa-tag-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="; separated availability zones"
+                      label="availability zones"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_availabilityZones"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_availabilityZones setAvailabilityZones classBareMetalNetwork inputBareMetalNetwork{{ result.id }}AvailabilityZones "
+                      name="setAvailabilityZones"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_availabilityZones setAvailabilityZones classBareMetalNetwork inputBareMetalNetwork{{ result.id }}AvailabilityZones "
+                      name="setAvailabilityZones"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_availabilityZones valueAvailabilityZones classBareMetalNetwork inputBareMetalNetwork{{ result.id }}AvailabilityZones "
+                      name="availabilityZones"
+                      {% endif -%}
+                      {% endif -%}
+                      delimiter=";"
+                      value="{{ result.availabilityZones | join(';') | e }}"
+                      >
+                  </wa-tag-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmAvailabilityZonesBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputAvailabilityZonesBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputCreatedAtBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_createdAt">
+                  {% endif -%}
+                  <wa-input
+                      type="datetime-local"
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      label="created at {{ formatZonedDateTime(result.createdAt, "'['VV']'", defaultLocaleId, defaultZoneId) | e }}"
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_createdAt datetimepicker setCreatedAt classBareMetalNetwork inputBareMetalNetwork{{ result.id }}CreatedAt "
+                      placeholder="MM/dd/yyyy h:mm a '['VV']'"
+                      data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_createdAt"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      value="{%- if "Page" == classApiMethodMethod and result.createdAt is defined %}{{ formatZonedDateTime(result.createdAt, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      data-zone="{{ defaultZoneId }}"
+                      >
+                  </wa-input>
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmCreatedAtBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputCreatedAtBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputDnsDomainBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_dnsDomain">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] DNS domain"
+                      label="DNS domain"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_dnsDomain"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_dnsDomain setDnsDomain classBareMetalNetwork inputBareMetalNetwork{{ result.id }}DnsDomain "
+                      name="setDnsDomain"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_dnsDomain setDnsDomain classBareMetalNetwork inputBareMetalNetwork{{ result.id }}DnsDomain "
+                      name="setDnsDomain"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_dnsDomain valueDnsDomain classBareMetalNetwork inputBareMetalNetwork{{ result.id }}DnsDomain "
+                      name="dnsDomain"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.dnsDomain | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmDnsDomainBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputDnsDomainBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputMtuBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_mtu">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[Integer] MTU"
+                      label="MTU"
+                      type="number"
+                      step="any"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_mtu"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_mtu setMtu classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Mtu "
+                      name="setMtu"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_mtu setMtu classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Mtu "
+                      name="setMtu"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_mtu valueMtu classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Mtu "
+                      name="mtu"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.mtu | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmMtuBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputMtuBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputProjectIdBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_projectId">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] project ID"
+                      label="project ID"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_projectId"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_projectId setProjectId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProjectId "
+                      name="setProjectId"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_projectId setProjectId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProjectId "
+                      name="setProjectId"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_projectId valueProjectId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProjectId "
+                      name="projectId"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.projectId | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmProjectIdBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputProjectIdBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputProviderNetworkTypeBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_providerNetworkType">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] provider network type"
+                      label="provider network type"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_providerNetworkType"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerNetworkType setProviderNetworkType classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderNetworkType "
+                      name="setProviderNetworkType"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerNetworkType setProviderNetworkType classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderNetworkType "
+                      name="setProviderNetworkType"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerNetworkType valueProviderNetworkType classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderNetworkType "
+                      name="providerNetworkType"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.providerNetworkType | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmProviderNetworkTypeBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputProviderNetworkTypeBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputProviderPhysicalNetworkBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_providerPhysicalNetwork">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] provider physical network"
+                      label="provider physical network"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_providerPhysicalNetwork"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerPhysicalNetwork setProviderPhysicalNetwork classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderPhysicalNetwork "
+                      name="setProviderPhysicalNetwork"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerPhysicalNetwork setProviderPhysicalNetwork classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderPhysicalNetwork "
+                      name="setProviderPhysicalNetwork"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerPhysicalNetwork valueProviderPhysicalNetwork classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderPhysicalNetwork "
+                      name="providerPhysicalNetwork"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.providerPhysicalNetwork | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmProviderPhysicalNetworkBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputProviderPhysicalNetworkBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputProviderSegmentationIdBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_providerSegmentationId">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] provider segmentation ID"
+                      label="provider segmentation ID"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_providerSegmentationId"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerSegmentationId setProviderSegmentationId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderSegmentationId "
+                      name="setProviderSegmentationId"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerSegmentationId setProviderSegmentationId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderSegmentationId "
+                      name="setProviderSegmentationId"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_providerSegmentationId valueProviderSegmentationId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}ProviderSegmentationId "
+                      name="providerSegmentationId"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.providerSegmentationId | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmProviderSegmentationIdBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputProviderSegmentationIdBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputQosPolicyIdBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_qosPolicyId">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] QOS policy ID"
+                      label="QOS policy ID"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_qosPolicyId"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_qosPolicyId setQosPolicyId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}QosPolicyId "
+                      name="setQosPolicyId"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_qosPolicyId setQosPolicyId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}QosPolicyId "
+                      name="setQosPolicyId"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_qosPolicyId valueQosPolicyId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}QosPolicyId "
+                      name="qosPolicyId"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.qosPolicyId | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmQosPolicyIdBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputQosPolicyIdBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputRevisionNumberBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_revisionNumber">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[Integer] revision number"
+                      label="revision number"
+                      type="number"
+                      step="any"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_revisionNumber"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_revisionNumber setRevisionNumber classBareMetalNetwork inputBareMetalNetwork{{ result.id }}RevisionNumber "
+                      name="setRevisionNumber"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_revisionNumber setRevisionNumber classBareMetalNetwork inputBareMetalNetwork{{ result.id }}RevisionNumber "
+                      name="setRevisionNumber"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_revisionNumber valueRevisionNumber classBareMetalNetwork inputBareMetalNetwork{{ result.id }}RevisionNumber "
+                      name="revisionNumber"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.revisionNumber | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmRevisionNumberBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputRevisionNumberBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputStatusBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_status">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] status"
+                      label="status"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_status"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_status setStatus classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Status "
+                      name="setStatus"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_status setStatus classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Status "
+                      name="setStatus"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_status valueStatus classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Status "
+                      name="status"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.status | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmStatusBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputStatusBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputSubnetIdsBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_subnetIds">
+                  {% endif -%}
+                  <wa-tag-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="; separated subnetIds"
+                      label="subnetIds"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_subnetIds"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_subnetIds setSubnetIds classBareMetalNetwork inputBareMetalNetwork{{ result.id }}SubnetIds "
+                      name="setSubnetIds"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_subnetIds setSubnetIds classBareMetalNetwork inputBareMetalNetwork{{ result.id }}SubnetIds "
+                      name="setSubnetIds"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_subnetIds valueSubnetIds classBareMetalNetwork inputBareMetalNetwork{{ result.id }}SubnetIds "
+                      name="subnetIds"
+                      {% endif -%}
+                      {% endif -%}
+                      delimiter=";"
+                      value="{{ result.subnetIds | join(';') | e }}"
+                      >
+                  </wa-tag-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmSubnetIdsBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputSubnetIdsBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputTagsBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_tags">
+                  {% endif -%}
+                  <wa-tag-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="; separated tags"
+                      label="tags"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_tags"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_tags setTags classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Tags "
+                      name="setTags"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_tags setTags classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Tags "
+                      name="setTags"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_tags valueTags classBareMetalNetwork inputBareMetalNetwork{{ result.id }}Tags "
+                      name="tags"
+                      {% endif -%}
+                      {% endif -%}
+                      delimiter=";"
+                      value="{{ result.tags | join(';') | e }}"
+                      >
+                  </wa-tag-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmTagsBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputTagsBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputTenantIdBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_tenantId">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] tenantId"
+                      label="tenantId"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_tenantId"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_tenantId setTenantId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}TenantId "
+                      name="setTenantId"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_tenantId setTenantId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}TenantId "
+                      name="setTenantId"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_tenantId valueTenantId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}TenantId "
+                      name="tenantId"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.tenantId | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmTenantIdBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputTenantIdBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputUpdatedAtBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_updatedAt">
+                  {% endif -%}
+                  <wa-input
+                      type="datetime-local"
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      label="updatedAt {{ formatZonedDateTime(result.updatedAt, "'['VV']'", defaultLocaleId, defaultZoneId) | e }}"
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_updatedAt datetimepicker setUpdatedAt classBareMetalNetwork inputBareMetalNetwork{{ result.id }}UpdatedAt "
+                      placeholder="MM/dd/yyyy h:mm a '['VV']'"
+                      data-timeformat="MM/dd/yyyy h:mm a '['VV']'"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_updatedAt"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      value="{%- if "Page" == classApiMethodMethod and result.updatedAt is defined %}{{ formatZonedDateTime(result.updatedAt, "yyyy-MM-dd'T'HH:mm", defaultLocaleId, defaultZoneId) | e }}{%- endif %}"
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      data-zone="{{ defaultZoneId }}"
+                      >
+                  </wa-input>
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmUpdatedAtBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputUpdatedAtBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIsAdminStateUpBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_isAdminStateUp">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isAdminStateUp"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isAdminStateUp"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="is admin state up"
+                      label="is admin state up"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isAdminStateUp classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsAdminStateUp "
+                      name="setIsAdminStateUp"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isAdminStateUp classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsAdminStateUp "
+                      name="setIsAdminStateUp"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isAdminStateUp setIsAdminStateUp valueIsAdminStateUp classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsAdminStateUp "
+                      name="setIsAdminStateUp"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.isAdminStateUp == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >is admin state up</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmIsAdminStateUpBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIsAdminStateUpBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIsDefaultBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_isDefault">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isDefault"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isDefault"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="is default"
+                      label="is default"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isDefault classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsDefault "
+                      name="setIsDefault"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isDefault classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsDefault "
+                      name="setIsDefault"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isDefault setIsDefault valueIsDefault classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsDefault "
+                      name="setIsDefault"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.isDefault == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >is default</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmIsDefaultBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIsDefaultBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIsPortSecurityEnabledBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_isPortSecurityEnabled">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isPortSecurityEnabled"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isPortSecurityEnabled"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="is port security enabled"
+                      label="is port security enabled"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isPortSecurityEnabled classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsPortSecurityEnabled "
+                      name="setIsPortSecurityEnabled"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isPortSecurityEnabled classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsPortSecurityEnabled "
+                      name="setIsPortSecurityEnabled"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isPortSecurityEnabled setIsPortSecurityEnabled valueIsPortSecurityEnabled classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsPortSecurityEnabled "
+                      name="setIsPortSecurityEnabled"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.isPortSecurityEnabled == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >is port security enabled</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmIsPortSecurityEnabledBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIsPortSecurityEnabledBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIsRouterExternalBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_isRouterExternal">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isRouterExternal"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isRouterExternal"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="is router external"
+                      label="is router external"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isRouterExternal classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsRouterExternal "
+                      name="setIsRouterExternal"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isRouterExternal classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsRouterExternal "
+                      name="setIsRouterExternal"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isRouterExternal setIsRouterExternal valueIsRouterExternal classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsRouterExternal "
+                      name="setIsRouterExternal"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.isRouterExternal == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >is router external</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmIsRouterExternalBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIsRouterExternalBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIsSharedBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_isShared">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isShared"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isShared"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="is shared"
+                      label="is shared"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isShared classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsShared "
+                      name="setIsShared"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isShared classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsShared "
+                      name="setIsShared"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isShared setIsShared valueIsShared classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsShared "
+                      name="setIsShared"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.isShared == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >is shared</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmIsSharedBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIsSharedBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIsVlanQueingBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_isVlanQueing">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isVlanQueing"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isVlanQueing"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="is VLAN queing"
+                      label="is VLAN queing"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isVlanQueing classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsVlanQueing "
+                      name="setIsVlanQueing"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isVlanQueing classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsVlanQueing "
+                      name="setIsVlanQueing"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isVlanQueing setIsVlanQueing valueIsVlanQueing classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsVlanQueing "
+                      name="setIsVlanQueing"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.isVlanQueing == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >is VLAN queing</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmIsVlanQueingBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIsVlanQueingBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputIsVlanTransparentBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_isVlanTransparent">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isVlanTransparent"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_isVlanTransparent"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="is VLAN transparent"
+                      label="is VLAN transparent"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isVlanTransparent classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsVlanTransparent "
+                      name="setIsVlanTransparent"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isVlanTransparent classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsVlanTransparent "
+                      name="setIsVlanTransparent"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_isVlanTransparent setIsVlanTransparent valueIsVlanTransparent classBareMetalNetwork inputBareMetalNetwork{{ result.id }}IsVlanTransparent "
+                      name="setIsVlanTransparent"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.isVlanTransparent == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >is VLAN transparent</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmIsVlanTransparentBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputIsVlanTransparentBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputL2AdjacencyBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_l2Adjacency">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_l2Adjacency"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_l2Adjacency"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="l2Adjecency"
+                      label="l2Adjecency"
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_l2Adjacency classBareMetalNetwork inputBareMetalNetwork{{ result.id }}L2Adjacency "
+                      name="setL2Adjacency"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_l2Adjacency classBareMetalNetwork inputBareMetalNetwork{{ result.id }}L2Adjacency "
+                      name="setL2Adjacency"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_l2Adjacency setL2Adjacency valueL2Adjacency classBareMetalNetwork inputBareMetalNetwork{{ result.id }}L2Adjacency "
+                      name="setL2Adjacency"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.l2Adjacency == true -%}
+                      checked
+                      {% endif -%}
+                      data-id={{ result.id | tojson }}
+                      >l2Adjecency</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmL2AdjacencyBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputL2AdjacencyBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputLocationCloudBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_locationCloud">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] location cloud"
+                      label="location cloud"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_locationCloud"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationCloud setLocationCloud classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationCloud "
+                      name="setLocationCloud"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationCloud setLocationCloud classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationCloud "
+                      name="setLocationCloud"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationCloud valueLocationCloud classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationCloud "
+                      name="locationCloud"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.locationCloud | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmLocationCloudBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputLocationCloudBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputLocationProjectDomainIdBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_locationProjectDomainId">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] location project domain ID"
+                      label="location project domain ID"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_locationProjectDomainId"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectDomainId setLocationProjectDomainId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectDomainId "
+                      name="setLocationProjectDomainId"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectDomainId setLocationProjectDomainId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectDomainId "
+                      name="setLocationProjectDomainId"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectDomainId valueLocationProjectDomainId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectDomainId "
+                      name="locationProjectDomainId"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.locationProjectDomainId | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmLocationProjectDomainIdBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputLocationProjectDomainIdBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputLocationProjectDomainNameBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_locationProjectDomainName">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] location project domain name"
+                      label="location project domain name"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_locationProjectDomainName"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectDomainName setLocationProjectDomainName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectDomainName "
+                      name="setLocationProjectDomainName"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectDomainName setLocationProjectDomainName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectDomainName "
+                      name="setLocationProjectDomainName"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectDomainName valueLocationProjectDomainName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectDomainName "
+                      name="locationProjectDomainName"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.locationProjectDomainName | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmLocationProjectDomainNameBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputLocationProjectDomainNameBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputLocationProjectIdBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_locationProjectId">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] location project ID"
+                      label="location project ID"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_locationProjectId"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectId setLocationProjectId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectId "
+                      name="setLocationProjectId"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectId setLocationProjectId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectId "
+                      name="setLocationProjectId"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectId valueLocationProjectId classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectId "
+                      name="locationProjectId"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.locationProjectId | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmLocationProjectIdBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputLocationProjectIdBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputLocationProjectNameBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_locationProjectName">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] location project name"
+                      label="location project name"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_locationProjectName"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectName setLocationProjectName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectName "
+                      name="setLocationProjectName"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectName setLocationProjectName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectName "
+                      name="setLocationProjectName"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationProjectName valueLocationProjectName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationProjectName "
+                      name="locationProjectName"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.locationProjectName | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmLocationProjectNameBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputLocationProjectNameBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputLocationRegionNameBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_locationRegionName">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] location region name"
+                      label="location region name"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_locationRegionName"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationRegionName setLocationRegionName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationRegionName "
+                      name="setLocationRegionName"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationRegionName setLocationRegionName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationRegionName "
+                      name="setLocationRegionName"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationRegionName valueLocationRegionName classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationRegionName "
+                      name="locationRegionName"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.locationRegionName | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmLocationRegionNameBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputLocationRegionNameBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputLocationZoneBareMetalNetworkPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_locationZone">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] location zone"
+                      label="location zone"
+                      id="BareMetalNetwork_{{classApiMethodMethod}}_locationZone"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-id={{ result.id | tojson }}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationZone setLocationZone classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationZone "
+                      name="setLocationZone"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationZone setLocationZone classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationZone "
+                      name="setLocationZone"
+                      {% else -%}
+                      class="label-on-left BareMetalNetwork_{{classApiMethodMethod}}_locationZone valueLocationZone classBareMetalNetwork inputBareMetalNetwork{{ result.id }}LocationZone "
+                      name="locationZone"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.locationZone | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmLocationZoneBareMetalNetworkPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputLocationZoneBareMetalNetworkPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+
+          {% macro htmFormButton_patchBareMetalNetwork() -%}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_patchBareMetalNetwork" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_patchBareMetalNetwork"
+                >Modify bare metal network</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_patchBareMetalNetwork"></wa-badge>
+          </wa-popup>
+          {% endmacro -%}
+
+        {% macro htmForm_patchBareMetalNetwork(idSuffix='', searchRelated=false) -%}
+        <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="patchBareMetalNetworkDialog" label="Modify bare metal network">
+          <form id="htmForm_patchBareMetalNetwork" class="wa-stack round-row primary-smart-border-radius ">
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="bare-metal-network-details">
+              <div slot="summary">
+                <span>bare metal network details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmIdBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNameBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAvailabilityZoneHintsBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAvailabilityZonesBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCreatedAtBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDnsDomainBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmMtuBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProjectIdBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderNetworkTypeBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderPhysicalNetworkBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderSegmentationIdBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmQosPolicyIdBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmRevisionNumberBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmStatusBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmSubnetIdsBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmTagsBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmTenantIdBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmUpdatedAtBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-4 " id="bare-metal-network-state">
+              <div slot="summary">
+                <span>bare metal network state</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmIsAdminStateUpBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsDefaultBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsPortSecurityEnabledBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsRouterExternalBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsSharedBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsVlanQueingBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsVlanTransparentBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmL2AdjacencyBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-5 " id="location-details">
+              <div slot="summary">
+                <span>location details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmLocationCloudBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectDomainIdBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectDomainNameBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectIdBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectNameBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationRegionNameBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationZoneBareMetalNetworkPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+            {{ htmFormButton_patchBareMetalNetwork() }}
+          </form>
+        </wa-dialog>
+        {%- endmacro -%}
+
+          {% macro htmFormButton_postBareMetalNetwork() -%}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_postBareMetalNetwork" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_postBareMetalNetwork"
+                >Create a bare metal network</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_postBareMetalNetwork"></wa-badge>
+          </wa-popup>
+          {% endmacro -%}
+
+        {% macro htmForm_postBareMetalNetwork(idSuffix='', searchRelated=false) -%}
+        <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="postBareMetalNetworkDialog" label="Create a bare metal network">
+          <form id="htmForm_postBareMetalNetwork" class="wa-stack round-row primary-smart-border-radius ">
+            <div>You can override any default values below: </div>
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="bare-metal-network-details">
+              <div slot="summary">
+                <span>bare metal network details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmIdBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNameBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAvailabilityZoneHintsBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAvailabilityZonesBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCreatedAtBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDnsDomainBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmMtuBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProjectIdBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderNetworkTypeBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderPhysicalNetworkBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderSegmentationIdBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmQosPolicyIdBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmRevisionNumberBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmStatusBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmSubnetIdsBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmTagsBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmTenantIdBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmUpdatedAtBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-4 " id="bare-metal-network-state">
+              <div slot="summary">
+                <span>bare metal network state</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmIsAdminStateUpBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsDefaultBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsPortSecurityEnabledBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsRouterExternalBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsSharedBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsVlanQueingBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsVlanTransparentBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmL2AdjacencyBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-5 " id="location-details">
+              <div slot="summary">
+                <span>location details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmLocationCloudBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectDomainIdBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectDomainNameBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectIdBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectNameBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationRegionNameBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationZoneBareMetalNetworkPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+            {{ htmFormButton_postBareMetalNetwork() }}
+          </form>
+        </wa-dialog>
+        {%- endmacro -%}
+
+          {% macro htmFormButton_deleteBareMetalNetwork() -%}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_deleteBareMetalNetwork" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_deleteBareMetalNetwork"
+                >Delete bare metal network</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_deleteBareMetalNetwork"></wa-badge>
+          </wa-popup>
+          {% endmacro -%}
+
+        {% macro htmForm_deleteBareMetalNetwork(idSuffix='', searchRelated=false) -%}
+        <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="deleteBareMetalNetworkDialog" label="Delete bare metal network">
+          <form id="htmForm_deleteBareMetalNetwork" class="wa-stack round-row primary-smart-border-radius ">
+            {{ htmFormButton_deleteBareMetalNetwork() }}
+          </form>
+        </wa-dialog>
+        {%- endmacro -%}
+
+          {% macro htmFormButton_putimportBareMetalNetwork() -%}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_putimportBareMetalNetwork" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_putimportBareMetalNetwork"
+                >Import bare metal networks</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_putimportBareMetalNetwork"></wa-badge>
+          </wa-popup>
+          {% endmacro -%}
+
+        {% macro htmForm_putimportBareMetalNetwork(idSuffix='', searchRelated=false) -%}
+        <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="putimportBareMetalNetworkDialog" label="Import bare metal networks">
+          <form id="htmForm_putimportBareMetalNetwork" class="wa-stack round-row primary-smart-border-radius ">
+            <div>
+              <wa-textarea
+                  class="PUTImport_searchList "
+                  style="height: 300px; "
+                  placeholder="{ 'searchList': [ { 'id': ... , 'saves': [ ... ] }, ... ] }"
+                  >
+              </wa-textarea>
+            </div>
+            {{ htmFormButton_putimportBareMetalNetwork() }}
+          </form>
+        </wa-dialog>
+        {%- endmacro -%}
+
+        {% macro htmForm_searchpageBareMetalNetwork(idSuffix='', searchRelated=false) -%}
+        <div with-header with-footer style="--width: min(64rem, 100vw); " id="searchpageBareMetalNetworkDialog" label="Search bare metal networks">
+          <div id="htmForm_searchpageBareMetalNetwork" class="wa-stack round-row primary-smart-border-radius ">
+
+            <wa-details class="{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}{% if CONTENT_TYPE_PDF is defined and CONTENT_TYPE_PDF %}display-none {% endif %}HtmRow HtmRow-1 " id="primary-key-id-created-modified-archive-details">
+              <div slot="summary">
+                <span>primary key, ID, created, modified, archive details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmPkBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCreatedBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmModifiedBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+
+              <div class="grid-with-subgrid-2col ">
+                {{ htmArchivedBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-3 " id="bare-metal-network-details">
+              <div slot="summary">
+                <span>bare metal network details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmIdBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmNameBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDescriptionBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAvailabilityZoneHintsBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAvailabilityZonesBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmCreatedAtBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDnsDomainBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmMtuBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProjectIdBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderNetworkTypeBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderPhysicalNetworkBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmProviderSegmentationIdBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmQosPolicyIdBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmRevisionNumberBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmStatusBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmSubnetIdsBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmTagsBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmTenantIdBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmUpdatedAtBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-4 " id="bare-metal-network-state">
+              <div slot="summary">
+                <span>bare metal network state</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmIsAdminStateUpBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsDefaultBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsPortSecurityEnabledBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsRouterExternalBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsSharedBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsVlanQueingBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmIsVlanTransparentBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmL2AdjacencyBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+
+            <wa-details open class="pdf-page-break-after HtmRow HtmRow-5 " id="location-details">
+              <div slot="summary">
+                <span>location details</span>
+              </div>
+              <div class="grid-with-subgrid-2col ">
+                {{ htmLocationCloudBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectDomainIdBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectDomainNameBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectIdBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationProjectNameBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationRegionNameBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmLocationZoneBareMetalNetworkPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+              </div>
+            </wa-details>
+          </div>
+        </div>
+        {%- endmacro -%}
+
+          {% macro htmFormButton_deletefilterBareMetalNetwork() -%}
+          <wa-popup  auto-size="both" placement="top" id="alertButton_deletefilterBareMetalNetwork" duration="5000" closable class="wa-header-l ">
+            <wa-button slot="anchor" variant="brand" slot="footer" type="submit"
+                 id="htmFormButton_deletefilterBareMetalNetwork"
+                >Delete bare metal network</wa-button>
+            <wa-badge class="alertPopup" id="alertPopupButton_deletefilterBareMetalNetwork"></wa-badge>
+          </wa-popup>
+          {% endmacro -%}
+
+        {% macro htmForm_deletefilterBareMetalNetwork(idSuffix='', searchRelated=false) -%}
+        <wa-dialog with-header with-footer style="--width: min(64rem, 100vw); " id="deletefilterBareMetalNetworkDialog" label="Delete bare metal network">
+          <form id="htmForm_deletefilterBareMetalNetwork" class="wa-stack round-row primary-smart-border-radius ">
+            {{ htmFormButton_deletefilterBareMetalNetwork() }}
+          </form>
+        </wa-dialog>
+        {%- endmacro -%}

@@ -1,0 +1,61 @@
+
+          {% macro htmButton_patchAiTelemetryDeveloper() -%}<wa-button variant="brand" id="htmButton_patchAiTelemetryDeveloper"  data-dialog="open patchAiTelemetryDeveloperDialog" data-pageId={{ result.pageId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-edit "></i>Modify</wa-button>{% endmacro -%}
+
+          {% macro htmButton_postAiTelemetryDeveloper() -%}<wa-button variant="brand" id="htmButton_postAiTelemetryDeveloper"  data-dialog="open postAiTelemetryDeveloperDialog" data-pageId={{ result.pageId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-plus "></i>Create</wa-button>{% endmacro -%}
+
+          {% macro htmButton_deleteAiTelemetryDeveloper() -%}<wa-button variant="brand" id="htmButton_deleteAiTelemetryDeveloper" data-pageId={{ result.pageId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
+
+          {% macro htmButton_putimportAiTelemetryDeveloper() -%}<wa-button variant="brand" id="htmButton_putimportAiTelemetryDeveloper"  data-dialog="open putimportAiTelemetryDeveloperDialog" data-pageId={{ result.pageId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-file-import "></i>Import</wa-button>{% endmacro -%}
+
+          {% macro htmButton_deletefilterAiTelemetryDeveloper() -%}<wa-button variant="brand" id="htmButton_deletefilterAiTelemetryDeveloper" data-pageId={{ result.pageId | tojson }}><i slot="start" class="{{ FONTAWESOME_STYLE }} fa-trash "></i>Delete</wa-button>{% endmacro -%}
+          <div id="htmSearchForm">
+            <wa-scroller>
+              <wa-button-group>
+                {% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
+                {% if "PATCH" in scopes %}
+                {% if resultCount >= 1 %}
+                <wa-button variant="brand" id="refreshThisAiTelemetryDeveloperGenPage"
+                     onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'pageId:{{ result.pageId }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisAiTelemetryDeveloperGenPage')); }, function(response, target) { addError(document.querySelector('#refreshThisAiTelemetryDeveloperGenPage'), response); }); return false; ">
+                  <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-sync-alt "></i>
+                  refresh
+                </wa-button>
+                {% endif %}
+                {% if resultCount > 0 %}
+                <wa-button variant="brand" id="refreshAllAiTelemetryDeveloperGenPage{{ result.pageId | e }}"
+                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllAiTelemetryDeveloperGenPage{{ result.pageId | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllAiTelemetryDeveloperGenPage{{ result.pageId | e }}')response); }); "
+                    >
+                  <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrows-rotate"></i>
+                  refresh all 
+                </wa-button>
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'PATCH' in scopes -%}
+                {%- if resultCount > 0 -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_patchAiTelemetryDeveloper() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+                {%- if 'POST' in scopes -%}
+                {{ htmButton_postAiTelemetryDeveloper() -}}
+                {% endif -%}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is defined -%}
+                {{ htmButton_deleteAiTelemetryDeveloper() -}}
+                {% endif -%}
+                {% endif -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_putimportAiTelemetryDeveloper() -}}
+                {%- endif %}
+                {%- if 'DELETE' in scopes -%}
+                {%- if result is not defined -%}
+                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {{ htmButton_deletefilterAiTelemetryDeveloper() -}}
+                {% endif -%}
+                {% endif -%}
+                {% endif -%}
+
+              </wa-button-group>
+            </wa-scroller>
+          </div>
