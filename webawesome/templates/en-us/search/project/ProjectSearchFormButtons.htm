@@ -11,30 +11,26 @@
           <div id="htmSearchForm">
             <wa-scroller>
               <wa-button-group>
-                {% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
                 {% if "PATCH" in scopes %}
-                {% if resultCount >= 1 %}
+                {% if resultCount == 1 and result is defined %}
                 <wa-button variant="brand" id="refreshThisProjectGenPage"
                      onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'projectResource:{{ result.projectResource }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisProjectGenPage')); }, function(response, target) { addError(document.querySelector('#refreshThisProjectGenPage'), response); }); return false; ">
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-sync-alt "></i>
                   refresh
                 </wa-button>
                 {% endif %}
-                {% if resultCount > 0 %}
+                {% if resultCount > 0 and result is not defined %}
                 <wa-button variant="brand" id="refreshAllProjectGenPage{{ result.projectResource | e }}"
-                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllProjectGenPage{{ result.projectResource | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllProjectGenPage{{ result.projectResource | e }}')response); }); "
+                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllProjectGenPage{{ result.projectResource | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllProjectGenPage{{ result.projectResource | e }}'), response); }); "
                     >
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrows-rotate"></i>
                   refresh all 
                 </wa-button>
                 {% endif -%}
                 {% endif -%}
-                {% endif -%}
                 {%- if 'PATCH' in scopes -%}
                 {%- if resultCount > 0 -%}
-                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
                 {{ htmButton_patchProject() -}}
-                {% endif -%}
                 {% endif -%}
                 {% endif -%}
                 {%- if 'POST' in scopes -%}
@@ -45,14 +41,12 @@
                 {{ htmButton_deleteProject() -}}
                 {% endif -%}
                 {% endif -%}
-                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {%- if 'PUT' in scopes -%}
                 {{ htmButton_putimportProject() -}}
-                {%- endif %}
+                {% endif -%}
                 {%- if 'DELETE' in scopes -%}
                 {%- if result is not defined -%}
-                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
                 {{ htmButton_deletefilterProject() -}}
-                {% endif -%}
                 {% endif -%}
                 {% endif -%}
 

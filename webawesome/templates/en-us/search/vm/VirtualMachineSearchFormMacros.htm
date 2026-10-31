@@ -397,43 +397,6 @@
                 {% macro htmVmNameVirtualMachinePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
                 {{ inputVmNameVirtualMachinePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
                 {% endmacro -%}
-                {% macro inputOsVirtualMachinePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
-                {% if 'Page' == classApiMethodMethod -%}
-                <form class="subgrid-2col " id="PageForm_os">
-                  {% endif -%}
-                  <wa-input
-                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
-                      placeholder="[String] OS"
-                      label="OS"
-                      hint="The operating system of this VM"
-                      id="VirtualMachine_{{classApiMethodMethod}}_os"
-                      {% if "Page" == classApiMethodMethod -%}
-                      data-vmResource={{ result.vmResource | tojson }}
-                      class="label-on-left VirtualMachine_{{classApiMethodMethod}}_os setOs classVirtualMachine inputVirtualMachine{{ result.vmResource }}Os "
-                      name="setOs"
-                      {% else -%}
-                      {% if "PATCH" == classApiMethodMethod -%}
-                      class="label-on-left VirtualMachine_{{classApiMethodMethod}}_os setOs classVirtualMachine inputVirtualMachine{{ result.vmResource }}Os "
-                      name="setOs"
-                      {% else -%}
-                      class="label-on-left VirtualMachine_{{classApiMethodMethod}}_os valueOs classVirtualMachine inputVirtualMachine{{ result.vmResource }}Os "
-                      name="os"
-                      {% endif -%}
-                      {% endif -%}
-                      {% if "Page" == classApiMethodMethod -%}
-                      value="{{result.os | e }}"
-                      {% endif -%}
-                      >
-                  </wa-input>
-
-                  {% if 'Page' == classApiMethodMethod -%}
-                </form>
-                {%- endif %}{{''}}
-                {% endmacro -%}
-
-                {% macro htmOsVirtualMachinePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
-                {{ inputOsVirtualMachinePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-                {% endmacro -%}
                 {% macro inputIdVirtualMachinePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
                 {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_id">
@@ -470,6 +433,43 @@
 
                 {% macro htmIdVirtualMachinePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
                 {{ inputIdVirtualMachinePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputOsVirtualMachinePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_os">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] OS"
+                      label="OS"
+                      hint="The operating system of this VM"
+                      id="VirtualMachine_{{classApiMethodMethod}}_os"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-vmResource={{ result.vmResource | tojson }}
+                      class="label-on-left VirtualMachine_{{classApiMethodMethod}}_os setOs classVirtualMachine inputVirtualMachine{{ result.vmResource }}Os "
+                      name="setOs"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left VirtualMachine_{{classApiMethodMethod}}_os setOs classVirtualMachine inputVirtualMachine{{ result.vmResource }}Os "
+                      name="setOs"
+                      {% else -%}
+                      class="label-on-left VirtualMachine_{{classApiMethodMethod}}_os valueOs classVirtualMachine inputVirtualMachine{{ result.vmResource }}Os "
+                      name="os"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.os | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmOsVirtualMachinePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputOsVirtualMachinePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
                 {% endmacro -%}
                 {% macro inputNgsildTenantVirtualMachinePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
                 {% if 'Page' == classApiMethodMethod -%}
@@ -681,8 +681,8 @@
                 {{ htmVmProjectVirtualMachinePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmDescriptionVirtualMachinePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVmNameVirtualMachinePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
-                {{ htmOsVirtualMachinePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmIdVirtualMachinePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmOsVirtualMachinePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
@@ -726,8 +726,8 @@
                 {{ htmVmProjectVirtualMachinePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmDescriptionVirtualMachinePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVmNameVirtualMachinePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
-                {{ htmOsVirtualMachinePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmIdVirtualMachinePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmOsVirtualMachinePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
@@ -818,8 +818,8 @@
                 {{ htmVmProjectVirtualMachinePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmDescriptionVirtualMachinePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVmNameVirtualMachinePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
-                {{ htmOsVirtualMachinePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmIdVirtualMachinePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmOsVirtualMachinePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">

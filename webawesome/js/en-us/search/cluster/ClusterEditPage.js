@@ -565,27 +565,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH apiUrl
-          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_apiUrl');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
-                  , 'setApiUrl', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_apiUrl');
-            const valid = form.reportValidity();
-          });
-
           // PATCH displayPage
           document.querySelector('#Cluster_Page_displayPage')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_displayPage');
@@ -628,27 +607,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH userPage
-          document.querySelector('#Cluster_Page_userPage')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_userPage');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
-                  , 'setUserPage', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#Cluster_Page_userPage')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Cluster_Page_userPage')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_userPage');
-            const valid = form.reportValidity();
-          });
-
           // PATCH download
           document.querySelector('#Cluster_Page_download')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_download');
@@ -667,6 +625,48 @@ Promise.all([
           });
           document.querySelector('#Cluster_Page_download')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_download');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH apiUrl
+          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH userPage
+          document.querySelector('#Cluster_Page_userPage')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_userPage');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchClusterVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'clusterResource:' + event.currentTarget.getAttribute('data-clusterResource') }]
+                  , 'setUserPage', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Cluster_Page_userPage')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Cluster_Page_userPage')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_userPage');
             const valid = form.reportValidity();
           });
 

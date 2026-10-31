@@ -15,7 +15,7 @@
 
 {%- block htmStylePageLayout %}
       :root {
-        --site-results-number-of-columns: 4;
+        --site-results-number-of-columns: 6;
       }
 {{ super() }}
 {%- block htmStyleProjectPage %}
@@ -608,6 +608,32 @@
                         </wa-menu-item>
                       </wa-menu>
                     </wa-dropdown>
+                    <wa-dropdown id="htmDropdown-defaultOpenShiftProject">
+                      <wa-button variant="brand" slot="trigger" caret>K8S</wa-button>
+                      <wa-menu>
+                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_defaultOpenShiftProject'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-defaultOpenShiftProject-asc">
+                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                          sort by K8S ascending
+                        </wa-menu-item>
+                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_defaultOpenShiftProject'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-defaultOpenShiftProject-desc">
+                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                          sort by K8S descending
+                        </wa-menu-item>
+                      </wa-menu>
+                    </wa-dropdown>
+                    <wa-dropdown id="htmDropdown-defaultOpsProject">
+                      <wa-button variant="brand" slot="trigger" caret>Ops</wa-button>
+                      <wa-menu>
+                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_defaultOpsProject'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-defaultOpsProject-asc">
+                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
+                          sort by Ops ascending
+                        </wa-menu-item>
+                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortProject_defaultOpsProject'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-Project').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-defaultOpsProject-desc">
+                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
+                          sort by Ops descending
+                        </wa-menu-item>
+                      </wa-menu>
+                    </wa-dropdown>
                     {% if 'GETManager' in scopes -%}
                     <div></div>
                     {% if item.userPage is defined -%}
@@ -625,6 +651,12 @@
                     </a>
                     <a href="{{ item.displayPage }}">
                       <span>{{ item.projectName | e }}</span>
+                    </a>
+                    <a href="{{ item.displayPage }}">
+                      <span>{{ item.defaultOpenShiftProject | e }}</span>
+                    </a>
+                    <a href="{{ item.displayPage }}">
+                      <span>{{ item.defaultOpsProject | e }}</span>
                     </a>
                     {% if 'GETManager' in scopes -%}
                     {% if item.userPage is defined -%}
@@ -652,6 +684,14 @@
                 </div>
               {% endif %}
               {% if getColumnProjectName is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnDefaultOpenShiftProject is defined %}
+                <div>
+                </div>
+              {% endif %}
+              {% if getColumnDefaultOpsProject is defined %}
                 <div>
                 </div>
               {% endif %}

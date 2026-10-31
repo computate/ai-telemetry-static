@@ -90,6 +90,8 @@ async function websocketProjectInner(apiRequest) {
         var inputProjectTitle = null;
         var inputDescription = null;
         var inputProjectFieldOfScience = null;
+        var inputDefaultOpenShiftProject = null;
+        var inputDefaultOpsProject = null;
         var inputProjectActive = null;
         var inputGpuEnabled = null;
         var inputVllmEnabled = null;
@@ -100,20 +102,20 @@ async function websocketProjectInner(apiRequest) {
         var inputFullPvcsCount = null;
         var inputFullPvcs = null;
         var inputNamespaceTerminating = null;
-        var inputClassCanonicalName = null;
-        var inputClassSimpleName = null;
         var inputClassCanonicalNames = null;
         var inputSessionId = null;
         var inputUserKey = null;
         var inputSaves = null;
         var inputObjectTitle = null;
-        var inputApiUrl = null;
         var inputDisplayPage = null;
         var inputEditPage = null;
-        var inputUserPage = null;
         var inputDownload = null;
-        var inputObjectSuggest = null;
         var inputObjectText = null;
+        var inputClassCanonicalName = null;
+        var inputClassSimpleName = null;
+        var inputApiUrl = null;
+        var inputUserPage = null;
+        var inputObjectSuggest = null;
         var inputSolrId = null;
         var inputLocalClusterName = null;
         var inputHubResource = null;
@@ -145,6 +147,10 @@ async function websocketProjectInner(apiRequest) {
           inputDescription = $response.querySelector('.Project_Page_description');
         if(vars.includes('projectFieldOfScience'))
           inputProjectFieldOfScience = $response.querySelector('.Project_Page_projectFieldOfScience');
+        if(vars.includes('defaultOpenShiftProject'))
+          inputDefaultOpenShiftProject = $response.querySelector('.Project_Page_defaultOpenShiftProject');
+        if(vars.includes('defaultOpsProject'))
+          inputDefaultOpsProject = $response.querySelector('.Project_Page_defaultOpsProject');
         if(vars.includes('projectActive'))
           inputProjectActive = $response.querySelector('.Project_Page_projectActive');
         if(vars.includes('gpuEnabled'))
@@ -165,10 +171,6 @@ async function websocketProjectInner(apiRequest) {
           inputFullPvcs = $response.querySelector('.Project_Page_fullPvcs');
         if(vars.includes('namespaceTerminating'))
           inputNamespaceTerminating = $response.querySelector('.Project_Page_namespaceTerminating');
-        if(vars.includes('classCanonicalName'))
-          inputClassCanonicalName = $response.querySelector('.Project_Page_classCanonicalName');
-        if(vars.includes('classSimpleName'))
-          inputClassSimpleName = $response.querySelector('.Project_Page_classSimpleName');
         if(vars.includes('classCanonicalNames'))
           inputClassCanonicalNames = $response.querySelector('.Project_Page_classCanonicalNames');
         if(vars.includes('sessionId'))
@@ -179,20 +181,24 @@ async function websocketProjectInner(apiRequest) {
           inputSaves = $response.querySelector('.Project_Page_saves');
         if(vars.includes('objectTitle'))
           inputObjectTitle = $response.querySelector('.Project_Page_objectTitle');
-        if(vars.includes('apiUrl'))
-          inputApiUrl = $response.querySelector('.Project_Page_apiUrl');
         if(vars.includes('displayPage'))
           inputDisplayPage = $response.querySelector('.Project_Page_displayPage');
         if(vars.includes('editPage'))
           inputEditPage = $response.querySelector('.Project_Page_editPage');
-        if(vars.includes('userPage'))
-          inputUserPage = $response.querySelector('.Project_Page_userPage');
         if(vars.includes('download'))
           inputDownload = $response.querySelector('.Project_Page_download');
-        if(vars.includes('objectSuggest'))
-          inputObjectSuggest = $response.querySelector('.Project_Page_objectSuggest');
         if(vars.includes('objectText'))
           inputObjectText = $response.querySelector('.Project_Page_objectText');
+        if(vars.includes('classCanonicalName'))
+          inputClassCanonicalName = $response.querySelector('.Project_Page_classCanonicalName');
+        if(vars.includes('classSimpleName'))
+          inputClassSimpleName = $response.querySelector('.Project_Page_classSimpleName');
+        if(vars.includes('apiUrl'))
+          inputApiUrl = $response.querySelector('.Project_Page_apiUrl');
+        if(vars.includes('userPage'))
+          inputUserPage = $response.querySelector('.Project_Page_userPage');
+        if(vars.includes('objectSuggest'))
+          inputObjectSuggest = $response.querySelector('.Project_Page_objectSuggest');
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.Project_Page_solrId');
         if(vars.includes('localClusterName'))
@@ -379,6 +385,34 @@ async function websocketProjectInner(apiRequest) {
           addGlow(document.querySelector('.Project_Page_projectFieldOfScience'));
         }
 
+        if(inputDefaultOpenShiftProject) {
+          document.querySelectorAll('.Project_Page_defaultOpenShiftProject').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputDefaultOpenShiftProject.getAttribute('value');
+            else
+              item.textContent = inputDefaultOpenShiftProject.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_defaultOpenShiftProject'));
+        }
+
+        if(inputDefaultOpsProject) {
+          document.querySelectorAll('.Project_Page_defaultOpsProject').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputDefaultOpsProject.getAttribute('value');
+            else
+              item.textContent = inputDefaultOpsProject.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_defaultOpsProject'));
+        }
+
         if(inputProjectActive) {
           document.querySelectorAll('.Project_Page_projectActive').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -519,34 +553,6 @@ async function websocketProjectInner(apiRequest) {
           addGlow(document.querySelector('.Project_Page_namespaceTerminating'));
         }
 
-        if(inputClassCanonicalName) {
-          document.querySelectorAll('.Project_Page_classCanonicalName').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputClassCanonicalName.getAttribute('value');
-            else
-              item.textContent = inputClassCanonicalName.textContent;
-          });
-          addGlow(document.querySelector('.Project_Page_classCanonicalName'));
-        }
-
-        if(inputClassSimpleName) {
-          document.querySelectorAll('.Project_Page_classSimpleName').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputClassSimpleName.getAttribute('value');
-            else
-              item.textContent = inputClassSimpleName.textContent;
-          });
-          addGlow(document.querySelector('.Project_Page_classSimpleName'));
-        }
-
         if(inputClassCanonicalNames) {
           document.querySelectorAll('.Project_Page_classCanonicalNames').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -617,20 +623,6 @@ async function websocketProjectInner(apiRequest) {
           addGlow(document.querySelector('.Project_Page_objectTitle'));
         }
 
-        if(inputApiUrl) {
-          document.querySelectorAll('.Project_Page_apiUrl').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputApiUrl.getAttribute('value');
-            else
-              item.textContent = inputApiUrl.textContent;
-          });
-          addGlow(document.querySelector('.Project_Page_apiUrl'));
-        }
-
         if(inputDisplayPage) {
           document.querySelectorAll('.Project_Page_displayPage').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -659,20 +651,6 @@ async function websocketProjectInner(apiRequest) {
           addGlow(document.querySelector('.Project_Page_editPage'));
         }
 
-        if(inputUserPage) {
-          document.querySelectorAll('.Project_Page_userPage').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputUserPage.getAttribute('value');
-            else
-              item.textContent = inputUserPage.textContent;
-          });
-          addGlow(document.querySelector('.Project_Page_userPage'));
-        }
-
         if(inputDownload) {
           document.querySelectorAll('.Project_Page_download').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -687,20 +665,6 @@ async function websocketProjectInner(apiRequest) {
           addGlow(document.querySelector('.Project_Page_download'));
         }
 
-        if(inputObjectSuggest) {
-          document.querySelectorAll('.Project_Page_objectSuggest').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputObjectSuggest.getAttribute('value');
-            else
-              item.textContent = inputObjectSuggest.textContent;
-          });
-          addGlow(document.querySelector('.Project_Page_objectSuggest'));
-        }
-
         if(inputObjectText) {
           document.querySelectorAll('.Project_Page_objectText').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -713,6 +677,76 @@ async function websocketProjectInner(apiRequest) {
               item.textContent = inputObjectText.textContent;
           });
           addGlow(document.querySelector('.Project_Page_objectText'));
+        }
+
+        if(inputClassCanonicalName) {
+          document.querySelectorAll('.Project_Page_classCanonicalName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputClassCanonicalName.getAttribute('value');
+            else
+              item.textContent = inputClassCanonicalName.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_classCanonicalName'));
+        }
+
+        if(inputClassSimpleName) {
+          document.querySelectorAll('.Project_Page_classSimpleName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputClassSimpleName.getAttribute('value');
+            else
+              item.textContent = inputClassSimpleName.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_classSimpleName'));
+        }
+
+        if(inputApiUrl) {
+          document.querySelectorAll('.Project_Page_apiUrl').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputApiUrl.getAttribute('value');
+            else
+              item.textContent = inputApiUrl.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_apiUrl'));
+        }
+
+        if(inputUserPage) {
+          document.querySelectorAll('.Project_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputUserPage.getAttribute('value');
+            else
+              item.textContent = inputUserPage.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_userPage'));
+        }
+
+        if(inputObjectSuggest) {
+          document.querySelectorAll('.Project_Page_objectSuggest').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputObjectSuggest.getAttribute('value');
+            else
+              item.textContent = inputObjectSuggest.textContent;
+          });
+          addGlow(document.querySelector('.Project_Page_objectSuggest'));
         }
 
         if(inputSolrId) {
@@ -998,6 +1032,26 @@ function searchProjectFilters($formFilters) {
     if(filterProjectFieldOfScience != null && filterProjectFieldOfScience !== '')
       filters.push({ name: 'fq', value: 'projectFieldOfScience:' + filterProjectFieldOfScience });
 
+    var $filterDefaultOpenShiftProjectCheckbox = $formFilters.querySelector('input.valueDefaultOpenShiftProject[type = "checkbox"]');
+    var $filterDefaultOpenShiftProjectSelect = $formFilters.querySelector('select.valueDefaultOpenShiftProject');
+    var filterDefaultOpenShiftProject = $filterDefaultOpenShiftProjectSelect.length ? $filterDefaultOpenShiftProjectSelect.value : $filterDefaultOpenShiftProjectCheckbox.checked;
+    var filterDefaultOpenShiftProjectSelectVal = $formFilters.querySelector('select.filterDefaultOpenShiftProject')?.value;
+    var filterDefaultOpenShiftProject = null;
+    if(filterDefaultOpenShiftProjectSelectVal !== '')
+      filterDefaultOpenShiftProject = filterDefaultOpenShiftProjectSelectVal == 'true';
+    if(filterDefaultOpenShiftProject != null && filterDefaultOpenShiftProject === true)
+      filters.push({ name: 'fq', value: 'defaultOpenShiftProject:' + filterDefaultOpenShiftProject });
+
+    var $filterDefaultOpsProjectCheckbox = $formFilters.querySelector('input.valueDefaultOpsProject[type = "checkbox"]');
+    var $filterDefaultOpsProjectSelect = $formFilters.querySelector('select.valueDefaultOpsProject');
+    var filterDefaultOpsProject = $filterDefaultOpsProjectSelect.length ? $filterDefaultOpsProjectSelect.value : $filterDefaultOpsProjectCheckbox.checked;
+    var filterDefaultOpsProjectSelectVal = $formFilters.querySelector('select.filterDefaultOpsProject')?.value;
+    var filterDefaultOpsProject = null;
+    if(filterDefaultOpsProjectSelectVal !== '')
+      filterDefaultOpsProject = filterDefaultOpsProjectSelectVal == 'true';
+    if(filterDefaultOpsProject != null && filterDefaultOpsProject === true)
+      filters.push({ name: 'fq', value: 'defaultOpsProject:' + filterDefaultOpsProject });
+
     var $filterProjectActiveCheckbox = $formFilters.querySelector('input.valueProjectActive[type = "checkbox"]');
     var $filterProjectActiveSelect = $formFilters.querySelector('select.valueProjectActive');
     var filterProjectActive = $filterProjectActiveSelect.length ? $filterProjectActiveSelect.value : $filterProjectActiveCheckbox.checked;
@@ -1062,14 +1116,6 @@ function searchProjectFilters($formFilters) {
     if(filterNamespaceTerminating != null && filterNamespaceTerminating === true)
       filters.push({ name: 'fq', value: 'namespaceTerminating:' + filterNamespaceTerminating });
 
-    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
-    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
-      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
-
-    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
-    if(filterClassSimpleName != null && filterClassSimpleName !== '')
-      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
-
     var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
     if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
       filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
@@ -1090,10 +1136,6 @@ function searchProjectFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
-    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
-    if(filterApiUrl != null && filterApiUrl !== '')
-      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
-
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -1102,21 +1144,33 @@ function searchProjectFilters($formFilters) {
     if(filterEditPage != null && filterEditPage !== '')
       filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
 
-    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
-    if(filterUserPage != null && filterUserPage !== '')
-      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
-
     var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
     if(filterDownload != null && filterDownload !== '')
       filters.push({ name: 'fq', value: 'download:' + filterDownload });
 
-    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
-    if(filterObjectSuggest != null && filterObjectSuggest !== '')
-      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
-
     var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
     if(filterObjectText != null && filterObjectText !== '')
       filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
 
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
@@ -1547,6 +1601,44 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   if(removeProjectFieldOfScience != null && removeProjectFieldOfScience !== '')
     vals['removeProjectFieldOfScience'] = removeProjectFieldOfScience;
 
+  var valueDefaultOpenShiftProject = $formValues.querySelector('.valueDefaultOpenShiftProject')?.value;
+  var removeDefaultOpenShiftProject = $formValues.querySelector('.removeDefaultOpenShiftProject')?.value === 'true';
+  if(valueDefaultOpenShiftProject != null)
+    valueDefaultOpenShiftProject = valueDefaultOpenShiftProject === 'true';
+  var valueDefaultOpenShiftProjectSelectVal = $formValues.querySelector('select.setDefaultOpenShiftProject')?.value;
+  if(valueDefaultOpenShiftProjectSelectVal != null)
+    valueDefaultOpenShiftProjectSelectVal = valueDefaultOpenShiftProjectSelectVal === 'true';
+  if(valueDefaultOpenShiftProjectSelectVal != null && valueDefaultOpenShiftProjectSelectVal !== '')
+    valueDefaultOpenShiftProject = valueDefaultOpenShiftProjectSelectVal == 'true';
+  var setDefaultOpenShiftProject = removeDefaultOpenShiftProject ? null : valueDefaultOpenShiftProject;
+  var addDefaultOpenShiftProject = $formValues.querySelector('.addDefaultOpenShiftProject')?.checked;
+  if(removeDefaultOpenShiftProject || setDefaultOpenShiftProject != null && setDefaultOpenShiftProject !== '')
+    vals['setDefaultOpenShiftProject'] = setDefaultOpenShiftProject;
+  if(addDefaultOpenShiftProject != null && addDefaultOpenShiftProject !== '')
+    vals['addDefaultOpenShiftProject'] = addDefaultOpenShiftProject;
+  var removeDefaultOpenShiftProject = $formValues.querySelector('.removeDefaultOpenShiftProject')?.checked;
+  if(removeDefaultOpenShiftProject != null && removeDefaultOpenShiftProject !== '')
+    vals['removeDefaultOpenShiftProject'] = removeDefaultOpenShiftProject;
+
+  var valueDefaultOpsProject = $formValues.querySelector('.valueDefaultOpsProject')?.value;
+  var removeDefaultOpsProject = $formValues.querySelector('.removeDefaultOpsProject')?.value === 'true';
+  if(valueDefaultOpsProject != null)
+    valueDefaultOpsProject = valueDefaultOpsProject === 'true';
+  var valueDefaultOpsProjectSelectVal = $formValues.querySelector('select.setDefaultOpsProject')?.value;
+  if(valueDefaultOpsProjectSelectVal != null)
+    valueDefaultOpsProjectSelectVal = valueDefaultOpsProjectSelectVal === 'true';
+  if(valueDefaultOpsProjectSelectVal != null && valueDefaultOpsProjectSelectVal !== '')
+    valueDefaultOpsProject = valueDefaultOpsProjectSelectVal == 'true';
+  var setDefaultOpsProject = removeDefaultOpsProject ? null : valueDefaultOpsProject;
+  var addDefaultOpsProject = $formValues.querySelector('.addDefaultOpsProject')?.checked;
+  if(removeDefaultOpsProject || setDefaultOpsProject != null && setDefaultOpsProject !== '')
+    vals['setDefaultOpsProject'] = setDefaultOpsProject;
+  if(addDefaultOpsProject != null && addDefaultOpsProject !== '')
+    vals['addDefaultOpsProject'] = addDefaultOpsProject;
+  var removeDefaultOpsProject = $formValues.querySelector('.removeDefaultOpsProject')?.checked;
+  if(removeDefaultOpsProject != null && removeDefaultOpsProject !== '')
+    vals['removeDefaultOpsProject'] = removeDefaultOpsProject;
+
   var valueProjectActive = $formValues.querySelector('.valueProjectActive')?.value;
   var removeProjectActive = $formValues.querySelector('.removeProjectActive')?.value === 'true';
   if(valueProjectActive != null)
@@ -1620,8 +1712,8 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   var removePodsRestarting = $formValues.querySelector('.removePodsRestarting')?.value === 'true';
   var setPodsRestarting = removePodsRestarting ? null : $formValues.querySelector('.setPodsRestarting')?.value;
   var addPodsRestarting = $formValues.querySelector('.addPodsRestarting')?.value;
-  if(removePodsRestarting || setPodsRestarting != null && setPodsRestarting !== '')
-    vals['setPodsRestarting'] = JSON.parse(setPodsRestarting);
+  if(removePodsRestarting || setPodsRestarting != null && setPodsRestarting.length > 0)
+    vals['setPodsRestarting'] = setPodsRestarting;
   if(addPodsRestarting != null && addPodsRestarting !== '')
     vals['addPodsRestarting'] = addPodsRestarting;
   var removePodsRestarting = $formValues.querySelector('.removePodsRestarting')?.value;
@@ -1644,8 +1736,8 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   var removePodsTerminating = $formValues.querySelector('.removePodsTerminating')?.value === 'true';
   var setPodsTerminating = removePodsTerminating ? null : $formValues.querySelector('.setPodsTerminating')?.value;
   var addPodsTerminating = $formValues.querySelector('.addPodsTerminating')?.value;
-  if(removePodsTerminating || setPodsTerminating != null && setPodsTerminating !== '')
-    vals['setPodsTerminating'] = JSON.parse(setPodsTerminating);
+  if(removePodsTerminating || setPodsTerminating != null && setPodsTerminating.length > 0)
+    vals['setPodsTerminating'] = setPodsTerminating;
   if(addPodsTerminating != null && addPodsTerminating !== '')
     vals['addPodsTerminating'] = addPodsTerminating;
   var removePodsTerminating = $formValues.querySelector('.removePodsTerminating')?.value;
@@ -1668,8 +1760,8 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   var removeFullPvcs = $formValues.querySelector('.removeFullPvcs')?.value === 'true';
   var setFullPvcs = removeFullPvcs ? null : $formValues.querySelector('.setFullPvcs')?.value;
   var addFullPvcs = $formValues.querySelector('.addFullPvcs')?.value;
-  if(removeFullPvcs || setFullPvcs != null && setFullPvcs !== '')
-    vals['setFullPvcs'] = JSON.parse(setFullPvcs);
+  if(removeFullPvcs || setFullPvcs != null && setFullPvcs.length > 0)
+    vals['setFullPvcs'] = setFullPvcs;
   if(addFullPvcs != null && addFullPvcs !== '')
     vals['addFullPvcs'] = addFullPvcs;
   var removeFullPvcs = $formValues.querySelector('.removeFullPvcs')?.value;
@@ -1731,18 +1823,6 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
-  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
-  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
-  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
-  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
-  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
-    vals['setApiUrl'] = setApiUrl;
-  if(addApiUrl != null && addApiUrl !== '')
-    vals['addApiUrl'] = addApiUrl;
-  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
-  if(removeApiUrl != null && removeApiUrl !== '')
-    vals['removeApiUrl'] = removeApiUrl;
-
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   var removeDisplayPage = $formValues.querySelector('.removeDisplayPage')?.value === 'true';
   var setDisplayPage = removeDisplayPage ? null : $formValues.querySelector('.setDisplayPage')?.value;
@@ -1767,18 +1847,6 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   if(removeEditPage != null && removeEditPage !== '')
     vals['removeEditPage'] = removeEditPage;
 
-  var valueUserPage = $formValues.querySelector('.valueUserPage')?.value;
-  var removeUserPage = $formValues.querySelector('.removeUserPage')?.value === 'true';
-  var setUserPage = removeUserPage ? null : $formValues.querySelector('.setUserPage')?.value;
-  var addUserPage = $formValues.querySelector('.addUserPage')?.value;
-  if(removeUserPage || setUserPage != null && setUserPage !== '')
-    vals['setUserPage'] = setUserPage;
-  if(addUserPage != null && addUserPage !== '')
-    vals['addUserPage'] = addUserPage;
-  var removeUserPage = $formValues.querySelector('.removeUserPage')?.value;
-  if(removeUserPage != null && removeUserPage !== '')
-    vals['removeUserPage'] = removeUserPage;
-
   var valueDownload = $formValues.querySelector('.valueDownload')?.value;
   var removeDownload = $formValues.querySelector('.removeDownload')?.value === 'true';
   var setDownload = removeDownload ? null : $formValues.querySelector('.setDownload')?.value;
@@ -1790,6 +1858,30 @@ async function patchProject($formFilters, $formValues, target, projectResource, 
   var removeDownload = $formValues.querySelector('.removeDownload')?.value;
   if(removeDownload != null && removeDownload !== '')
     vals['removeDownload'] = removeDownload;
+
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
+  var valueUserPage = $formValues.querySelector('.valueUserPage')?.value;
+  var removeUserPage = $formValues.querySelector('.removeUserPage')?.value === 'true';
+  var setUserPage = removeUserPage ? null : $formValues.querySelector('.setUserPage')?.value;
+  var addUserPage = $formValues.querySelector('.addUserPage')?.value;
+  if(removeUserPage || setUserPage != null && setUserPage !== '')
+    vals['setUserPage'] = setUserPage;
+  if(addUserPage != null && addUserPage !== '')
+    vals['addUserPage'] = addUserPage;
+  var removeUserPage = $formValues.querySelector('.removeUserPage')?.value;
+  if(removeUserPage != null && removeUserPage !== '')
+    vals['removeUserPage'] = removeUserPage;
 
   var valueLocalClusterName = $formValues.querySelector('.valueLocalClusterName')?.value;
   var removeLocalClusterName = $formValues.querySelector('.removeLocalClusterName')?.value === 'true';
@@ -1897,6 +1989,26 @@ function patchProjectFilters($formFilters) {
     if(filterProjectFieldOfScience != null && filterProjectFieldOfScience !== '')
       filters.push({ name: 'fq', value: 'projectFieldOfScience:' + filterProjectFieldOfScience });
 
+    var $filterDefaultOpenShiftProjectCheckbox = $formFilters.querySelector('input.valueDefaultOpenShiftProject[type = "checkbox"]');
+    var $filterDefaultOpenShiftProjectSelect = $formFilters.querySelector('select.valueDefaultOpenShiftProject');
+    var filterDefaultOpenShiftProject = $filterDefaultOpenShiftProjectSelect.length ? $filterDefaultOpenShiftProjectSelect.value : $filterDefaultOpenShiftProjectCheckbox.checked;
+    var filterDefaultOpenShiftProjectSelectVal = $formFilters.querySelector('select.filterDefaultOpenShiftProject')?.value;
+    var filterDefaultOpenShiftProject = null;
+    if(filterDefaultOpenShiftProjectSelectVal !== '')
+      filterDefaultOpenShiftProject = filterDefaultOpenShiftProjectSelectVal == 'true';
+    if(filterDefaultOpenShiftProject != null && filterDefaultOpenShiftProject === true)
+      filters.push({ name: 'fq', value: 'defaultOpenShiftProject:' + filterDefaultOpenShiftProject });
+
+    var $filterDefaultOpsProjectCheckbox = $formFilters.querySelector('input.valueDefaultOpsProject[type = "checkbox"]');
+    var $filterDefaultOpsProjectSelect = $formFilters.querySelector('select.valueDefaultOpsProject');
+    var filterDefaultOpsProject = $filterDefaultOpsProjectSelect.length ? $filterDefaultOpsProjectSelect.value : $filterDefaultOpsProjectCheckbox.checked;
+    var filterDefaultOpsProjectSelectVal = $formFilters.querySelector('select.filterDefaultOpsProject')?.value;
+    var filterDefaultOpsProject = null;
+    if(filterDefaultOpsProjectSelectVal !== '')
+      filterDefaultOpsProject = filterDefaultOpsProjectSelectVal == 'true';
+    if(filterDefaultOpsProject != null && filterDefaultOpsProject === true)
+      filters.push({ name: 'fq', value: 'defaultOpsProject:' + filterDefaultOpsProject });
+
     var $filterProjectActiveCheckbox = $formFilters.querySelector('input.valueProjectActive[type = "checkbox"]');
     var $filterProjectActiveSelect = $formFilters.querySelector('select.valueProjectActive');
     var filterProjectActive = $filterProjectActiveSelect.length ? $filterProjectActiveSelect.value : $filterProjectActiveCheckbox.checked;
@@ -1961,14 +2073,6 @@ function patchProjectFilters($formFilters) {
     if(filterNamespaceTerminating != null && filterNamespaceTerminating === true)
       filters.push({ name: 'fq', value: 'namespaceTerminating:' + filterNamespaceTerminating });
 
-    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
-    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
-      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
-
-    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
-    if(filterClassSimpleName != null && filterClassSimpleName !== '')
-      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
-
     var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
     if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
       filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
@@ -1989,10 +2093,6 @@ function patchProjectFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
-    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
-    if(filterApiUrl != null && filterApiUrl !== '')
-      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
-
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -2001,21 +2101,33 @@ function patchProjectFilters($formFilters) {
     if(filterEditPage != null && filterEditPage !== '')
       filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
 
-    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
-    if(filterUserPage != null && filterUserPage !== '')
-      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
-
     var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
     if(filterDownload != null && filterDownload !== '')
       filters.push({ name: 'fq', value: 'download:' + filterDownload });
 
-    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
-    if(filterObjectSuggest != null && filterObjectSuggest !== '')
-      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
-
     var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
     if(filterObjectText != null && filterObjectText !== '')
       filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
 
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
@@ -2151,6 +2263,14 @@ async function postProject($formValues, target, success, error) {
   if(valueProjectFieldOfScience != null && valueProjectFieldOfScience !== '')
     vals['projectFieldOfScience'] = valueProjectFieldOfScience;
 
+  var valueDefaultOpenShiftProject = $formValues.querySelector('.valueDefaultOpenShiftProject')?.value;
+  if(valueDefaultOpenShiftProject != null && valueDefaultOpenShiftProject !== '')
+    vals['defaultOpenShiftProject'] = valueDefaultOpenShiftProject == 'true';
+
+  var valueDefaultOpsProject = $formValues.querySelector('.valueDefaultOpsProject')?.value;
+  if(valueDefaultOpsProject != null && valueDefaultOpsProject !== '')
+    vals['defaultOpsProject'] = valueDefaultOpsProject == 'true';
+
   var valueProjectActive = $formValues.querySelector('.valueProjectActive')?.value;
   if(valueProjectActive != null && valueProjectActive !== '')
     vals['projectActive'] = valueProjectActive == 'true';
@@ -2168,7 +2288,7 @@ async function postProject($formValues, target, success, error) {
     vals['podRestartCount'] = valuePodRestartCount;
 
   var valuePodsRestarting = $formValues.querySelector('.valuePodsRestarting')?.value;
-  if(valuePodsRestarting != null && valuePodsRestarting !== '')
+  if(valuePodsRestarting != null && valuePodsRestarting.length > 0)
     vals['podsRestarting'] = valuePodsRestarting;
 
   var valuePodTerminatingCount = $formValues.querySelector('.valuePodTerminatingCount')?.value;
@@ -2176,7 +2296,7 @@ async function postProject($formValues, target, success, error) {
     vals['podTerminatingCount'] = valuePodTerminatingCount;
 
   var valuePodsTerminating = $formValues.querySelector('.valuePodsTerminating')?.value;
-  if(valuePodsTerminating != null && valuePodsTerminating !== '')
+  if(valuePodsTerminating != null && valuePodsTerminating.length > 0)
     vals['podsTerminating'] = valuePodsTerminating;
 
   var valueFullPvcsCount = $formValues.querySelector('.valueFullPvcsCount')?.value;
@@ -2184,7 +2304,7 @@ async function postProject($formValues, target, success, error) {
     vals['fullPvcsCount'] = valueFullPvcsCount;
 
   var valueFullPvcs = $formValues.querySelector('.valueFullPvcs')?.value;
-  if(valueFullPvcs != null && valueFullPvcs !== '')
+  if(valueFullPvcs != null && valueFullPvcs.length > 0)
     vals['fullPvcs'] = valueFullPvcs;
 
   var valueNamespaceTerminating = $formValues.querySelector('.valueNamespaceTerminating')?.value;
@@ -2203,10 +2323,6 @@ async function postProject($formValues, target, success, error) {
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
 
-  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
-  if(valueApiUrl != null && valueApiUrl !== '')
-    vals['apiUrl'] = valueApiUrl;
-
   var valueDisplayPage = $formValues.querySelector('.valueDisplayPage')?.value;
   if(valueDisplayPage != null && valueDisplayPage !== '')
     vals['displayPage'] = valueDisplayPage;
@@ -2215,13 +2331,17 @@ async function postProject($formValues, target, success, error) {
   if(valueEditPage != null && valueEditPage !== '')
     vals['editPage'] = valueEditPage;
 
-  var valueUserPage = $formValues.querySelector('.valueUserPage')?.value;
-  if(valueUserPage != null && valueUserPage !== '')
-    vals['userPage'] = valueUserPage;
-
   var valueDownload = $formValues.querySelector('.valueDownload')?.value;
   if(valueDownload != null && valueDownload !== '')
     vals['download'] = valueDownload;
+
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
+
+  var valueUserPage = $formValues.querySelector('.valueUserPage')?.value;
+  if(valueUserPage != null && valueUserPage !== '')
+    vals['userPage'] = valueUserPage;
 
   var valueLocalClusterName = $formValues.querySelector('.valueLocalClusterName')?.value;
   if(valueLocalClusterName != null && valueLocalClusterName !== '')
@@ -2357,9 +2477,7 @@ function putimportProjectVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterProject($formFilterstarget, success, error) {
-  var filters = deletefilterProjectFilters($formFilters);
-
+async function deletefilterProject($formFilters, target, projectResource, success, error) {
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -2390,6 +2508,7 @@ async function deletefilterProject($formFilterstarget, success, error) {
     };
   }
 
+  var filters = projectResource == null ? deparam(window.location.search ? window.location.search.substring(1) : window.location.search) : [{name:'fq', value:'projectResource:' + projectResource}];
   fetch(
     '/en-us/api/project?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
@@ -2463,6 +2582,26 @@ function deletefilterProjectFilters($formFilters) {
     if(filterProjectFieldOfScience != null && filterProjectFieldOfScience !== '')
       filters.push({ name: 'fq', value: 'projectFieldOfScience:' + filterProjectFieldOfScience });
 
+    var $filterDefaultOpenShiftProjectCheckbox = $formFilters.querySelector('input.valueDefaultOpenShiftProject[type = "checkbox"]');
+    var $filterDefaultOpenShiftProjectSelect = $formFilters.querySelector('select.valueDefaultOpenShiftProject');
+    var filterDefaultOpenShiftProject = $filterDefaultOpenShiftProjectSelect.length ? $filterDefaultOpenShiftProjectSelect.value : $filterDefaultOpenShiftProjectCheckbox.checked;
+    var filterDefaultOpenShiftProjectSelectVal = $formFilters.querySelector('select.filterDefaultOpenShiftProject')?.value;
+    var filterDefaultOpenShiftProject = null;
+    if(filterDefaultOpenShiftProjectSelectVal !== '')
+      filterDefaultOpenShiftProject = filterDefaultOpenShiftProjectSelectVal == 'true';
+    if(filterDefaultOpenShiftProject != null && filterDefaultOpenShiftProject === true)
+      filters.push({ name: 'fq', value: 'defaultOpenShiftProject:' + filterDefaultOpenShiftProject });
+
+    var $filterDefaultOpsProjectCheckbox = $formFilters.querySelector('input.valueDefaultOpsProject[type = "checkbox"]');
+    var $filterDefaultOpsProjectSelect = $formFilters.querySelector('select.valueDefaultOpsProject');
+    var filterDefaultOpsProject = $filterDefaultOpsProjectSelect.length ? $filterDefaultOpsProjectSelect.value : $filterDefaultOpsProjectCheckbox.checked;
+    var filterDefaultOpsProjectSelectVal = $formFilters.querySelector('select.filterDefaultOpsProject')?.value;
+    var filterDefaultOpsProject = null;
+    if(filterDefaultOpsProjectSelectVal !== '')
+      filterDefaultOpsProject = filterDefaultOpsProjectSelectVal == 'true';
+    if(filterDefaultOpsProject != null && filterDefaultOpsProject === true)
+      filters.push({ name: 'fq', value: 'defaultOpsProject:' + filterDefaultOpsProject });
+
     var $filterProjectActiveCheckbox = $formFilters.querySelector('input.valueProjectActive[type = "checkbox"]');
     var $filterProjectActiveSelect = $formFilters.querySelector('select.valueProjectActive');
     var filterProjectActive = $filterProjectActiveSelect.length ? $filterProjectActiveSelect.value : $filterProjectActiveCheckbox.checked;
@@ -2527,14 +2666,6 @@ function deletefilterProjectFilters($formFilters) {
     if(filterNamespaceTerminating != null && filterNamespaceTerminating === true)
       filters.push({ name: 'fq', value: 'namespaceTerminating:' + filterNamespaceTerminating });
 
-    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
-    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
-      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
-
-    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
-    if(filterClassSimpleName != null && filterClassSimpleName !== '')
-      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
-
     var filterClassCanonicalNames = $formFilters.querySelector('.valueClassCanonicalNames')?.value;
     if(filterClassCanonicalNames != null && filterClassCanonicalNames !== '')
       filters.push({ name: 'fq', value: 'classCanonicalNames:' + filterClassCanonicalNames });
@@ -2555,10 +2686,6 @@ function deletefilterProjectFilters($formFilters) {
     if(filterObjectTitle != null && filterObjectTitle !== '')
       filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
 
-    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
-    if(filterApiUrl != null && filterApiUrl !== '')
-      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
-
     var filterDisplayPage = $formFilters.querySelector('.valueDisplayPage')?.value;
     if(filterDisplayPage != null && filterDisplayPage !== '')
       filters.push({ name: 'fq', value: 'displayPage:' + filterDisplayPage });
@@ -2567,21 +2694,33 @@ function deletefilterProjectFilters($formFilters) {
     if(filterEditPage != null && filterEditPage !== '')
       filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
 
-    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
-    if(filterUserPage != null && filterUserPage !== '')
-      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
-
     var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
     if(filterDownload != null && filterDownload !== '')
       filters.push({ name: 'fq', value: 'download:' + filterDownload });
 
-    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
-    if(filterObjectSuggest != null && filterObjectSuggest !== '')
-      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
-
     var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
     if(filterObjectText != null && filterObjectText !== '')
       filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
+
+    var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
+    if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
+      filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
+
+    var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
+    if(filterClassSimpleName != null && filterClassSimpleName !== '')
+      filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
+
+    var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
+    if(filterApiUrl != null && filterApiUrl !== '')
+      filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
+
+    var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
+    if(filterObjectSuggest != null && filterObjectSuggest !== '')
+      filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
 
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')

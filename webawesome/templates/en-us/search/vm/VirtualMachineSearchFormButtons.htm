@@ -11,30 +11,26 @@
           <div id="htmSearchForm">
             <wa-scroller>
               <wa-button-group>
-                {% if AUTH_SCOPE_SUPER_ADMIN in scopes %}
                 {% if "PATCH" in scopes %}
-                {% if resultCount >= 1 %}
+                {% if resultCount == 1 and result is defined %}
                 <wa-button variant="brand" id="refreshThisVirtualMachineGenPage"
                      onclick="patch{{classSimpleName}}Vals( [ {name: 'fq', value: 'vmResource:{{ result.vmResource }}' } ], {}, this, function() { addGlow(document.querySelector('#refreshThisVirtualMachineGenPage')); }, function(response, target) { addError(document.querySelector('#refreshThisVirtualMachineGenPage'), response); }); return false; ">
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-sync-alt "></i>
                   refresh
                 </wa-button>
                 {% endif %}
-                {% if resultCount > 0 %}
+                {% if resultCount > 0 and result is not defined %}
                 <wa-button variant="brand" id="refreshAllVirtualMachineGenPage{{ result.vmResource | e }}"
-                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllVirtualMachineGenPage{{ result.vmResource | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllVirtualMachineGenPage{{ result.vmResource | e }}')response); }); "
+                     onclick="patch{{classSimpleName}}Vals([], {}, this, function() { addGlow(document.querySelector('#refreshAllVirtualMachineGenPage{{ result.vmResource | e }}')); }, function(response, target) { addError(document.querySelector('#refreshAllVirtualMachineGenPage{{ result.vmResource | e }}'), response); }); "
                     >
                   <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrows-rotate"></i>
                   refresh all 
                 </wa-button>
                 {% endif -%}
                 {% endif -%}
-                {% endif -%}
                 {%- if 'PATCH' in scopes -%}
                 {%- if resultCount > 0 -%}
-                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
                 {{ htmButton_patchVirtualMachine() -}}
-                {% endif -%}
                 {% endif -%}
                 {% endif -%}
                 {%- if 'POST' in scopes -%}
@@ -45,14 +41,12 @@
                 {{ htmButton_deleteVirtualMachine() -}}
                 {% endif -%}
                 {% endif -%}
-                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
+                {%- if 'PUT' in scopes -%}
                 {{ htmButton_putimportVirtualMachine() -}}
-                {%- endif %}
+                {% endif -%}
                 {%- if 'DELETE' in scopes -%}
                 {%- if result is not defined -%}
-                {%- if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
                 {{ htmButton_deletefilterVirtualMachine() -}}
-                {% endif -%}
                 {% endif -%}
                 {% endif -%}
 

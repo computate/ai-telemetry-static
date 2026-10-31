@@ -1,6 +1,6 @@
 {% include en-us/search/cluster/ClusterSearchFormMacros.htm %}
 {% include en-us/search/hub/HubSearchFormMacros.htm %}
-        {% if 'DELETE' in scopes -%}
+        {% if 'PATCH' in scopes -%}
         {{ htmForm_patchCluster() -}}
         {% endif -%}
         {% if 'POST' in scopes -%}
@@ -16,9 +16,7 @@
         {% else -%}
         {% endif -%}
         {% endif -%}
-        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
         {{ htmForm_putimportCluster() -}}
-        {% endif %}
         {% if 'DELETE' in scopes -%}
         {% if resultCount >= 1 -%}
         {{ htmForm_deletefilterCluster() -}}

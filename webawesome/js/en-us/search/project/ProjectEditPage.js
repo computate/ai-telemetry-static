@@ -187,6 +187,48 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
+          // PATCH defaultOpenShiftProject
+          document.querySelector('#Project_Page_defaultOpenShiftProject')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_defaultOpenShiftProject');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
+                  , 'setDefaultOpenShiftProject', event.currentTarget.checked
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Project_Page_defaultOpenShiftProject')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Project_Page_defaultOpenShiftProject')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_defaultOpenShiftProject');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH defaultOpsProject
+          document.querySelector('#Project_Page_defaultOpsProject')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_defaultOpsProject');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
+                  , 'setDefaultOpsProject', event.currentTarget.checked
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Project_Page_defaultOpsProject')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Project_Page_defaultOpsProject')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_defaultOpsProject');
+            const valid = form.reportValidity();
+          });
+
           // PATCH projectActive
           document.querySelector('#Project_Page_projectActive')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_projectActive');
@@ -460,27 +502,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH apiUrl
-          document.querySelector('#Project_Page_apiUrl')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_apiUrl');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
-                  , 'setApiUrl', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#Project_Page_apiUrl')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Project_Page_apiUrl')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_apiUrl');
-            const valid = form.reportValidity();
-          });
-
           // PATCH displayPage
           document.querySelector('#Project_Page_displayPage')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_displayPage');
@@ -523,27 +544,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH userPage
-          document.querySelector('#Project_Page_userPage')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_userPage');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
-                  , 'setUserPage', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#Project_Page_userPage')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#Project_Page_userPage')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_userPage');
-            const valid = form.reportValidity();
-          });
-
           // PATCH download
           document.querySelector('#Project_Page_download')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_download');
@@ -562,6 +562,48 @@ Promise.all([
           });
           document.querySelector('#Project_Page_download')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_download');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH apiUrl
+          document.querySelector('#Project_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Project_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Project_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH userPage
+          document.querySelector('#Project_Page_userPage')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_userPage');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchProjectVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'projectResource:' + event.currentTarget.getAttribute('data-projectResource') }]
+                  , 'setUserPage', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#Project_Page_userPage')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#Project_Page_userPage')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_userPage');
             const valid = form.reportValidity();
           });
 

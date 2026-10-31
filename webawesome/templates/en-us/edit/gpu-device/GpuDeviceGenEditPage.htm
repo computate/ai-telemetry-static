@@ -342,20 +342,6 @@
           {% endif -%}
           {% endif -%}
           }
-          function AiNode_POST_clusterResource_GpuDevice_POST_nodeResource(event) {
-            suggestAiNodeClusterResource(
-                [ { 'name': 'q', 'value': 'objectSuggest:' + (event.target.value ? event.target.value : '') }
-                , { 'name': 'rows', 'value': '10' }
-                , { 'name': 'fl', 'value': 'classCanonicalName,clusterResource,pk,editPage,objectTitle' } ]
-                , document.querySelector('#' + event.target.getAttribute('data-list'))
-                , (event.target.getAttribute('data-method') === 'Page' || event.target.getAttribute('data-method') === 'POST') ? window.result.gpuDeviceResource : null
-                , (event.target.getAttribute('data-method') === 'Page' || event.target.getAttribute('data-method') === 'POST') ? window.result.clusterResource : null
-                , true
-                , document.querySelector('#AiNode_POST_clusterResource_GpuDevice_POST_nodeResource')
-                );
-          }
-          document.querySelector('#AiNode_POST_clusterResource_GpuDevice_POST_nodeResource')?.addEventListener('input', AiNode_POST_clusterResource_GpuDevice_POST_nodeResource);
-          document.querySelector('#AiNode_POST_clusterResource_GpuDevice_POST_nodeResource')?.addEventListener('focus', AiNode_POST_clusterResource_GpuDevice_POST_nodeResource);
           function AiNode_POST_hubResource_GpuDevice_POST_nodeResource(event) {
             suggestAiNodeHubResource(
                 [ { 'name': 'q', 'value': 'objectSuggest:' + (event.target.value ? event.target.value : '') }
@@ -370,6 +356,20 @@
           }
           document.querySelector('#AiNode_POST_hubResource_GpuDevice_POST_nodeResource')?.addEventListener('input', AiNode_POST_hubResource_GpuDevice_POST_nodeResource);
           document.querySelector('#AiNode_POST_hubResource_GpuDevice_POST_nodeResource')?.addEventListener('focus', AiNode_POST_hubResource_GpuDevice_POST_nodeResource);
+          function AiNode_POST_clusterResource_GpuDevice_POST_nodeResource(event) {
+            suggestAiNodeClusterResource(
+                [ { 'name': 'q', 'value': 'objectSuggest:' + (event.target.value ? event.target.value : '') }
+                , { 'name': 'rows', 'value': '10' }
+                , { 'name': 'fl', 'value': 'classCanonicalName,clusterResource,pk,editPage,objectTitle' } ]
+                , document.querySelector('#' + event.target.getAttribute('data-list'))
+                , (event.target.getAttribute('data-method') === 'Page' || event.target.getAttribute('data-method') === 'POST') ? window.result.gpuDeviceResource : null
+                , (event.target.getAttribute('data-method') === 'Page' || event.target.getAttribute('data-method') === 'POST') ? window.result.clusterResource : null
+                , true
+                , document.querySelector('#AiNode_POST_clusterResource_GpuDevice_POST_nodeResource')
+                );
+          }
+          document.querySelector('#AiNode_POST_clusterResource_GpuDevice_POST_nodeResource')?.addEventListener('input', AiNode_POST_clusterResource_GpuDevice_POST_nodeResource);
+          document.querySelector('#AiNode_POST_clusterResource_GpuDevice_POST_nodeResource')?.addEventListener('focus', AiNode_POST_clusterResource_GpuDevice_POST_nodeResource);
         {% endif %}
         }
         var l = document.querySelector('.pageForm .listGpuDevice')?.value;

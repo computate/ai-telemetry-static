@@ -397,27 +397,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH apiUrl
-          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_apiUrl');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchGpuDeviceVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'gpuDeviceResource:' + event.currentTarget.getAttribute('data-gpuDeviceResource') }]
-                  , 'setApiUrl', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_apiUrl');
-            const valid = form.reportValidity();
-          });
-
           // PATCH displayPage
           document.querySelector('#GpuDevice_Page_displayPage')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_displayPage');
@@ -460,27 +439,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH userPage
-          document.querySelector('#GpuDevice_Page_userPage')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_userPage');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchGpuDeviceVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'gpuDeviceResource:' + event.currentTarget.getAttribute('data-gpuDeviceResource') }]
-                  , 'setUserPage', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#GpuDevice_Page_userPage')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#GpuDevice_Page_userPage')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_userPage');
-            const valid = form.reportValidity();
-          });
-
           // PATCH download
           document.querySelector('#GpuDevice_Page_download')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_download');
@@ -499,6 +457,48 @@ Promise.all([
           });
           document.querySelector('#GpuDevice_Page_download')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_download');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH apiUrl
+          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchGpuDeviceVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'gpuDeviceResource:' + event.currentTarget.getAttribute('data-gpuDeviceResource') }]
+                  , 'setApiUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#GpuDevice_Page_apiUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_apiUrl');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH userPage
+          document.querySelector('#GpuDevice_Page_userPage')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_userPage');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchGpuDeviceVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'gpuDeviceResource:' + event.currentTarget.getAttribute('data-gpuDeviceResource') }]
+                  , 'setUserPage', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#GpuDevice_Page_userPage')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#GpuDevice_Page_userPage')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_userPage');
             const valid = form.reportValidity();
           });
 

@@ -471,6 +471,104 @@
                 {% macro htmProjectFieldOfScienceProjectPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
                 {{ inputProjectFieldOfScienceProjectPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
                 {% endmacro -%}
+                {% macro inputDefaultOpenShiftProjectProjectPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_defaultOpenShiftProject">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="Project_{{classApiMethodMethod}}_defaultOpenShiftProject"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="Project_{{classApiMethodMethod}}_defaultOpenShiftProject"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="K8S"
+                      label="K8S"
+                      hint="Whether the project is a default OpenShift project. "
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left Project_{{classApiMethodMethod}}_defaultOpenShiftProject classProject inputProject{{ result.projectResource }}DefaultOpenShiftProject "
+                      name="setDefaultOpenShiftProject"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left Project_{{classApiMethodMethod}}_defaultOpenShiftProject classProject inputProject{{ result.projectResource }}DefaultOpenShiftProject "
+                      name="setDefaultOpenShiftProject"
+                      {% else -%}
+                      class="label-on-left Project_{{classApiMethodMethod}}_defaultOpenShiftProject setDefaultOpenShiftProject valueDefaultOpenShiftProject classProject inputProject{{ result.projectResource }}DefaultOpenShiftProject "
+                      name="setDefaultOpenShiftProject"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.defaultOpenShiftProject == true -%}
+                      checked
+                      {% endif -%}
+                      data-projectResource={{ result.projectResource | tojson }}
+                      >K8S</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmDefaultOpenShiftProjectProjectPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputDefaultOpenShiftProjectProjectPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputDefaultOpsProjectProjectPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_defaultOpsProject">
+                  {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <wa-checkbox
+                      id="Project_{{classApiMethodMethod}}_defaultOpsProject"
+                      value="true"
+                      {%- else %}{{''}}
+                  <wa-select
+                      id="Project_{{classApiMethodMethod}}_defaultOpsProject"
+                      {% endif -%}
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="Ops"
+                      label="Ops"
+                      hint="Whether the project is a default Operations project. "
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left Project_{{classApiMethodMethod}}_defaultOpsProject classProject inputProject{{ result.projectResource }}DefaultOpsProject "
+                      name="setDefaultOpsProject"
+                      {% else -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      class="label-on-left Project_{{classApiMethodMethod}}_defaultOpsProject classProject inputProject{{ result.projectResource }}DefaultOpsProject "
+                      name="setDefaultOpsProject"
+                      {% else -%}
+                      class="label-on-left Project_{{classApiMethodMethod}}_defaultOpsProject setDefaultOpsProject valueDefaultOpsProject classProject inputProject{{ result.projectResource }}DefaultOpsProject "
+                      name="setDefaultOpsProject"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if 'Page' == classApiMethodMethod -%}
+                      {% if result.defaultOpsProject == true -%}
+                      checked
+                      {% endif -%}
+                      data-projectResource={{ result.projectResource | tojson }}
+                      >Ops</wa-checkbox>
+                      {% else -%}
+                      >
+                    <wa-option value=""></wa-option>
+                    <wa-option value="true">true</wa-option>
+                    <wa-option value="false">false</wa-option>
+                  </wa-select>
+                  {%- endif %}{{''}}
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmDefaultOpsProjectProjectPage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputDefaultOpsProjectProjectPage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
                 {% macro inputProjectActiveProjectPage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
                 {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_projectActive">
@@ -973,6 +1071,8 @@
                 {{ htmProjectTitleProjectPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmDescriptionProjectPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmProjectFieldOfScienceProjectPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDefaultOpenShiftProjectProjectPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDefaultOpsProjectProjectPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmProjectActiveProjectPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmGpuEnabledProjectPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVllmEnabledProjectPage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
@@ -1028,6 +1128,8 @@
                 {{ htmProjectTitleProjectPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmDescriptionProjectPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmProjectFieldOfScienceProjectPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDefaultOpenShiftProjectProjectPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDefaultOpsProjectProjectPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmProjectActiveProjectPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmGpuEnabledProjectPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVllmEnabledProjectPage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
@@ -1130,6 +1232,8 @@
                 {{ htmProjectTitleProjectPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmDescriptionProjectPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmProjectFieldOfScienceProjectPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDefaultOpenShiftProjectProjectPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmDefaultOpsProjectProjectPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmProjectActiveProjectPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmGpuEnabledProjectPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmVllmEnabledProjectPage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
