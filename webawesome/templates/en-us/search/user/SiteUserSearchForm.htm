@@ -1,5 +1,5 @@
 {% include en-us/search/user/SiteUserSearchFormMacros.htm %}
-        {% if 'DELETE' in scopes -%}
+        {% if 'PATCH' in scopes -%}
         {{ htmForm_patchSiteUser() -}}
         {% endif -%}
         {% if 'POST' in scopes -%}

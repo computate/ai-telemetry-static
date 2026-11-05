@@ -1,5 +1,5 @@
 {% include en-us/search/article/SitePageSearchFormMacros.htm %}
-        {% if 'DELETE' in scopes -%}
+        {% if 'PATCH' in scopes -%}
         {{ htmForm_patchSitePage() -}}
         {% endif -%}
         {% if 'POST' in scopes -%}
@@ -9,9 +9,7 @@
         {{ htmForm_postSitePage() -}}
         {% endif -%}
         {% endif -%}
-        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
         {{ htmForm_putimportSitePage() -}}
-        {% endif %}
         {% if 'DELETE' in scopes -%}
         {% if resultCount >= 1 -%}
         {{ htmForm_deleteSitePage() -}}

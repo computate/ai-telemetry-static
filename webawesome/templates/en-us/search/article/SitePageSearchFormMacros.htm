@@ -116,43 +116,6 @@
                 {% macro htmArchivedSitePagePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
                 {{ inputArchivedSitePagePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
                 {% endmacro -%}
-                {% macro inputAuthorUrlSitePagePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
-                {% if 'Page' == classApiMethodMethod -%}
-                <form class="subgrid-2col " id="PageForm_authorUrl">
-                  {% endif -%}
-                  <wa-input
-                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
-                      placeholder="[String] author URL"
-                      label="author URL"
-                      hint="The author URL"
-                      id="SitePage_{{classApiMethodMethod}}_authorUrl"
-                      {% if "Page" == classApiMethodMethod -%}
-                      data-pageId={{ result.pageId | tojson }}
-                      class="label-on-left SitePage_{{classApiMethodMethod}}_authorUrl setAuthorUrl classSitePage inputSitePage{{ result.pageId }}AuthorUrl "
-                      name="setAuthorUrl"
-                      {% else -%}
-                      {% if "PATCH" == classApiMethodMethod -%}
-                      class="label-on-left SitePage_{{classApiMethodMethod}}_authorUrl setAuthorUrl classSitePage inputSitePage{{ result.pageId }}AuthorUrl "
-                      name="setAuthorUrl"
-                      {% else -%}
-                      class="label-on-left SitePage_{{classApiMethodMethod}}_authorUrl valueAuthorUrl classSitePage inputSitePage{{ result.pageId }}AuthorUrl "
-                      name="authorUrl"
-                      {% endif -%}
-                      {% endif -%}
-                      {% if "Page" == classApiMethodMethod -%}
-                      value="{{result.authorUrl | e }}"
-                      {% endif -%}
-                      >
-                  </wa-input>
-
-                  {% if 'Page' == classApiMethodMethod -%}
-                </form>
-                {%- endif %}{{''}}
-                {% endmacro -%}
-
-                {% macro htmAuthorUrlSitePagePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
-                {{ inputAuthorUrlSitePagePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
-                {% endmacro -%}
                 {% macro inputAuthorNameSitePagePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
                 {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_authorName">
@@ -189,6 +152,43 @@
 
                 {% macro htmAuthorNameSitePagePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
                 {{ inputAuthorNameSitePagePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
+                {% endmacro -%}
+                {% macro inputAuthorUrlSitePagePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
+                {% if 'Page' == classApiMethodMethod -%}
+                <form class="subgrid-2col " id="PageForm_authorUrl">
+                  {% endif -%}
+                  <wa-input
+                      {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
+                      placeholder="[String] author URL"
+                      label="author URL"
+                      hint="The author URL"
+                      id="SitePage_{{classApiMethodMethod}}_authorUrl"
+                      {% if "Page" == classApiMethodMethod -%}
+                      data-pageId={{ result.pageId | tojson }}
+                      class="label-on-left SitePage_{{classApiMethodMethod}}_authorUrl setAuthorUrl classSitePage inputSitePage{{ result.pageId }}AuthorUrl "
+                      name="setAuthorUrl"
+                      {% else -%}
+                      {% if "PATCH" == classApiMethodMethod -%}
+                      class="label-on-left SitePage_{{classApiMethodMethod}}_authorUrl setAuthorUrl classSitePage inputSitePage{{ result.pageId }}AuthorUrl "
+                      name="setAuthorUrl"
+                      {% else -%}
+                      class="label-on-left SitePage_{{classApiMethodMethod}}_authorUrl valueAuthorUrl classSitePage inputSitePage{{ result.pageId }}AuthorUrl "
+                      name="authorUrl"
+                      {% endif -%}
+                      {% endif -%}
+                      {% if "Page" == classApiMethodMethod -%}
+                      value="{{result.authorUrl | e }}"
+                      {% endif -%}
+                      >
+                  </wa-input>
+
+                  {% if 'Page' == classApiMethodMethod -%}
+                </form>
+                {%- endif %}{{''}}
+                {% endmacro -%}
+
+                {% macro htmAuthorUrlSitePagePage(classApiMethodMethod, authForWriteBool=false, authForReadBool=false) -%}
+                {{ inputAuthorUrlSitePagePage(classApiMethodMethod=classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead) }}
                 {% endmacro -%}
                 {% macro inputPageImageUriSitePagePage(classApiMethodMethod, authForWrite=authForWrite, authForRead=authForRead, idPrefix='', idSuffix='', searchRelated=false) -%}
                 {% if 'Page' == classApiMethodMethod -%}
@@ -326,8 +326,8 @@
           <form id="htmForm_patchSitePage" class="wa-stack round-row primary-smart-border-radius ">
 
               <div class="grid-with-subgrid-2col ">
-                {{ htmAuthorUrlSitePagePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmAuthorNameSitePagePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAuthorUrlSitePagePage(classApiMethodMethod='PATCH', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
@@ -364,8 +364,8 @@
             <div>You can override any default values below: </div>
 
               <div class="grid-with-subgrid-2col ">
-                {{ htmAuthorUrlSitePagePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmAuthorNameSitePagePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAuthorUrlSitePagePage(classApiMethodMethod='POST', authForWriteBool=("POST" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">
@@ -447,8 +447,8 @@
               </div>
 
               <div class="grid-with-subgrid-2col ">
-                {{ htmAuthorUrlSitePagePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
                 {{ htmAuthorNameSitePagePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
+                {{ htmAuthorUrlSitePagePage(classApiMethodMethod='Page', authForWriteBool=("PATCH" in scopes), authForReadBool=("GET" in scopes), idSuffix=idSuffix) }}
               </div>
 
               <div class="grid-with-subgrid-2col ">

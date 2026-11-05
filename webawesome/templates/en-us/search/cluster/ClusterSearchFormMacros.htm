@@ -310,6 +310,22 @@
                 {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_clusterName">
                   {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <div class="button-on-left ">
+                    <wa-button variant="brand"
+                        id="Cluster_{{classApiMethodMethod}}_clusterName"
+                        placeholder="[String] cluster name"
+                        label="cluster name"
+                        hint="The name of this cluster"
+                        class="button-on-left Cluster_{{classApiMethodMethod}}_clusterName classCluster inputCluster{{ result.clusterResource }}ClusterName "
+                        name="setClusterName"
+                        href="{{ result.clusterName | e }}"
+                        >
+                      cluster name
+                    </wa-button>
+                  </div>
+                  <div class="button-description-on-right ">The name of this cluster</div>
+                  {% else -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] cluster name"
@@ -335,6 +351,7 @@
                       >
                   </wa-input>
 
+                  {% endif -%}
                   {% if 'Page' == classApiMethodMethod -%}
                 </form>
                 {%- endif %}{{''}}

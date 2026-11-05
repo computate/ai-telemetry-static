@@ -275,39 +275,6 @@ Promise.all([
     facetStatsChange('SiteUser', 'userKeys', false);
   });
 
-  document.querySelector('#pageSelectSortSiteUser_userName')?.addEventListener('change', (event) => {
-    sort('SiteUser', 'userName', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsSiteUser_userName')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('SiteUser', 'userName', true);
-  });
-  document.querySelector('#pageStatsSiteUser_userName')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('SiteUser', 'userName', false);
-  });
-
-  document.querySelector('#pageSelectSortSiteUser_userLastName')?.addEventListener('change', (event) => {
-    sort('SiteUser', 'userLastName', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsSiteUser_userLastName')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('SiteUser', 'userLastName', true);
-  });
-  document.querySelector('#pageStatsSiteUser_userLastName')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('SiteUser', 'userLastName', false);
-  });
-
-  document.querySelector('#pageSelectSortSiteUser_userFullName')?.addEventListener('change', (event) => {
-    sort('SiteUser', 'userFullName', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsSiteUser_userFullName')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('SiteUser', 'userFullName', true);
-  });
-  document.querySelector('#pageStatsSiteUser_userFullName')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('SiteUser', 'userFullName', false);
-  });
-
   document.querySelector('#pageSelectSortSiteUser_userId')?.addEventListener('change', (event) => {
     sort('SiteUser', 'userId', event.currentTarget.value);
   });
@@ -317,6 +284,17 @@ Promise.all([
   });
   document.querySelector('#pageStatsSiteUser_userId')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('SiteUser', 'userId', false);
+  });
+
+  document.querySelector('#pageSelectSortSiteUser_userName')?.addEventListener('change', (event) => {
+    sort('SiteUser', 'userName', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSiteUser_userName')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SiteUser', 'userName', true);
+  });
+  document.querySelector('#pageStatsSiteUser_userName')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SiteUser', 'userName', false);
   });
 
   document.querySelector('#pageSelectSortSiteUser_userEmail')?.addEventListener('change', (event) => {
@@ -339,6 +317,28 @@ Promise.all([
   });
   document.querySelector('#pageStatsSiteUser_userFirstName')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('SiteUser', 'userFirstName', false);
+  });
+
+  document.querySelector('#pageSelectSortSiteUser_userLastName')?.addEventListener('change', (event) => {
+    sort('SiteUser', 'userLastName', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSiteUser_userLastName')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SiteUser', 'userLastName', true);
+  });
+  document.querySelector('#pageStatsSiteUser_userLastName')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SiteUser', 'userLastName', false);
+  });
+
+  document.querySelector('#pageSelectSortSiteUser_userFullName')?.addEventListener('change', (event) => {
+    sort('SiteUser', 'userFullName', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsSiteUser_userFullName')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('SiteUser', 'userFullName', true);
+  });
+  document.querySelector('#pageStatsSiteUser_userFullName')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('SiteUser', 'userFullName', false);
   });
 
   document.querySelector('#pageSelectSortSiteUser_displayName')?.addEventListener('change', (event) => {

@@ -218,8 +218,8 @@
                   {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
-                      placeholder="[String] ACM Hub"
-                      label="ACM Hub"
+                      placeholder="[String] Hub"
+                      label="Hub"
                       hint="The name of the ACM Hub for this cluster in Prometheus Keycloak Proxy. "
                       id="Project_{{classApiMethodMethod}}_hubId"
                       {% if "Page" == classApiMethodMethod -%}
@@ -255,8 +255,8 @@
                   {% endif -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
-                      placeholder="[String] cluster name"
-                      label="cluster name"
+                      placeholder="[String] Cluster"
+                      label="Cluster"
                       hint="The name of this cluster"
                       id="Project_{{classApiMethodMethod}}_clusterName"
                       {% if "Page" == classApiMethodMethod -%}
@@ -290,10 +290,26 @@
                 {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_projectName">
                   {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <div class="button-on-left ">
+                    <wa-button variant="brand"
+                        id="Project_{{classApiMethodMethod}}_projectName"
+                        placeholder="[String] Project"
+                        label="Project"
+                        hint="The name of this project"
+                        class="button-on-left Project_{{classApiMethodMethod}}_projectName classProject inputProject{{ result.projectResource }}ProjectName "
+                        name="setProjectName"
+                        href="{{ result.projectName | e }}"
+                        >
+                      Project
+                    </wa-button>
+                  </div>
+                  <div class="button-description-on-right ">The name of this project</div>
+                  {% else -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
-                      placeholder="[String] project name"
-                      label="project name"
+                      placeholder="[String] Project"
+                      label="Project"
                       hint="The name of this project"
                       id="Project_{{classApiMethodMethod}}_projectName"
                       {% if "Page" == classApiMethodMethod -%}
@@ -315,6 +331,7 @@
                       >
                   </wa-input>
 
+                  {% endif -%}
                   {% if 'Page' == classApiMethodMethod -%}
                 </form>
                 {%- endif %}{{''}}

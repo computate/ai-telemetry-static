@@ -86,16 +86,16 @@ async function websocketAiTelemetryDeveloperInner(apiRequest) {
         var inputPageId = null;
         var inputDisplayPage = null;
         var inputClassCanonicalName = null;
-        var inputObjectTitle = null;
-        var inputEditPage = null;
-        var inputUserPage = null;
-        var inputObjectText = null;
         var inputClassSimpleName = null;
         var inputClassCanonicalNames = null;
         var inputSaves = null;
+        var inputObjectTitle = null;
         var inputApiUrl = null;
+        var inputEditPage = null;
+        var inputUserPage = null;
         var inputDownload = null;
         var inputObjectSuggest = null;
+        var inputObjectText = null;
         var inputSolrId = null;
         var inputCourseNum = null;
         var inputLessonNum = null;
@@ -134,26 +134,26 @@ async function websocketAiTelemetryDeveloperInner(apiRequest) {
           inputDisplayPage = $response.querySelector('.AiTelemetryDeveloper_Page_displayPage');
         if(vars.includes('classCanonicalName'))
           inputClassCanonicalName = $response.querySelector('.AiTelemetryDeveloper_Page_classCanonicalName');
-        if(vars.includes('objectTitle'))
-          inputObjectTitle = $response.querySelector('.AiTelemetryDeveloper_Page_objectTitle');
-        if(vars.includes('editPage'))
-          inputEditPage = $response.querySelector('.AiTelemetryDeveloper_Page_editPage');
-        if(vars.includes('userPage'))
-          inputUserPage = $response.querySelector('.AiTelemetryDeveloper_Page_userPage');
-        if(vars.includes('objectText'))
-          inputObjectText = $response.querySelector('.AiTelemetryDeveloper_Page_objectText');
         if(vars.includes('classSimpleName'))
           inputClassSimpleName = $response.querySelector('.AiTelemetryDeveloper_Page_classSimpleName');
         if(vars.includes('classCanonicalNames'))
           inputClassCanonicalNames = $response.querySelector('.AiTelemetryDeveloper_Page_classCanonicalNames');
         if(vars.includes('saves'))
           inputSaves = $response.querySelector('.AiTelemetryDeveloper_Page_saves');
+        if(vars.includes('objectTitle'))
+          inputObjectTitle = $response.querySelector('.AiTelemetryDeveloper_Page_objectTitle');
         if(vars.includes('apiUrl'))
           inputApiUrl = $response.querySelector('.AiTelemetryDeveloper_Page_apiUrl');
+        if(vars.includes('editPage'))
+          inputEditPage = $response.querySelector('.AiTelemetryDeveloper_Page_editPage');
+        if(vars.includes('userPage'))
+          inputUserPage = $response.querySelector('.AiTelemetryDeveloper_Page_userPage');
         if(vars.includes('download'))
           inputDownload = $response.querySelector('.AiTelemetryDeveloper_Page_download');
         if(vars.includes('objectSuggest'))
           inputObjectSuggest = $response.querySelector('.AiTelemetryDeveloper_Page_objectSuggest');
+        if(vars.includes('objectText'))
+          inputObjectText = $response.querySelector('.AiTelemetryDeveloper_Page_objectText');
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.AiTelemetryDeveloper_Page_solrId');
         if(vars.includes('courseNum'))
@@ -344,62 +344,6 @@ async function websocketAiTelemetryDeveloperInner(apiRequest) {
           addGlow(document.querySelector('.AiTelemetryDeveloper_Page_classCanonicalName'));
         }
 
-        if(inputObjectTitle) {
-          document.querySelectorAll('.AiTelemetryDeveloper_Page_objectTitle').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputObjectTitle.getAttribute('value');
-            else
-              item.textContent = inputObjectTitle.textContent;
-          });
-          addGlow(document.querySelector('.AiTelemetryDeveloper_Page_objectTitle'));
-        }
-
-        if(inputEditPage) {
-          document.querySelectorAll('.AiTelemetryDeveloper_Page_editPage').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputEditPage.getAttribute('value');
-            else
-              item.textContent = inputEditPage.textContent;
-          });
-          addGlow(document.querySelector('.AiTelemetryDeveloper_Page_editPage'));
-        }
-
-        if(inputUserPage) {
-          document.querySelectorAll('.AiTelemetryDeveloper_Page_userPage').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputUserPage.getAttribute('value');
-            else
-              item.textContent = inputUserPage.textContent;
-          });
-          addGlow(document.querySelector('.AiTelemetryDeveloper_Page_userPage'));
-        }
-
-        if(inputObjectText) {
-          document.querySelectorAll('.AiTelemetryDeveloper_Page_objectText').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputObjectText.getAttribute('value');
-            else
-              item.textContent = inputObjectText.textContent;
-          });
-          addGlow(document.querySelector('.AiTelemetryDeveloper_Page_objectText'));
-        }
-
         if(inputClassSimpleName) {
           document.querySelectorAll('.AiTelemetryDeveloper_Page_classSimpleName').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -442,6 +386,20 @@ async function websocketAiTelemetryDeveloperInner(apiRequest) {
           addGlow(document.querySelector('.AiTelemetryDeveloper_Page_saves'));
         }
 
+        if(inputObjectTitle) {
+          document.querySelectorAll('.AiTelemetryDeveloper_Page_objectTitle').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputObjectTitle.getAttribute('value');
+            else
+              item.textContent = inputObjectTitle.textContent;
+          });
+          addGlow(document.querySelector('.AiTelemetryDeveloper_Page_objectTitle'));
+        }
+
         if(inputApiUrl) {
           document.querySelectorAll('.AiTelemetryDeveloper_Page_apiUrl').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -454,6 +412,34 @@ async function websocketAiTelemetryDeveloperInner(apiRequest) {
               item.textContent = inputApiUrl.textContent;
           });
           addGlow(document.querySelector('.AiTelemetryDeveloper_Page_apiUrl'));
+        }
+
+        if(inputEditPage) {
+          document.querySelectorAll('.AiTelemetryDeveloper_Page_editPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputEditPage.getAttribute('value');
+            else
+              item.textContent = inputEditPage.textContent;
+          });
+          addGlow(document.querySelector('.AiTelemetryDeveloper_Page_editPage'));
+        }
+
+        if(inputUserPage) {
+          document.querySelectorAll('.AiTelemetryDeveloper_Page_userPage').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputUserPage.getAttribute('value');
+            else
+              item.textContent = inputUserPage.textContent;
+          });
+          addGlow(document.querySelector('.AiTelemetryDeveloper_Page_userPage'));
         }
 
         if(inputDownload) {
@@ -482,6 +468,20 @@ async function websocketAiTelemetryDeveloperInner(apiRequest) {
               item.textContent = inputObjectSuggest.textContent;
           });
           addGlow(document.querySelector('.AiTelemetryDeveloper_Page_objectSuggest'));
+        }
+
+        if(inputObjectText) {
+          document.querySelectorAll('.AiTelemetryDeveloper_Page_objectText').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputObjectText.getAttribute('value');
+            else
+              item.textContent = inputObjectText.textContent;
+          });
+          addGlow(document.querySelector('.AiTelemetryDeveloper_Page_objectText'));
         }
 
         if(inputSolrId) {
@@ -889,22 +889,6 @@ function searchAiTelemetryDeveloperFilters($formFilters) {
     if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
       filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
 
-    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
-    if(filterObjectTitle != null && filterObjectTitle !== '')
-      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
-
-    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
-    if(filterEditPage != null && filterEditPage !== '')
-      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
-
-    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
-    if(filterUserPage != null && filterUserPage !== '')
-      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
-
-    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
-    if(filterObjectText != null && filterObjectText !== '')
-      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
-
     var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
     if(filterClassSimpleName != null && filterClassSimpleName !== '')
       filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
@@ -917,9 +901,21 @@ function searchAiTelemetryDeveloperFilters($formFilters) {
     if(filterSaves != null && filterSaves !== '')
       filters.push({ name: 'fq', value: 'saves:' + filterSaves });
 
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
     var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
     if(filterApiUrl != null && filterApiUrl !== '')
       filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
 
     var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
     if(filterDownload != null && filterDownload !== '')
@@ -928,6 +924,10 @@ function searchAiTelemetryDeveloperFilters($formFilters) {
     var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
     if(filterObjectSuggest != null && filterObjectSuggest !== '')
       filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
 
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
@@ -1185,6 +1185,18 @@ async function patchAiTelemetryDeveloper($formFilters, $formValues, target, page
   if(removeObjectTitle != null && removeObjectTitle !== '')
     vals['removeObjectTitle'] = removeObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
+  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
+  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
+  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
+    vals['setApiUrl'] = setApiUrl;
+  if(addApiUrl != null && addApiUrl !== '')
+    vals['addApiUrl'] = addApiUrl;
+  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
+  if(removeApiUrl != null && removeApiUrl !== '')
+    vals['removeApiUrl'] = removeApiUrl;
+
   var valueEditPage = $formValues.querySelector('.valueEditPage')?.value;
   var removeEditPage = $formValues.querySelector('.removeEditPage')?.value === 'true';
   var setEditPage = removeEditPage ? null : $formValues.querySelector('.setEditPage')?.value;
@@ -1208,18 +1220,6 @@ async function patchAiTelemetryDeveloper($formFilters, $formValues, target, page
   var removeUserPage = $formValues.querySelector('.removeUserPage')?.value;
   if(removeUserPage != null && removeUserPage !== '')
     vals['removeUserPage'] = removeUserPage;
-
-  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
-  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value === 'true';
-  var setApiUrl = removeApiUrl ? null : $formValues.querySelector('.setApiUrl')?.value;
-  var addApiUrl = $formValues.querySelector('.addApiUrl')?.value;
-  if(removeApiUrl || setApiUrl != null && setApiUrl !== '')
-    vals['setApiUrl'] = setApiUrl;
-  if(addApiUrl != null && addApiUrl !== '')
-    vals['addApiUrl'] = addApiUrl;
-  var removeApiUrl = $formValues.querySelector('.removeApiUrl')?.value;
-  if(removeApiUrl != null && removeApiUrl !== '')
-    vals['removeApiUrl'] = removeApiUrl;
 
   var valueDownload = $formValues.querySelector('.valueDownload')?.value;
   var removeDownload = $formValues.querySelector('.removeDownload')?.value === 'true';
@@ -1321,8 +1321,8 @@ async function patchAiTelemetryDeveloper($formFilters, $formValues, target, page
   var removeLabels = $formValues.querySelector('.removeLabels')?.value === 'true';
   var setLabels = removeLabels ? null : $formValues.querySelector('.setLabels')?.value;
   var addLabels = $formValues.querySelector('.addLabels')?.value;
-  if(removeLabels || setLabels != null && setLabels !== '')
-    vals['setLabels'] = JSON.parse(setLabels);
+  if(removeLabels || setLabels != null && setLabels.length > 0)
+    vals['setLabels'] = setLabels;
   if(addLabels != null && addLabels !== '')
     vals['addLabels'] = addLabels;
   var removeLabels = $formValues.querySelector('.removeLabels')?.value;
@@ -1399,22 +1399,6 @@ function patchAiTelemetryDeveloperFilters($formFilters) {
     if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
       filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
 
-    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
-    if(filterObjectTitle != null && filterObjectTitle !== '')
-      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
-
-    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
-    if(filterEditPage != null && filterEditPage !== '')
-      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
-
-    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
-    if(filterUserPage != null && filterUserPage !== '')
-      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
-
-    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
-    if(filterObjectText != null && filterObjectText !== '')
-      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
-
     var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
     if(filterClassSimpleName != null && filterClassSimpleName !== '')
       filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
@@ -1427,9 +1411,21 @@ function patchAiTelemetryDeveloperFilters($formFilters) {
     if(filterSaves != null && filterSaves !== '')
       filters.push({ name: 'fq', value: 'saves:' + filterSaves });
 
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
     var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
     if(filterApiUrl != null && filterApiUrl !== '')
       filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
 
     var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
     if(filterDownload != null && filterDownload !== '')
@@ -1438,6 +1434,10 @@ function patchAiTelemetryDeveloperFilters($formFilters) {
     var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
     if(filterObjectSuggest != null && filterObjectSuggest !== '')
       filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
 
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
@@ -1593,6 +1593,10 @@ async function postAiTelemetryDeveloper($formValues, target, success, error) {
   if(valueObjectTitle != null && valueObjectTitle !== '')
     vals['objectTitle'] = valueObjectTitle;
 
+  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
+  if(valueApiUrl != null && valueApiUrl !== '')
+    vals['apiUrl'] = valueApiUrl;
+
   var valueEditPage = $formValues.querySelector('.valueEditPage')?.value;
   if(valueEditPage != null && valueEditPage !== '')
     vals['editPage'] = valueEditPage;
@@ -1600,10 +1604,6 @@ async function postAiTelemetryDeveloper($formValues, target, success, error) {
   var valueUserPage = $formValues.querySelector('.valueUserPage')?.value;
   if(valueUserPage != null && valueUserPage !== '')
     vals['userPage'] = valueUserPage;
-
-  var valueApiUrl = $formValues.querySelector('.valueApiUrl')?.value;
-  if(valueApiUrl != null && valueApiUrl !== '')
-    vals['apiUrl'] = valueApiUrl;
 
   var valueDownload = $formValues.querySelector('.valueDownload')?.value;
   if(valueDownload != null && valueDownload !== '')
@@ -1638,7 +1638,7 @@ async function postAiTelemetryDeveloper($formValues, target, success, error) {
     vals['labelsString'] = valueLabelsString;
 
   var valueLabels = $formValues.querySelector('.valueLabels')?.value;
-  if(valueLabels != null && valueLabels !== '')
+  if(valueLabels != null && valueLabels.length > 0)
     vals['labels'] = valueLabels;
 
   var valueRelatedArticleIds = $formValues.querySelector('.valueRelatedArticleIds')?.value;
@@ -1759,9 +1759,7 @@ function putimportAiTelemetryDeveloperVals(json, target, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterAiTelemetryDeveloper($formFilterstarget, success, error) {
-  var filters = deletefilterAiTelemetryDeveloperFilters($formFilters);
-
+async function deletefilterAiTelemetryDeveloper($formFilters, target, pageId, success, error) {
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -1792,6 +1790,7 @@ async function deletefilterAiTelemetryDeveloper($formFilterstarget, success, err
     };
   }
 
+  var filters = pageId == null ? deparam(window.location.search ? window.location.search.substring(1) : window.location.search) : [{name:'fq', value:'pageId:' + pageId}];
   fetch(
     '/en-us/api/ai-telemetry-developer?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
@@ -1861,22 +1860,6 @@ function deletefilterAiTelemetryDeveloperFilters($formFilters) {
     if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
       filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
 
-    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
-    if(filterObjectTitle != null && filterObjectTitle !== '')
-      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
-
-    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
-    if(filterEditPage != null && filterEditPage !== '')
-      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
-
-    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
-    if(filterUserPage != null && filterUserPage !== '')
-      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
-
-    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
-    if(filterObjectText != null && filterObjectText !== '')
-      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
-
     var filterClassSimpleName = $formFilters.querySelector('.valueClassSimpleName')?.value;
     if(filterClassSimpleName != null && filterClassSimpleName !== '')
       filters.push({ name: 'fq', value: 'classSimpleName:' + filterClassSimpleName });
@@ -1889,9 +1872,21 @@ function deletefilterAiTelemetryDeveloperFilters($formFilters) {
     if(filterSaves != null && filterSaves !== '')
       filters.push({ name: 'fq', value: 'saves:' + filterSaves });
 
+    var filterObjectTitle = $formFilters.querySelector('.valueObjectTitle')?.value;
+    if(filterObjectTitle != null && filterObjectTitle !== '')
+      filters.push({ name: 'fq', value: 'objectTitle:' + filterObjectTitle });
+
     var filterApiUrl = $formFilters.querySelector('.valueApiUrl')?.value;
     if(filterApiUrl != null && filterApiUrl !== '')
       filters.push({ name: 'fq', value: 'apiUrl:' + filterApiUrl });
+
+    var filterEditPage = $formFilters.querySelector('.valueEditPage')?.value;
+    if(filterEditPage != null && filterEditPage !== '')
+      filters.push({ name: 'fq', value: 'editPage:' + filterEditPage });
+
+    var filterUserPage = $formFilters.querySelector('.valueUserPage')?.value;
+    if(filterUserPage != null && filterUserPage !== '')
+      filters.push({ name: 'fq', value: 'userPage:' + filterUserPage });
 
     var filterDownload = $formFilters.querySelector('.valueDownload')?.value;
     if(filterDownload != null && filterDownload !== '')
@@ -1900,6 +1895,10 @@ function deletefilterAiTelemetryDeveloperFilters($formFilters) {
     var filterObjectSuggest = $formFilters.querySelector('.valueObjectSuggest')?.value;
     if(filterObjectSuggest != null && filterObjectSuggest !== '')
       filters.push({ name: 'q', value: 'objectSuggest:' + filterObjectSuggest });
+
+    var filterObjectText = $formFilters.querySelector('.valueObjectText')?.value;
+    if(filterObjectText != null && filterObjectText !== '')
+      filters.push({ name: 'fq', value: 'objectText:' + filterObjectText });
 
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')

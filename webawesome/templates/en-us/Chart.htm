@@ -158,7 +158,7 @@
       </div>
 {% endmacro -%}
 
-{%- macro hubClusterProjectDashboardAsyncFunction(divId, classSimpleName, legendTitle, resultLabel, metricPrefix, metricMiddle='', metricSuffix='', clusterVar='clusterName', modelPrefixLabel='namespace', modelMiddleLabel=null, modelVar='projectName', tickformat=null, timeZone=null, emptyClusterReplace=null, emptyClusterReplaceWith=null, formatBytes=false, formatPercent=false, xLabelPrefix='', xLabelSuffix='', yLabelPrefix='', yLabelSuffix='', openDetailsSelector=null, datasetLabel=null, fill=false, metricLabels=null, displayLabels=null, colors=['blue','pink','green','yellow','purple','orange','indigo','red','cyan','gray']) %}
+{%- macro promqlDashboard(divId, classSimpleName, legendTitle, resultLabel, promqlParts, clusterVar='clusterName', modelPrefixLabel='namespace', modelMiddleLabel=null, modelVar='projectName', tickformat=null, timeZone=null, emptyClusterReplace=null, emptyClusterReplaceWith=null, formatBytes=false, formatPercent=false, xLabelPrefix='', xLabelSuffix='', yLabelPrefix='', yLabelSuffix='', fill=false, colors=['blue','pink','green','yellow','purple','orange','indigo','red','cyan','gray'], decimalFormatStyle='decimal', minimumFractionDigits=3, maximumFractionDigits=3, decimalFormatCurrency=null, metricLabels=null, displayLabels=null, openDetailsSelector=null, datasetLabel=null) %}
 
     function {{ jsFunctionName(divId) }}Popover(event) {
       var buttonId = event.target.getAttribute('id');
@@ -176,26 +176,26 @@
 
       var $headerHub = document.createElement('div');
       $headerHub.setAttribute('class', 'wa-heading-m ');
-      $headerHub.innerText = 'hub: ' + hubId;
+      $headerHub.textContent = 'hub: ' + hubId;
       $popoverStack.append($headerHub);
       {% if classSimpleName != 'Hub' -%}
 
       if(dataMetric.cluster) {
         var $headerCluster = document.createElement('div');
         $headerCluster.setAttribute('class', 'wa-heading-m ');
-        $headerCluster.innerText = 'cluster: ' + dataMetric.cluster;
+        $headerCluster.textContent = 'cluster: ' + dataMetric.cluster;
         $popoverStack.append($headerCluster);
       }
 
       var $headerProject = document.createElement('div');
       $headerProject.setAttribute('class', 'wa-heading-m ');
-      $headerProject.innerText = 'project: ' + dataMetric.{{ modelPrefixLabel }};
+      $headerProject.textContent = 'project: ' + dataMetric.{{ modelPrefixLabel }};
       $popoverStack.append($headerProject);
       {% if resultLabel is defined -%}
 
       var $headerVar = document.createElement('div');
       $headerVar.setAttribute('class', 'wa-heading-m ');
-      $headerVar.innerText = '{{ resultLabel }}: ' + dataMetric.{{ resultLabel }};
+      $headerVar.textContent = '{{ resultLabel }}: ' + dataMetric.{{ resultLabel }};
       $popoverStack.append($headerVar);
       {%- endif %}
       {% endif -%}
@@ -208,7 +208,7 @@
 
       var dates = dataValues.map(values => new Date(values[0] * 1000));
       var vals = dataValues.map(values => parseFloat(values[1]));
-      var formatterFixed = new Intl.NumberFormat('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+      var formatterFixed = new Intl.NumberFormat('en-US', { style: '{{ decimalFormatStyle }}'{% if decimalFormatCurrency is defined %}, currency: '{{ decimalFormatCurrency }}'{% endif %}, minimumFractionDigits: {{ minimumFractionDigits }}, maximumFractionDigits: {{ maximumFractionDigits }} });
 
       var minVal = Math.min(...vals);
       var $minSplit = document.createElement('div');
@@ -216,10 +216,10 @@
       $stack.append($minSplit);
       var $minSpan = document.createElement('span');
       $minSpan.setAttribute('class', 'wa-caption-m ');
-      $minSpan.innerText = 'min';
+      $minSpan.textContent = 'min';
       $minSplit.append($minSpan);
       var $minStrong = document.createElement('strong');
-      $minStrong.innerText = formatterFixed.format(minVal);
+      $minStrong.textContent = formatterFixed.format(minVal);
       $minSplit.append($minStrong);
       $minStrong.setAttribute('id', buttonId + '-min');
       var $minTooltip = document.createElement('wa-tooltip');
@@ -234,10 +234,10 @@
       $stack.append($avgSplit);
       var $avgSpan = document.createElement('span');
       $avgSpan.setAttribute('class', 'wa-caption-m ');
-      $avgSpan.innerText = 'avg';
+      $avgSpan.textContent = 'avg';
       $avgSplit.append($avgSpan);
       var $avgStrong = document.createElement('strong');
-      $avgStrong.innerText = formatterFixed.format(avgVal);
+      $avgStrong.textContent = formatterFixed.format(avgVal);
       $avgStrong.setAttribute('id', buttonId + '-avg');
       var $avgTooltip = document.createElement('wa-tooltip');
       $avgTooltip.setAttribute('for', buttonId + '-avg');
@@ -251,21 +251,41 @@
       $stack.append($maxSplit);
       var $maxSpan = document.createElement('span');
       $maxSpan.setAttribute('class', 'wa-caption-m ');
-      $maxSpan.innerText = 'max';
+      $maxSpan.textContent = 'max';
       $maxSplit.append($maxSpan);
       var $maxStrong = document.createElement('strong');
-      $maxStrong.innerText = formatterFixed.format(maxVal);
+      $maxStrong.textContent = formatterFixed.format(maxVal);
       $maxStrong.setAttribute('id', buttonId + '-max');
       var $maxTooltip = document.createElement('wa-tooltip');
       $maxTooltip.setAttribute('for', buttonId + '-max');
       //$statsPopover.append($maxTooltip);
       $maxSplit.append($maxStrong);
+      $stack.append(document.createElement('wa-divider'));
+
+      var sumVal = sumVals;
+      var $sumSplit = document.createElement('div');
+      $sumSplit.setAttribute('class', 'wa-split ');
+      $stack.append($sumSplit);
+      var $sumSpan = document.createElement('span');
+      $sumSpan.setAttribute('class', 'wa-caption-m ');
+      $sumSpan.textContent = 'sum';
+      $sumSplit.append($sumSpan);
+      var $sumStrong = document.createElement('strong');
+      $sumStrong.textContent = formatterFixed.format(sumVal);
+      $sumStrong.setAttribute('id', buttonId + '-sum');
+      var $sumTooltip = document.createElement('wa-tooltip');
+      $sumTooltip.setAttribute('for', buttonId + '-sum');
+      //$statsPopover.append($sumTooltip);
+      $sumSplit.append($sumStrong);
+      $stack.append(document.createElement('wa-divider'));
 
       var $statsCloseButton = document.createElement('wa-button');
       $statsCloseButton.setAttribute('data-popover', 'close');
       $statsCloseButton.setAttribute('variant', 'brand');
-      $statsCloseButton.innerText = 'close';
+      $statsCloseButton.textContent = 'close';
       $popoverStack.append($statsCloseButton);
+
+      return sumVal;
     }
 
     async function {{ jsFunctionName(divId) }}(timeQuery) {
@@ -288,12 +308,11 @@
           uniqueClusterNames.forEach(({{ clusterVar }}, i) => {
             var uniqueModelNames = [...new Set(results.filter(result => result.{{ clusterVar }} === {{ clusterVar }}).map(result => result.{{ modelVar }}))];
             var modelPrefixLabel = (clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }} + '", ') : '') + '{{ modelPrefixLabel }}=~"' + uniqueModelNames.join('|') + '"';
-            var modelMiddleLabel = (clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }} + '", ') : '') + '{{ modelMiddleLabel if modelMiddleLabel is defined else modelPrefixLabel }}=~"' + uniqueModelNames.join('|') + '"';
-            var query = '{{ metricPrefix }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0] != '{' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix }}';
+            var query = '{% for promqlPart in promqlParts %}{% if loop.index0 != 0 %}' + modelPrefixLabel + '{% endif %}{{ promqlPart }}{% endfor %}';
             {% if emptyClusterReplace is defined -%}
             if(clusterNames.length == 0)
-              query = '{{ metricPrefix | replace(emptyClusterReplace, emptyClusterReplaceWith) }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}{% if metricMiddle[0] != '{' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}';
-            {%- endif -%}
+              query = '{% for promqlPart in promqlParts %}{% if loop.index0 != 0 %}' + modelPrefixLabel + '{% endif %}{{ promqlPart | replace(emptyClusterReplace, emptyClusterReplaceWith) }}{% endfor %}';
+            {% endif -%}
             queries.push(query);
             urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
 {%- set divIdWords = divId.split('-') -%}
@@ -306,10 +325,10 @@
           uniqueClusterNames.forEach(({{ clusterVar }}, i) => {
             var modelPrefixLabel = (clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }}) + '"': '');
             var modelMiddleLabel = (clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }}) + '"': '');
-            var query = '{{ metricPrefix }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0] != '{' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix }}';
+            var query = '{{ metricPrefix }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix }}';
             {% if emptyClusterReplace is defined -%}
             if(clusterNames.length == 0)
-              query = '{{ metricPrefix | replace(emptyClusterReplace, emptyClusterReplaceWith) }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}{% if metricMiddle[0] != '{' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}';
+              query = '{{ metricPrefix | replace(emptyClusterReplace, emptyClusterReplaceWith) }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}';
             {%- endif -%}
             queries.push(query);
             urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
@@ -321,7 +340,7 @@
           {% if 'Cluster' == classSimpleName -%}
           {%- else -%}
           {% if 'Hub' == classSimpleName -%}
-          var query = '{{ metricPrefix }}' + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0] != '{' %}, {% endif %}' + {% endif %}'{{ metricSuffix }}';
+          var query = '{{ metricPrefix }}' + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + {% endif %}'{{ metricSuffix }}';
           queries.push(query);
           urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
               query: query
@@ -329,7 +348,7 @@
           requestHubIds.push(hubId);
           {%- else -%}
           {% if 'Cluster' == classSimpleName -%}
-          var query = '{{ metricPrefix }}' + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0] != '{' %}, {% endif %}' + {% endif %}'{{ metricSuffix }}';
+          var query = '{{ metricPrefix }}' + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + {% endif %}'{{ metricSuffix }}';
           queries.push(query);
           urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
               query: query
@@ -359,7 +378,7 @@
           var $linkA = document.createElement('a');
           $linkA.setAttribute('href', url);
           $linkA.setAttribute('target', '_blank');
-          $linkA.innerText = query;
+          $linkA.textContent = query;
           $linkTd.append($linkA);
         });
 
@@ -375,21 +394,21 @@
         var $theadTrTd;
 
         var $theadTrTd = document.createElement('td');
-        $theadTrTd.innerText = '';
+        $theadTrTd.textContent = '';
         $theadTr.append($theadTrTd);
 
         displayLabels.forEach((displayLabel, i) => {
           $theadTrTd = document.createElement('td');
-          $theadTrTd.innerText = displayLabel;
+          $theadTrTd.textContent = displayLabel;
           $theadTr.append($theadTrTd);
         });
 
         $theadTrTd = document.createElement('td');
-        $theadTrTd.innerText = '{{ resultLabel | e }}';
+        $theadTrTd.textContent = 'total';
         $theadTr.append($theadTrTd);
 
         $theadTrTd = document.createElement('td');
-        $theadTrTd.innerText = '{{ cardTitle | e }}';
+        $theadTrTd.textContent = '{{ resultLabel | e }}';
         $theadTr.append($theadTrTd);
 
         var $tbody = document.getElementById('{{ divId | e }}-data-tbody');
@@ -531,15 +550,438 @@
                 $val = document.createElement('td');
                 $tr.append($val);
                 if(metricLabel == 'hub') {
-                  $val.innerText = hubId;
+                  $val.textContent = hubId;
                 } else {
-                  $val.innerText = result.metric[metricLabel];
+                  $val.textContent = result.metric[metricLabel];
                 }
               });
               {% if resultLabel is defined -%}
 
               var ${{ resultLabel }} = document.createElement('td');
-              ${{ resultLabel }}.innerText = result.metric.{{ resultLabel }};
+              ${{ resultLabel }}.textContent = result.metric.{{ resultLabel }};
+              $tr.append(${{ resultLabel }});
+              {%- endif %}
+
+              var dataValues = result.values;
+              var dates = dataValues.map(values => new Date(values[0] * 1000));
+              var vals = dataValues.map(values => parseFloat(values[1]));
+              var formatterFixed = new Intl.NumberFormat('en-US', { style: '{{ decimalFormatStyle }}'{% if decimalFormatCurrency is defined %}, currency: '{{ decimalFormatCurrency }}'{% endif %}, minimumFractionDigits: {{ minimumFractionDigits }}, maximumFractionDigits: {{ maximumFractionDigits }} });
+              var sumVals = formatterFixed.format(vals.reduce((sum, val) => sum + val, 0));
+
+              $totalVal = document.createElement('td');
+              $totalVal.textContent = sumVals;
+              $tr.append($totalVal);
+
+              $val = document.createElement('td');
+              $tr.append($val);
+
+              var $statsPopover = document.createElement('wa-popover');
+              $statsPopover.setAttribute('id', '{{ divId | e }}-data-stats-button-' + i + '-' + j + '-popover');
+              $statsPopover.setAttribute('for', '{{ divId | e }}-data-stats-button-' + i + '-' + j);
+              $statsPopover.setAttribute('data-popover', '{{ divId | e }}-data-stats-button-' + i + '-' + j + '-popover');
+              $statsPopover.setAttribute('data-metric', JSON.stringify(result.metric));
+              $statsPopover.setAttribute('data-values', JSON.stringify(result.values));
+              $statsPopover.setAttribute('data-hubId', hubId);
+              $val.append($statsPopover);
+
+              var $statsButton = document.createElement('wa-button');
+              $statsButton.setAttribute('id', '{{ divId | e }}-data-stats-button-' + i + '-' + j);
+              $statsButton.textContent = 'stats';
+              $val.append($statsButton);
+              $tbody.append($tr);
+              $statsPopover.addEventListener('wa-show', (event) => {
+                {{ jsFunctionName(divId) }}Popover(event);
+              });
+            });
+          }
+        });
+      }
+    }
+
+{% endmacro -%}
+
+{%- macro hubClusterProjectDashboardAsyncFunction(divId, classSimpleName, legendTitle, resultLabel, metricPrefix, metricMiddle='', metricSuffix='', clusterVar='clusterName', modelPrefixLabel='namespace', modelMiddleLabel=null, modelVar='projectName', tickformat=null, timeZone=null, emptyClusterReplace=null, emptyClusterReplaceWith=null, formatBytes=false, formatPercent=false, xLabelPrefix='', xLabelSuffix='', yLabelPrefix='', yLabelSuffix='', openDetailsSelector=null, datasetLabel=null, fill=false, metricLabels=null, displayLabels=null, colors=['blue','pink','green','yellow','purple','orange','indigo','red','cyan','gray']) %}
+
+    function {{ jsFunctionName(divId) }}Popover(event) {
+      var buttonId = event.target.getAttribute('id');
+      var hubId = event.target.getAttribute('data-hubId');
+      var dataValues = JSON.parse(event.target.getAttribute('data-values'));
+      var dataMetric = JSON.parse(event.target.getAttribute('data-metric'));
+
+      var $statsPopoverButton = event.target;
+      var $statsPopover = document.getElementById($statsPopoverButton.getAttribute('data-popover'));
+      $statsPopover.innerHTML = '';
+
+      var $popoverStack = document.createElement('div');
+      $popoverStack.setAttribute('class', 'wa-stack ');
+      $statsPopover.append($popoverStack);
+
+      var $headerHub = document.createElement('div');
+      $headerHub.setAttribute('class', 'wa-heading-m ');
+      $headerHub.textContent = 'hub: ' + hubId;
+      $popoverStack.append($headerHub);
+      {% if classSimpleName != 'Hub' -%}
+
+      if(dataMetric.cluster) {
+        var $headerCluster = document.createElement('div');
+        $headerCluster.setAttribute('class', 'wa-heading-m ');
+        $headerCluster.textContent = 'cluster: ' + dataMetric.cluster;
+        $popoverStack.append($headerCluster);
+      }
+
+      var $headerProject = document.createElement('div');
+      $headerProject.setAttribute('class', 'wa-heading-m ');
+      $headerProject.textContent = 'project: ' + dataMetric.{{ modelPrefixLabel }};
+      $popoverStack.append($headerProject);
+      {% if resultLabel is defined -%}
+
+      var $headerVar = document.createElement('div');
+      $headerVar.setAttribute('class', 'wa-heading-m ');
+      $headerVar.textContent = '{{ resultLabel }}: ' + dataMetric.{{ resultLabel }};
+      $popoverStack.append($headerVar);
+      {%- endif %}
+      {% endif -%}
+
+      $popoverStack.append(document.createElement('wa-divider'));
+
+      var $stack = document.createElement('div');
+      $stack.setAttribute('class', 'wa-stack ');
+      $popoverStack.append($stack);
+
+      var dates = dataValues.map(values => new Date(values[0] * 1000));
+      var vals = dataValues.map(values => parseFloat(values[1]));
+      var formatterFixed = new Intl.NumberFormat('en-US', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+
+      var minVal = Math.min(...vals);
+      var $minSplit = document.createElement('div');
+      $minSplit.setAttribute('class', 'wa-split ');
+      $stack.append($minSplit);
+      var $minSpan = document.createElement('span');
+      $minSpan.setAttribute('class', 'wa-caption-m ');
+      $minSpan.textContent = 'min';
+      $minSplit.append($minSpan);
+      var $minStrong = document.createElement('strong');
+      $minStrong.textContent = formatterFixed.format(minVal);
+      $minSplit.append($minStrong);
+      $minStrong.setAttribute('id', buttonId + '-min');
+      var $minTooltip = document.createElement('wa-tooltip');
+      $minTooltip.setAttribute('for', buttonId + '-min');
+      //$statsPopover.append($minTooltip);
+      $stack.append(document.createElement('wa-divider'));
+
+      var sumVals = vals.reduce((sum, val) => sum + val, 0);
+      var avgVal = sumVals / vals.length;
+      var $avgSplit = document.createElement('div');
+      $avgSplit.setAttribute('class', 'wa-split ');
+      $stack.append($avgSplit);
+      var $avgSpan = document.createElement('span');
+      $avgSpan.setAttribute('class', 'wa-caption-m ');
+      $avgSpan.textContent = 'avg';
+      $avgSplit.append($avgSpan);
+      var $avgStrong = document.createElement('strong');
+      $avgStrong.textContent = formatterFixed.format(avgVal);
+      $avgStrong.setAttribute('id', buttonId + '-avg');
+      var $avgTooltip = document.createElement('wa-tooltip');
+      $avgTooltip.setAttribute('for', buttonId + '-avg');
+      //$statsPopover.append($avgTooltip);
+      $avgSplit.append($avgStrong);
+      $stack.append(document.createElement('wa-divider'));
+
+      var maxVal = Math.max(...vals);
+      var $maxSplit = document.createElement('div');
+      $maxSplit.setAttribute('class', 'wa-split ');
+      $stack.append($maxSplit);
+      var $maxSpan = document.createElement('span');
+      $maxSpan.setAttribute('class', 'wa-caption-m ');
+      $maxSpan.textContent = 'max';
+      $maxSplit.append($maxSpan);
+      var $maxStrong = document.createElement('strong');
+      $maxStrong.textContent = formatterFixed.format(maxVal);
+      $maxStrong.setAttribute('id', buttonId + '-max');
+      var $maxTooltip = document.createElement('wa-tooltip');
+      $maxTooltip.setAttribute('for', buttonId + '-max');
+      //$statsPopover.append($maxTooltip);
+      $maxSplit.append($maxStrong);
+
+      var $statsCloseButton = document.createElement('wa-button');
+      $statsCloseButton.setAttribute('data-popover', 'close');
+      $statsCloseButton.setAttribute('variant', 'brand');
+      $statsCloseButton.textContent = 'close';
+      $popoverStack.append($statsCloseButton);
+    }
+
+    async function {{ jsFunctionName(divId) }}(timeQuery) {
+      if(window.varsFq.hubId.facetField) {
+        var panelId = '{{ divId | e }}';
+        var labels = [];
+        var datasets = [];
+        var maxs = [];
+        const chart = document.getElementById(panelId);
+        var timeZone = document.querySelector("#pageFacetRangeTimeZoneInput").value;
+        const urls = [];
+        const queries = [];
+        const hubIds = Object.keys(window.varsFq.hubId.facetField.counts);
+        const clusterNames = window.varsFq?.clusterName?.facetField?.counts ? Object.keys(window.varsFq.clusterName.facetField.counts) : [];
+        var requestHubIds = [];
+        hubIds.forEach((hubId, i) => {
+          var results = list{{ classSimpleName }}.filter(o => o.hubId === hubId);
+          {% if 'Project' == classSimpleName -%}
+          var uniqueClusterNames = [...new Set(results.map(item => item.{{ clusterVar }}))];
+          uniqueClusterNames.forEach(({{ clusterVar }}, i) => {
+            var uniqueModelNames = [...new Set(results.filter(result => result.{{ clusterVar }} === {{ clusterVar }}).map(result => result.{{ modelVar }}))];
+            var modelPrefixLabel = (clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }} + '", ') : '') + '{{ modelPrefixLabel }}=~"' + uniqueModelNames.join('|') + '"';
+            var modelMiddleLabel = (clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }} + '", ') : '') + '{{ modelMiddleLabel if modelMiddleLabel is defined else modelPrefixLabel }}=~"' + uniqueModelNames.join('|') + '"';
+            var query = '{{ metricPrefix }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix }}';
+            {% if emptyClusterReplace is defined -%}
+            if(clusterNames.length == 0)
+              query = '{{ metricPrefix | replace(emptyClusterReplace, emptyClusterReplaceWith) }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}';
+            {%- endif -%}
+            queries.push(query);
+            urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+{%- set divIdWords = divId.split('-') -%}
+                query: query
+                }, timeQuery)).toString());
+            requestHubIds.push(hubId);
+          });
+          {%- else -%}
+          var uniqueClusterNames = [...new Set(results.map(item => item.{{ clusterVar }}))];
+          uniqueClusterNames.forEach(({{ clusterVar }}, i) => {
+            var modelPrefixLabel = (clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }}) + '"': '');
+            var modelMiddleLabel = (clusterNames.length > 0 ? ('cluster="' + {{ clusterVar }}) + '"': '');
+            var query = '{{ metricPrefix }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix }}';
+            {% if emptyClusterReplace is defined -%}
+            if(clusterNames.length == 0)
+              query = '{{ metricPrefix | replace(emptyClusterReplace, emptyClusterReplaceWith) }}' + modelPrefixLabel + {% if metricMiddle != '' %}'{{ metricMiddle | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + modelMiddleLabel + {% endif %}'{{ metricSuffix | replace(emptyClusterReplace, emptyClusterReplaceWith)  }}';
+            {%- endif -%}
+            queries.push(query);
+            urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+{%- set divIdWords = divId.split('-') -%}
+                query: query
+                }, timeQuery)).toString());
+            requestHubIds.push(hubId);
+          });
+          {% if 'Cluster' == classSimpleName -%}
+          {%- else -%}
+          {% if 'Hub' == classSimpleName -%}
+          var query = '{{ metricPrefix }}' + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + {% endif %}'{{ metricSuffix }}';
+          queries.push(query);
+          urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+              query: query
+              }, timeQuery)).toString());
+          requestHubIds.push(hubId);
+          {%- else -%}
+          {% if 'Cluster' == classSimpleName -%}
+          var query = '{{ metricPrefix }}' + {% if metricMiddle != '' %}'{{ metricMiddle }}{% if metricMiddle[0:1] != '{' and metricMiddle[0:1] != '}' %}, {% endif %}' + {% endif %}'{{ metricSuffix }}';
+          queries.push(query);
+          urls.push('/prom-keycloak-proxy/' + encodeURIComponent(hubId) + '/api/v1/query_range?' + new URLSearchParams(Object.assign({ 
+              query: query
+              }, timeQuery)).toString());
+          requestHubIds.push(hubId);
+          {%- else -%}
+          {%- endif -%}
+          {%- endif -%}
+          {%- endif -%}
+          {%- endif -%}{{''}}
+        });
+        const responses = await Promise.all(urls.map(url => fetch(url)));
+        const dataPromises = responses.map(response => response.json());
+        const responseJsons = await Promise.all(dataPromises);
+
+        var $linksTable = document.getElementById('{{ divId | e }}-data-links-table');
+        $linksTable.innerHTML = '';
+        urls.forEach((url, i) => {
+          var query = queries[i];
+
+          var $linkTr = document.createElement('tr');
+          $linksTable.append($linkTr);
+
+          var $linkTd = document.createElement('td');
+          $linkTr.append($linkTd);
+
+          var $linkA = document.createElement('a');
+          $linkA.setAttribute('href', url);
+          $linkA.setAttribute('target', '_blank');
+          $linkA.textContent = query;
+          $linkTd.append($linkA);
+        });
+
+        {% if metricLabels is not defined and displayLabels is not defined -%}
+        metricLabels = ['hub', 'cluster', '{{ modelPrefixLabel }}'];
+        displayLabels = ['hub', 'cluster', 'project'];
+        {% else -%}
+        metricLabels = [{% for metricLabel in metricLabels %}'{{ metricLabel }}',{% endfor %}];
+        displayLabels = [{% for displayLabel in displayLabels %}'{{ displayLabel }}',{% endfor %}];
+        {% endif -%}
+        var $theadTr = document.getElementById('{{ divId | e }}-data-thead-tr');
+        $theadTr.innerHTML = '';
+        var $theadTrTd;
+
+        var $theadTrTd = document.createElement('td');
+        $theadTrTd.textContent = '';
+        $theadTr.append($theadTrTd);
+
+        displayLabels.forEach((displayLabel, i) => {
+          $theadTrTd = document.createElement('td');
+          $theadTrTd.textContent = displayLabel;
+          $theadTr.append($theadTrTd);
+        });
+
+        $theadTrTd = document.createElement('td');
+        $theadTrTd.textContent = '{{ resultLabel | e }}';
+        $theadTr.append($theadTrTd);
+
+        $theadTrTd = document.createElement('td');
+        $theadTrTd.textContent = '{{ cardTitle | e }}';
+        $theadTr.append($theadTrTd);
+
+        var $tbody = document.getElementById('{{ divId | e }}-data-tbody');
+        const range = [];
+        let current = new Date(timeQuery.startDate);
+        while (current <= timeQuery.endDate) {
+          range.push(current);
+          labels.push(moment.tz(current, timeQuery.timeZone).format(timeQuery.labelFormat));
+          current = new Date(current.getTime() + timeQuery.stepMillis);
+        }
+        responseJsons.forEach((responseJson, i) => {
+          if(responseJson.data) {
+            responseJson.data.result.forEach((result, j) => {
+              var max = Math.max(...result.values.map(values => parseFloat(values[1])));
+              if(max)
+                maxs.push(max);
+            });
+          }
+        });
+        var max = Math.max(...maxs);
+        {% if openDetailsSelector is defined %}
+        document.querySelectorAll('{{openDetailsSelector}}').forEach(details => {
+          details.open = max > 0;
+        });
+        {% endif %}
+        colors = [{% for color in colors %}'{{ color }}',{% endfor %}];
+        var stepSeconds = timeQuery.stepMillis / 1000;
+        responseJsons.forEach((responseJson, i) => {
+          var hubId = requestHubIds[i];
+          if(responseJson.data) {
+            responseJson.data.result.forEach((result, j) => {
+              var datasetsIndex = datasets.length;
+              result['datasetsIndex'] = datasetsIndex;
+
+              var data = [];
+              var start = new Date(timeQuery.startDate);
+              var startSeconds = start.getTime() / 1000;
+              result.values.forEach((values, i) => {
+                var currentSeconds = values[0];
+                var nextSeconds = (currentSeconds * 1000 + timeQuery.stepMillis) / 1000;
+                if(startSeconds < currentSeconds) {
+                  var catchupSeconds = startSeconds;
+                  while (catchupSeconds < currentSeconds) {
+                    var nextCatchupSeconds = catchupSeconds + stepSeconds;
+                    data.push({
+                      x: moment.tz(current, timeQuery.timeZone).valueOf()
+                      , y: null
+                    });
+                    catchupSeconds = catchupSeconds + stepSeconds;
+                  }
+                }
+                data.push({
+                  x: moment.tz(current, timeQuery.timeZone).valueOf()
+                {% if formatBytes -%}
+                  {{'  '}}, y: formatBytes(parseFloat(values[1]), max)
+                {% else -%}
+                {% if formatPercent -%}
+                  {{'  '}}, y: formatPercent(values[1], 2)
+                {% else -%}
+                  {{'  '}}, y: parseFloat(values[1])
+                {% endif -%}
+                {% endif -%}
+                });
+                startSeconds = currentSeconds + stepSeconds;
+              });
+
+              datasets.push({
+                label: `{{ datasetLabel | default('', true) }}`
+                , "backgroundColor": [
+                  "var(--wa-color-" + colors[datasetsIndex % colors.length] + "-60)"
+                ]
+                , "borderColor": [
+                  "color-mix(in srgb, var(--wa-color-" + colors[datasetsIndex % colors.length] + "-60) 60%, transparent)"
+                ]
+                {% if fill -%}
+                , fill: true
+                {% endif -%}
+                , data: data
+              });
+            });
+          }
+        });
+        chart.xLabel = moment.tz(timeQuery.startDate, timeQuery.timeZone).format(timeQuery.labelFormat) + '–' + moment.tz(timeQuery.endDate, timeQuery.timeZone).format(timeQuery.labelFormatLong) + ' in ' + timeQuery.timeZone;
+        {% if formatBytes -%}
+        chart.yLabel = '{{ yLabelPrefix }}' + formatBytesUnit(max) + '{{ yLabelSuffix }}';
+        {% else -%}
+        chart.yLabel = '{{ yLabelPrefix }}' + '{{ yLabelSuffix }}';
+        {% endif -%}
+        chart.config = {
+          data: {
+            labels: labels
+            , datasets: datasets
+          }
+          , options: {
+            maintainAspectRatio: false
+            , plugins: {
+              legend: {
+                display: false
+              }
+              , zoom: {
+                pan: {
+                  enabled: true,
+                  mode: 'x'
+                }
+                , zoom: {
+                  wheel: {
+                    enabled: true
+                    , modifierKey: 'ctrl'
+                  }
+                  , pinch: {
+                    enabled: true
+                  }
+                  , mode: 'x'
+                }
+              }
+            }
+          }
+        }
+        await chart.updateComplete;
+        chart.plugins = [window.Zoom];
+        responseJsons.forEach((responseJson, i) => {
+          var hubId = requestHubIds[i];
+          if(responseJson.data) {
+            responseJson.data.result.forEach((result, j) => {
+              var datasetsIndex = result['datasetsIndex'];
+              var borderColor = chart.config.data.datasets[datasetsIndex].backgroundColor;
+              var $tr = document.createElement('tr');
+
+              var $iconTd = document.createElement('td');
+              var $icon = document.createElement('wa-checkbox');
+              $icon.checked = true;
+              $icon.setAttribute('style', '--wa-form-control-activated-color: ' + borderColor + '; --wa-form-control-border-color: ' + borderColor + '; --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width) ' + borderColor + '; ');
+              $icon.setAttribute('onclick', 'var chart = document.getElementById("' + panelId + '").chart; var dataset = chart.config.data.datasets[' + datasetsIndex + ']; dataset.hidden = !this.checked; chart.update(); !this.checked; ');
+              $iconTd.append($icon);
+              $tr.append($iconTd);
+              var $val;
+
+              metricLabels.forEach((metricLabel, i) => {
+                $val = document.createElement('td');
+                $tr.append($val);
+                if(metricLabel == 'hub') {
+                  $val.textContent = hubId;
+                } else {
+                  $val.textContent = result.metric[metricLabel];
+                }
+              });
+              {% if resultLabel is defined -%}
+
+              var ${{ resultLabel }} = document.createElement('td');
+              ${{ resultLabel }}.textContent = result.metric.{{ resultLabel }};
               $tr.append(${{ resultLabel }});
               {%- endif %}
 
@@ -557,7 +999,7 @@
 
               var $statsButton = document.createElement('wa-button');
               $statsButton.setAttribute('id', '{{ divId | e }}-data-stats-button-' + i + '-' + j);
-              $statsButton.innerText = 'stats';
+              $statsButton.textContent = 'stats';
               $val.append($statsButton);
 
               $tbody.append($tr);

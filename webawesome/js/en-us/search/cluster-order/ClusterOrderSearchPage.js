@@ -110,17 +110,6 @@ Promise.all([
     facetStatsChange('ClusterOrder', 'classCanonicalName', false);
   });
 
-  document.querySelector('#pageSelectSortClusterOrder_classSimpleName')?.addEventListener('change', (event) => {
-    sort('ClusterOrder', 'classSimpleName', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsClusterOrder_classSimpleName')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('ClusterOrder', 'classSimpleName', true);
-  });
-  document.querySelector('#pageStatsClusterOrder_classSimpleName')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('ClusterOrder', 'classSimpleName', false);
-  });
-
   document.querySelector('#pageSelectSortClusterOrder_classCanonicalNames')?.addEventListener('change', (event) => {
     sort('ClusterOrder', 'classCanonicalNames', event.currentTarget.value);
   });
@@ -130,39 +119,6 @@ Promise.all([
   });
   document.querySelector('#pageStatsClusterOrder_classCanonicalNames')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('ClusterOrder', 'classCanonicalNames', false);
-  });
-
-  document.querySelector('#pageSelectSortClusterOrder_sessionId')?.addEventListener('change', (event) => {
-    sort('ClusterOrder', 'sessionId', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsClusterOrder_sessionId')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('ClusterOrder', 'sessionId', true);
-  });
-  document.querySelector('#pageStatsClusterOrder_sessionId')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('ClusterOrder', 'sessionId', false);
-  });
-
-  document.querySelector('#pageSelectSortClusterOrder_userKey')?.addEventListener('change', (event) => {
-    sort('ClusterOrder', 'userKey', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsClusterOrder_userKey')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('ClusterOrder', 'userKey', true);
-  });
-  document.querySelector('#pageStatsClusterOrder_userKey')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('ClusterOrder', 'userKey', false);
-  });
-
-  document.querySelector('#pageSelectSortClusterOrder_saves')?.addEventListener('change', (event) => {
-    sort('ClusterOrder', 'saves', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsClusterOrder_saves')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('ClusterOrder', 'saves', true);
-  });
-  document.querySelector('#pageStatsClusterOrder_saves')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('ClusterOrder', 'saves', false);
   });
 
   document.querySelector('#pageSelectSortClusterOrder_objectTitle')?.addEventListener('change', (event) => {
@@ -198,28 +154,6 @@ Promise.all([
     facetStatsChange('ClusterOrder', 'displayPage', false);
   });
 
-  document.querySelector('#pageSelectSortClusterOrder_editPage')?.addEventListener('change', (event) => {
-    sort('ClusterOrder', 'editPage', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsClusterOrder_editPage')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('ClusterOrder', 'editPage', true);
-  });
-  document.querySelector('#pageStatsClusterOrder_editPage')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('ClusterOrder', 'editPage', false);
-  });
-
-  document.querySelector('#pageSelectSortClusterOrder_userPage')?.addEventListener('change', (event) => {
-    sort('ClusterOrder', 'userPage', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsClusterOrder_userPage')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('ClusterOrder', 'userPage', true);
-  });
-  document.querySelector('#pageStatsClusterOrder_userPage')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('ClusterOrder', 'userPage', false);
-  });
-
   document.querySelector('#pageSelectSortClusterOrder_download')?.addEventListener('change', (event) => {
     sort('ClusterOrder', 'download', event.currentTarget.value);
   });
@@ -242,17 +176,6 @@ Promise.all([
     facetStatsChange('ClusterOrder', 'objectSuggest', false);
   });
 
-  document.querySelector('#pageSelectSortClusterOrder_objectText')?.addEventListener('change', (event) => {
-    sort('ClusterOrder', 'objectText', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsClusterOrder_objectText')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('ClusterOrder', 'objectText', true);
-  });
-  document.querySelector('#pageStatsClusterOrder_objectText')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('ClusterOrder', 'objectText', false);
-  });
-
   document.querySelector('#pageSelectSortClusterOrder_solrId')?.addEventListener('change', (event) => {
     sort('ClusterOrder', 'solrId', event.currentTarget.value);
   });
@@ -262,6 +185,83 @@ Promise.all([
   });
   document.querySelector('#pageStatsClusterOrder_solrId')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('ClusterOrder', 'solrId', false);
+  });
+
+  document.querySelector('#pageSelectSortClusterOrder_classSimpleName')?.addEventListener('change', (event) => {
+    sort('ClusterOrder', 'classSimpleName', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsClusterOrder_classSimpleName')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('ClusterOrder', 'classSimpleName', true);
+  });
+  document.querySelector('#pageStatsClusterOrder_classSimpleName')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('ClusterOrder', 'classSimpleName', false);
+  });
+
+  document.querySelector('#pageSelectSortClusterOrder_sessionId')?.addEventListener('change', (event) => {
+    sort('ClusterOrder', 'sessionId', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsClusterOrder_sessionId')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('ClusterOrder', 'sessionId', true);
+  });
+  document.querySelector('#pageStatsClusterOrder_sessionId')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('ClusterOrder', 'sessionId', false);
+  });
+
+  document.querySelector('#pageSelectSortClusterOrder_userKey')?.addEventListener('change', (event) => {
+    sort('ClusterOrder', 'userKey', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsClusterOrder_userKey')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('ClusterOrder', 'userKey', true);
+  });
+  document.querySelector('#pageStatsClusterOrder_userKey')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('ClusterOrder', 'userKey', false);
+  });
+
+  document.querySelector('#pageSelectSortClusterOrder_saves')?.addEventListener('change', (event) => {
+    sort('ClusterOrder', 'saves', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsClusterOrder_saves')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('ClusterOrder', 'saves', true);
+  });
+  document.querySelector('#pageStatsClusterOrder_saves')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('ClusterOrder', 'saves', false);
+  });
+
+  document.querySelector('#pageSelectSortClusterOrder_editPage')?.addEventListener('change', (event) => {
+    sort('ClusterOrder', 'editPage', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsClusterOrder_editPage')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('ClusterOrder', 'editPage', true);
+  });
+  document.querySelector('#pageStatsClusterOrder_editPage')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('ClusterOrder', 'editPage', false);
+  });
+
+  document.querySelector('#pageSelectSortClusterOrder_userPage')?.addEventListener('change', (event) => {
+    sort('ClusterOrder', 'userPage', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsClusterOrder_userPage')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('ClusterOrder', 'userPage', true);
+  });
+  document.querySelector('#pageStatsClusterOrder_userPage')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('ClusterOrder', 'userPage', false);
+  });
+
+  document.querySelector('#pageSelectSortClusterOrder_objectText')?.addEventListener('change', (event) => {
+    sort('ClusterOrder', 'objectText', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsClusterOrder_objectText')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('ClusterOrder', 'objectText', true);
+  });
+  document.querySelector('#pageStatsClusterOrder_objectText')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('ClusterOrder', 'objectText', false);
   });
           document.querySelector('#fqClusterOrder_created')?.addEventListener('change', (event) => {
             fqChange('ClusterOrder', event.currentTarget, facetChangeClusterOrderSuccess, facetChangeClusterOrderError);
@@ -389,6 +389,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndClusterOrder_displayPage')?.addEventListener('change', (event) => {
             facetRangeEndChange('ClusterOrder', event.currentTarget);
           });
+          document.querySelector('#fqClusterOrder_download')?.addEventListener('change', (event) => {
+            fqChange('ClusterOrder', event.currentTarget, facetChangeClusterOrderSuccess, facetChangeClusterOrderError);
+          });
+          document.querySelector('#buttonFacetClusterOrder_download')?.addEventListener('click', (event) => {
+            facetFieldChange('ClusterOrder', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotClusterOrder_download')?.addEventListener('change', (event) => {
+            facetPivotChange('ClusterOrder', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapClusterOrder_download')?.addEventListener('change', (event) => {
+            facetRangeGapChange('ClusterOrder', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartClusterOrder_download')?.addEventListener('change', (event) => {
+            facetRangeStartChange('ClusterOrder', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndClusterOrder_download')?.addEventListener('change', (event) => {
+            facetRangeEndChange('ClusterOrder', event.currentTarget);
+          });
           document.querySelector('#fqClusterOrder_editPage')?.addEventListener('change', (event) => {
             fqChange('ClusterOrder', event.currentTarget, facetChangeClusterOrderSuccess, facetChangeClusterOrderError);
           });
@@ -425,24 +443,6 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndClusterOrder_userPage')?.addEventListener('change', (event) => {
             facetRangeEndChange('ClusterOrder', event.currentTarget);
           });
-          document.querySelector('#fqClusterOrder_download')?.addEventListener('change', (event) => {
-            fqChange('ClusterOrder', event.currentTarget, facetChangeClusterOrderSuccess, facetChangeClusterOrderError);
-          });
-          document.querySelector('#buttonFacetClusterOrder_download')?.addEventListener('click', (event) => {
-            facetFieldChange('ClusterOrder', event.currentTarget);
-          });
-          document.querySelector('#pageFacetPivotClusterOrder_download')?.addEventListener('change', (event) => {
-            facetPivotChange('ClusterOrder', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeGapClusterOrder_download')?.addEventListener('change', (event) => {
-            facetRangeGapChange('ClusterOrder', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeStartClusterOrder_download')?.addEventListener('change', (event) => {
-            facetRangeStartChange('ClusterOrder', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeEndClusterOrder_download')?.addEventListener('change', (event) => {
-            facetRangeEndChange('ClusterOrder', event.currentTarget);
-          });
 });
 
   document.querySelector('#htmButton_deleteClusterOrder')?.addEventListener('click', (event) => {
@@ -461,9 +461,11 @@ Promise.all([
   document.querySelector('#htmButton_deletefilterClusterOrder')?.addEventListener('click', (event) => {
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
+      var id = null;
       deletefilterClusterOrder(
-          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
+          null
           , event.currentTarget
+          , id
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

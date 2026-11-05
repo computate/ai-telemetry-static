@@ -103,27 +103,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH id
-          document.querySelector('#TimeZone_Page_id')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_id');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchTimeZoneVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
-                  , 'setId', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#TimeZone_Page_id')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#TimeZone_Page_id')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_id');
-            const valid = form.reportValidity();
-          });
-
           // PATCH name
           document.querySelector('#TimeZone_Page_name')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_name');
@@ -142,6 +121,27 @@ Promise.all([
           });
           document.querySelector('#TimeZone_Page_name')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_name');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH id
+          document.querySelector('#TimeZone_Page_id')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_id');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchTimeZoneVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'id:' + event.currentTarget.getAttribute('data-id') }]
+                  , 'setId', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#TimeZone_Page_id')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#TimeZone_Page_id')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_id');
             const valid = form.reportValidity();
           });
 

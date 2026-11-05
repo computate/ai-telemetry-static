@@ -187,17 +187,6 @@ Promise.all([
     facetStatsChange('BareMetalOrder', 'status', false);
   });
 
-  document.querySelector('#pageSelectSortBareMetalOrder_networkName')?.addEventListener('change', (event) => {
-    sort('BareMetalOrder', 'networkName', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsBareMetalOrder_networkName')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('BareMetalOrder', 'networkName', true);
-  });
-  document.querySelector('#pageStatsBareMetalOrder_networkName')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('BareMetalOrder', 'networkName', false);
-  });
-
   document.querySelector('#pageSelectSortBareMetalOrder_classCanonicalName')?.addEventListener('change', (event) => {
     sort('BareMetalOrder', 'classCanonicalName', event.currentTarget.value);
   });
@@ -361,6 +350,17 @@ Promise.all([
   });
   document.querySelector('#pageStatsBareMetalOrder_solrId')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('BareMetalOrder', 'solrId', false);
+  });
+
+  document.querySelector('#pageSelectSortBareMetalOrder_networkName')?.addEventListener('change', (event) => {
+    sort('BareMetalOrder', 'networkName', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsBareMetalOrder_networkName')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('BareMetalOrder', 'networkName', true);
+  });
+  document.querySelector('#pageStatsBareMetalOrder_networkName')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('BareMetalOrder', 'networkName', false);
   });
           document.querySelector('#fqBareMetalOrder_created')?.addEventListener('change', (event) => {
             fqChange('BareMetalOrder', event.currentTarget, facetChangeBareMetalOrderSuccess, facetChangeBareMetalOrderError);
@@ -704,9 +704,11 @@ Promise.all([
   document.querySelector('#htmButton_deletefilterBareMetalOrder')?.addEventListener('click', (event) => {
     var confirmResponse = confirm('Are you sure you want to delete that?'); 
     if(confirmResponse) { 
+      var pk = null;
       deletefilterBareMetalOrder(
-          [{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pk:' + event.currentTarget.getAttribute('data-pk') }]
+          null
           , event.currentTarget
+          , pk
           , function(response, target) { addGlow(target); }
           , function(response, target) { addError(target); }
           );

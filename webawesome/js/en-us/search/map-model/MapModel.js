@@ -322,18 +322,6 @@ function searchMapModelFilters($formFilters) {
     if(filterGltfPath != null && filterGltfPath !== '')
       filters.push({ name: 'fq', value: 'gltfPath:' + filterGltfPath });
 
-    var filterAltitudeMeters = $formFilters.querySelector('.valueAltitudeMeters')?.value;
-    if(filterAltitudeMeters != null && filterAltitudeMeters !== '')
-      filters.push({ name: 'fq', value: 'altitudeMeters:' + filterAltitudeMeters });
-
-    var filterRotation = $formFilters.querySelector('.valueRotation')?.value;
-    if(filterRotation != null && filterRotation !== '')
-      filters.push({ name: 'fq', value: 'rotation:' + filterRotation });
-
-    var filterEntityShortId = $formFilters.querySelector('.valueEntityShortId')?.value;
-    if(filterEntityShortId != null && filterEntityShortId !== '')
-      filters.push({ name: 'fq', value: 'entityShortId:' + filterEntityShortId });
-
     var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
     if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
       filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
@@ -393,6 +381,18 @@ function searchMapModelFilters($formFilters) {
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
       filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterEntityShortId = $formFilters.querySelector('.valueEntityShortId')?.value;
+    if(filterEntityShortId != null && filterEntityShortId !== '')
+      filters.push({ name: 'fq', value: 'entityShortId:' + filterEntityShortId });
+
+    var filterAltitudeMeters = $formFilters.querySelector('.valueAltitudeMeters')?.value;
+    if(filterAltitudeMeters != null && filterAltitudeMeters !== '')
+      filters.push({ name: 'fq', value: 'altitudeMeters:' + filterAltitudeMeters });
+
+    var filterRotation = $formFilters.querySelector('.valueRotation')?.value;
+    if(filterRotation != null && filterRotation !== '')
+      filters.push({ name: 'fq', value: 'rotation:' + filterRotation });
   }
   return filters;
 }

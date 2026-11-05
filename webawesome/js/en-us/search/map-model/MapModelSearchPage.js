@@ -209,39 +209,6 @@ Promise.all([
     facetStatsChange('MapModel', 'gltfPath', false);
   });
 
-  document.querySelector('#pageSelectSortMapModel_altitudeMeters')?.addEventListener('change', (event) => {
-    sort('MapModel', 'altitudeMeters', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsMapModel_altitudeMeters')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('MapModel', 'altitudeMeters', true);
-  });
-  document.querySelector('#pageStatsMapModel_altitudeMeters')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('MapModel', 'altitudeMeters', false);
-  });
-
-  document.querySelector('#pageSelectSortMapModel_rotation')?.addEventListener('change', (event) => {
-    sort('MapModel', 'rotation', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsMapModel_rotation')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('MapModel', 'rotation', true);
-  });
-  document.querySelector('#pageStatsMapModel_rotation')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('MapModel', 'rotation', false);
-  });
-
-  document.querySelector('#pageSelectSortMapModel_entityShortId')?.addEventListener('change', (event) => {
-    sort('MapModel', 'entityShortId', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsMapModel_entityShortId')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('MapModel', 'entityShortId', true);
-  });
-  document.querySelector('#pageStatsMapModel_entityShortId')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('MapModel', 'entityShortId', false);
-  });
-
   document.querySelector('#pageSelectSortMapModel_classCanonicalName')?.addEventListener('change', (event) => {
     sort('MapModel', 'classCanonicalName', event.currentTarget.value);
   });
@@ -405,5 +372,38 @@ Promise.all([
   });
   document.querySelector('#pageStatsMapModel_solrId')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('MapModel', 'solrId', false);
+  });
+
+  document.querySelector('#pageSelectSortMapModel_entityShortId')?.addEventListener('change', (event) => {
+    sort('MapModel', 'entityShortId', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsMapModel_entityShortId')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('MapModel', 'entityShortId', true);
+  });
+  document.querySelector('#pageStatsMapModel_entityShortId')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('MapModel', 'entityShortId', false);
+  });
+
+  document.querySelector('#pageSelectSortMapModel_altitudeMeters')?.addEventListener('change', (event) => {
+    sort('MapModel', 'altitudeMeters', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsMapModel_altitudeMeters')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('MapModel', 'altitudeMeters', true);
+  });
+  document.querySelector('#pageStatsMapModel_altitudeMeters')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('MapModel', 'altitudeMeters', false);
+  });
+
+  document.querySelector('#pageSelectSortMapModel_rotation')?.addEventListener('change', (event) => {
+    sort('MapModel', 'rotation', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsMapModel_rotation')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('MapModel', 'rotation', true);
+  });
+  document.querySelector('#pageStatsMapModel_rotation')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('MapModel', 'rotation', false);
   });
 });

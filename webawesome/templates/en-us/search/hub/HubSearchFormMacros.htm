@@ -196,6 +196,22 @@
                 {% if 'Page' == classApiMethodMethod -%}
                 <form class="subgrid-2col " id="PageForm_hubId">
                   {% endif -%}
+                  {% if 'Page' == classApiMethodMethod -%}
+                  <div class="button-on-left ">
+                    <wa-button variant="brand"
+                        id="Hub_{{classApiMethodMethod}}_hubId"
+                        placeholder="[String] hub ID"
+                        label="hub ID"
+                        hint="The ID of this hub"
+                        class="button-on-left Hub_{{classApiMethodMethod}}_hubId classHub inputHub{{ result.hubId }}HubId "
+                        name="setHubId"
+                        href="{{ result.hubId | e }}"
+                        >
+                      hub ID
+                    </wa-button>
+                  </div>
+                  <div class="button-description-on-right ">The ID of this hub</div>
+                  {% else -%}
                   <wa-input
                       {% if authForWriteBool == true %}clearable{% else %}readonly{% endif %}
                       placeholder="[String] hub ID"
@@ -221,6 +237,7 @@
                       >
                   </wa-input>
 
+                  {% endif -%}
                   {% if 'Page' == classApiMethodMethod -%}
                 </form>
                 {%- endif %}{{''}}

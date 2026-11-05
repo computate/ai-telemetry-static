@@ -1,6 +1,6 @@
 {% include en-us/search/bare-metal-order/BareMetalOrderSearchFormMacros.htm %}
 {% include en-us/search/bare-metal-network/BareMetalNetworkSearchFormMacros.htm %}
-        {% if 'DELETE' in scopes -%}
+        {% if 'PATCH' in scopes -%}
         {{ htmForm_patchBareMetalOrder() -}}
         {% endif -%}
         {% if 'POST' in scopes -%}

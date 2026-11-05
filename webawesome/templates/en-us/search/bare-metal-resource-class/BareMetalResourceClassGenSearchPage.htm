@@ -15,7 +15,7 @@
 
 {%- block htmStylePageLayout %}
       :root {
-        --site-results-number-of-columns: 2;
+        --site-results-number-of-columns: 3;
       }
 {{ super() }}
 {%- block htmStyleBareMetalResourceClassPage %}
@@ -423,46 +423,17 @@
 {% if resultCount > 0 %}
               <div class="wa-stack wa-gap-0 ">
 {% include en-us/search/bare-metal-resource-class/BareMetalResourceClassPaginationButtons.htm %}
-                <div class="card-like-thing background-color-surface-border" id="site-results-grid">
-                  <div>
-                    <wa-dropdown id="htmDropdown-name">
-                      <wa-button variant="brand" slot="trigger" caret>resource class name</wa-button>
-                      <wa-menu>
-                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalResourceClass_name'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalResourceClass').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-name-asc">
-                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
-                          sort by resource class name ascending
-                        </wa-menu-item>
-                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalResourceClass_name'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalResourceClass').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-name-desc">
-                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
-                          sort by resource class name descending
-                        </wa-menu-item>
-                      </wa-menu>
-                    </wa-dropdown>
-                    <wa-dropdown id="htmDropdown-count">
-                      <wa-button variant="brand" slot="trigger" caret>number of available nodes</wa-button>
-                      <wa-menu>
-                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalResourceClass_count'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalResourceClass').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="asc" id="htmDropdown-count-asc">
-                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-a-z"></i>
-                          sort by number of available nodes ascending
-                        </wa-menu-item>
-                        <wa-menu-item onclick="var e = document.querySelector('#pageFacetSortBareMetalResourceClass_count'); e.value = this.getAttribute('data-order'); document.querySelectorAll('.pageSearchVal-pageSort-BareMetalResourceClass').forEach(e => e.remove()); e.dispatchEvent(new Event('change', {})); " data-action="sort" data-order="desc" id="htmDropdown-count-desc">
-                          <i slot="start" class="{{ FONTAWESOME_STYLE }} fa-arrow-down-z-a"></i>
-                          sort by number of available nodes descending
-                        </wa-menu-item>
-                      </wa-menu>
-                    </wa-dropdown>
-                  </div>
-                  {% for item in listBareMetalResourceClass%}
-                  <div>
-                    <a href="{{ item.displayPage }}">
-                      <i class="{{ FONTAWESOME_STYLE }} fa-server"></i>
-                      <span>{{ item.name | e }}</span>
-                    </a>
-                    <a href="{{ item.displayPage }}">
-                      <span>{{ item.count | e }}</span>
-                    </a>
-                  </div>
-                  {% endfor %}
+                <div class="wa-cluster" style="margin-block-end: var(--wa-space-m);">
+                  <wa-button id="grid-csv-button" appearance="filled" variant="brand">
+                    <wa-icon slot="start" name="download"></wa-icon>
+                    Export CSV
+                  </wa-button>
+                </div>
+                <wa-data-grid id="site-results-grid" row-key="solrId" selectable with-search with-columns-menu with-column-menu reorderable resizable paginate>
+              {% if getColumnEditPage is defined %}
+                <div>
+                </div>
+              {% endif %}
               {% if getColumnName is defined %}
                 <div>
                 </div>
@@ -471,7 +442,102 @@
                 <div>
                 </div>
               {% endif %}
-                </div>
+                </wa-data-grid>
+                <script type="module">
+                  import { html } from 'https://cdn.jsdelivr.net/npm/lit@3/+esm';
+                  const grid = document.querySelector('#site-results-grid');
+                  await customElements.whenDefined('wa-data-grid');
+                  await grid.updateComplete;
+                  var initialDeparams = deparam(window.location.search ? window.location.search.substring(1) : window.location.search);
+                  grid.data = window.listBareMetalResourceClass;
+                  grid.columns = [
+                    { id: 'editPage', field: 'editPage', name: '', label: '',
+                        formatter: (_value, result) => html`
+                          <wa-button variant="brand"
+                            title="Manage this"
+                            class="BareMetalResourceClass_{{classApiMethodMethod}}_editPage classBareMetalResourceClass inputBareMetalResourceClass${result.name}EditPage "
+                            name="setEditPage"
+                            href="${result.editPage}"
+                            >
+                              <wa-icon name="pen-to-square"></wa-icon>
+                          </wa-button>
+                        `
+ },
+                    { id: 'name', field: 'name', name: 'resource class name', label: 'resource class name', sortable: true, filterable: true },
+                    { id: 'count', field: 'count', name: 'number of available nodes', label: 'number of available nodes', sortable: true, filterable: true },
+                  ];
+                  initialDeparams.filter(q => q.name === 'q' && q.value.startsWith('objectSuggest:')).forEach(q => {
+                    grid.searchTerm = q.value.slice(q.value.indexOf(':') + 1);
+                  });
+                  var newFilters = [];
+                  initialDeparams.filter(fq => fq.name === 'fq').forEach(fq => {
+                    newFilters.push({ id: fq.value.slice(0, fq.value.indexOf(':')), value: [ fq.value.slice(fq.value.indexOf(':') + 1) ] });
+                  });
+                  grid.filters = newFilters;
+                  var newSorts = [];
+                  initialDeparams.filter(sort => sort.name === 'sort').forEach(sort => {
+                    newSorts.push({ id: sort.value.slice(0, sort.value.indexOf(' ')), desc: 'desc' === sort.value.slice(sort.value.indexOf(' ') + 1) });
+                  });
+                  grid.sort = newSorts;
+                  document.querySelector('#grid-csv-button').addEventListener('click', () => {
+                    grid.exportDataAsCsv({ fileName: 'bare metal resource classes.csv' });
+                  });
+                  grid.pageSize = {{ pagination.rows }};
+                  grid.page = {{ pagination.page }};
+                  grid.dataSource = async ({ sort, search, page, pageSize, filters }) => {
+                    var deparams = deparam(window.location.search ? window.location.search.substring(1) : window.location.search);
+                    var newParams = [];
+                    if (search) {
+                      newParams.push({ name: 'q', value: 'objectSuggest:' + search });
+                    }
+                    if (pageSize) {
+                      newParams.push({ name: 'rows', value: pageSize });
+                    }
+                    if (page) {
+                      newParams.push({ name: 'start', value: pageSize * page });
+                    }
+                    if (filters && filters.length > 0) {
+                      filters.forEach(filter => {
+                        newParams.push({ name: 'fq', value: filter.id + ':' + filter.value });
+                      });
+                    }
+                    if (sort && sort.length > 0) {
+                      sort.forEach(s => {
+                        newParams.push({ name: 'sort', value: s.id + ' ' + (s.desc ? 'desc' : 'asc') });
+                      });
+                    }
+                    var queryParams = "?" + newParams.map(elem => elem.name + '=' + encodeURIComponent(elem.value)).join("&");
+                    var apiUri = '{{ apiUri }}' + queryParams;
+                    var pageUri = location.pathname + queryParams;
+                    window.history.replaceState('', '', pageUri);
+                    const response = await fetch(apiUri);
+                    if(response.ok) {
+                      const state = grid.getState();
+                      const json = await response.json();
+                      if(json.facet_counts && json.facet_counts.facet_fields) {
+                        Object.entries(json.facet_counts.facet_fields).map(([facetField, facetValues]) => {
+                          grid.columns.filter(column => column.id === facetField).forEach(column => {
+                            column.filterOptions = Object.entries(facetValues).map(([val, num]) => { return { value: val, count: num }; });
+                          });
+                        });
+                      }
+                      return { rows: json.list, total: json.foundNum };
+                    } else {
+                      if(response.status === 405 || response.status === 401) {
+                        document.querySelector('wa-page > wa-toast').create('You are no longer signed in, please refresh the page and sign in again. ', {size: 'danger', icon: 'triangle-exclamation'});
+                      } else if(response.status === 403) {
+                        document.querySelector('wa-page > wa-toast').create('You are not authorized to access this resource. ', {size: 'danger', icon: 'triangle-exclamation'});
+                      } else {
+                        response.json().then(json => {
+                          document.querySelector('wa-page > wa-toast').create(json?.error?.message, {size: 'danger', icon: 'triangle-exclamation'});
+                        }).catch(error => {
+                          document.querySelector('wa-page > wa-toast').create('An unknown error occured. ', {size: 'danger', icon: 'triangle-exclamation'});
+                        });
+                      }
+                      return { rows: [], rows: 0, total: 0 };
+                    }
+                  };
+                </script>
 {% include en-us/search/bare-metal-resource-class/BareMetalResourceClassPaginationButtons.htm %}
               </div>
 {% endif %}

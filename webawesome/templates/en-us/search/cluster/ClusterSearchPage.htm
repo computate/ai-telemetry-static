@@ -105,7 +105,7 @@
           , classSimpleName='Cluster'
           , legendTitle='Clusters'
           , metricPrefix='cluster:memory_usage_bytes:sum{'
-          , metricMiddle='} / on(cluster) cluster:capacity_memory_bytes:sum{label_node_role_kubernetes_io!="master"'
+          , metricMiddle='} / on(cluster) cluster:capacity_memory_bytes:sum{label_node_role_kubernetes_io!="master", '
           , metricSuffix='}'
           , modelVar='clusterName'
           , timeZone=timeZone
@@ -121,7 +121,7 @@
           , classSimpleName='Cluster'
           , legendTitle='Clusters'
           , metricPrefix='cluster:cpu_usage_cores:sum{'
-          , metricMiddle='} / on(cluster) sum by (cluster) (cluster:capacity_cpu_cores:sum{label_node_role_kubernetes_io!="master"'
+          , metricMiddle='} / on(cluster) sum by (cluster) (cluster:capacity_cpu_cores:sum{label_node_role_kubernetes_io!="master", '
           , metricSuffix='})'
           , modelVar='clusterName'
           , timeZone=timeZone

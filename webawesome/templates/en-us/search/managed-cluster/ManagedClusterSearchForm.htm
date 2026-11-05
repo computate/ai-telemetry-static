@@ -1,5 +1,5 @@
 {% include en-us/search/managed-cluster/ManagedClusterSearchFormMacros.htm %}
-        {% if 'DELETE' in scopes -%}
+        {% if 'PATCH' in scopes -%}
         {{ htmForm_patchManagedCluster() -}}
         {% endif -%}
         {% if 'POST' in scopes -%}
@@ -15,9 +15,7 @@
         {% else -%}
         {% endif -%}
         {% endif -%}
-        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
         {{ htmForm_putimportManagedCluster() -}}
-        {% endif %}
         {% if 'DELETE' in scopes -%}
         {% if resultCount >= 1 -%}
         {{ htmForm_deletefilterManagedCluster() -}}

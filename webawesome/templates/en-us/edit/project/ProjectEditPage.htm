@@ -20,6 +20,18 @@
   </div>
   <div class="wa-stack ">
     <div class="wa-grid ">
+      {{ dashboardCard('visualization-project-pricing-resource-requests', 'Pricing of resource requests in cluster ' ~ result.clusterName ~ ' project ' ~ result.projectName, min=0) }}
+    </div>
+    <div class="wa-grid ">
+      {{ dashboardCard('visualization-project-gpu-resource-requests', 'Total GPU resource requests in cluster ' ~ result.clusterName ~ ' project ' ~ result.projectName, min=0) }}
+    </div>
+    <div class="wa-grid ">
+      {{ dashboardCard('visualization-project-cpu-resource-requests', 'Total CPU resource requests in cluster ' ~ result.clusterName ~ ' project ' ~ result.projectName, min=0) }}
+    </div>
+    <div class="wa-grid ">
+      {{ dashboardCard('visualization-project-memory-resource-requests', 'Total memory resource requests in cluster ' ~ result.clusterName ~ ' project ' ~ result.projectName, min=0) }}
+    </div>
+    <div class="wa-grid ">
       {{ dashboardCard('visualization-project-memory-bytes', 'Total project memory usage in cluster ' ~ result.clusterName ~ ' project ' ~ result.projectName, min=0) }}
       {{ dashboardCard('visualization-quota-memory-bytes', 'Project quota memory usage in cluster ' ~ result.clusterName ~ ' project ' ~ result.projectName, min=0) }}
     </div>
@@ -275,7 +287,11 @@
         };
 
         Promise.all([
-            {{ dashboardPromise('visualization-project-memory-bytes') }}
+            {{ dashboardPromise('visualization-project-pricing-resource-requests') }}
+            , {{ dashboardPromise('visualization-project-gpu-resource-requests') }}
+            , {{ dashboardPromise('visualization-project-cpu-resource-requests') }}
+            , {{ dashboardPromise('visualization-project-memory-resource-requests') }}
+            , {{ dashboardPromise('visualization-project-memory-bytes') }}
             , {{ dashboardPromise('visualization-quota-memory-bytes') }}
             , {{ dashboardPromise('visualization-project-cpu-bytes') }}
             , {{ dashboardPromise('visualization-quota-cpu-bytes') }}
@@ -297,6 +313,62 @@
             ]);
         {{ updateDashboardsFunctionEnd() }}
 
+        {{ promqlDashboard(
+          divId='visualization-project-pricing-resource-requests'
+          , classSimpleName='Project'
+          , legendTitle='Projects'
+          , promqlParts=[
+            'sum by (cluster, namespace, resource) (kube_pod_container_resource_requests{resource="nvidia_com_gpu", node!="", '
+            , '} * 4) or sum by (cluster, namespace, resource) (kube_pod_container_resource_requests{resource="cpu", node!="", '
+            , '} * 0.013 ) or sum by (cluster, namespace, resource) (kube_pod_container_resource_requests{resource="memory", node!="", '
+            , '} / 1073741824 / 4 * 0.013)'
+          ]
+          , modelVar='projectName'
+          , timeZone=timeZone
+          , yLabelPrefix='$ per hour'
+          , datasetLabel='${result.metric.namespace} in ${result.metric.cluster} in ${hubId}'
+          , metricLabels=['cluster', 'namespace', 'resource']
+          , displayLabels=['cluster', 'namespace', 'resource']
+          , fill=true
+          , minimumFractionDigits=2
+          , maximumFractionDigits=2
+          , decimalFormatStyle='currency'
+          , decimalFormatCurrency='USD'
+        ) }}
+        {{ hubClusterProjectDashboardAsyncFunction(
+          divId='visualization-project-gpu-resource-requests'
+          , classSimpleName='Project'
+          , legendTitle='Projects'
+          , metricPrefix='(min_over_time((sum by (cluster, namespace, resource) (kube_pod_container_resource_requests{resource="nvidia_com_gpu", node!="", '
+          , metricSuffix='}))[1h:5m]) > 0)'
+          , modelVar='projectName'
+          , timeZone=timeZone
+          , yLabelSuffix=' GPUs'
+          , datasetLabel='${result.metric.namespace} in ${result.metric.cluster} in ${hubId}'
+        ) }}
+        {{ hubClusterProjectDashboardAsyncFunction(
+          divId='visualization-project-cpu-resource-requests'
+          , classSimpleName='Project'
+          , legendTitle='Projects'
+          , metricPrefix='(min_over_time((sum by (cluster, namespace, resource) (kube_pod_container_resource_requests{resource="cpu", node!="", '
+          , metricSuffix='}))[1h:5m]) > 0)'
+          , modelVar='projectName'
+          , timeZone=timeZone
+          , yLabelSuffix=' CPUs'
+          , datasetLabel='${result.metric.namespace} in ${result.metric.cluster} in ${hubId}'
+        ) }}
+        {{ hubClusterProjectDashboardAsyncFunction(
+          divId='visualization-project-memory-resource-requests'
+          , classSimpleName='Project'
+          , legendTitle='Projects'
+          , metricPrefix='(min_over_time((sum by (cluster, namespace, resource) (kube_pod_container_resource_requests{resource="memory", node!="", '
+          , metricSuffix='}))[1h:5m]) > 0)'
+          , modelVar='projectName'
+          , timeZone=timeZone
+          , formatBytes=true
+          , yLabelSuffix=' memory'
+          , datasetLabel='${result.metric.namespace} in ${result.metric.cluster} in ${hubId}'
+        ) }}
         {{ hubClusterProjectDashboardAsyncFunction(
           divId='visualization-project-memory-bytes'
           , classSimpleName='Project'
@@ -314,7 +386,7 @@
           , classSimpleName='Project'
           , legendTitle='Projects'
           , metricPrefix='namespace:container_memory_usage_bytes:sum{'
-          , metricMiddle='} / on(cluster, namespace) group_left() kube_resourcequota{resource="limits.memory", type="hard"'
+          , metricMiddle='} / on(cluster, namespace) group_left() kube_resourcequota{resource="limits.memory", type="hard", '
           , metricSuffix='}'
           , modelVar='projectName'
           , timeZone=timeZone
@@ -341,7 +413,7 @@
           , classSimpleName='Project'
           , legendTitle='Projects'
           , metricPrefix='node_namespace_pod_container:container_cpu_usage_seconds_total:sum{'
-          , metricMiddle='} / on(cluster, namespace) group_left() kube_resourcequota{resource="limits.cpu", type="hard"'
+          , metricMiddle='} / on(cluster, namespace) group_left() kube_resourcequota{resource="limits.cpu", type="hard", '
           , metricSuffix='}'
           , modelVar='projectName'
           , timeZone=timeZone

@@ -61,27 +61,6 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
-          // PATCH authorUrl
-          document.querySelector('#SitePage_Page_authorUrl')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_authorUrl');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchSitePageVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pageId:' + event.currentTarget.getAttribute('data-pageId') }]
-                  , 'setAuthorUrl', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#SitePage_Page_authorUrl')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#SitePage_Page_authorUrl')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_authorUrl');
-            const valid = form.reportValidity();
-          });
-
           // PATCH authorName
           document.querySelector('#SitePage_Page_authorName')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_authorName');
@@ -100,6 +79,27 @@ Promise.all([
           });
           document.querySelector('#SitePage_Page_authorName')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_authorName');
+            const valid = form.reportValidity();
+          });
+
+          // PATCH authorUrl
+          document.querySelector('#SitePage_Page_authorUrl')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_authorUrl');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSitePageVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pageId:' + event.currentTarget.getAttribute('data-pageId') }]
+                  , 'setAuthorUrl', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#SitePage_Page_authorUrl')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#SitePage_Page_authorUrl')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_authorUrl');
             const valid = form.reportValidity();
           });
 
@@ -292,6 +292,27 @@ Promise.all([
             const valid = form.reportValidity();
           });
 
+          // PATCH courseNum
+          document.querySelector('#SitePage_Page_courseNum')?.addEventListener('change', (event) => {
+            const form = document.querySelector('#PageForm_courseNum');
+            const valid = form.checkValidity();
+            if(valid) {
+              patchSitePageVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pageId:' + event.currentTarget.getAttribute('data-pageId') }]
+                  , 'setCourseNum', event.currentTarget.value
+                  , event.currentTarget
+                , function(response, target) { addGlow(target); }
+                  , function(response, target) { addError(target); }
+                  );
+            }
+          });
+          document.querySelector('#SitePage_Page_courseNum')?.addEventListener('focus', (event) => {
+            removeGlow(event.currentTarget);
+          });
+          document.querySelector('#SitePage_Page_courseNum')?.addEventListener('blur', (event) => {
+            const form = document.querySelector('#PageForm_courseNum');
+            const valid = form.reportValidity();
+          });
+
           // PATCH lessonNum
           document.querySelector('#SitePage_Page_lessonNum')?.addEventListener('change', (event) => {
             const form = document.querySelector('#PageForm_lessonNum');
@@ -436,27 +457,6 @@ Promise.all([
           });
           document.querySelector('#SitePage_Page_nextArticleIds')?.addEventListener('blur', (event) => {
             const form = document.querySelector('#PageForm_nextArticleIds');
-            const valid = form.reportValidity();
-          });
-
-          // PATCH courseNum
-          document.querySelector('#SitePage_Page_courseNum')?.addEventListener('change', (event) => {
-            const form = document.querySelector('#PageForm_courseNum');
-            const valid = form.checkValidity();
-            if(valid) {
-              patchSitePageVal([{ name: 'softCommit', value: 'true' }, { name: 'fq', value: 'pageId:' + event.currentTarget.getAttribute('data-pageId') }]
-                  , 'setCourseNum', event.currentTarget.value
-                  , event.currentTarget
-                , function(response, target) { addGlow(target); }
-                  , function(response, target) { addError(target); }
-                  );
-            }
-          });
-          document.querySelector('#SitePage_Page_courseNum')?.addEventListener('focus', (event) => {
-            removeGlow(event.currentTarget);
-          });
-          document.querySelector('#SitePage_Page_courseNum')?.addEventListener('blur', (event) => {
-            const form = document.querySelector('#PageForm_courseNum');
             const valid = form.reportValidity();
           });
 

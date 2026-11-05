@@ -94,7 +94,6 @@ async function websocketBareMetalOrderInner(apiRequest) {
         var inputSshPublicKey = null;
         var inputFloatingIp = null;
         var inputStatus = null;
-        var inputNetworkName = null;
         var inputClassCanonicalName = null;
         var inputClassSimpleName = null;
         var inputClassCanonicalNames = null;
@@ -110,6 +109,7 @@ async function websocketBareMetalOrderInner(apiRequest) {
         var inputObjectSuggest = null;
         var inputObjectText = null;
         var inputSolrId = null;
+        var inputNetworkName = null;
 
         if(vars.includes('pk'))
           inputPk = $response.querySelector('.BareMetalOrder_Page_pk');
@@ -143,8 +143,6 @@ async function websocketBareMetalOrderInner(apiRequest) {
           inputFloatingIp = $response.querySelector('.BareMetalOrder_Page_floatingIp');
         if(vars.includes('status'))
           inputStatus = $response.querySelector('.BareMetalOrder_Page_status');
-        if(vars.includes('networkName'))
-          inputNetworkName = $response.querySelector('.BareMetalOrder_Page_networkName');
         if(vars.includes('classCanonicalName'))
           inputClassCanonicalName = $response.querySelector('.BareMetalOrder_Page_classCanonicalName');
         if(vars.includes('classSimpleName'))
@@ -175,6 +173,8 @@ async function websocketBareMetalOrderInner(apiRequest) {
           inputObjectText = $response.querySelector('.BareMetalOrder_Page_objectText');
         if(vars.includes('solrId'))
           inputSolrId = $response.querySelector('.BareMetalOrder_Page_solrId');
+        if(vars.includes('networkName'))
+          inputNetworkName = $response.querySelector('.BareMetalOrder_Page_networkName');
 
         window.result = JSON.parse($response.querySelector('.pageForm .result')?.value);
         window.listBareMetalOrder = JSON.parse($response.querySelector('.pageForm .listBareMetalOrder')?.value);
@@ -405,20 +405,6 @@ async function websocketBareMetalOrderInner(apiRequest) {
           addGlow(document.querySelector('.BareMetalOrder_Page_status'));
         }
 
-        if(inputNetworkName) {
-          document.querySelectorAll('.BareMetalOrder_Page_networkName').forEach((item, index) => {
-            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
-              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
-              item.removeAttribute('readonly');
-            }
-            if(typeof item.value !== 'undefined')
-              item.value = inputNetworkName.getAttribute('value');
-            else
-              item.textContent = inputNetworkName.textContent;
-          });
-          addGlow(document.querySelector('.BareMetalOrder_Page_networkName'));
-        }
-
         if(inputClassCanonicalName) {
           document.querySelectorAll('.BareMetalOrder_Page_classCanonicalName').forEach((item, index) => {
             if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
@@ -627,6 +613,20 @@ async function websocketBareMetalOrderInner(apiRequest) {
               item.textContent = inputSolrId.textContent;
           });
           addGlow(document.querySelector('.BareMetalOrder_Page_solrId'));
+        }
+
+        if(inputNetworkName) {
+          document.querySelectorAll('.BareMetalOrder_Page_networkName').forEach((item, index) => {
+            if(item.shadowRoot.querySelector('div.site-message-response-overlay')) {
+              item.shadowRoot.querySelector('div.site-message-response-overlay')?.remove();
+              item.removeAttribute('readonly');
+            }
+            if(typeof item.value !== 'undefined')
+              item.value = inputNetworkName.getAttribute('value');
+            else
+              item.textContent = inputNetworkName.textContent;
+          });
+          addGlow(document.querySelector('.BareMetalOrder_Page_networkName'));
         }
 
           pageGraphBareMetalOrder();
@@ -850,10 +850,6 @@ function searchBareMetalOrderFilters($formFilters) {
     if(filterStatus != null && filterStatus !== '')
       filters.push({ name: 'fq', value: 'status:' + filterStatus });
 
-    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
-    if(filterNetworkName != null && filterNetworkName !== '')
-      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
-
     var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
     if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
       filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
@@ -913,6 +909,10 @@ function searchBareMetalOrderFilters($formFilters) {
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
       filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
+    if(filterNetworkName != null && filterNetworkName !== '')
+      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
   }
   return filters;
 }
@@ -941,7 +941,7 @@ function suggestBareMetalOrderNetworkId(filters, $list, pkBareMetalOrder = null,
       $list.innerHTML = '';
       data['list'].forEach((o, i) => {
         var iTemplate = document.createElement('template');
-        iTemplate.innerHTML = '<i class="fa-duotone fa-regular fa-network-wired"></i>';
+        iTemplate.innerHTML = '';
         var $i = iTemplate.content;
         var $span = document.createElement('span');
         $span.setAttribute('class', '');
@@ -1245,18 +1245,6 @@ async function patchBareMetalOrder($formFilters, $formValues, target, pk, succes
   if(removeStatus != null && removeStatus !== '')
     vals['removeStatus'] = removeStatus;
 
-  var valueNetworkName = $formValues.querySelector('.valueNetworkName')?.value;
-  var removeNetworkName = $formValues.querySelector('.removeNetworkName')?.value === 'true';
-  var setNetworkName = removeNetworkName ? null : $formValues.querySelector('.setNetworkName')?.value;
-  var addNetworkName = $formValues.querySelector('.addNetworkName')?.value;
-  if(removeNetworkName || setNetworkName != null && setNetworkName !== '')
-    vals['setNetworkName'] = setNetworkName;
-  if(addNetworkName != null && addNetworkName !== '')
-    vals['addNetworkName'] = addNetworkName;
-  var removeNetworkName = $formValues.querySelector('.removeNetworkName')?.value;
-  if(removeNetworkName != null && removeNetworkName !== '')
-    vals['removeNetworkName'] = removeNetworkName;
-
   var valueSessionId = $formValues.querySelector('.valueSessionId')?.value;
   var removeSessionId = $formValues.querySelector('.removeSessionId')?.value === 'true';
   var setSessionId = removeSessionId ? null : $formValues.querySelector('.setSessionId')?.value;
@@ -1353,6 +1341,18 @@ async function patchBareMetalOrder($formFilters, $formValues, target, pk, succes
   if(removeDownload != null && removeDownload !== '')
     vals['removeDownload'] = removeDownload;
 
+  var valueNetworkName = $formValues.querySelector('.valueNetworkName')?.value;
+  var removeNetworkName = $formValues.querySelector('.removeNetworkName')?.value === 'true';
+  var setNetworkName = removeNetworkName ? null : $formValues.querySelector('.setNetworkName')?.value;
+  var addNetworkName = $formValues.querySelector('.addNetworkName')?.value;
+  if(removeNetworkName || setNetworkName != null && setNetworkName !== '')
+    vals['setNetworkName'] = setNetworkName;
+  if(addNetworkName != null && addNetworkName !== '')
+    vals['addNetworkName'] = addNetworkName;
+  var removeNetworkName = $formValues.querySelector('.removeNetworkName')?.value;
+  if(removeNetworkName != null && removeNetworkName !== '')
+    vals['removeNetworkName'] = removeNetworkName;
+
   patchBareMetalOrderVals(pk == null ? deparam(window.location.search ? window.location.search.substring(1) : window.location.search) : [{name:'fq', value:'pk:' + pk}], vals, target, success, error);
 }
 
@@ -1437,10 +1437,6 @@ function patchBareMetalOrderFilters($formFilters) {
     if(filterStatus != null && filterStatus !== '')
       filters.push({ name: 'fq', value: 'status:' + filterStatus });
 
-    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
-    if(filterNetworkName != null && filterNetworkName !== '')
-      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
-
     var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
     if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
       filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
@@ -1500,6 +1496,10 @@ function patchBareMetalOrderFilters($formFilters) {
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
       filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
+    if(filterNetworkName != null && filterNetworkName !== '')
+      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
   }
   return filters;
 }
@@ -1627,10 +1627,6 @@ async function postBareMetalOrder($formValues, target, success, error) {
   if(valueStatus != null && valueStatus !== '')
     vals['status'] = valueStatus;
 
-  var valueNetworkName = $formValues.querySelector('.valueNetworkName')?.value;
-  if(valueNetworkName != null && valueNetworkName !== '')
-    vals['networkName'] = valueNetworkName;
-
   var valueSessionId = $formValues.querySelector('.valueSessionId')?.value;
   if(valueSessionId != null && valueSessionId !== '')
     vals['sessionId'] = valueSessionId;
@@ -1662,6 +1658,10 @@ async function postBareMetalOrder($formValues, target, success, error) {
   var valueDownload = $formValues.querySelector('.valueDownload')?.value;
   if(valueDownload != null && valueDownload !== '')
     vals['download'] = valueDownload;
+
+  var valueNetworkName = $formValues.querySelector('.valueNetworkName')?.value;
+  if(valueNetworkName != null && valueNetworkName !== '')
+    vals['networkName'] = valueNetworkName;
 
   fetch(
     '/en-us/api/bare-metal-order'
@@ -1750,9 +1750,7 @@ async function deleteBareMetalOrder(target, pk, success, error) {
 
 // DELETEFilter //
 
-async function deletefilterBareMetalOrder($formFilterstarget, success, error) {
-  var filters = deletefilterBareMetalOrderFilters($formFilters);
-
+async function deletefilterBareMetalOrder($formFilters, target, pk, success, error) {
   if(success == null) {
     success = function( data, textStatus, jQxhr ) {
       addGlow(target, jqXhr);
@@ -1783,6 +1781,7 @@ async function deletefilterBareMetalOrder($formFilterstarget, success, error) {
     };
   }
 
+  var filters = pk == null ? deparam(window.location.search ? window.location.search.substring(1) : window.location.search) : [{name:'fq', value:'pk:' + pk}];
   fetch(
     '/en-us/api/bare-metal-order?' + filters.map(function(m) { return m.name + '=' + encodeURIComponent(m.value) }).join('&')
     , {
@@ -1878,10 +1877,6 @@ function deletefilterBareMetalOrderFilters($formFilters) {
     if(filterStatus != null && filterStatus !== '')
       filters.push({ name: 'fq', value: 'status:' + filterStatus });
 
-    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
-    if(filterNetworkName != null && filterNetworkName !== '')
-      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
-
     var filterClassCanonicalName = $formFilters.querySelector('.valueClassCanonicalName')?.value;
     if(filterClassCanonicalName != null && filterClassCanonicalName !== '')
       filters.push({ name: 'fq', value: 'classCanonicalName:' + filterClassCanonicalName });
@@ -1941,6 +1936,10 @@ function deletefilterBareMetalOrderFilters($formFilters) {
     var filterSolrId = $formFilters.querySelector('.valueSolrId')?.value;
     if(filterSolrId != null && filterSolrId !== '')
       filters.push({ name: 'fq', value: 'solrId:' + filterSolrId });
+
+    var filterNetworkName = $formFilters.querySelector('.valueNetworkName')?.value;
+    if(filterNetworkName != null && filterNetworkName !== '')
+      filters.push({ name: 'fq', value: 'networkName:' + filterNetworkName });
   }
   return filters;
 }

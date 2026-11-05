@@ -121,17 +121,6 @@ Promise.all([
     facetStatsChange('VirtualMachine', 'vmName', false);
   });
 
-  document.querySelector('#pageSelectSortVirtualMachine_id')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'id', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_id')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'id', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_id')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'id', false);
-  });
-
   document.querySelector('#pageSelectSortVirtualMachine_os')?.addEventListener('change', (event) => {
     sort('VirtualMachine', 'os', event.currentTarget.value);
   });
@@ -141,6 +130,17 @@ Promise.all([
   });
   document.querySelector('#pageStatsVirtualMachine_os')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('VirtualMachine', 'os', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_id')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'id', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_id')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'id', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_id')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'id', false);
   });
 
   document.querySelector('#pageSelectSortVirtualMachine_ngsildTenant')?.addEventListener('change', (event) => {
@@ -198,6 +198,17 @@ Promise.all([
     facetStatsChange('VirtualMachine', 'location', false);
   });
 
+  document.querySelector('#pageSelectSortVirtualMachine_classCanonicalName')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'classCanonicalName', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_classCanonicalName')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'classCanonicalName', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_classCanonicalName')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'classCanonicalName', false);
+  });
+
   document.querySelector('#pageSelectSortVirtualMachine_classCanonicalNames')?.addEventListener('change', (event) => {
     sort('VirtualMachine', 'classCanonicalNames', event.currentTarget.value);
   });
@@ -207,6 +218,83 @@ Promise.all([
   });
   document.querySelector('#pageStatsVirtualMachine_classCanonicalNames')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('VirtualMachine', 'classCanonicalNames', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_objectTitle')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'objectTitle', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_objectTitle')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'objectTitle', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_objectTitle')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'objectTitle', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'apiUrl', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_apiUrl')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'apiUrl', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_apiUrl')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'apiUrl', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_displayPage')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'displayPage', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_displayPage')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'displayPage', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_displayPage')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'displayPage', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_download')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'download', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_download')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'download', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_download')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'download', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_objectSuggest')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'objectSuggest', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_objectSuggest')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'objectSuggest', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_objectSuggest')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'objectSuggest', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_solrId')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'solrId', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_solrId')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'solrId', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_solrId')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'solrId', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_classSimpleName')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'classSimpleName', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_classSimpleName')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'classSimpleName', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_classSimpleName')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'classSimpleName', false);
   });
 
   document.querySelector('#pageSelectSortVirtualMachine_sessionId')?.addEventListener('change', (event) => {
@@ -242,28 +330,6 @@ Promise.all([
     facetStatsChange('VirtualMachine', 'saves', false);
   });
 
-  document.querySelector('#pageSelectSortVirtualMachine_objectTitle')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'objectTitle', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_objectTitle')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'objectTitle', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_objectTitle')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'objectTitle', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_displayPage')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'displayPage', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_displayPage')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'displayPage', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_displayPage')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'displayPage', false);
-  });
-
   document.querySelector('#pageSelectSortVirtualMachine_editPage')?.addEventListener('change', (event) => {
     sort('VirtualMachine', 'editPage', event.currentTarget.value);
   });
@@ -273,61 +339,6 @@ Promise.all([
   });
   document.querySelector('#pageStatsVirtualMachine_editPage')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('VirtualMachine', 'editPage', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_download')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'download', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_download')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'download', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_download')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'download', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_objectText')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'objectText', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_objectText')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'objectText', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_objectText')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'objectText', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_classCanonicalName')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'classCanonicalName', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_classCanonicalName')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'classCanonicalName', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_classCanonicalName')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'classCanonicalName', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_classSimpleName')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'classSimpleName', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_classSimpleName')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'classSimpleName', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_classSimpleName')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'classSimpleName', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'apiUrl', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_apiUrl')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'apiUrl', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_apiUrl')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'apiUrl', false);
   });
 
   document.querySelector('#pageSelectSortVirtualMachine_userPage')?.addEventListener('change', (event) => {
@@ -341,26 +352,15 @@ Promise.all([
     facetStatsChange('VirtualMachine', 'userPage', false);
   });
 
-  document.querySelector('#pageSelectSortVirtualMachine_objectSuggest')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'objectSuggest', event.currentTarget.value);
+  document.querySelector('#pageSelectSortVirtualMachine_objectText')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'objectText', event.currentTarget.value);
   });
 
-  document.querySelector('#pageStatsVirtualMachine_objectSuggest')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'objectSuggest', true);
+  document.querySelector('#pageStatsVirtualMachine_objectText')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'objectText', true);
   });
-  document.querySelector('#pageStatsVirtualMachine_objectSuggest')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'objectSuggest', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_solrId')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'solrId', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_solrId')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'solrId', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_solrId')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'solrId', false);
+  document.querySelector('#pageStatsVirtualMachine_objectText')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'objectText', false);
   });
 
   document.querySelector('#pageSelectSortVirtualMachine_hubResource')?.addEventListener('change', (event) => {
@@ -374,6 +374,17 @@ Promise.all([
     facetStatsChange('VirtualMachine', 'hubResource', false);
   });
 
+  document.querySelector('#pageSelectSortVirtualMachine_vmResource')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'vmResource', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_vmResource')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'vmResource', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_vmResource')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'vmResource', false);
+  });
+
   document.querySelector('#pageSelectSortVirtualMachine_vmDisplayName')?.addEventListener('change', (event) => {
     sort('VirtualMachine', 'vmDisplayName', event.currentTarget.value);
   });
@@ -383,6 +394,17 @@ Promise.all([
   });
   document.querySelector('#pageStatsVirtualMachine_vmDisplayName')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('VirtualMachine', 'vmDisplayName', false);
+  });
+
+  document.querySelector('#pageSelectSortVirtualMachine_locationColors')?.addEventListener('change', (event) => {
+    sort('VirtualMachine', 'locationColors', event.currentTarget.value);
+  });
+
+  document.querySelector('#pageStatsVirtualMachine_locationColors')?.addEventListener('wa-show', (event) => {
+    facetStatsChange('VirtualMachine', 'locationColors', true);
+  });
+  document.querySelector('#pageStatsVirtualMachine_locationColors')?.addEventListener('wa-hide', (event) => {
+    facetStatsChange('VirtualMachine', 'locationColors', false);
   });
 
   document.querySelector('#pageSelectSortVirtualMachine_locationTitles')?.addEventListener('change', (event) => {
@@ -416,28 +438,6 @@ Promise.all([
   });
   document.querySelector('#pageStatsVirtualMachine_entityShortId')?.addEventListener('wa-hide', (event) => {
     facetStatsChange('VirtualMachine', 'entityShortId', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_locationColors')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'locationColors', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_locationColors')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'locationColors', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_locationColors')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'locationColors', false);
-  });
-
-  document.querySelector('#pageSelectSortVirtualMachine_vmResource')?.addEventListener('change', (event) => {
-    sort('VirtualMachine', 'vmResource', event.currentTarget.value);
-  });
-
-  document.querySelector('#pageStatsVirtualMachine_vmResource')?.addEventListener('wa-show', (event) => {
-    facetStatsChange('VirtualMachine', 'vmResource', true);
-  });
-  document.querySelector('#pageStatsVirtualMachine_vmResource')?.addEventListener('wa-hide', (event) => {
-    facetStatsChange('VirtualMachine', 'vmResource', false);
   });
           document.querySelector('#fqVirtualMachine_created')?.addEventListener('change', (event) => {
             fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
@@ -547,24 +547,6 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndVirtualMachine_vmName')?.addEventListener('change', (event) => {
             facetRangeEndChange('VirtualMachine', event.currentTarget);
           });
-          document.querySelector('#fqVirtualMachine_id')?.addEventListener('change', (event) => {
-            fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
-          });
-          document.querySelector('#buttonFacetVirtualMachine_id')?.addEventListener('click', (event) => {
-            facetFieldChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#pageFacetPivotVirtualMachine_id')?.addEventListener('change', (event) => {
-            facetPivotChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeGapVirtualMachine_id')?.addEventListener('change', (event) => {
-            facetRangeGapChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeStartVirtualMachine_id')?.addEventListener('change', (event) => {
-            facetRangeStartChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeEndVirtualMachine_id')?.addEventListener('change', (event) => {
-            facetRangeEndChange('VirtualMachine', event.currentTarget);
-          });
           document.querySelector('#fqVirtualMachine_os')?.addEventListener('change', (event) => {
             fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
           });
@@ -581,6 +563,24 @@ Promise.all([
             facetRangeStartChange('VirtualMachine', event.currentTarget);
           });
           document.querySelector('#pageFacetRangeEndVirtualMachine_os')?.addEventListener('change', (event) => {
+            facetRangeEndChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#fqVirtualMachine_id')?.addEventListener('change', (event) => {
+            fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
+          });
+          document.querySelector('#buttonFacetVirtualMachine_id')?.addEventListener('click', (event) => {
+            facetFieldChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotVirtualMachine_id')?.addEventListener('change', (event) => {
+            facetPivotChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapVirtualMachine_id')?.addEventListener('change', (event) => {
+            facetRangeGapChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartVirtualMachine_id')?.addEventListener('change', (event) => {
+            facetRangeStartChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndVirtualMachine_id')?.addEventListener('change', (event) => {
             facetRangeEndChange('VirtualMachine', event.currentTarget);
           });
           document.querySelector('#fqVirtualMachine_ngsildTenant')?.addEventListener('change', (event) => {
@@ -673,6 +673,24 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndVirtualMachine_location')?.addEventListener('change', (event) => {
             facetRangeEndChange('VirtualMachine', event.currentTarget);
           });
+          document.querySelector('#fqVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
+          });
+          document.querySelector('#buttonFacetVirtualMachine_apiUrl')?.addEventListener('click', (event) => {
+            facetFieldChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetPivotVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            facetPivotChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeGapVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeGapChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeStartVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeStartChange('VirtualMachine', event.currentTarget);
+          });
+          document.querySelector('#pageFacetRangeEndVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+            facetRangeEndChange('VirtualMachine', event.currentTarget);
+          });
           document.querySelector('#fqVirtualMachine_displayPage')?.addEventListener('change', (event) => {
             fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
           });
@@ -689,24 +707,6 @@ Promise.all([
             facetRangeStartChange('VirtualMachine', event.currentTarget);
           });
           document.querySelector('#pageFacetRangeEndVirtualMachine_displayPage')?.addEventListener('change', (event) => {
-            facetRangeEndChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#fqVirtualMachine_editPage')?.addEventListener('change', (event) => {
-            fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
-          });
-          document.querySelector('#buttonFacetVirtualMachine_editPage')?.addEventListener('click', (event) => {
-            facetFieldChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#pageFacetPivotVirtualMachine_editPage')?.addEventListener('change', (event) => {
-            facetPivotChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeGapVirtualMachine_editPage')?.addEventListener('change', (event) => {
-            facetRangeGapChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeStartVirtualMachine_editPage')?.addEventListener('change', (event) => {
-            facetRangeStartChange('VirtualMachine', event.currentTarget);
-          });
-          document.querySelector('#pageFacetRangeEndVirtualMachine_editPage')?.addEventListener('change', (event) => {
             facetRangeEndChange('VirtualMachine', event.currentTarget);
           });
           document.querySelector('#fqVirtualMachine_download')?.addEventListener('change', (event) => {
@@ -727,22 +727,22 @@ Promise.all([
           document.querySelector('#pageFacetRangeEndVirtualMachine_download')?.addEventListener('change', (event) => {
             facetRangeEndChange('VirtualMachine', event.currentTarget);
           });
-          document.querySelector('#fqVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+          document.querySelector('#fqVirtualMachine_editPage')?.addEventListener('change', (event) => {
             fqChange('VirtualMachine', event.currentTarget, facetChangeVirtualMachineSuccess, facetChangeVirtualMachineError);
           });
-          document.querySelector('#buttonFacetVirtualMachine_apiUrl')?.addEventListener('click', (event) => {
+          document.querySelector('#buttonFacetVirtualMachine_editPage')?.addEventListener('click', (event) => {
             facetFieldChange('VirtualMachine', event.currentTarget);
           });
-          document.querySelector('#pageFacetPivotVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+          document.querySelector('#pageFacetPivotVirtualMachine_editPage')?.addEventListener('change', (event) => {
             facetPivotChange('VirtualMachine', event.currentTarget);
           });
-          document.querySelector('#pageFacetRangeGapVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+          document.querySelector('#pageFacetRangeGapVirtualMachine_editPage')?.addEventListener('change', (event) => {
             facetRangeGapChange('VirtualMachine', event.currentTarget);
           });
-          document.querySelector('#pageFacetRangeStartVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+          document.querySelector('#pageFacetRangeStartVirtualMachine_editPage')?.addEventListener('change', (event) => {
             facetRangeStartChange('VirtualMachine', event.currentTarget);
           });
-          document.querySelector('#pageFacetRangeEndVirtualMachine_apiUrl')?.addEventListener('change', (event) => {
+          document.querySelector('#pageFacetRangeEndVirtualMachine_editPage')?.addEventListener('change', (event) => {
             facetRangeEndChange('VirtualMachine', event.currentTarget);
           });
           document.querySelector('#fqVirtualMachine_userPage')?.addEventListener('change', (event) => {

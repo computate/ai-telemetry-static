@@ -1,5 +1,5 @@
 {% include en-us/search/tenant/TenantSearchFormMacros.htm %}
-        {% if 'DELETE' in scopes -%}
+        {% if 'PATCH' in scopes -%}
         {{ htmForm_patchTenant() -}}
         {% endif -%}
         {% if 'POST' in scopes -%}
@@ -15,9 +15,7 @@
         {% else -%}
         {% endif -%}
         {% endif -%}
-        {% if AUTH_SCOPE_SUPER_ADMIN in scopes -%}
         {{ htmForm_putimportTenant() -}}
-        {% endif %}
         {% if 'DELETE' in scopes -%}
         {% if resultCount >= 1 -%}
         {{ htmForm_deletefilterTenant() -}}
